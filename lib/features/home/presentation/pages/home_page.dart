@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:classroom_app/features/home/presentation/widgets/courses_section.dart';
+import 'package:classroom_app/features/home/presentation/widgets/courses_slider.dart';
 
 import '../widgets/hero_section.dart';
 
@@ -44,7 +44,7 @@ class HomePage extends StatelessWidget {
           children: const [
             HeroSection(),
             SizedBox(height: 20),
-            CoursesSection([]),
+            CoursesSlider([]),
             SizedBox(height: 40),
             // Text(
             //   'Mantente Informado',

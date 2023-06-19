@@ -4,10 +4,10 @@ import 'package:classroom_app/features/home/data/models/course_model.dart';
 import 'package:classroom_app/features/home/presentation/widgets/course_card.dart';
 import 'package:classroom_app/features/home/presentation/widgets/section.dart';
 
-class CoursesSection extends StatelessWidget {
+class CoursesSlider extends StatelessWidget {
   final List<Course> courses;
 
-  const CoursesSection(this.courses, {super.key});
+  const CoursesSlider(this.courses, {super.key});
 
   @override
   Widget build(BuildContext context) {
