@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:classroom_app/features/home/presentation/widgets/courses_section.dart';
+
 import '../widgets/hero_section.dart';
 
 class HomePage extends StatelessWidget {
@@ -42,17 +44,17 @@ class HomePage extends StatelessWidget {
           children: const [
             HeroSection(),
             SizedBox(height: 20),
-            // CoursesSlidder(),
+            CoursesSection([]),
             SizedBox(height: 40),
-            Text(
-              'Mantente Informado',
-              style: TextStyle(
-                color: Color.fromARGB(255, 10, 63, 106),
-                fontSize: 35,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            NewsHomePageWidget(),
+            // Text(
+            //   'Mantente Informado',
+            //   style: TextStyle(
+            //     color: Color.fromARGB(255, 10, 63, 106),
+            //     fontSize: 35,
+            //     fontWeight: FontWeight.bold,
+            //   ),
+            // ),
+            // NewsHomePageWidget(),
           ],
         ),
       ),
