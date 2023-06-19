@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+
 import 'features/home/presentation/pages/home_page.dart';
 
 void main() {
@@ -13,12 +13,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Uneg',
-        initialRoute: 'home',
-        routes: {
-          'home': (_) => HomePage(),
-        },
-        theme: ThemeData(appBarTheme: const AppBarTheme(color: Colors.white)));
+      debugShowCheckedModeBanner: false,
+      title: 'Uneg',
+      initialRoute: 'home',
+      routes: {
+        'home': (_) => const HomePage(),
+      },
+      theme: ThemeData(useMaterial3: true),
+    );
   }
 }
