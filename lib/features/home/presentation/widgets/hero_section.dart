@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class HomePageStartWidget extends StatelessWidget {
-  const HomePageStartWidget({
+class HeroSection extends StatelessWidget {
+  const HeroSection({
     super.key,
   });
 

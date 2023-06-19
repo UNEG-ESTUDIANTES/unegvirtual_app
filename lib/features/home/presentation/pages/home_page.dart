@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/home_page_start_widget.dart';
+import '../widgets/hero_section.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -40,7 +40,7 @@ class HomePage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: const [
-            HomePageStartWidget(),
+            HeroSection(),
             SizedBox(height: 20),
             // CoursesSlidder(),
             SizedBox(height: 40),
