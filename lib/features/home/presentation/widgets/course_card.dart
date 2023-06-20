@@ -15,18 +15,19 @@ class CourseCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 200,
+      width: 250,
       child: Card(
+        clipBehavior: Clip.antiAlias,
         color: Colors.white,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              height: maxHeight * 0.6,
+              height: maxHeight * 0.60,
               width: double.infinity,
               decoration: BoxDecoration(
                 color: Colors.blue,
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(12),
               ),
             ),
             Padding(
@@ -36,13 +37,19 @@ class CourseCard extends StatelessWidget {
                 children: [
                   Text(
                     course.name,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
                   const SizedBox(height: 4),
-                  Text(course.sumary),
+                  Text(
+                    course.sumary,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ],
               ),
             ),
