@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import 'package:classroom_app/features/home/presentation/widgets/courses_slider.dart';
-import 'package:classroom_app/features/home/presentation/widgets/footer.dart';
-
-import '../widgets/hero_section.dart';
+import 'package:classroom_app/features/home/presentation/widgets/widgets.dart';
 
 class HomePage extends StatelessWidget {
+  /// The page route name.
+  static const routeName = 'home';
+
   const HomePage({super.key});
 
   @override
@@ -48,40 +48,6 @@ class HomePage extends StatelessWidget {
             SizedBox(height: 64),
             Footer(),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class NewsHomePageWidget extends StatelessWidget {
-  const NewsHomePageWidget({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return TextButton(
-      onPressed: (() {}),
-      child: Container(
-        alignment: Alignment.center,
-        padding: const EdgeInsets.all(4),
-        width: 250,
-        height: 60,
-        decoration: BoxDecoration(
-          border: Border.all(
-            width: 1,
-            color: const Color.fromARGB(255, 14, 103, 175),
-          ),
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: const Text(
-          'Anuncios',
-          style: TextStyle(
-            color: Color.fromARGB(255, 14, 103, 175),
-            fontSize: 30,
-          ),
-          textAlign: TextAlign.center,
         ),
       ),
     );
