@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'features/home/presentation/pages/home_page.dart';
+import 'features/user/presentation/pages/user_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,9 +16,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Uneg',
-      initialRoute: HomePage.routeName,
+      initialRoute: UserPage.routeName,
       routes: {
         HomePage.routeName: (_) => const HomePage(),
+        UserPage.routeName: (_) => const UserPage()
       },
       theme: ThemeData(useMaterial3: true),
     );

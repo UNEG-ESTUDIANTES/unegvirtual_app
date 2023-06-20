@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:classroom_app/features/home/presentation/widgets/widgets.dart';
 
+import '../../../../core/widgets/main_app_bar.dart';
+
 class HomePage extends StatelessWidget {
   /// The page route name.
   static const routeName = 'home';
@@ -12,33 +14,8 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        leading: const Image(
-          image: AssetImage(
-            'assets/uneg_logo.png',
-          ),
-          fit: BoxFit.contain,
-        ),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.language,
-              color: Colors.white,
-            ),
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.login,
-              color: Colors.white,
-            ),
-          ),
-        ],
-        scrolledUnderElevation: 1.0,
-        shadowColor: Colors.black,
-        backgroundColor: Colors.transparent,
-      ),
+      appBar: const PreferredSize(
+          preferredSize: Size.fromHeight(55), child: MainAppBar()),
       body: SingleChildScrollView(
         child: Column(
           children: const [
