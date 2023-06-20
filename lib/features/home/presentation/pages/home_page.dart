@@ -36,6 +36,7 @@ class HomePage extends StatelessWidget {
           ),
         ],
         scrolledUnderElevation: 1.0,
+        shadowColor: Colors.black,
         backgroundColor: Colors.transparent,
       ),
       body: SingleChildScrollView(
