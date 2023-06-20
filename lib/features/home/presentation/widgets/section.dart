@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
 class Section extends StatelessWidget {
+  /// The [title] of the section.
   final String title;
+
+  /// The [child] to be displayed.
   final Widget child;
 
   const Section({

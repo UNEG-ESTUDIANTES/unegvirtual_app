@@ -5,6 +5,7 @@ import 'package:classroom_app/features/home/presentation/widgets/course_card.dar
 import 'package:classroom_app/features/home/presentation/widgets/section.dart';
 
 class CoursesSlider extends StatelessWidget {
+  /// The [courses] to display.
   final List<Course> courses;
 
   const CoursesSlider(this.courses, {super.key});

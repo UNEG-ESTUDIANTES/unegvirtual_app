@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:classroom_app/features/home/data/models/course_model.dart';
 
 class CourseCard extends StatelessWidget {
+  /// The [course] to display.
   final Course course;
+
+  /// The [maxHeight] of the list which renders this item.
   final double maxHeight;
 
   const CourseCard(
