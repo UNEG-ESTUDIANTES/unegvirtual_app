@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:classroom_app/features/home/presentation/widgets/courses_slider.dart';
+import 'package:classroom_app/features/home/presentation/widgets/footer.dart';
 
 import '../widgets/hero_section.dart';
 
@@ -16,7 +17,6 @@ class HomePage extends StatelessWidget {
           image: AssetImage(
             'assets/uneg_logo.png',
           ),
-          height: 32,
           fit: BoxFit.contain,
         ),
         actions: [
@@ -37,24 +37,15 @@ class HomePage extends StatelessWidget {
         ],
         scrolledUnderElevation: 1.0,
         backgroundColor: Colors.transparent,
-        elevation: 0,
       ),
       body: SingleChildScrollView(
         child: Column(
           children: const [
             HeroSection(),
-            SizedBox(height: 20),
+            SizedBox(height: 64),
             CoursesSlider([]),
-            SizedBox(height: 40),
-            // Text(
-            //   'Mantente Informado',
-            //   style: TextStyle(
-            //     color: Color.fromARGB(255, 10, 63, 106),
-            //     fontSize: 35,
-            //     fontWeight: FontWeight.bold,
-            //   ),
-            // ),
-            // NewsHomePageWidget(),
+            SizedBox(height: 64),
+            Footer(),
           ],
         ),
       ),
