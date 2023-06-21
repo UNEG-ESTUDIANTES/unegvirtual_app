@@ -13,7 +13,6 @@ class UserPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 243, 243, 243),
       appBar: const PreferredSize(
           preferredSize: Size.fromHeight(55), child: MainAppBar()),
       body: SingleChildScrollView(

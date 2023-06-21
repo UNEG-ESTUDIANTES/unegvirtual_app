@@ -14,8 +14,11 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
+      backgroundColor: Colors.white,
       appBar: const PreferredSize(
-          preferredSize: Size.fromHeight(55), child: MainAppBar()),
+        preferredSize: Size.fromHeight(55),
+        child: MainAppBar(),
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: const [

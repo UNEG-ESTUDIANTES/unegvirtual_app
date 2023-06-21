@@ -16,12 +16,15 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Uneg',
-      initialRoute: UserPage.routeName,
+      initialRoute: HomePage.routeName,
       routes: {
         HomePage.routeName: (_) => const HomePage(),
         UserPage.routeName: (_) => const UserPage()
       },
-      theme: ThemeData(useMaterial3: true),
+      theme: ThemeData(
+        useMaterial3: true,
+        scaffoldBackgroundColor: const Color(0xffF2F2F2),
+      ),
     );
   }
 }
