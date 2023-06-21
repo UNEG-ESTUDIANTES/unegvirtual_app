@@ -24,6 +24,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
         scaffoldBackgroundColor: const Color(0xffF2F2F2),
+        colorSchemeSeed: const Color(0xff023272),
       ),
     );
   }

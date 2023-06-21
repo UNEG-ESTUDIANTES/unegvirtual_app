@@ -14,85 +14,97 @@ class UserPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const PreferredSize(
-          preferredSize: Size.fromHeight(55), child: MainAppBar()),
+        preferredSize: Size.fromHeight(56),
+        child: MainAppBar(),
+      ),
       body: SingleChildScrollView(
           child: Column(
         children: [
-          SizedBox(
-            height: 30,
-          ),
-          BasicInfoWidget(),
-          UserDataWidget(),
-          SizedBox(
-            height: 30,
-          ),
+          const SizedBox(height: 30),
+          const BasicInfoWidget(),
+          const UserDataWidget(),
+          const SizedBox(height: 30),
           TextButton(
             onPressed: (() {}),
             style: TextButton.styleFrom(
-                backgroundColor: Colors.blue,
-                shape: const BeveledRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(5))),
-                fixedSize: Size(170, 60)),
-            child: Text("Semestre 1",
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold)),
+              backgroundColor: Colors.blue,
+              shape: const BeveledRectangleBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(5),
+                ),
+              ),
+              fixedSize: const Size(170, 60),
+            ),
+            child: const Text(
+              "Semestre 1",
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold),
+            ),
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           Row(
-            children: [
+            children: const [
               SizedBox(width: 50),
-              Text("Pensum",
-                  style: TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  textAlign: TextAlign.start),
+              Text(
+                "Pensum",
+                style: TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
               Expanded(child: SizedBox(width: 1)),
-              Text("U.C",
-                  style: TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  textAlign: TextAlign.start),
+              Text(
+                "U.C",
+                style: TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
+                ),
+                textAlign: TextAlign.start,
+              ),
               SizedBox(width: 20),
-              Text("U.C",
-                  style: TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  textAlign: TextAlign.start),
+              Text(
+                "U.C",
+                style: TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
+                ),
+                textAlign: TextAlign.start,
+              ),
               SizedBox(width: 20),
             ],
           ),
           ListView.builder(
-            physics: NeverScrollableScrollPhysics(),
+            physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             itemCount: 20,
             itemBuilder: (context, index) {
               return ListTile(
                 title: Row(
                   children: [
-                    SizedBox(width: 34),
-                    Text("Materia $index",
-                        style: TextStyle(
-                          fontSize: 25,
-                        ),
-                        textAlign: TextAlign.start),
-                    Expanded(child: SizedBox(width: 1)),
-                    Text("10",
-                        style: TextStyle(
-                          fontSize: 25,
-                        ),
-                        textAlign: TextAlign.start),
-                    SizedBox(width: 25),
-                    Text("10",
-                        style: TextStyle(
-                          fontSize: 25,
-                        ),
-                        textAlign: TextAlign.start),
-                    SizedBox(width: 15),
+                    const SizedBox(width: 34),
+                    Text(
+                      "Materia $index",
+                      style: const TextStyle(
+                        fontSize: 25,
+                      ),
+                    ),
+                    const Expanded(child: SizedBox(width: 1)),
+                    const Text(
+                      "10",
+                      style: TextStyle(
+                        fontSize: 25,
+                      ),
+                    ),
+                    const SizedBox(width: 25),
+                    const Text(
+                      "10",
+                      style: TextStyle(
+                        fontSize: 25,
+                      ),
+                    ),
+                    const SizedBox(width: 15),
                   ],
                 ),
               );
