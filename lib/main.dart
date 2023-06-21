@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Uneg',
-      initialRoute: HomePage.routeName,
+      initialRoute: UserPage.routeName,
       routes: {
         HomePage.routeName: (_) => const HomePage(),
         UserPage.routeName: (_) => const UserPage()
