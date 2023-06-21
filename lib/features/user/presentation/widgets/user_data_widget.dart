@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:classroom_app/features/user/presentation/widgets/user_data_item.dart';
+
 class UserDataWidget extends StatelessWidget {
   const UserDataWidget({
     super.key,
@@ -7,32 +9,23 @@ class UserDataWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        const SizedBox(width: 20),
-        Column(
-          children: const [
-            SizedBox(height: 20),
-            Text('Direccion Correo',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-            Text('ExampleEMail@gmail.com', style: TextStyle(fontSize: 18)),
-            SizedBox(height: 10),
-            Text('Pais - Ciudad',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-            Text('Venezuela, Puerto Ordaz', style: TextStyle(fontSize: 18)),
-            SizedBox(height: 10),
-            Text('Cedula de Identidad',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-            Text('V-10.000.000', style: TextStyle(fontSize: 18)),
-          ],
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: const [
+        UserDataItem(
+          title: 'Dirección de Correo',
+          value: 'ExampleEMail@gmail.com',
         ),
-        const Expanded(child: SizedBox(width: 1)),
-        FloatingActionButton(
-          onPressed: (() {}),
-          backgroundColor: Colors.blue,
-          child: const Icon(Icons.edit, color: Colors.white),
+        SizedBox(height: 16),
+        UserDataItem(
+          title: 'País - Ciudad',
+          value: 'Venezuela, Puerto Ordaz',
         ),
-        const Expanded(child: SizedBox(width: 5)),
+        SizedBox(height: 16),
+        UserDataItem(
+          title: 'Cédula de Identidad',
+          value: 'V-10.000.000',
+        ),
       ],
     );
   }
