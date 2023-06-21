@@ -22,10 +22,10 @@ class UserPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 30),
             const BasicInfoWidget(),
+            const Divider(height: 32),
             const UserDataWidget(),
-            const SizedBox(height: 30),
+            const Divider(height: 32),
             TextButton(
               onPressed: (() {}),
               style: TextButton.styleFrom(

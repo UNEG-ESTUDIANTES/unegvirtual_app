@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:classroom_app/features/user/presentation/widgets/score_stars.dart';
+
 class BasicInfoWidget extends StatelessWidget {
   const BasicInfoWidget({
     super.key,
@@ -7,49 +9,42 @@ class BasicInfoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(children: [
-      const SizedBox(
-        width: 30,
-      ),
-      Column(
-        children: const [
-          CircleAvatar(
-            backgroundImage: AssetImage('assets/profile_xample.png'),
-            radius: 55,
+    final textTheme = Theme.of(context).textTheme;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        const CircleAvatar(
+          backgroundImage: AssetImage(
+            'assets/profile_xample.png',
           ),
-          SizedBox(height: 2),
-          Text('Cambiar foto de perfil',
-              style: TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.blue))
-        ],
-      ),
-      const SizedBox(
-        width: 20,
-      ),
-      Column(
-        children: [
-          const Text('Xiao Yaksha',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-          Row(
-            children: const [
-              Text('18 ',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-              Text('/ 20', style: TextStyle(fontSize: 20)),
-              Icon(Icons.star, color: Colors.yellow),
-              Icon(Icons.star, color: Colors.yellow),
-              Icon(Icons.star, color: Colors.yellow),
-              Icon(Icons.star, color: Colors.yellow),
-              Icon(Icons.star, color: Color.fromARGB(255, 82, 80, 80)),
-            ],
+          radius: 48,
+        ),
+        const SizedBox(height: 16),
+        Text(
+          'Xiao Yaksha',
+          style: textTheme.titleLarge?.copyWith(
+            fontWeight: FontWeight.bold,
           ),
-          const Text('2021 I - Actualidad', style: TextStyle(fontSize: 20))
-        ],
-      ),
-      const SizedBox(
-        width: 20,
-      ),
-    ]);
+        ),
+        const SizedBox(height: 4),
+        const ScoreStars(
+          score: 16,
+          mainAxisAlignment: MainAxisAlignment.center,
+        ),
+        const SizedBox(height: 4),
+        const Text(
+          '2021 I - Actualidad',
+          style: TextStyle(
+            fontSize: 18,
+          ),
+        ),
+        const SizedBox(height: 16),
+        FilledButton(
+          onPressed: () {},
+          child: const Text('Editar Perfil'),
+        ),
+      ],
+    );
   }
 }

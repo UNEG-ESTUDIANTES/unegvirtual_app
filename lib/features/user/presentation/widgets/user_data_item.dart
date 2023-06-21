@@ -12,15 +12,14 @@ class UserDataItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           title,
-          style: textTheme.titleLarge?.copyWith(
-            fontWeight: FontWeight.w500,
+          style: const TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.w600,
           ),
         ),
         const SizedBox(height: 4),
