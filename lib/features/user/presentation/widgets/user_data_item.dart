@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
 class UserDataItem extends StatelessWidget {
+  /// The [title] of the item.
   final String title;
+
+  /// The [value] to display.
   final String value;
 
   const UserDataItem({

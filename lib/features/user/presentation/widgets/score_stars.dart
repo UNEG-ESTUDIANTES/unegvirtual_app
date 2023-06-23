@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 
 class ScoreStars extends StatelessWidget {
+  /// The [score] the student got.
   final int score;
+
+  /// The alignment of the [Row].
   final MainAxisAlignment? mainAxisAlignment;
-  final maxScore = 20;
+
+  /// The [maxScore] the student can get.
+  final maxScore = 10;
+
+  /// The number of [stars] to be displayed.
   final stars = 5;
 
   const ScoreStars({super.key, required this.score, this.mainAxisAlignment});

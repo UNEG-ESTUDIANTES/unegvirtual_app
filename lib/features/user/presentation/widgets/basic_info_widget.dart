@@ -66,7 +66,7 @@ class _UserDescription extends StatelessWidget {
         ),
         const SizedBox(height: 4),
         const ScoreStars(
-          score: 16,
+          score: 8,
           mainAxisAlignment: MainAxisAlignment.center,
         ),
         const SizedBox(height: 4),
