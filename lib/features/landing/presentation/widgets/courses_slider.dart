@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'package:classroom_app/features/home/data/models/course_model.dart';
-import 'package:classroom_app/features/home/presentation/widgets/course_card.dart';
-import 'package:classroom_app/features/home/presentation/widgets/section.dart';
+import 'package:classroom_app/features/landing/data/models/course_model.dart';
+import 'package:classroom_app/features/landing/presentation/widgets/course_card.dart';
+import 'package:classroom_app/features/landing/presentation/widgets/section.dart';
 
 class CoursesSlider extends StatelessWidget {
   /// The [courses] to display.

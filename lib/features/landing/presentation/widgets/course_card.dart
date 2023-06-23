@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:classroom_app/features/home/data/models/course_model.dart';
+import 'package:classroom_app/features/landing/data/models/course_model.dart';
 
 class CourseCard extends StatelessWidget {
   /// The [course] to display.

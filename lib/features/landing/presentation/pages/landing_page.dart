@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-import 'package:classroom_app/features/home/presentation/widgets/widgets.dart';
+import 'package:classroom_app/features/landing/presentation/widgets/widgets.dart';
 
-class HomePage extends StatelessWidget {
+class LandingPage extends StatelessWidget {
   /// The page route name.
-  static const routeName = 'home';
+  static const routeName = 'landing';
 
-  const HomePage({super.key});
+  const LandingPage({super.key});
 
   @override
   Widget build(BuildContext context) {
