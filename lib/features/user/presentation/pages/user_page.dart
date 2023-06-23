@@ -4,6 +4,8 @@ import '../../../../core/widgets/main_app_bar.dart';
 import '../widgets/basic_info_widget.dart';
 import '../widgets/user_data_widget.dart';
 
+const List<int> semesters = [1, 2, 3];
+
 class UserPage extends StatelessWidget {
   /// The page route name.
   static const routeName = 'user';
@@ -26,92 +28,58 @@ class UserPage extends StatelessWidget {
             const Divider(height: 32),
             const UserDataWidget(),
             const Divider(height: 32),
-            TextButton(
-              onPressed: (() {}),
-              style: TextButton.styleFrom(
-                backgroundColor: Colors.blue,
-                shape: const BeveledRectangleBorder(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(5),
-                  ),
-                ),
-                fixedSize: const Size(170, 60),
-              ),
-              child: const Text(
-                "Semestre 1",
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold),
-              ),
-            ),
-            const SizedBox(height: 10),
-            Row(
-              children: const [
-                SizedBox(width: 50),
-                Text(
-                  "Pensum",
-                  style: TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Expanded(child: SizedBox(width: 1)),
-                Text(
-                  "U.C",
-                  style: TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  textAlign: TextAlign.start,
-                ),
-                SizedBox(width: 20),
-                Text(
-                  "U.C",
-                  style: TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  textAlign: TextAlign.start,
-                ),
-                SizedBox(width: 20),
-              ],
-            ),
-            ListView.builder(
-              physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: 20,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  title: Row(
-                    children: [
-                      const SizedBox(width: 34),
-                      Text(
-                        "Materia $index",
-                        style: const TextStyle(
-                          fontSize: 25,
-                        ),
-                      ),
-                      const Expanded(child: SizedBox(width: 1)),
-                      const Text(
-                        "10",
-                        style: TextStyle(
-                          fontSize: 25,
-                        ),
-                      ),
-                      const SizedBox(width: 25),
-                      const Text(
-                        "10",
-                        style: TextStyle(
-                          fontSize: 25,
-                        ),
-                      ),
-                      const SizedBox(width: 15),
-                    ],
-                  ),
+            DropdownButton<int>(
+              hint: const Text('Semestre'),
+              items: semesters.map((semester) {
+                return DropdownMenuItem<int>(
+                  value: semester,
+                  child: Text('Semestre $semester'),
                 );
-              },
-            )
+              }).toList(),
+              onChanged: (value) {},
+            ),
+            const SizedBox(height: 16),
+            SizedBox(
+              width: double.infinity,
+              child: DataTable(
+                columns: const [
+                  DataColumn(
+                    label: Expanded(
+                      child: Text(
+                        'Pensum',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                  ),
+                  DataColumn(
+                    label: Expanded(
+                      child: Text(
+                        'U.C.',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+                rows: const [
+                  DataRow(
+                    cells: [
+                      DataCell(
+                        Text('Materia I'),
+                      ),
+                      DataCell(
+                        Text('2'),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ),
           ],
         ),
       ),
