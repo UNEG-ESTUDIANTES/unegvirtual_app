@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'package:classroom_app/core/pages/main_page.dart';
 import 'package:classroom_app/features/home/presentation/pages/home_page.dart';
 
 import 'features/landing/presentation/pages/landing_page.dart';
@@ -18,11 +19,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Uneg',
-      initialRoute: HomePage.routeName,
+      initialRoute: MainPage.routeName,
       routes: {
         LandingPage.routeName: (_) => const LandingPage(),
         HomePage.routeName: (_) => const HomePage(),
         UserPage.routeName: (_) => const UserPage(),
+        MainPage.routeName: (_) => const MainPage(),
       },
       theme: ThemeData(
         useMaterial3: true,
