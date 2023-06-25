@@ -13,10 +13,6 @@ class BottomNavBar extends StatelessWidget {
           label: 'Inicio',
         ),
         NavigationDestination(
-          icon: Icon(Icons.menu_book),
-          label: 'Cursos',
-        ),
-        NavigationDestination(
           icon: Icon(Icons.calendar_today),
           label: 'Pendientes',
         ),
