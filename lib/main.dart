@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:classroom_app/features/home/presentation/home_page.dart';
+import 'package:classroom_app/features/home/presentation/pages/home_page.dart';
 
 import 'features/landing/presentation/pages/landing_page.dart';
 import 'features/user/presentation/pages/user_page.dart';
@@ -26,7 +26,6 @@ class MyApp extends StatelessWidget {
       },
       theme: ThemeData(
         useMaterial3: true,
-        scaffoldBackgroundColor: const Color(0xffF2F2F2),
         colorSchemeSeed: Colors.blue,
       ),
     );
