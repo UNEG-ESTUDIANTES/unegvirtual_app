@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'package:classroom_app/features/home/presentation/widgets/widgets.dart';
+import 'package:responsive_builder/responsive_builder.dart';
+
+import 'package:classroom_app/features/home/presentation/widgets/course_card.dart';
+import 'package:classroom_app/features/landing/data/models/course_model.dart';
 
 class HomePage extends StatelessWidget {
   /// The page route name.
@@ -10,46 +13,65 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        leading: const Image(
-          image: AssetImage(
-            'assets/uneg_logo.png',
+    final deviceType = getDeviceType(MediaQuery.of(context).size);
+    final textTheme = Theme.of(context).textTheme;
+
+    int gridCrossAxisCount = 0;
+
+    switch (deviceType) {
+      case DeviceScreenType.desktop:
+        gridCrossAxisCount = 3;
+        break;
+
+      case DeviceScreenType.tablet:
+        gridCrossAxisCount = 2;
+        break;
+
+      case DeviceScreenType.mobile:
+        gridCrossAxisCount = 1;
+        break;
+
+      default:
+        gridCrossAxisCount = 1;
+    }
+
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(24.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Hola, Taylor Swift',
+            style: textTheme.headlineLarge,
           ),
-          fit: BoxFit.contain,
-        ),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.language,
-              color: Colors.white,
+          const SizedBox(height: 24),
+          Text(
+            'Mis Cursos',
+            style: textTheme.headlineMedium,
+          ),
+          const SizedBox(height: 16),
+          GridView.builder(
+            primary: false,
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: gridCrossAxisCount,
+              crossAxisSpacing: 16,
+              mainAxisSpacing: 16,
+              mainAxisExtent: 200,
             ),
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.login,
-              color: Colors.white,
-            ),
-          ),
+            itemBuilder: (context, index) {
+              return const CourseCard(
+                course: Course(
+                  name: 'Tecnicas de Programación I',
+                  sumary: '1 2 3',
+                ),
+                completedPercentage: 32,
+              );
+            },
+            itemCount: 4,
+          )
         ],
-        scrolledUnderElevation: 1.0,
-        shadowColor: Colors.black,
-        backgroundColor: Colors.transparent,
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: const [
-            HeroSection(),
-            SizedBox(height: 64),
-            CoursesSlider([]),
-            SizedBox(height: 64),
-            Footer(),
-          ],
-        ),
       ),
     );
   }

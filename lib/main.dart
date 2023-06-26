@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'features/home/presentation/pages/home_page.dart';
+import 'package:classroom_app/core/pages/main_page.dart';
+import 'package:classroom_app/features/home/presentation/pages/home_page.dart';
+
+import 'features/landing/presentation/pages/landing_page.dart';
 import 'features/user/presentation/pages/user_page.dart';
 
 void main() {
@@ -16,14 +19,15 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Uneg',
-      initialRoute: UserPage.routeName,
+      initialRoute: MainPage.routeName,
       routes: {
+        LandingPage.routeName: (_) => const LandingPage(),
         HomePage.routeName: (_) => const HomePage(),
-        UserPage.routeName: (_) => const UserPage()
+        UserPage.routeName: (_) => const UserPage(),
+        MainPage.routeName: (_) => const MainPage(),
       },
       theme: ThemeData(
         useMaterial3: true,
-        scaffoldBackgroundColor: const Color(0xffF2F2F2),
         colorSchemeSeed: Colors.blue,
       ),
     );

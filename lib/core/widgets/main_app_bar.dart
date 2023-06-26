@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class MainAppBar extends StatelessWidget {
+class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
   const MainAppBar({
     super.key,
   });
@@ -12,17 +12,13 @@ class MainAppBar extends StatelessWidget {
         IconButton(
           onPressed: () {},
           icon: const Icon(
-            Icons.search,
-          ),
-        ),
-        IconButton(
-          onPressed: () {},
-          icon: const Icon(
             Icons.notifications,
           ),
         ),
       ],
-      backgroundColor: Colors.white,
     );
   }
+
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
