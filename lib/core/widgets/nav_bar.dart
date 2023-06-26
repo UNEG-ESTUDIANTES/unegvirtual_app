@@ -19,7 +19,6 @@ class NavBar extends StatelessWidget {
       selectedIndex: selectedIndex,
       onDestinationSelected: onDestinationSelected,
       labelType: NavigationRailLabelType.all,
-      elevation: 2.0,
       destinations: const <NavigationRailDestination>[
         NavigationRailDestination(
           icon: Icon(Icons.home_outlined),

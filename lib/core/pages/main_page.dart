@@ -79,6 +79,7 @@ class _DesktopLayout extends StatelessWidget {
           selectedIndex: selectedIndex,
           onDestinationSelected: onDestinationSelected,
         ),
+        const VerticalDivider(width: 1, thickness: 1),
         Expanded(child: child),
       ],
     );
