@@ -45,7 +45,7 @@ class LandingPage extends StatelessWidget {
           children: const [
             HeroSection(),
             SizedBox(height: 64),
-            CoursesSlider([]),
+            CareersSlider([]),
             SizedBox(height: 64),
             Footer(),
           ],
