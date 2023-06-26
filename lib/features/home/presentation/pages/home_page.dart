@@ -30,6 +30,9 @@ class HomePage extends StatelessWidget {
       case DeviceScreenType.mobile:
         gridCrossAxisCount = 1;
         break;
+
+      default:
+        gridCrossAxisCount = 1;
     }
 
     return SingleChildScrollView(
