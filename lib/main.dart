@@ -18,8 +18,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Uneg',
-      initialRoute: LandingPage.routeName,
+      title: 'UNEG Classroom',
+      initialRoute: MainPage.routeName,
       routes: {
         LandingPage.routeName: (_) => const LandingPage(),
         HomePage.routeName: (_) => const HomePage(),
