@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:responsive_builder/responsive_builder.dart';
+
 import 'package:classroom_app/features/home/presentation/widgets/course_card.dart';
 import 'package:classroom_app/features/landing/data/models/course_model.dart';
 
@@ -11,7 +13,24 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final deviceType = getDeviceType(MediaQuery.of(context).size);
     final textTheme = Theme.of(context).textTheme;
+
+    int gridCrossAxisCount = 0;
+
+    switch (deviceType) {
+      case DeviceScreenType.desktop:
+        gridCrossAxisCount = 3;
+        break;
+
+      case DeviceScreenType.tablet:
+        gridCrossAxisCount = 2;
+        break;
+
+      case DeviceScreenType.mobile:
+        gridCrossAxisCount = 1;
+        break;
+    }
 
     return SingleChildScrollView(
       padding: const EdgeInsets.all(24.0),
@@ -33,7 +52,7 @@ class HomePage extends StatelessWidget {
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: MediaQuery.of(context).size.width > 600 ? 3 : 2,
+              crossAxisCount: gridCrossAxisCount,
               crossAxisSpacing: 16,
               mainAxisSpacing: 16,
               mainAxisExtent: 200,

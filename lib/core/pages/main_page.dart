@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:responsive_builder/responsive_builder.dart';
+
 import 'package:classroom_app/core/widgets/bottom_nav_bar.dart';
 import 'package:classroom_app/core/widgets/main_app_bar.dart';
 import 'package:classroom_app/core/widgets/nav_bar.dart';
@@ -25,22 +27,23 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        if (constraints.maxWidth > 800) {
+    return ResponsiveBuilder(
+      builder: (context, sizingInformation) {
+        if (sizingInformation.isDesktop) {
           return Scaffold(
-              body: [
-            _DesktopLayout(
-              selectedIndex: currentPageIndex,
-              onDestinationSelected: onDestinationSelected,
-              child: const HomePage(),
-            ),
-            _DesktopLayout(
-              selectedIndex: currentPageIndex,
-              onDestinationSelected: onDestinationSelected,
-              child: const UserPage(),
-            ),
-          ][currentPageIndex]);
+            body: [
+              _DesktopLayout(
+                selectedIndex: currentPageIndex,
+                onDestinationSelected: onDestinationSelected,
+                child: const HomePage(),
+              ),
+              _DesktopLayout(
+                selectedIndex: currentPageIndex,
+                onDestinationSelected: onDestinationSelected,
+                child: const UserPage(),
+              ),
+            ][currentPageIndex],
+          );
         }
 
         return Scaffold(
