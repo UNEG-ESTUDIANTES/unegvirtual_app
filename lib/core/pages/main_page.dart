@@ -25,38 +25,46 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    final isDesktop = MediaQuery.of(context).size.width > 800;
-
-    return Scaffold(
-      appBar: isDesktop ? null : const MainAppBar(),
-      bottomNavigationBar: isDesktop
-          ? null
-          : BottomNavBar(
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        if (constraints.maxWidth > 800) {
+          return Scaffold(
+              body: [
+            _DesktopLayout(
               selectedIndex: currentPageIndex,
               onDestinationSelected: onDestinationSelected,
+              child: const HomePage(),
             ),
-      body: [
-        _MainPageItem(
-          selectedIndex: currentPageIndex,
-          onDestinationSelected: onDestinationSelected,
-          child: const HomePage(),
-        ),
-        _MainPageItem(
-          selectedIndex: currentPageIndex,
-          onDestinationSelected: onDestinationSelected,
-          child: const UserPage(),
-        ),
-      ][currentPageIndex],
+            _DesktopLayout(
+              selectedIndex: currentPageIndex,
+              onDestinationSelected: onDestinationSelected,
+              child: const UserPage(),
+            ),
+          ][currentPageIndex]);
+        }
+
+        return Scaffold(
+          appBar: const MainAppBar(),
+          bottomNavigationBar: BottomNavBar(
+            selectedIndex: currentPageIndex,
+            onDestinationSelected: onDestinationSelected,
+          ),
+          body: [
+            const HomePage(),
+            const UserPage(),
+          ][currentPageIndex],
+        );
+      },
     );
   }
 }
 
-class _MainPageItem extends StatelessWidget {
+class _DesktopLayout extends StatelessWidget {
   final Widget child;
   final int selectedIndex;
   final void Function(int)? onDestinationSelected;
 
-  const _MainPageItem({
+  const _DesktopLayout({
     required this.child,
     required this.selectedIndex,
     required this.onDestinationSelected,
@@ -64,16 +72,13 @@ class _MainPageItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDesktop = MediaQuery.of(context).size.width > 800;
-
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (isDesktop)
-          NavBar(
-            selectedIndex: selectedIndex,
-            onDestinationSelected: onDestinationSelected,
-          ),
+        NavBar(
+          selectedIndex: selectedIndex,
+          onDestinationSelected: onDestinationSelected,
+        ),
         Expanded(child: child),
       ],
     );
