@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 
 import 'package:circular_chart_flutter/circular_chart_flutter.dart';
 
-import 'package:classroom_app/features/landing/data/models/course_model.dart';
+import 'package:classroom_app/core/entities/classroom.dart';
 
-class CourseCard extends StatelessWidget {
-  final Course course;
+class ClassroomCard extends StatelessWidget {
+  final Classroom classroom;
   final int completedPercentage;
 
-  const CourseCard({
+  const ClassroomCard({
     super.key,
-    required this.course,
+    required this.classroom,
     required this.completedPercentage,
   });
 
@@ -32,7 +32,7 @@ class CourseCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  course.name,
+                  classroom.name,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: textTheme.titleLarge,

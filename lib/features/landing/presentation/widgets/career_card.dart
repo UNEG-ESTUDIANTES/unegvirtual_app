@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
-import 'package:classroom_app/features/landing/data/models/course_model.dart';
+import 'package:classroom_app/core/entities/career.dart';
 
-class CourseCard extends StatelessWidget {
-  /// The [course] to display.
-  final Course course;
+class CareerCard extends StatelessWidget {
+  /// The [career] to display.
+  final Career career;
 
   /// The [maxHeight] of the list which renders this item.
   final double maxHeight;
 
-  const CourseCard(
-    this.course, {
+  const CareerCard(
+    this.career, {
     super.key,
     required this.maxHeight,
   });
@@ -39,19 +39,13 @@ class CourseCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    course.name,
+                    career.name,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
                     ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    course.sumary,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
                   ),
                 ],
               ),
