@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/widgets/main_app_bar.dart';
-import '../widgets/course_start_row.dart';
 import '../widgets/first_part_of_row_widget.dart';
 
 class CoursePage extends StatelessWidget {
@@ -12,16 +11,11 @@ class CoursePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 243, 243, 243),
-      appBar: const PreferredSize(
-          preferredSize: Size.fromHeight(55), child: MainAppBar()),
+    return const Scaffold(
+      appBar: MainAppBar(),
       body: SingleChildScrollView(
-          child: Column(
-        children: [
-          FirstPartOfRowWidget(),
-        ],
-      )),
+        child: FirstPartOfRowWidget(),
+      ),
     );
   }
 }
