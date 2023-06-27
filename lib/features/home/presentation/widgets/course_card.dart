@@ -1,60 +1,70 @@
 import 'package:flutter/material.dart';
 
-import 'package:classroom_app/features/home/data/models/course_model.dart';
+import 'package:circular_chart_flutter/circular_chart_flutter.dart';
 
-class CourseCard extends StatelessWidget {
-  /// The [course] to display.
-  final Course course;
+import 'package:classroom_app/core/entities/classroom.dart';
 
-  /// The [maxHeight] of the list which renders this item.
-  final double maxHeight;
+class ClassroomCard extends StatelessWidget {
+  final Classroom classroom;
+  final int completedPercentage;
 
-  const CourseCard(
-    this.course, {
+  const ClassroomCard({
     super.key,
-    required this.maxHeight,
+    required this.classroom,
+    required this.completedPercentage,
   });
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 250,
-      child: Card(
-        clipBehavior: Clip.antiAlias,
-        color: Colors.white,
+    final primaryColor = Theme.of(context).primaryColor;
+    final textTheme = Theme.of(context).textTheme;
+    final uncompletedPercentage = 100 - completedPercentage;
+
+    return Card(
+      margin: EdgeInsets.zero,
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Container(
-              height: maxHeight * 0.60,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: Colors.blue,
-                borderRadius: BorderRadius.circular(12),
-              ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  classroom.name,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: textTheme.titleLarge,
+                ),
+                const SizedBox(height: 8),
+                const Text('Profesor'),
+              ],
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    course.name,
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    course.sumary,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ],
-              ),
+            Flex(
+              direction: Axis.horizontal,
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                AnimatedCircularChart(
+                  size: const Size(56, 56),
+                  percentageValues: true,
+                  holeLabel: '$completedPercentage%',
+                  initialChartData: <CircularStackEntry>[
+                    CircularStackEntry([
+                      CircularSegmentEntry(
+                        completedPercentage.toDouble(),
+                        primaryColor,
+                        rankKey: 'Completado',
+                      ),
+                      CircularSegmentEntry(
+                        uncompletedPercentage.toDouble(),
+                        primaryColor.withOpacity(0.2),
+                        rankKey: 'Restante',
+                      ),
+                    ])
+                  ],
+                )
+              ],
             ),
           ],
         ),

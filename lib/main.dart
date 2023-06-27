@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
+import 'package:classroom_app/core/pages/main_page.dart';
+import 'package:classroom_app/features/home/presentation/pages/home_page.dart';
+
 import 'features/course/presentation/pages/course_page.dart';
-import 'features/home/presentation/pages/home_page.dart';
+import 'features/landing/presentation/pages/landing_page.dart';
 import 'features/login/presentation/pages/login_page.dart';
 import 'features/user/presentation/pages/user_page.dart';
 
@@ -17,15 +20,20 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Uneg',
-      initialRoute: CoursePage.routeName,
+      title: 'UNEG Classroom',
+      initialRoute: MainPage.routeName,
       routes: {
+        LandingPage.routeName: (_) => const LandingPage(),
         HomePage.routeName: (_) => const HomePage(),
         UserPage.routeName: (_) => const UserPage(),
+        MainPage.routeName: (_) => const MainPage(),
         LogInPage.routeName: (_) => const LogInPage(),
         CoursePage.routeName: (_) => const CoursePage(),
       },
-      theme: ThemeData(useMaterial3: true),
+      theme: ThemeData(
+        useMaterial3: true,
+        colorSchemeSeed: Colors.blue,
+      ),
     );
   }
 }

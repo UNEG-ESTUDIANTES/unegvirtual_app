@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
-import 'package:classroom_app/features/home/data/models/course_model.dart';
-import 'package:classroom_app/features/home/presentation/widgets/course_card.dart';
-import 'package:classroom_app/features/home/presentation/widgets/section.dart';
+import 'package:classroom_app/core/entities/career.dart';
+import 'package:classroom_app/features/landing/presentation/widgets/career_card.dart';
+import 'package:classroom_app/features/landing/presentation/widgets/section.dart';
 
-class CoursesSlider extends StatelessWidget {
-  /// The [courses] to display.
-  final List<Course> courses;
+class CareersSlider extends StatelessWidget {
+  /// The [careers] to display.
+  final List<Career> careers;
 
-  const CoursesSlider(this.courses, {super.key});
+  const CareersSlider(this.careers, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,24 +16,24 @@ class CoursesSlider extends StatelessWidget {
 
     return Section(
       title: 'Carreras Universitarias',
-      child: courses.isNotEmpty
+      child: careers.isNotEmpty
           ? SizedBox(
               height: height,
               child: ListView.separated(
                 padding: const EdgeInsets.symmetric(horizontal: 24),
                 scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) => CourseCard(
-                  courses[index],
+                itemBuilder: (context, index) => CareerCard(
+                  careers[index],
                   maxHeight: height,
                 ),
                 separatorBuilder: (context, index) => const SizedBox(width: 16),
-                itemCount: courses.length,
+                itemCount: careers.length,
               ),
             )
           : Container(
               padding: const EdgeInsets.symmetric(horizontal: 24),
               alignment: Alignment.centerLeft,
-              child: const Text('No hay cursos disponibles'),
+              child: const Text('No hay carreras disponibles'),
             ),
     );
   }

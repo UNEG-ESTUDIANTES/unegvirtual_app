@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/widgets/main_app_bar.dart';
 import '../widgets/basic_info_widget.dart';
 import '../widgets/notes_table_start_widget.dart';
 import '../widgets/notes_table_widget.dart';
 import '../widgets/semester_select_widget.dart';
 import '../widgets/user_data_widget.dart';
+
+const List<int> semesters = [1, 2, 3];
 
 class UserPage extends StatelessWidget {
   /// The page route name.
@@ -15,27 +16,69 @@ class UserPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 243, 243, 243),
-      appBar: const PreferredSize(
-          preferredSize: Size.fromHeight(55), child: MainAppBar()),
-      body: SingleChildScrollView(
-          child: Column(
-        children: const [
-          SizedBox(
-            height: 30,
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(24.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const BasicInfoWidget(),
+          const Divider(height: 32),
+          const UserDataWidget(),
+          const Divider(height: 32),
+          DropdownButton<int>(
+            hint: const Text('Semestre'),
+            items: semesters.map((semester) {
+              return DropdownMenuItem<int>(
+                value: semester,
+                child: Text('Semestre $semester'),
+              );
+            }).toList(),
+            onChanged: (value) {},
           ),
-          BasicInfoWidget(),
-          UserDataWidget(),
+          const SizedBox(height: 16),
           SizedBox(
-            height: 30,
+            width: double.infinity,
+            child: DataTable(
+              columns: const [
+                DataColumn(
+                  label: Expanded(
+                    child: Text(
+                      'Pensum',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                ),
+                DataColumn(
+                  label: Expanded(
+                    child: Text(
+                      'U.C.',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+              rows: const [
+                DataRow(
+                  cells: [
+                    DataCell(
+                      Text('Materia I'),
+                    ),
+                    DataCell(
+                      Text('2'),
+                    ),
+                  ],
+                )
+              ],
+            ),
           ),
-          SemesterSelectWidget(),
-          SizedBox(height: 10),
-          NotesTableStartWidget(),
-          NotesTableWidget()
         ],
-      )),
+      ),
     );
   }
 }

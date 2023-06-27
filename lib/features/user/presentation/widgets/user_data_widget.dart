@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:classroom_app/features/user/presentation/widgets/user_data_item.dart';
+
 class UserDataWidget extends StatelessWidget {
   const UserDataWidget({
     super.key,
@@ -8,15 +10,22 @@ class UserDataWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: const [
-        SizedBox(height: 20),
-        Text('Direccion Correo',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-        Text('ExampleEMail@gmail.com', style: TextStyle(fontSize: 18)),
-        SizedBox(height: 10),
-        Text('Cedula de Identidad',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-        Text('V-10.000.000', style: TextStyle(fontSize: 18)),
+        UserDataItem(
+          title: 'Dirección de Correo',
+          value: 'ExampleEMail@gmail.com',
+        ),
+        SizedBox(height: 16),
+        UserDataItem(
+          title: 'País - Ciudad',
+          value: 'Venezuela, Puerto Ordaz',
+        ),
+        SizedBox(height: 16),
+        UserDataItem(
+          title: 'Cédula de Identidad',
+          value: 'V-10.000.000',
+        ),
       ],
     );
   }
