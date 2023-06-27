@@ -5,15 +5,19 @@ class TeacherCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: const [
-        CircleAvatar(
-          backgroundImage: AssetImage('assets/teacher_placeholder.jpg'),
-          radius: 64,
-        ),
-        SizedBox(height: 16),
-        _TeacherInfo(),
-      ],
+    return Padding(
+      padding: const EdgeInsets.all(24.0),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: const [
+          CircleAvatar(
+            backgroundImage: AssetImage('assets/teacher_placeholder.jpg'),
+            radius: 64,
+          ),
+          SizedBox(height: 16),
+          _TeacherInfo(),
+        ],
+      ),
     );
   }
 }

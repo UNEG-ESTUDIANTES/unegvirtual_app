@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 import 'package:classroom_app/core/entities/entities.dart';
+import 'package:classroom_app/core/widgets/section.dart';
 import 'package:classroom_app/features/course/presentation/widgets/course_section.dart';
 import 'package:classroom_app/features/course/presentation/widgets/teacher_card.dart';
 import 'package:classroom_app/features/course/presentation/widgets/units_list.dart';
@@ -49,7 +50,10 @@ class CoursePage extends StatelessWidget {
                     child: SingleChildScrollView(
                       child: CourseSection(
                         title: courseTitle,
-                        children: [UnitsList(units)],
+                        child: Section(
+                          title: 'Unidades',
+                          child: UnitsList(units),
+                        ),
                       ),
                     ),
                   ),
@@ -63,15 +67,20 @@ class CoursePage extends StatelessWidget {
             );
           }
 
-          return const SingleChildScrollView(
-            padding: EdgeInsets.all(24.0),
+          return SingleChildScrollView(
+            padding: const EdgeInsets.all(24.0),
             child: CourseSection(
               title: courseTitle,
-              children: [
-                TeacherCard(),
-                SizedBox(height: 24),
-                UnitsList(units),
-              ],
+              child: Column(
+                children: const [
+                  TeacherCard(),
+                  SizedBox(height: 24),
+                  Section(
+                    title: 'Unidades',
+                    child: UnitsList(units),
+                  ),
+                ],
+              ),
             ),
           );
         },

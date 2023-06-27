@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 
 class CourseSection extends StatelessWidget {
   final String title;
-  final List<Widget> children;
+  final Widget child;
 
   const CourseSection({
     super.key,
     required this.title,
-    required this.children,
+    required this.child,
   });
 
   @override
@@ -17,7 +17,7 @@ class CourseSection extends StatelessWidget {
       children: [
         _TitleWrapper(title),
         const SizedBox(height: 24),
-        ...children,
+        child,
       ],
     );
   }
