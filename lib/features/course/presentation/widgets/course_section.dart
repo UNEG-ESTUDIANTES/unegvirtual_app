@@ -1,29 +1,23 @@
 import 'package:flutter/material.dart';
 
-import 'package:classroom_app/core/entities/entities.dart';
-import 'package:classroom_app/features/course/presentation/widgets/teacher_card.dart';
-import 'package:classroom_app/features/course/presentation/widgets/units_list.dart';
+class CourseSection extends StatelessWidget {
+  final String title;
+  final List<Widget> children;
 
-class FirstPartOfRowWidget extends StatelessWidget {
-  const FirstPartOfRowWidget({
+  const CourseSection({
     super.key,
+    required this.title,
+    required this.children,
   });
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: const [
-        TeacherCard(),
-        SizedBox(height: 10),
-        _TitleWrapper('Técnicas de Programación I'),
-        UnitsList(
-          [
-            Unit(
-              name: 'Programación Orientada a Objetos',
-              number: 1,
-            ),
-          ],
-        ),
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _TitleWrapper(title),
+        const SizedBox(height: 24),
+        ...children,
       ],
     );
   }
@@ -37,8 +31,7 @@ class _TitleWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 250,
-      height: 50,
+      padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
         color: Colors.blue,
         borderRadius: BorderRadius.circular(10.0),
@@ -51,10 +44,10 @@ class _TitleWrapper extends StatelessWidget {
           ),
         ],
       ),
-      alignment: Alignment.center,
-      child: const Text(
-        "Tecnicas de Programacion I",
-        style: TextStyle(
+      alignment: Alignment.centerLeft,
+      child: Text(
+        title,
+        style: const TextStyle(
           color: Colors.white,
           fontSize: 16,
           fontWeight: FontWeight.bold,
