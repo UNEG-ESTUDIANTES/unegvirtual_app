@@ -9,6 +9,24 @@ import 'package:classroom_app/features/course/presentation/widgets/units_list.da
 
 import '../../../../core/widgets/main_app_bar.dart';
 
+// Sample data
+const courseTitle = 'Técnicas de Programación I';
+
+const units = [
+  Unit(
+    name: 'Programación Orientada a Objetos',
+    number: 1,
+  ),
+  Unit(
+    name: 'Programación Funcional',
+    number: 2,
+  ),
+  Unit(
+    name: 'Programación Declarativa',
+    number: 3,
+  ),
+];
+
 class CoursePage extends StatelessWidget {
   /// The page route name.
   static const routeName = 'course';
@@ -30,17 +48,8 @@ class CoursePage extends StatelessWidget {
                   const Expanded(
                     child: SingleChildScrollView(
                       child: CourseSection(
-                        title: 'Hello',
-                        children: [
-                          UnitsList(
-                            [
-                              Unit(
-                                name: 'Programación Orientada a Objetos',
-                                number: 1,
-                              ),
-                            ],
-                          )
-                        ],
+                        title: courseTitle,
+                        children: [UnitsList(units)],
                       ),
                     ),
                   ),
@@ -57,18 +66,11 @@ class CoursePage extends StatelessWidget {
           return const SingleChildScrollView(
             padding: EdgeInsets.all(24.0),
             child: CourseSection(
-              title: 'Hello',
+              title: courseTitle,
               children: [
                 TeacherCard(),
                 SizedBox(height: 24),
-                UnitsList(
-                  [
-                    Unit(
-                      name: 'Programación Orientada a Objetos',
-                      number: 1,
-                    ),
-                  ],
-                ),
+                UnitsList(units),
               ],
             ),
           );

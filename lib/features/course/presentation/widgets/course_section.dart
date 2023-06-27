@@ -30,11 +30,13 @@ class _TitleWrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+
     return Container(
       padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
         color: Colors.blue,
-        borderRadius: BorderRadius.circular(10.0),
+        borderRadius: BorderRadius.circular(12.0),
         boxShadow: [
           BoxShadow(
             color: Colors.blue.withOpacity(0.5),
@@ -47,10 +49,8 @@ class _TitleWrapper extends StatelessWidget {
       alignment: Alignment.centerLeft,
       child: Text(
         title,
-        style: const TextStyle(
+        style: textTheme.headlineLarge?.copyWith(
           color: Colors.white,
-          fontSize: 16,
-          fontWeight: FontWeight.bold,
         ),
       ),
     );

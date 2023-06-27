@@ -9,7 +9,7 @@ class TeacherCard extends StatelessWidget {
       children: const [
         CircleAvatar(
           backgroundImage: AssetImage('assets/teacher_placeholder.jpg'),
-          radius: 55,
+          radius: 64,
         ),
         SizedBox(height: 16),
         _TeacherInfo(),
