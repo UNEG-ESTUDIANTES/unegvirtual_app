@@ -19,13 +19,6 @@ class CoursePage extends StatelessWidget {
       body: SingleChildScrollView(
           child: Column(
         children: [
-          SizedBox(
-            height: 30,
-          ),
-          StartRow(),
-          SizedBox(
-            height: 30,
-          ),
           FirstPartOfRowWidget(),
         ],
       )),

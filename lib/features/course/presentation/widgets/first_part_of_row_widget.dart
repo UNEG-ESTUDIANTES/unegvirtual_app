@@ -33,7 +33,10 @@ class FirstPartOfRowWidget extends StatelessWidget {
         _Course_Name(),
         const UnitsList(
           [
-            Unit(name: 'Programación Orientada a Objetos', number: 1),
+            Unit(
+              name: 'Programación Orientada a Objetos',
+              number: 1,
+            ),
           ],
         ),
       ],
