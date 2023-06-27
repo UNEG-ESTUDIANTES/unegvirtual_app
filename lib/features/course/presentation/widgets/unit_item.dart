@@ -48,7 +48,7 @@ class UnitItem extends StatelessWidget {
 class _UnitWrapper extends StatelessWidget {
   final Widget child;
 
-  const _UnitWrapper({super.key, required this.child});
+  const _UnitWrapper({required this.child});
 
   @override
   Widget build(BuildContext context) {
