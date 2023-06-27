@@ -11,6 +11,9 @@ class LogInPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Inicio de Sesión'),
+      ),
       backgroundColor: Colors.grey.shade100,
       body: const Center(
         child: SingleChildScrollView(

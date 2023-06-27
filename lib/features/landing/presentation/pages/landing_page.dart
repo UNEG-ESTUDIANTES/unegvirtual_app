@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'package:classroom_app/features/auth/presentation/pages/login_page.dart';
 import 'package:classroom_app/features/landing/presentation/widgets/widgets.dart';
 
 class LandingPage extends StatelessWidget {
@@ -29,7 +30,7 @@ class LandingPage extends StatelessWidget {
             ),
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () => Navigator.pushNamed(context, LogInPage.routeName),
             icon: const Icon(
               Icons.login,
               color: Colors.white,
