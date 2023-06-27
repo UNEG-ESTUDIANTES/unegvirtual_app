@@ -31,10 +31,11 @@ class LoginForm extends StatelessWidget {
         const SizedBox(height: 24),
         TextField(
           decoration: InputDecoration(
-            hintText: 'Correo Electrónico o Usuario',
+            hintText: 'ej: johndoe@gmail.com o johndoe',
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(18),
+              borderRadius: BorderRadius.circular(8),
             ),
+            label: const Text('Correo Electrónico o Usuario'),
           ),
         ),
         const SizedBox(height: 16),
@@ -43,10 +44,11 @@ class LoginForm extends StatelessWidget {
           children: [
             TextField(
               decoration: InputDecoration(
-                hintText: 'Contraseña',
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(18),
+                  borderRadius: BorderRadius.circular(8),
                 ),
+                hintText: 'ej: 1234',
+                label: const Text('Contraseña'),
               ),
             ),
             const SizedBox(height: 4),
