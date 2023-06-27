@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/widgets/main_app_bar.dart';
-import '../widgets/basic_info_widget.dart';
-import '../widgets/notes_table_start_widget.dart';
-import '../widgets/notes_table_widget.dart';
-import '../widgets/semester_select_widget.dart';
-import '../widgets/user_data_widget.dart';
+import '../widgets/first_part_of_row_widget.dart';
+import '../widgets/couse_start_row.dart';
+import '../widgets/second_part_of_row_widget.dart';
 
-class UserPage extends StatelessWidget {
+class CoursePage extends StatelessWidget {
   /// The page route name.
-  static const routeName = 'user';
+  static const routeName = 'course';
 
-  const UserPage({super.key});
+  const CoursePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,19 +19,15 @@ class UserPage extends StatelessWidget {
           preferredSize: Size.fromHeight(55), child: MainAppBar()),
       body: SingleChildScrollView(
           child: Column(
-        children: const [
+        children: [
           SizedBox(
             height: 30,
           ),
-          BasicInfoWidget(),
-          UserDataWidget(),
+          StartRow(),
           SizedBox(
             height: 30,
           ),
-          SemesterSelectWidget(),
-          SizedBox(height: 10),
-          NotesTableStartWidget(),
-          NotesTableWidget()
+          FirstPartOfRowWidget(),
         ],
       )),
     );
