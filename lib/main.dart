@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:classroom_app/core/pages/main_page.dart';
 import 'package:classroom_app/features/home/presentation/pages/home_page.dart';
 
+import 'features/auth/presentation/pages/login_page.dart';
 import 'features/course/presentation/pages/course_page.dart';
 import 'features/landing/presentation/pages/landing_page.dart';
-import 'features/login/presentation/pages/login_page.dart';
 import 'features/user/presentation/pages/user_page.dart';
 
 void main() {
