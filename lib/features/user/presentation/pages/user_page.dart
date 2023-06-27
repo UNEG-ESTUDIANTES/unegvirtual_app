@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../widgets/basic_info_widget.dart';
+import '../widgets/notes_table_start_widget.dart';
+import '../widgets/notes_table_widget.dart';
+import '../widgets/semester_select_widget.dart';
 import '../widgets/user_data_widget.dart';
 
 const List<int> semesters = [1, 2, 3];
