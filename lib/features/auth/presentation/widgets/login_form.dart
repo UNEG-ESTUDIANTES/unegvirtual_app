@@ -5,6 +5,8 @@ class LoginForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+
     return Column(
       children: [
         const Image(
@@ -16,23 +18,20 @@ class LoginForm extends StatelessWidget {
           fit: BoxFit.contain,
         ),
         const SizedBox(height: 16),
-        const Text(
-          "Accede al aula virtual",
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
+        Text(
+          'Accede al Aula',
+          style: textTheme.headlineSmall,
         ),
         const SizedBox(height: 8),
-        const Text(
-          "Si eres estudiante regular de la UNEG, ingresa al sistema con Cedula de Identidad",
-          style: TextStyle(fontSize: 18),
+        Text(
+          'Si eres estudiante regular de la UNEG, ingresa con tu cédula de identidad',
+          style: textTheme.bodyLarge,
           textAlign: TextAlign.center,
         ),
         const SizedBox(height: 24),
         TextField(
           decoration: InputDecoration(
-            hintText: "Correo Electrónico o Usuario",
+            hintText: 'Correo Electrónico o Usuario',
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(18),
             ),
@@ -44,19 +43,16 @@ class LoginForm extends StatelessWidget {
           children: [
             TextField(
               decoration: InputDecoration(
-                hintText: "Contraseña",
+                hintText: 'Contraseña',
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(18),
                 ),
               ),
             ),
-            const SizedBox(height: 8),
-            const Text(
-              "Olvide mi contraseña",
-              style: TextStyle(
-                fontSize: 14,
-                color: Colors.blue,
-              ),
+            const SizedBox(height: 4),
+            TextButton(
+              onPressed: () {},
+              child: const Text('Olvide mi contraseña'),
             ),
           ],
         ),
