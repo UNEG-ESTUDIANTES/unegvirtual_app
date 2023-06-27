@@ -1,8 +1,32 @@
 import 'package:flutter/material.dart';
 
+import 'package:responsive_builder/responsive_builder.dart';
+
+import 'package:classroom_app/core/entities/entities.dart';
+import 'package:classroom_app/core/widgets/section.dart';
+import 'package:classroom_app/features/course/presentation/widgets/course_section.dart';
+import 'package:classroom_app/features/course/presentation/widgets/teacher_card.dart';
+import 'package:classroom_app/features/course/presentation/widgets/units_list.dart';
+
 import '../../../../core/widgets/main_app_bar.dart';
-import '../widgets/course_start_row.dart';
-import '../widgets/first_part_of_row_widget.dart';
+
+// Sample data
+const courseTitle = 'Técnicas de Programación I';
+
+const units = [
+  Unit(
+    name: 'Programación Orientada a Objetos',
+    number: 1,
+  ),
+  Unit(
+    name: 'Programación Funcional',
+    number: 2,
+  ),
+  Unit(
+    name: 'Programación Declarativa',
+    number: 3,
+  ),
+];
 
 class CoursePage extends StatelessWidget {
   /// The page route name.
@@ -13,22 +37,54 @@ class CoursePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 243, 243, 243),
-      appBar: const PreferredSize(
-          preferredSize: Size.fromHeight(55), child: MainAppBar()),
-      body: SingleChildScrollView(
-          child: Column(
-        children: [
-          SizedBox(
-            height: 30,
-          ),
-          StartRow(),
-          SizedBox(
-            height: 30,
-          ),
-          FirstPartOfRowWidget(),
-        ],
-      )),
+      appBar: const MainAppBar(),
+      body: ResponsiveBuilder(
+        builder: (context, sizingInformation) {
+          if (sizingInformation.isDesktop) {
+            return Padding(
+              padding: const EdgeInsets.all(24.0),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Expanded(
+                    child: SingleChildScrollView(
+                      child: CourseSection(
+                        title: courseTitle,
+                        child: Section(
+                          title: 'Unidades',
+                          child: UnitsList(units),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 24.0),
+                  SizedBox(
+                    width: sizingInformation.screenSize.width * 0.25,
+                    child: const TeacherCard(),
+                  ),
+                ],
+              ),
+            );
+          }
+
+          return SingleChildScrollView(
+            padding: const EdgeInsets.all(24.0),
+            child: CourseSection(
+              title: courseTitle,
+              child: Column(
+                children: const [
+                  TeacherCard(),
+                  SizedBox(height: 24),
+                  Section(
+                    title: 'Unidades',
+                    child: UnitsList(units),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
     );
   }
 }

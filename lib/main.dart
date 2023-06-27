@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'UNEG Classroom',
-      initialRoute: LogInPage.routeName,
+      initialRoute: CoursePage.routeName,
       routes: {
         LandingPage.routeName: (_) => const LandingPage(),
         HomePage.routeName: (_) => const HomePage(),
