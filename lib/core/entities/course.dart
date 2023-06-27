@@ -1,10 +1,10 @@
 import 'package:equatable/equatable.dart';
 
-class Classroom extends Equatable {
-  /// The [name] of the classroom.
+class Course extends Equatable {
+  /// The [name] of the course.
   final String name;
 
-  const Classroom({required this.name});
+  const Course({required this.name});
 
   @override
   List<Object> get props => [name];

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/widgets/main_app_bar.dart';
-import '../widgets/classroom_start_row.dart';
+import '../widgets/course_start_row.dart';
 import '../widgets/first_part_of_row_widget.dart';
 
-class ClassroomPage extends StatelessWidget {
+class CoursePage extends StatelessWidget {
   /// The page route name.
-  static const routeName = 'classroom';
+  static const routeName = 'course';
 
-  const ClassroomPage({super.key});
+  const CoursePage({super.key});
 
   @override
   Widget build(BuildContext context) {
