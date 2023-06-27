@@ -4,7 +4,7 @@ import 'package:classroom_app/core/pages/main_page.dart';
 import 'package:classroom_app/features/home/presentation/pages/home_page.dart';
 
 import 'features/auth/presentation/pages/login_page.dart';
-import 'features/course/presentation/pages/course_page.dart';
+import 'features/classroom/presentation/pages/classroom_page.dart';
 import 'features/landing/presentation/pages/landing_page.dart';
 import 'features/user/presentation/pages/user_page.dart';
 
@@ -21,14 +21,14 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'UNEG Classroom',
-      initialRoute: MainPage.routeName,
+      initialRoute: ClassroomPage.routeName,
       routes: {
         LandingPage.routeName: (_) => const LandingPage(),
         HomePage.routeName: (_) => const HomePage(),
         UserPage.routeName: (_) => const UserPage(),
         MainPage.routeName: (_) => const MainPage(),
         LogInPage.routeName: (_) => const LogInPage(),
-        CoursePage.routeName: (_) => const CoursePage(),
+        ClassroomPage.routeName: (_) => const ClassroomPage(),
       },
       theme: ThemeData(
         useMaterial3: true,
