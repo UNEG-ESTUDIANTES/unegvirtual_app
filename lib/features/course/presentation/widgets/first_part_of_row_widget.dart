@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import 'package:classroom_app/core/entities/entities.dart';
+import 'package:classroom_app/features/course/presentation/widgets/units_list.dart';
+
 class FirstPartOfRowWidget extends StatelessWidget {
   const FirstPartOfRowWidget({
     super.key,
@@ -28,14 +31,11 @@ class FirstPartOfRowWidget extends StatelessWidget {
         ),
         SizedBox(height: 10),
         _Course_Name(),
-        SizedBox(height: 20),
-        UnityObjectWidget(),
-        SizedBox(height: 20),
-        UnityObjectWidget(),
-        SizedBox(height: 20),
-        UnityObjectWidget(),
-        SizedBox(height: 20),
-        UnityObjectWidget(),
+        const UnitsList(
+          [
+            Unit(name: 'Programación Orientada a Objetos', number: 1),
+          ],
+        ),
       ],
     );
   }
@@ -96,43 +96,5 @@ class FirstPartOfRowWidget extends StatelessWidget {
     return Text("Prof. Baizhu Snake",
         style: TextStyle(
             color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold));
-  }
-}
-
-class UnityObjectWidget extends StatelessWidget {
-  const UnityObjectWidget({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(left: 10, right: 10),
-      height: 60,
-      decoration: BoxDecoration(
-        color: Colors.grey[200],
-        borderRadius: BorderRadius.circular(10.0),
-        border: Border.all(color: Colors.blue, width: 2.0),
-      ),
-      child: Row(
-        children: [
-          Container(
-            width: 160,
-            height: 60,
-            alignment: Alignment.center,
-            color: Colors.blue,
-            child: Text("Unidad 1",
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold)),
-          ),
-          SizedBox(width: 10),
-          Expanded(
-            child: Text('Nombre de usuario', style: TextStyle(fontSize: 16.0)),
-          ),
-        ],
-      ),
-    );
   }
 }
