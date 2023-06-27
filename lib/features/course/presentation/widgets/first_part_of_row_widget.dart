@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:classroom_app/core/entities/entities.dart';
+import 'package:classroom_app/features/course/presentation/widgets/teacher_card.dart';
 import 'package:classroom_app/features/course/presentation/widgets/units_list.dart';
 
 class FirstPartOfRowWidget extends StatelessWidget {
@@ -12,23 +13,7 @@ class FirstPartOfRowWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Row(
-          children: [
-            SizedBox(width: 30),
-            CircleAvatar(
-              backgroundImage: AssetImage('assets/teacher_placeholder.jpg'),
-              radius: 55,
-            ),
-            Column(
-              children: [
-                _Teacher_Name(),
-                SizedBox(height: 5),
-                _Teacher_Number(),
-                _Teacher_Mail(),
-              ],
-            )
-          ],
-        ),
+        const TeacherCard(),
         SizedBox(height: 10),
         _Course_Name(),
         const UnitsList(
