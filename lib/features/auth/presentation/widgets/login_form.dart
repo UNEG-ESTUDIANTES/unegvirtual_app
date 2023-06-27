@@ -61,7 +61,16 @@ class LoginForm extends StatelessWidget {
           width: double.infinity,
           child: FilledButton(
             onPressed: () {},
-            child: const Text('Iniciar Sesión'),
+            child: const Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: 24.0,
+                vertical: 12.0,
+              ),
+              child: Text(
+                'Iniciar Sesión',
+                textAlign: TextAlign.center,
+              ),
+            ),
           ),
         ),
         const SizedBox(height: 8),
@@ -69,9 +78,15 @@ class LoginForm extends StatelessWidget {
           width: double.infinity,
           child: FilledButton.tonal(
             onPressed: () {},
-            child: const Text(
-              'Iniciar Sesión como Invitado',
-              textAlign: TextAlign.center,
+            child: const Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: 16.0,
+                vertical: 12.0,
+              ),
+              child: Text(
+                'Iniciar Sesión como Invitado',
+                textAlign: TextAlign.center,
+              ),
             ),
           ),
         ),
