@@ -11,6 +11,7 @@ class TeacherCard extends StatelessWidget {
           backgroundImage: AssetImage('assets/teacher_placeholder.jpg'),
           radius: 55,
         ),
+        SizedBox(height: 16),
         _TeacherInfo(),
       ],
     );
@@ -30,10 +31,12 @@ class _TeacherInfo extends StatelessWidget {
           'Prof. Nombre Apellido',
           style: textTheme.titleLarge,
         ),
+        const SizedBox(height: 8),
         const _TeacherInfoItem(
           value: 'Número de Telefono',
           icon: Icons.phone,
         ),
+        const SizedBox(height: 4),
         const _TeacherInfoItem(
           value: 'Correo Electrónico',
           icon: Icons.email,

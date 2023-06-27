@@ -59,6 +59,8 @@ class CoursePage extends StatelessWidget {
             child: CourseSection(
               title: 'Hello',
               children: [
+                TeacherCard(),
+                SizedBox(height: 24),
                 UnitsList(
                   [
                     Unit(
@@ -67,8 +69,6 @@ class CoursePage extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(height: 24),
-                TeacherCard(),
               ],
             ),
           );
