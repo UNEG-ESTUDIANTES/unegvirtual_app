@@ -12,9 +12,9 @@ class LogInPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey.shade100,
-      body: const SingleChildScrollView(
-        padding: EdgeInsets.all(24.0),
-        child: Center(
+      body: const Center(
+        child: SingleChildScrollView(
+          padding: EdgeInsets.all(24.0),
           child: SizedBox(
             width: 400,
             child: Card(
