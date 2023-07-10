@@ -1,8 +1,7 @@
-import 'package:classroom_app/features/auth/presentation/pages/forgot_page.dart';
 import 'package:flutter/material.dart';
 
-class LoginForm extends StatelessWidget {
-  const LoginForm({super.key});
+class ForgotPasswordForm extends StatelessWidget {
+  const ForgotPasswordForm({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,26 +19,17 @@ class LoginForm extends StatelessWidget {
         ),
         const SizedBox(height: 16),
         Text(
-          'Accede al Aula',
+          'Recuperación de contraseña',
           style: textTheme.headlineSmall,
+          textAlign: TextAlign.center,
         ),
         const SizedBox(height: 8),
         Text(
-          'Si eres estudiante regular de la UNEG, ingresa con tu cédula de identidad',
+          'Para recuperar su contraseña, introduzca su dirección de correo electrónico.',
           style: textTheme.bodyLarge,
           textAlign: TextAlign.center,
         ),
         const SizedBox(height: 24),
-        TextField(
-          decoration: InputDecoration(
-            hintText: 'ej: johndoe@gmail.com o johndoe',
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-            ),
-            label: const Text('Correo Electrónico o Usuario'),
-          ),
-        ),
-        const SizedBox(height: 16),
         Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
@@ -48,17 +38,11 @@ class LoginForm extends StatelessWidget {
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),
-                hintText: 'ej: 1234',
-                label: const Text('Contraseña'),
+                hintText: 'ej: johndoe@gmail.com',
+                label: const Text('Direccion de correo electrónico'),
               ),
             ),
             const SizedBox(height: 4),
-            TextButton(
-              onPressed: () {
-                Navigator.pushNamed(context, ForgotPasswordPage.routeName);
-              },
-              child: const Text('Olvide mi contraseña'),
-            ),
           ],
         ),
         const SizedBox(height: 24),
@@ -68,32 +52,21 @@ class LoginForm extends StatelessWidget {
             onPressed: () {},
             child: const Padding(
               padding: EdgeInsets.symmetric(
-                horizontal: 24.0,
+                horizontal: 16.0,
                 vertical: 12.0,
               ),
               child: Text(
-                'Iniciar Sesión',
+                'Enviar',
                 textAlign: TextAlign.center,
               ),
             ),
           ),
         ),
-        const SizedBox(height: 8),
-        SizedBox(
-          width: double.infinity,
-          child: FilledButton.tonal(
-            onPressed: () {},
-            child: const Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: 16.0,
-                vertical: 12.0,
-              ),
-              child: Text(
-                'Iniciar Sesión como Invitado',
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ),
+        const SizedBox(height: 16),
+        Text(
+          'Le enviaremos un email con instrucciones para poder acceder de nuevo.',
+          style: textTheme.bodyLarge,
+          textAlign: TextAlign.center,
         ),
       ],
     );
