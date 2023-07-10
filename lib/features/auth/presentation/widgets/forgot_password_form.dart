@@ -25,24 +25,11 @@ class ForgotPasswordForm extends StatelessWidget {
         ),
         const SizedBox(height: 8),
         Text(
-          'Para reajustar su contraseña, envíe su nombre de usuario o su dirección de correo electrónico.',
+          'Para recuperar su contraseña, introduzca su dirección de correo electrónico.',
           style: textTheme.bodyLarge,
           textAlign: TextAlign.center,
         ),
         const SizedBox(height: 24),
-        TextField(
-          decoration: InputDecoration(
-            hintText: 'ej: johndoe',
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-            ),
-            label: const Text('Nombre de usuario'),
-          ),
-        ),
-        const SizedBox(
-          height: 20,
-          child: Text('O'),
-        ),
         Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
@@ -58,7 +45,7 @@ class ForgotPasswordForm extends StatelessWidget {
             const SizedBox(height: 4),
           ],
         ),
-        const SizedBox(height: 15),
+        const SizedBox(height: 24),
         SizedBox(
           width: double.infinity,
           child: FilledButton(
@@ -75,7 +62,7 @@ class ForgotPasswordForm extends StatelessWidget {
             ),
           ),
         ),
-        const SizedBox(height: 8),
+        const SizedBox(height: 16),
         Text(
           'Le enviaremos un email con instrucciones para poder acceder de nuevo.',
           style: textTheme.bodyLarge,
