@@ -30,6 +30,7 @@ class AuthRepositoryImpl implements AuthRepository {
 
     try {
       final accessToken = await remoteDataSource.login(userCredentials);
+      await localDataSource.cacheAccessToken(accessToken);
 
       return Right(accessToken);
     } on UserCredentialsMismatchException {

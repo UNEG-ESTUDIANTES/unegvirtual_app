@@ -10,8 +10,5 @@ abstract class AuthLocalDataSource {
   Future<AccessTokenModel> getAccessToken();
 
   /// Stores the [accessToken] locally.
-  ///
-  /// Throws [NotFoundException] if token is not found.
-  /// Otherwise it throws [CacheException].
   Future<void> cacheAccessToken(AccessTokenModel accessToken);
 }

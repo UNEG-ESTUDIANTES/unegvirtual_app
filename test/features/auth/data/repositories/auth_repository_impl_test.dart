@@ -79,7 +79,6 @@ void main() {
           // assert
           expect(result, const Right(tAccessTokenModel));
           verify(mockAuthRemoteDataSource.login(any));
-          verifyZeroInteractions(mockAuthLocalDataSource);
         },
       );
 
@@ -96,6 +95,22 @@ void main() {
           // assert
           verify(mockAuthRemoteDataSource.login(tUserCredentials));
           expect(result, const Right(tAccessToken));
+        },
+      );
+
+      test(
+        'should cache the data locally when the call to remote data source is successful',
+        () async {
+          // arrange
+          when(mockAuthRemoteDataSource.login(any))
+              .thenAnswer((_) async => tAccessTokenModel);
+
+          // act
+          await repository.login(tUserCredentials);
+
+          // assert
+          verify(mockAuthRemoteDataSource.login(tUserCredentials));
+          verify(mockAuthLocalDataSource.cacheAccessToken(tAccessTokenModel));
         },
       );
 
