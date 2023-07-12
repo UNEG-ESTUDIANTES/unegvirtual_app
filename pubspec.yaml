@@ -39,6 +39,7 @@ dependencies:
     circular_chart_flutter: ^0.0.2
     responsive_builder: ^0.7.0
     dartz: ^0.10.1
+    internet_connection_checker: ^1.0.0+1
 
 dev_dependencies:
     flutter_test:
