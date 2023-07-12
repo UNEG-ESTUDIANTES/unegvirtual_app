@@ -152,4 +152,57 @@ void main() {
       );
     });
   });
+
+  group('getAccessToken', () {
+    test(
+      'should call the proper method to get the access token',
+      () async {
+        // arrange
+        when(mockAuthLocalDataSource.getAccessToken())
+            .thenAnswer((_) async => tAccessTokenModel);
+
+        // act
+        final result = await repository.getAccessToken();
+
+        // assert
+        expect(result, const Right(tAccessTokenModel));
+        verify(mockAuthLocalDataSource.getAccessToken());
+        verifyZeroInteractions(mockAuthRemoteDataSource);
+      },
+    );
+
+    test(
+      '''should return NotFoundFailure when the call 
+      to local data throws a NotFoundException''',
+      () async {
+        // arrange
+        when(mockAuthLocalDataSource.getAccessToken())
+            .thenThrow(NotFoundException());
+
+        // act
+        final result = await repository.getAccessToken();
+
+        // assert
+        verify(mockAuthLocalDataSource.getAccessToken());
+        expect(result, Left(NotFoundFailure()));
+      },
+    );
+
+    test(
+      '''should return CacheFailure when the call 
+      to local data throws a CacheException''',
+      () async {
+        // arrange
+        when(mockAuthLocalDataSource.getAccessToken())
+            .thenThrow(CacheException());
+
+        // act
+        final result = await repository.getAccessToken();
+
+        // assert
+        verify(mockAuthLocalDataSource.getAccessToken());
+        expect(result, Left(CacheFailure()));
+      },
+    );
+  });
 }

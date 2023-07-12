@@ -38,4 +38,15 @@ class AuthRepositoryImpl implements AuthRepository {
       return Left(ServerFailure());
     }
   }
+
+  @override
+  Future<Either<Failure, AccessToken>> getAccessToken() async {
+    try {
+      return Right(await localDataSource.getAccessToken());
+    } on NotFoundException {
+      return Left(NotFoundFailure());
+    } on CacheException {
+      return Left(CacheFailure());
+    }
+  }
 }
