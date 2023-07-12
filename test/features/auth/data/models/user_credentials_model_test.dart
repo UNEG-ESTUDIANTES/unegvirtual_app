@@ -17,6 +17,36 @@ void main() {
     },
   );
 
+  group('fromEntity', () {
+    const tUserCredentials = UserCredentials(
+      email: 'test',
+      password: 'test',
+    );
+
+    test(
+      'should return an UserCredentialsModel',
+      () async {
+        // act
+        final result = UserCredentialsModel.fromEntity(tUserCredentials);
+
+        // assert
+        expect(result, isA<UserCredentialsModel>());
+      },
+    );
+
+    test(
+      'should contain the same data as the UserCredentials',
+      () async {
+        // act
+        final result = UserCredentialsModel.fromEntity(tUserCredentials);
+
+        // assert
+        expect(result.email, tUserCredentials.email);
+        expect(result.password, tUserCredentials.password);
+      },
+    );
+  });
+
   group('toJson', () {
     test(
       'should return a JSON map containing the proper data',
