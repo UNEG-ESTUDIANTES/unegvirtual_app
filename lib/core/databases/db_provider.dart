@@ -51,19 +51,31 @@ class DBProvider {
     );
   }
 
+  /// Gets the latest stored token.
+  Future<AccessTokenModel?> getToken() async {
+    final db = await database;
+
+    /// Gets the latest token.
+    final tokens = await db.query('Token', limit: 1, orderBy: 'id DESC');
+
+    if (tokens.isEmpty) return null;
+
+    return AccessTokenModel.fromJson(tokens.last);
+  }
+
   /// Removes the latest stored token.
   Future<int> removeToken() async {
     final db = await database;
 
     /// Gets the latest token.
-    final latestToken = await db.query('Token', limit: 1, orderBy: 'id DESC');
+    final tokens = await db.query('Token', limit: 1, orderBy: 'id DESC');
 
-    if (latestToken.isEmpty) return 0;
+    if (tokens.isEmpty) return 0;
 
     return await db.delete(
       'Token',
       where: 'id = ?',
-      whereArgs: [latestToken.last['id']],
+      whereArgs: [tokens.last['id']],
     );
   }
 }

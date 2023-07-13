@@ -55,6 +55,19 @@ Future main() async {
     );
   });
 
+  group('getToken', () {
+    test(
+      'should get the latest token',
+      () async {
+        // act
+        final result = await dbProvider.getToken();
+
+        // assert
+        expect(result, tAccessTokenModel);
+      },
+    );
+  });
+
   group('removeToken', () {
     test(
       'should remove the latest token',
@@ -75,6 +88,19 @@ Future main() async {
 
         // assert
         expect(result, 0);
+      },
+    );
+  });
+
+  group('getToken', () {
+    test(
+      'should return null when table is empty',
+      () async {
+        // act
+        final result = await dbProvider.getToken();
+
+        // assert
+        expect(result, null);
       },
     );
   });
