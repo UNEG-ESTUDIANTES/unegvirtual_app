@@ -66,5 +66,16 @@ Future main() async {
         expect(result, 1);
       },
     );
+
+    test(
+      'should return zero when table is empty',
+      () async {
+        // act
+        final result = await dbProvider.removeToken();
+
+        // assert
+        expect(result, 0);
+      },
+    );
   });
 }

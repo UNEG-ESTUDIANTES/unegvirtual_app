@@ -58,6 +58,8 @@ class DBProvider {
     /// Gets the latest token.
     final latestToken = await db.query('Token', limit: 1, orderBy: 'id DESC');
 
+    if (latestToken.isEmpty) return 0;
+
     return await db.delete(
       'Token',
       where: 'id = ?',
