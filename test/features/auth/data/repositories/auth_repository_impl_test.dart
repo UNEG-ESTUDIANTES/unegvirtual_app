@@ -10,6 +10,7 @@ import 'package:classroom_app/core/models/access_token_model.dart';
 import 'package:classroom_app/core/network/network_info.dart';
 import 'package:classroom_app/features/auth/data/data_sources/auth_local_data_source.dart';
 import 'package:classroom_app/features/auth/data/data_sources/auth_remote_data_source.dart';
+import 'package:classroom_app/features/auth/data/models/user_credentials_model.dart';
 import 'package:classroom_app/features/auth/data/repositories/auth_repository_impl.dart';
 import 'package:classroom_app/features/auth/domain/entities/user_credentials.dart';
 
@@ -45,6 +46,9 @@ void main() {
     email: 'test',
     password: 'test',
   );
+
+  final tUserCredentialsModel =
+      UserCredentialsModel.fromEntity(tUserCredentials);
 
   group('login', () {
     test(
@@ -93,7 +97,7 @@ void main() {
           final result = await repository.login(tUserCredentials);
 
           // assert
-          verify(mockAuthRemoteDataSource.login(tUserCredentials));
+          verify(mockAuthRemoteDataSource.login(tUserCredentialsModel));
           expect(result, const Right(tAccessToken));
         },
       );
@@ -109,7 +113,7 @@ void main() {
           await repository.login(tUserCredentials);
 
           // assert
-          verify(mockAuthRemoteDataSource.login(tUserCredentials));
+          verify(mockAuthRemoteDataSource.login(tUserCredentialsModel));
           verify(mockAuthLocalDataSource.cacheAccessToken(tAccessTokenModel));
         },
       );
@@ -126,7 +130,7 @@ void main() {
           final result = await repository.login(tUserCredentials);
 
           // assert
-          verify(mockAuthRemoteDataSource.login(tUserCredentials));
+          verify(mockAuthRemoteDataSource.login(tUserCredentialsModel));
           expect(result, Left(UserCredentialsMismatchFailure()));
         },
       );
@@ -143,7 +147,7 @@ void main() {
           final result = await repository.login(tUserCredentials);
 
           // assert
-          verify(mockAuthRemoteDataSource.login(tUserCredentials));
+          verify(mockAuthRemoteDataSource.login(tUserCredentialsModel));
           expect(result, Left(ServerFailure()));
         },
       );

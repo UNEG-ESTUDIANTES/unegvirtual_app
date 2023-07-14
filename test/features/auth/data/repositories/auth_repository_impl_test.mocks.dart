@@ -11,7 +11,7 @@ import 'package:classroom_app/features/auth/data/data_sources/auth_local_data_so
     as _i3;
 import 'package:classroom_app/features/auth/data/data_sources/auth_remote_data_source.dart'
     as _i5;
-import 'package:classroom_app/features/auth/domain/entities/user_credentials.dart'
+import 'package:classroom_app/features/auth/data/models/user_credentials_model.dart'
     as _i6;
 import 'package:mockito/mockito.dart' as _i1;
 
@@ -84,7 +84,7 @@ class MockAuthRemoteDataSource extends _i1.Mock
     implements _i5.AuthRemoteDataSource {
   @override
   _i4.Future<_i2.AccessTokenModel> login(
-          _i6.UserCredentials? userCredentials) =>
+          _i6.UserCredentialsModel? userCredentials) =>
       (super.noSuchMethod(
         Invocation.method(
           #login,

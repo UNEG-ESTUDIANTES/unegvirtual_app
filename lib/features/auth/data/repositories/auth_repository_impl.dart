@@ -6,6 +6,7 @@ import 'package:classroom_app/core/error/failures.dart';
 import 'package:classroom_app/core/network/network_info.dart';
 import 'package:classroom_app/features/auth/data/data_sources/auth_local_data_source.dart';
 import 'package:classroom_app/features/auth/data/data_sources/auth_remote_data_source.dart';
+import 'package:classroom_app/features/auth/data/models/user_credentials_model.dart';
 import 'package:classroom_app/features/auth/domain/entities/user_credentials.dart';
 import 'package:classroom_app/features/auth/domain/repository/auth_repository.dart';
 
@@ -29,7 +30,10 @@ class AuthRepositoryImpl implements AuthRepository {
     if (!isConnected) return Left(NoInternetConnectionFailure());
 
     try {
-      final accessToken = await remoteDataSource.login(userCredentials);
+      final accessToken = await remoteDataSource.login(
+        UserCredentialsModel.fromEntity(userCredentials),
+      );
+
       await localDataSource.cacheAccessToken(accessToken);
 
       return Right(accessToken);
