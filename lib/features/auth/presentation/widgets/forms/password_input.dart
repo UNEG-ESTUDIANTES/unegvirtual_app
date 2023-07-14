@@ -13,11 +13,10 @@ enum PasswordInputError {
   }
 }
 
-class PasswordInput extends FormzInput<String, PasswordInputError>
-    with FormzInputErrorCacheMixin {
-  PasswordInput.pure() : super.pure('');
+class PasswordInput extends FormzInput<String, PasswordInputError> {
+  const PasswordInput.pure() : super.pure('');
 
-  PasswordInput.dirty([super.value = '']) : super.dirty();
+  const PasswordInput.dirty([super.value = '']) : super.dirty();
 
   @override
   PasswordInputError? validator(String value) {

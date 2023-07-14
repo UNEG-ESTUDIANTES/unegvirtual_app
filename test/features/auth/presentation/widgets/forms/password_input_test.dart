@@ -10,7 +10,7 @@ void main() {
     'initial state should be empty',
     () async {
       // act
-      final input = PasswordInput.pure();
+      const input = PasswordInput.pure();
 
       // assert
       expect(input.value, '');
@@ -22,7 +22,7 @@ void main() {
     'should be valid',
     () async {
       // act
-      final input = PasswordInput.dirty(tValidPassword);
+      const input = PasswordInput.dirty(tValidPassword);
 
       // assert
       expect(input.isValid, true);
@@ -33,7 +33,7 @@ void main() {
     'should be invalid',
     () async {
       // act
-      final input = PasswordInput.dirty(tInvalidPassword);
+      const input = PasswordInput.dirty(tInvalidPassword);
 
       // assert
       expect(input.isValid, false);
@@ -45,7 +45,7 @@ void main() {
       'should return empty error',
       () async {
         // act
-        final input = PasswordInput.dirty();
+        const input = PasswordInput.dirty();
 
         // assert
         expect(input.displayError, PasswordInputError.empty);
