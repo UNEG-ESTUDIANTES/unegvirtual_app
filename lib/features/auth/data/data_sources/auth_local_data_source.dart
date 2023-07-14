@@ -1,3 +1,4 @@
+import 'package:classroom_app/core/databases/db_provider.dart';
 import 'package:classroom_app/core/error/exceptions.dart';
 import 'package:classroom_app/core/models/access_token_model.dart';
 
@@ -11,4 +12,28 @@ abstract class AuthLocalDataSource {
 
   /// Stores the [accessToken] locally.
   Future<void> cacheAccessToken(AccessTokenModel accessToken);
+}
+
+class AuthLocalDataSourceImpl implements AuthLocalDataSource {
+  final DBProvider database;
+
+  AuthLocalDataSourceImpl({required this.database});
+
+  @override
+  Future<void> cacheAccessToken(AccessTokenModel accessToken) async {
+    // Removes last token.
+    await database.removeToken();
+
+    // Adds new token.
+    await database.addToken(accessToken);
+  }
+
+  @override
+  Future<AccessTokenModel> getAccessToken() async {
+    final accessToken = await database.getToken();
+
+    if (accessToken == null) throw NotFoundException();
+
+    return accessToken;
+  }
 }
