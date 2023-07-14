@@ -75,14 +75,19 @@ void main() {
       );
     }
 
-    void setUpMockHttpClientException() {
+    void setUpMockHttpClientError404() {
       when(
         client.post(
           any,
           headers: anyNamed('headers'),
           body: anyNamed('body'),
         ),
-      ).thenThrow(http.ClientException(''));
+      ).thenAnswer(
+        (_) async => http.Response(
+          'User not found',
+          404,
+        ),
+      );
     }
 
     test(
@@ -143,6 +148,23 @@ void main() {
     );
 
     test(
+      'should throw a NotFoundException when status code is 404',
+      () async {
+        // arrange
+        setUpMockHttpClientError404();
+
+        // act
+        final call = dataSourceImpl.login;
+
+        // assert
+        expect(
+          () => call(tUserCredentialsModel),
+          throwsA(const TypeMatcher<NotFoundException>()),
+        );
+      },
+    );
+
+    test(
       'should throw a ServerException when status code is other than 200 and 401',
       () async {
         // arrange
@@ -163,7 +185,13 @@ void main() {
       'should throw a ServerException when the call throws a ClientException',
       () async {
         // arrange
-        setUpMockHttpClientException();
+        when(
+          client.post(
+            any,
+            headers: anyNamed('headers'),
+            body: anyNamed('body'),
+          ),
+        ).thenThrow(http.ClientException(''));
 
         // act
         final call = dataSourceImpl.login;

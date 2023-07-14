@@ -39,6 +39,8 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
 
       if (response.statusCode == 401) throw UserCredentialsMismatchException();
 
+      if (response.statusCode == 404) throw NotFoundException();
+
       if (response.statusCode != 200) throw ServerException();
 
       return AccessTokenModel.fromJson(json.decode(response.body));
