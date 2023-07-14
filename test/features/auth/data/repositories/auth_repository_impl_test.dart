@@ -136,6 +136,23 @@ void main() {
       );
 
       test(
+        '''should return NotFoundFailure when the call 
+        to remote data throws an NotFoundException''',
+        () async {
+          // arrange
+          when(mockAuthRemoteDataSource.login(any))
+              .thenThrow(NotFoundException());
+
+          // act
+          final result = await repository.login(tUserCredentials);
+
+          // assert
+          verify(mockAuthRemoteDataSource.login(tUserCredentialsModel));
+          expect(result, Left(NotFoundFailure()));
+        },
+      );
+
+      test(
         '''should return ServerFailure when the call 
         to remote data throws a ServerException''',
         () async {

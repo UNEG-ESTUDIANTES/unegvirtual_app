@@ -12,6 +12,8 @@ abstract class AuthRemoteDataSource {
   /// Throws an [UserCredentialsMismatchException] when the user credentials
   /// doesn't match.
   ///
+  /// Throws an [NotFoundException] when the user is not found.
+  ///
   /// Otherwise throws a [ServerException] for all other error codes.
   Future<AccessTokenModel> login(UserCredentialsModel userCredentials);
 }
