@@ -196,39 +196,43 @@ class _LoginFormState extends State<LoginForm> {
           if (_state.status.isInProgress)
             const CircularProgressIndicator()
           else
-            SizedBox(
-              width: double.infinity,
-              child: FilledButton(
-                onPressed: _onSubmit,
-                child: const Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 24.0,
-                    vertical: 12.0,
+            Column(
+              children: [
+                SizedBox(
+                  width: double.infinity,
+                  child: FilledButton(
+                    onPressed: _onSubmit,
+                    child: const Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 24.0,
+                        vertical: 12.0,
+                      ),
+                      child: Text(
+                        'Iniciar Sesión',
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
                   ),
-                  child: Text(
-                    'Iniciar Sesión',
-                    textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 8),
+                SizedBox(
+                  width: double.infinity,
+                  child: FilledButton.tonal(
+                    onPressed: _navigateToMainPage,
+                    child: const Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 16.0,
+                        vertical: 12.0,
+                      ),
+                      child: Text(
+                        'Iniciar Sesión como Invitado',
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
                   ),
                 ),
-              ),
+              ],
             ),
-          const SizedBox(height: 8),
-          SizedBox(
-            width: double.infinity,
-            child: FilledButton.tonal(
-              onPressed: _navigateToMainPage,
-              child: const Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 16.0,
-                  vertical: 12.0,
-                ),
-                child: Text(
-                  'Iniciar Sesión como Invitado',
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ),
-          ),
         ],
       ),
     );
