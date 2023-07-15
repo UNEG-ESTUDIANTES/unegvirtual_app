@@ -5,12 +5,12 @@ import 'package:mockito/mockito.dart';
 
 import 'package:classroom_app/core/entities/access_token.dart';
 import 'package:classroom_app/core/error/failures.dart';
+import 'package:classroom_app/core/providers/auth_provider.dart';
 import 'package:classroom_app/core/providers/page_state.dart';
 import 'package:classroom_app/core/use_cases/use_case.dart';
 import 'package:classroom_app/features/auth/domain/entities/user_credentials.dart';
 import 'package:classroom_app/features/auth/domain/use_cases/get_access_token.dart';
 import 'package:classroom_app/features/auth/domain/use_cases/login.dart';
-import 'package:classroom_app/features/auth/presentation/providers/auth_provider.dart';
 
 @GenerateNiceMocks([
   MockSpec<GetAccessToken>(),

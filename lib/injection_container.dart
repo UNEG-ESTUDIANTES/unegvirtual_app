@@ -9,26 +9,18 @@ import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 import 'package:classroom_app/core/databases/db_provider.dart';
 import 'package:classroom_app/core/network/network_info.dart';
+import 'package:classroom_app/core/providers/auth_provider.dart';
 import 'package:classroom_app/features/auth/data/data_sources/auth_local_data_source.dart';
 import 'package:classroom_app/features/auth/data/data_sources/auth_remote_data_source.dart';
 import 'package:classroom_app/features/auth/data/repositories/auth_repository_impl.dart';
 import 'package:classroom_app/features/auth/domain/repository/auth_repository.dart';
 import 'package:classroom_app/features/auth/domain/use_cases/get_access_token.dart';
 import 'package:classroom_app/features/auth/domain/use_cases/login.dart';
-import 'package:classroom_app/features/auth/presentation/providers/auth_provider.dart';
 
 final sl = GetIt.instance;
 
 Future<void> init() async {
   //* Features - Auth.
-  // Provider.
-  sl.registerFactory(
-    () => AuthProvider(
-      getAccessTokenUseCase: sl(),
-      loginUseCase: sl(),
-    ),
-  );
-
   // Use Cases.
   sl.registerLazySingleton(() => GetAccessToken(sl()));
   sl.registerLazySingleton(() => Login(sl()));
@@ -52,6 +44,15 @@ Future<void> init() async {
   );
 
   //* Core
+  // Providers.
+  sl.registerFactory(
+    () => AuthProvider(
+      getAccessTokenUseCase: sl(),
+      loginUseCase: sl(),
+    ),
+  );
+
+  // Databases.
   if (Platform.isLinux || Platform.isWindows) {
     // Initialize FFI
     sqfliteFfiInit();

@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:classroom_app/core/pages/main_page.dart';
+import 'package:classroom_app/core/providers/auth_provider.dart';
 import 'package:classroom_app/features/auth/presentation/pages/forgot_page.dart';
-import 'package:classroom_app/features/auth/presentation/providers/auth_provider.dart';
 import 'package:classroom_app/features/home/presentation/pages/home_page.dart';
 import 'package:classroom_app/injection_container.dart' as di;
 
