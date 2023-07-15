@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
+import 'package:classroom_app/core/env/env.dart';
 import 'package:classroom_app/core/error/exceptions.dart';
 import 'package:classroom_app/core/models/access_token_model.dart';
 import 'package:classroom_app/features/auth/data/models/user_credentials_model.dart';
@@ -27,10 +28,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   Future<AccessTokenModel> login(UserCredentialsModel userCredentials) async {
     try {
       final response = await client.post(
-        Uri.http(
-          '0.0.0.0:3000',
-          '/v1/login',
-        ),
+        Uri.parse('${Env.appUrl}/v1/login'),
         headers: {
           'Content-Type': 'application/json',
         },

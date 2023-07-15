@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
+import 'package:classroom_app/core/env/env.dart';
 import 'package:classroom_app/core/error/exceptions.dart';
 import 'package:classroom_app/core/models/access_token_model.dart';
 import 'package:classroom_app/features/auth/data/data_sources/auth_remote_data_source.dart';
@@ -105,10 +106,7 @@ void main() {
         // assert
         verify(
           client.post(
-            Uri.http(
-              '0.0.0.0:3000',
-              '/v1/login',
-            ),
+            Uri.parse('${Env.appUrl}/v1/login'),
             headers: {
               'Content-Type': 'application/json',
             },

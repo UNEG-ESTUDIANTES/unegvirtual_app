@@ -49,6 +49,7 @@ dependencies:
     path: ^1.8.2
     formz: ^0.6.0
     rxdart: ^0.27.7
+    envied: ^0.3.0+3
 
 dev_dependencies:
     flutter_test:
@@ -62,6 +63,7 @@ dev_dependencies:
     flutter_lints: ^2.0.0
     mockito: ^5.4.0
     build_runner: ^2.3.3
+    envied_generator: ^0.3.0+3
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
