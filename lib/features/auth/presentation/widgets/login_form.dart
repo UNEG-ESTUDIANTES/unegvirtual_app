@@ -47,6 +47,15 @@ class _LoginFormState extends State<LoginForm> {
     setState(() => _state = LoginFormState());
   }
 
+  /// Removes previous pages and go to main page.
+  void _navigateToMainPage() {
+    Navigator.pushNamedAndRemoveUntil(
+      context,
+      MainPage.routeName,
+      (route) => false,
+    );
+  }
+
   Future<void> _onSubmit() async {
     if (!_key.currentState!.validate()) return;
 
@@ -90,13 +99,7 @@ class _LoginFormState extends State<LoginForm> {
     // Navigates to main page.
     if (authProviderState is Loaded) {
       _resetForm();
-
-      // Removes previous pages and go to next page.
-      Navigator.pushNamedAndRemoveUntil(
-        context,
-        MainPage.routeName,
-        (route) => false,
-      );
+      _navigateToMainPage();
     }
   }
 
@@ -209,23 +212,23 @@ class _LoginFormState extends State<LoginForm> {
                 ),
               ),
             ),
-          // const SizedBox(height: 8),
-          // SizedBox(
-          //   width: double.infinity,
-          //   child: FilledButton.tonal(
-          //     onPressed: () {},
-          //     child: const Padding(
-          //       padding: EdgeInsets.symmetric(
-          //         horizontal: 16.0,
-          //         vertical: 12.0,
-          //       ),
-          //       child: Text(
-          //         'Iniciar Sesión como Invitado',
-          //         textAlign: TextAlign.center,
-          //       ),
-          //     ),
-          //   ),
-          // ),
+          const SizedBox(height: 8),
+          SizedBox(
+            width: double.infinity,
+            child: FilledButton.tonal(
+              onPressed: _navigateToMainPage,
+              child: const Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 16.0,
+                  vertical: 12.0,
+                ),
+                child: Text(
+                  'Iniciar Sesión como Invitado',
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );
