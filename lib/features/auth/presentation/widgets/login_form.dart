@@ -67,11 +67,20 @@ class _LoginFormState extends State<LoginForm> {
     SnackBar snackBar;
     final authProviderState = context.read<AuthProvider>().state;
 
+    // Change state and snackbar according to state.
     if (authProviderState is Error) {
+      _state = _state.copyWith(status: FormzSubmissionStatus.failure);
       snackBar = SnackBar(content: Text(authProviderState.message));
     } else {
+      _state = _state.copyWith(status: FormzSubmissionStatus.success);
       snackBar = const SnackBar(content: Text('Ha iniciado sesión con éxito'));
     }
+
+    setState(() {});
+
+    FocusScope.of(context)
+      ..nextFocus()
+      ..unfocus();
 
     // Display the snackbar.
     ScaffoldMessenger.of(context)
