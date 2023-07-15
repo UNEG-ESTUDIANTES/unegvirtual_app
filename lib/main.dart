@@ -6,19 +6,23 @@ import 'package:classroom_app/core/pages/main_page.dart';
 import 'package:classroom_app/core/providers/auth_provider.dart';
 import 'package:classroom_app/features/auth/presentation/pages/forgot_page.dart';
 import 'package:classroom_app/features/home/presentation/pages/home_page.dart';
+import 'package:classroom_app/features/landing/presentation/notifiers/landing_notifier.dart';
 import 'package:classroom_app/injection_container.dart' as di;
 
 import 'features/auth/presentation/pages/login_page.dart';
 import 'features/course/presentation/pages/course_page.dart';
 import 'features/landing/presentation/pages/landing_page.dart';
 import 'features/user/presentation/pages/user_page.dart';
+import 'injections.dart' as inyection;
 
-void main() async {
+void main() async async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // Inject dependencies.
   await di.init();
 
+  WidgetsFlutterBinding.ensureInitialized();
+  await inyection.init();
   runApp(const MyApp());
 }
 
@@ -32,25 +36,29 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (_) => di.sl<AuthProvider>(),
-        ),
+          ),
+          ChangeNotifierProvider<LandingNotifier>(
+            create: (_) => inyection.sl<LandingNotifier>(),
+          ),
       ],
       child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'UNEG Classroom',
-        initialRoute: LandingPage.routeName,
-        routes: {
-          LandingPage.routeName: (_) => const LandingPage(),
-          HomePage.routeName: (_) => const HomePage(),
-          UserPage.routeName: (_) => const UserPage(),
-          MainPage.routeName: (_) => const MainPage(),
-          LogInPage.routeName: (_) => const LogInPage(),
-          ForgotPasswordPage.routeName: (_) => const ForgotPasswordPage(),
-          CoursePage.routeName: (_) => const CoursePage(),
-        },
-        theme: ThemeData(
-          useMaterial3: true,
-          colorSchemeSeed: Colors.blue,
-        ),
+          debugShowCheckedModeBanner: false,
+          title: 'UNEG Classroom',
+          initialRoute: LandingPage.routeName,
+          routes: {
+            LandingPage.routeName: (_) => const LandingPage(),
+            HomePage.routeName: (_) => const HomePage(),
+            UserPage.routeName: (_) => const UserPage(),
+            MainPage.routeName: (_) => const MainPage(),
+            LogInPage.routeName: (_) => const LogInPage(),
+            ForgotPasswordPage.routeName: (_) => const ForgotPasswordPage(),
+            CoursePage.routeName: (_) => const CoursePage(),
+          },
+          theme: ThemeData(
+            useMaterial3: true,
+            colorSchemeSeed: Colors.blue,
+          ),
+      ),
       ),
     );
   }
