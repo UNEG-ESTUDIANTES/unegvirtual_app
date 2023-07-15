@@ -15,23 +15,37 @@ class LogInPage extends StatelessWidget {
         title: const Text('Inicio de Sesión'),
       ),
       backgroundColor: Colors.grey.shade100,
-      body: const Center(
-        child: SingleChildScrollView(
-          padding: EdgeInsets.all(24.0),
-          child: SizedBox(
-            width: 400,
-            child: Card(
-              surfaceTintColor: Colors.white,
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 24.0,
-                  vertical: 32.0,
-                ),
-                child: LoginForm(),
+      body: LayoutBuilder(
+        builder: (context, viewportConstraints) {
+          return SingleChildScrollView(
+            padding: const EdgeInsets.all(24.0),
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                minHeight: viewportConstraints.maxHeight,
+                minWidth: double.infinity,
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  SizedBox(
+                    width: 450,
+                    child: Card(
+                      surfaceTintColor: Colors.white,
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 24.0,
+                          vertical: 32.0,
+                        ),
+                        child: LoginForm(),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
-          ),
-        ),
+          );
+        },
       ),
     );
   }
