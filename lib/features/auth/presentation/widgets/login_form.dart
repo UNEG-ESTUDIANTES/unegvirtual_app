@@ -90,7 +90,13 @@ class _LoginFormState extends State<LoginForm> {
     // Navigates to main page.
     if (authProviderState is Loaded) {
       _resetForm();
-      Navigator.pushReplacementNamed(context, MainPage.routeName);
+
+      // Removes previous pages and go to next page.
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        MainPage.routeName,
+        (route) => false,
+      );
     }
   }
 
