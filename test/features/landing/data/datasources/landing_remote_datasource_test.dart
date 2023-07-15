@@ -1,4 +1,4 @@
-import 'package:classroom_app/core/error/failure.dart';
+import 'package:classroom_app/core/error/failures.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:mockito/annotations.dart';

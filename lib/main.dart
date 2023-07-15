@@ -13,16 +13,13 @@ import 'features/auth/presentation/pages/login_page.dart';
 import 'features/course/presentation/pages/course_page.dart';
 import 'features/landing/presentation/pages/landing_page.dart';
 import 'features/user/presentation/pages/user_page.dart';
-import 'injections.dart' as inyection;
 
-void main() async async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // Inject dependencies.
   await di.init();
 
-  WidgetsFlutterBinding.ensureInitialized();
-  await inyection.init();
   runApp(const MyApp());
 }
 
@@ -36,29 +33,28 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (_) => di.sl<AuthProvider>(),
-          ),
-          ChangeNotifierProvider<LandingNotifier>(
-            create: (_) => inyection.sl<LandingNotifier>(),
-          ),
+        ),
+        ChangeNotifierProvider<LandingNotifier>(
+          create: (_) => di.sl<LandingNotifier>(),
+        ),
       ],
       child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'UNEG Classroom',
-          initialRoute: LandingPage.routeName,
-          routes: {
-            LandingPage.routeName: (_) => const LandingPage(),
-            HomePage.routeName: (_) => const HomePage(),
-            UserPage.routeName: (_) => const UserPage(),
-            MainPage.routeName: (_) => const MainPage(),
-            LogInPage.routeName: (_) => const LogInPage(),
-            ForgotPasswordPage.routeName: (_) => const ForgotPasswordPage(),
-            CoursePage.routeName: (_) => const CoursePage(),
-          },
-          theme: ThemeData(
-            useMaterial3: true,
-            colorSchemeSeed: Colors.blue,
-          ),
-      ),
+        debugShowCheckedModeBanner: false,
+        title: 'UNEG Classroom',
+        initialRoute: LandingPage.routeName,
+        routes: {
+          LandingPage.routeName: (_) => const LandingPage(),
+          HomePage.routeName: (_) => const HomePage(),
+          UserPage.routeName: (_) => const UserPage(),
+          MainPage.routeName: (_) => const MainPage(),
+          LogInPage.routeName: (_) => const LogInPage(),
+          ForgotPasswordPage.routeName: (_) => const ForgotPasswordPage(),
+          CoursePage.routeName: (_) => const CoursePage(),
+        },
+        theme: ThemeData(
+          useMaterial3: true,
+          colorSchemeSeed: Colors.blue,
+        ),
       ),
     );
   }

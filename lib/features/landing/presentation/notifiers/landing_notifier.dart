@@ -1,8 +1,9 @@
-import 'package:classroom_app/features/landing/domain/entities/course.dart';
-import 'package:classroom_app/features/landing/domain/usecases/get_courses.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../core/usecases/usecases.dart';
+import 'package:classroom_app/features/landing/domain/entities/course.dart';
+import 'package:classroom_app/features/landing/domain/usecases/get_courses.dart';
+
+import '../../../../core/use_cases/use_case.dart';
 
 class LandingNotifier extends ChangeNotifier {
   final GetCourses _getCourses;

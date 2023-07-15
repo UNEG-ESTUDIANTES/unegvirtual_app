@@ -2,7 +2,7 @@ import 'package:classroom_app/features/landing/domain/entities/course.dart';
 import 'package:classroom_app/features/landing/domain/repositories/landing_repository.dart';
 import 'package:dartz/dartz.dart';
 
-import '../../../../core/error/failure.dart';
+import '../../../../core/error/failures.dart';
 import '../../../../core/network/network_info.dart';
 import '../datasources/landing_remote_datasource_impl.dart';
 

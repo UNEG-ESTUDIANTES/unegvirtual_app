@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 
 import 'package:classroom_app/features/landing/data/models/course_model.dart';
 
-import '../../../../core/error/failure.dart';
+import '../../../../core/error/failures.dart';
 
 abstract class LandingRemoteDataSource {
   Future<CourseModel> getCourses();
