@@ -34,7 +34,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: userCredentials.toJson(),
+        body: json.encode(userCredentials.toJson()),
       );
 
       if (response.statusCode == 401) throw UserCredentialsMismatchException();

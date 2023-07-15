@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:mockito/annotations.dart';
@@ -110,7 +112,7 @@ void main() {
             headers: {
               'Content-Type': 'application/json',
             },
-            body: tUserCredentialsModel.toJson(),
+            body: json.encode(tUserCredentialsModel.toJson()),
           ),
         );
       },
