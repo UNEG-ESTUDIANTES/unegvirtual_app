@@ -23,9 +23,9 @@ class Error extends PageState {
 
 class Loaded<T> extends PageState {
   /// The [value] loaded.
-  final T value;
+  final T? value;
 
-  const Loaded({required this.value});
+  const Loaded({this.value});
 
   @override
   List<Object> get props => [];

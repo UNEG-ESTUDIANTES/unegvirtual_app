@@ -60,38 +60,44 @@ void main() {
     );
 
     test(
-      'should notify Loaded when token is gotten successfully',
+      'should notify [Loading, Loaded] when token is gotten successfully',
       () async {
         // arrange
         when(mockGetAccessToken(any))
             .thenAnswer((_) async => const Right(tAccessToken));
 
+        // assert later
+        final expected = [
+          Empty(),
+          Loading(),
+          const Loaded(),
+        ];
+
+        expectLater(provider.stream, emitsInOrder(expected));
+
         // act
         await provider.getToken();
-
-        // assert
-        expect(
-          provider.state,
-          const Loaded(value: tAccessToken),
-        );
       },
     );
 
     test(
-      'should notify Error when user is login fails',
+      'should notify [Loading, Error] when user is login fails',
       () async {
         // arrange
         when(mockGetAccessToken(any))
             .thenAnswer((_) async => Left(CacheFailure()));
 
+        // assert later
+        final expected = [
+          Empty(),
+          Loading(),
+          const Error(message: cacheFailureMessage),
+        ];
+
+        expectLater(provider.stream, emitsInOrder(expected));
+
         // act
         await provider.getToken();
-
-        // assert
-        expect(
-          provider.state,
-          const Error(message: cacheFailureMessage),
-        );
       },
     );
   });
@@ -117,36 +123,42 @@ void main() {
     );
 
     test(
-      'should notify Loaded when user is logged in successfully',
+      'should notify [Loading, Loaded] when user is logged in successfully',
       () async {
         // arrange
         when(mockLogin(any)).thenAnswer((_) async => const Right(tAccessToken));
 
+        // assert later
+        final expected = [
+          Empty(),
+          Loading(),
+          const Loaded(),
+        ];
+
+        expectLater(provider.stream, emitsInOrder(expected));
+
         // act
         await provider.login(tUserCredentials);
-
-        // assert
-        expect(
-          provider.state,
-          const Loaded<AccessToken>(value: tAccessToken),
-        );
       },
     );
 
     test(
-      'should notify Error when user is login fails',
+      'should notify [Loading, Error] when user is login fails',
       () async {
         // arrange
         when(mockLogin(any)).thenAnswer((_) async => Left(ServerFailure()));
 
+        // assert later
+        final expected = [
+          Empty(),
+          Loading(),
+          const Error(message: serverFailureMessage)
+        ];
+
+        expectLater(provider.stream, emitsInOrder(expected));
+
         // act
         await provider.login(tUserCredentials);
-
-        // assert
-        expect(
-          provider.state,
-          const Error(message: serverFailureMessage),
-        );
       },
     );
   });

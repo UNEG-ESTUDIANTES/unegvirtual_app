@@ -1,9 +1,8 @@
-import 'package:flutter/material.dart';
-
 import 'package:dartz/dartz.dart';
 
 import 'package:classroom_app/core/entities/access_token.dart';
 import 'package:classroom_app/core/error/failures.dart';
+import 'package:classroom_app/core/providers/base_provider.dart';
 import 'package:classroom_app/core/providers/page_state.dart';
 import 'package:classroom_app/core/use_cases/use_case.dart';
 import 'package:classroom_app/features/auth/domain/entities/user_credentials.dart';
@@ -16,22 +15,19 @@ const notFoundMessage = 'No ha sido encontrado';
 const serverFailureMessage = 'Ha ocurrido un error en el servidor';
 const cacheFailureMessage = 'Ha ocurrido un error en el caché';
 
-class AuthProvider extends ChangeNotifier {
-  PageState _state = Empty();
+class AuthProvider extends BaseProvider {
   final GetAccessToken getAccessTokenUseCase;
   final Login loginUseCase;
-
-  PageState get state => _state;
-
-  set state(PageState pageState) {
-    _state = pageState;
-    notifyListeners();
-  }
 
   AuthProvider({
     required this.getAccessTokenUseCase,
     required this.loginUseCase,
   });
+
+  AccessToken? _accessToken;
+
+  /// The user [accessToken].
+  AccessToken? get accessToken => _accessToken;
 
   /// Logs in with the [userCredentials].
   Future<void> login(UserCredentials userCredentials) async {
@@ -57,7 +53,10 @@ class AuthProvider extends ChangeNotifier {
   ) {
     failureOrAccessToken.fold(
       (failure) => state = Error(message: _getErrorMessage(failure)),
-      (accessToken) => state = Loaded(value: accessToken),
+      (accessToken) {
+        _accessToken = accessToken;
+        state = const Loaded();
+      },
     );
   }
 
