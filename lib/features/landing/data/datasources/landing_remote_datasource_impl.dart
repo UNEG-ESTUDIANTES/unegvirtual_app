@@ -1,6 +1,8 @@
 import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 
+import 'package:classroom_app/core/env/env.dart';
 import 'package:classroom_app/features/landing/data/models/course_model.dart';
 
 import '../../../../core/error/failures.dart';
@@ -16,7 +18,7 @@ class LandingRemoteDataSourceImpl implements LandingRemoteDataSource {
 
   @override
   Future<CourseModel> getCourses() =>
-      _getCoursesFromUrl('http://localhost:3000/v1/courses');
+      _getCoursesFromUrl('${Env.appUrl}/v1/courses');
 
   Future<CourseModel> _getCoursesFromUrl(String url) async {
     final response = await client

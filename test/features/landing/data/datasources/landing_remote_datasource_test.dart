@@ -1,13 +1,14 @@
-import 'package:classroom_app/core/error/failures.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import '../../../../fixtures/fixture_reader.dart';
-
+import 'package:classroom_app/core/env/env.dart';
+import 'package:classroom_app/core/error/failures.dart';
 import 'package:classroom_app/features/landing/data/datasources/landing_remote_datasource_impl.dart';
 import 'package:classroom_app/features/landing/data/models/course_model.dart';
+
+import '../../../../fixtures/fixture_reader.dart';
 
 @GenerateNiceMocks([MockSpec<http.Client>()])
 import 'landing_remote_datasource_test.mocks.dart';
@@ -35,7 +36,7 @@ void main() {
     test('should Get a request on a URL', () async {
       setUpMockHttpClientSuccess200Courses();
       dataSource.getCourses();
-      verify(mockHttpClient.get(Uri.parse('http://0.0.0.0:3000/v1/courses'),
+      verify(mockHttpClient.get(Uri.parse('${Env.appUrl}/v1/courses'),
           headers: {'Content-Type': 'application/json'}));
     });
 
