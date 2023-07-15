@@ -97,7 +97,7 @@ class _LoginFormState extends State<LoginForm> {
       ..showSnackBar(snackBar);
 
     // Navigates to main page.
-    if (authProviderState is Loaded) {
+    if (_state.status.isSuccess) {
       _resetForm();
       _navigateToMainPage();
     }
@@ -162,7 +162,7 @@ class _LoginFormState extends State<LoginForm> {
               ),
               label: const Text('Correo Electrónico'),
             ),
-            validator: (_) => _state.email.displayError?.text(),
+            validator: (_) => _state.email.error?.text(),
             keyboardType: TextInputType.emailAddress,
             textInputAction: TextInputAction.next,
           ),
@@ -179,7 +179,7 @@ class _LoginFormState extends State<LoginForm> {
                   hintText: 'ej: 1234',
                   label: const Text('Contraseña'),
                 ),
-                validator: (_) => _state.password.displayError?.text(),
+                validator: (_) => _state.password.error?.text(),
                 obscureText: true,
                 textInputAction: TextInputAction.done,
               ),
