@@ -67,6 +67,20 @@ void main() {
     );
 
     test(
+      'should display the user not found failure message',
+      () async {
+        // arrange
+        final failure = UserNotFoundFailure();
+
+        // act
+        final result = Utils.getErrorMessage(failure);
+
+        // assert
+        expect(result, userNotFoundFailureMessage);
+      },
+    );
+
+    test(
       'should display the unknown failure message',
       () async {
         // arrange
