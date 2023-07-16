@@ -148,7 +148,7 @@ void main() {
     );
 
     test(
-      'should throw a NotFoundException when status code is 404',
+      'should throw a UserNotFoundException when status code is 404',
       () async {
         // arrange
         setUpMockHttpClientError404();
@@ -159,7 +159,7 @@ void main() {
         // assert
         expect(
           () => call(tUserCredentialsModel),
-          throwsA(const TypeMatcher<NotFoundException>()),
+          throwsA(const TypeMatcher<UserNotFoundException>()),
         );
       },
     );

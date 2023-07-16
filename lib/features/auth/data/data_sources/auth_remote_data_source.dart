@@ -13,7 +13,7 @@ abstract class AuthRemoteDataSource {
   /// Throws an [UserCredentialsMismatchException] when the user credentials
   /// doesn't match.
   ///
-  /// Throws an [NotFoundException] when the user is not found.
+  /// Throws an [UserNotFoundException] when the user is not found.
   ///
   /// Otherwise throws a [ServerException] for all other error codes.
   Future<AccessTokenModel> login(UserCredentialsModel userCredentials);
@@ -37,7 +37,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
 
       if (response.statusCode == 401) throw UserCredentialsMismatchException();
 
-      if (response.statusCode == 404) throw NotFoundException();
+      if (response.statusCode == 404) throw UserNotFoundException();
 
       if (response.statusCode != 200) throw ServerException();
 
