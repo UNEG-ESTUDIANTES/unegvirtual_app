@@ -39,8 +39,8 @@ class AuthRepositoryImpl implements AuthRepository {
       return Right(accessToken);
     } on UserCredentialsMismatchException {
       return Left(UserCredentialsMismatchFailure());
-    } on NotFoundException {
-      return Left(NotFoundFailure());
+    } on UserNotFoundException {
+      return Left(UserNotFoundFailure());
     } on ServerException {
       return Left(ServerFailure());
     }

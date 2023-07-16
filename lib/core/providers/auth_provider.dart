@@ -5,15 +5,10 @@ import 'package:classroom_app/core/error/failures.dart';
 import 'package:classroom_app/core/providers/base_provider.dart';
 import 'package:classroom_app/core/providers/page_state.dart';
 import 'package:classroom_app/core/use_cases/use_case.dart';
+import 'package:classroom_app/core/utils/utils.dart';
 import 'package:classroom_app/features/auth/domain/entities/user_credentials.dart';
 import 'package:classroom_app/features/auth/domain/use_cases/get_access_token.dart';
 import 'package:classroom_app/features/auth/domain/use_cases/login.dart';
-
-// Error messages.
-const userCredentialsMismatchMessage = 'El email y contraseña no coinciden';
-const notFoundMessage = 'No ha sido encontrado';
-const serverFailureMessage = 'Ha ocurrido un error en el servidor';
-const cacheFailureMessage = 'Ha ocurrido un error en el caché';
 
 class AuthProvider extends BaseProvider {
   final GetAccessToken getAccessTokenUseCase;
@@ -52,31 +47,11 @@ class AuthProvider extends BaseProvider {
     Either<Failure, AccessToken> failureOrAccessToken,
   ) {
     failureOrAccessToken.fold(
-      (failure) => state = Error(message: _getErrorMessage(failure)),
+      (failure) => state = Error(message: Utils.getErrorMessage(failure)),
       (accessToken) {
         _accessToken = accessToken;
         state = const Loaded();
       },
     );
-  }
-
-  /// Gets the error message according to the [failure].
-  String _getErrorMessage(Failure failure) {
-    switch (failure.runtimeType) {
-      case UserCredentialsMismatchFailure:
-        return userCredentialsMismatchMessage;
-
-      case NotFoundFailure:
-        return notFoundMessage;
-
-      case ServerFailure:
-        return serverFailureMessage;
-
-      case CacheFailure:
-        return cacheFailureMessage;
-
-      default:
-        return 'Ha ocurrido un error desconocido';
-    }
   }
 }
