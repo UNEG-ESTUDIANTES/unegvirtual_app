@@ -1,6 +1,8 @@
+import 'package:dartz/dartz.dart';
+
+import 'package:classroom_app/core/error/exceptions.dart';
 import 'package:classroom_app/features/landing/domain/entities/course.dart';
 import 'package:classroom_app/features/landing/domain/repositories/landing_repository.dart';
-import 'package:dartz/dartz.dart';
 
 import '../../../../core/error/failures.dart';
 import '../../../../core/network/network_info.dart';
@@ -15,10 +17,14 @@ class LandingRepositoryImpl implements LandingRepository {
 
   @override
   Future<Either<Failure, Courses>> getCourses() async {
-    if (await network.isConnected) {
-      final remoteResult = await remote.getCourses();
-      return Right(remoteResult);
+    final isConnected = await network.isConnected;
+
+    if (!isConnected) return Left(ServerFailure());
+
+    try {
+      return Right(await remote.getCourses());
+    } on ServerException {
+      return Left(ServerFailure());
     }
-    return Left(ServerFailure());
   }
 }
