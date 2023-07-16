@@ -1,14 +1,14 @@
+import 'package:classroom_app/features/landing/domain/entities/course.dart';
 import 'package:flutter/material.dart';
 
-import 'package:classroom_app/core/entities/career.dart';
 import 'package:classroom_app/features/landing/presentation/widgets/career_card.dart';
 import 'package:classroom_app/features/landing/presentation/widgets/section.dart';
 
 class CareersSlider extends StatelessWidget {
   /// The [careers] to display.
-  final List<Career> careers;
+  final Courses courses;
 
-  const CareersSlider(this.careers, {super.key});
+  const CareersSlider(this.courses, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,18 +16,18 @@ class CareersSlider extends StatelessWidget {
 
     return Section(
       title: 'Carreras Universitarias',
-      child: careers.isNotEmpty
+      child: courses.courses.isNotEmpty
           ? SizedBox(
               height: height,
               child: ListView.separated(
                 padding: const EdgeInsets.symmetric(horizontal: 24),
                 scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) => CareerCard(
-                  careers[index],
+                itemBuilder: (context, index) => CourseCard(
+                  courses.courses[index],
                   maxHeight: height,
                 ),
                 separatorBuilder: (context, index) => const SizedBox(width: 16),
-                itemCount: careers.length,
+                itemCount: courses.courses.length,
               ),
             )
           : Container(
