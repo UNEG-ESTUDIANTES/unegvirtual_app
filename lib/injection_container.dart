@@ -16,11 +16,6 @@ import 'package:classroom_app/features/auth/data/repositories/auth_repository_im
 import 'package:classroom_app/features/auth/domain/repository/auth_repository.dart';
 import 'package:classroom_app/features/auth/domain/use_cases/get_access_token.dart';
 import 'package:classroom_app/features/auth/domain/use_cases/login.dart';
-import 'package:classroom_app/features/landing/data/datasources/landing_remote_datasource_impl.dart';
-import 'package:classroom_app/features/landing/data/repositories/landing_repository_impl.dart';
-import 'package:classroom_app/features/landing/domain/repositories/landing_repository.dart';
-import 'package:classroom_app/features/landing/domain/usecases/get_courses.dart';
-import 'package:classroom_app/features/landing/presentation/notifiers/landing_notifier.dart';
 
 final sl = GetIt.instance;
 
@@ -46,26 +41,6 @@ Future<void> init() async {
 
   sl.registerLazySingleton<AuthRemoteDataSource>(
     () => AuthRemoteDataSourceImpl(client: sl()),
-  );
-
-  //* Features - Landing.
-  // Providers.
-  sl.registerLazySingleton(() => LandingNotifier(getCourses: sl()));
-
-  // Use Cases.
-  sl.registerLazySingleton(() => GetCourses(sl()));
-
-  // Repository.
-  sl.registerLazySingleton<LandingRepository>(
-    () => LandingRepositoryImpl(
-      remote: sl(),
-      network: sl(),
-    ),
-  );
-
-  // Data sources.
-  sl.registerLazySingleton<LandingRemoteDataSource>(
-    () => LandingRemoteDataSourceImpl(client: sl()),
   );
 
   //* Core
