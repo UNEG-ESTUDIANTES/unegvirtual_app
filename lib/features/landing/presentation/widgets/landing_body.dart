@@ -24,24 +24,24 @@ class LandingBody extends StatelessWidget {
       return Container();
     }
 
-    if (state is Loading) return const LoadingDisplay();
-
     if (state is Error) {
       WidgetsBinding.instance.addPostFrameCallback(
         (_) => NotificationsService.showSnackBar(state.message),
       );
     }
 
-    final courses = state is Loading
-        ? landingProvider.courses!
-        : const Courses(courses: []);
+    final courses =
+        state is Loaded ? landingProvider.courses! : const Courses(courses: []);
 
     return SingleChildScrollView(
       child: Column(
         children: [
           const HeroSection(),
           const SizedBox(height: 64),
-          CareersSlider(courses),
+          if (state is Loaded)
+            CareersSlider(courses)
+          else
+            const LoadingDisplay(),
           const SizedBox(height: 64),
           const Footer(),
         ],
