@@ -38,10 +38,10 @@ class LandingBody extends StatelessWidget {
         children: [
           const HeroSection(),
           const SizedBox(height: 64),
-          if (state is Loaded)
-            CareersSlider(courses)
+          if (state is Loading)
+            const LoadingDisplay()
           else
-            const LoadingDisplay(),
+            CareersSlider(courses),
           const SizedBox(height: 64),
           const Footer(),
         ],
