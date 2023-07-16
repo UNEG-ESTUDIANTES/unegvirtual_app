@@ -1,4 +1,4 @@
-import 'package:classroom_app/features/landing/data/models/course_model.dart';
+import 'package:classroom_app/core/models/course_model.dart';
 import 'package:equatable/equatable.dart';
 
 class Courses extends Equatable {

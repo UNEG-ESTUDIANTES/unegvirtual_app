@@ -4,19 +4,19 @@
 
 import 'dart:convert';
 
-import 'package:classroom_app/features/landing/domain/entities/course.dart';
+import 'package:classroom_app/core/entities/courses.dart';
 
-CourseModel courseFromJson(String str) =>
-    CourseModel.fromJson(json.decode(str));
+CoursesModel courseFromJson(String str) =>
+    CoursesModel.fromJson(json.decode(str));
 
-String courseToJson(CourseModel data) => json.encode(data.toJson());
+String courseToJson(CoursesModel data) => json.encode(data.toJson());
 
-class CourseModel extends Courses {
-  CourseModel({
+class CoursesModel extends Courses {
+  CoursesModel({
     required List<CourseElement> courses,
   }) : super(courses: courses);
 
-  factory CourseModel.fromJson(Map<String, dynamic> json) => CourseModel(
+  factory CoursesModel.fromJson(Map<String, dynamic> json) => CoursesModel(
         courses: List<CourseElement>.from(
             json["courses"].map((x) => CourseElement.fromJson(x))),
       );
@@ -30,22 +30,26 @@ class CourseElement {
   String id;
   String name;
   String description;
+  String teacherId;
 
   CourseElement({
     required this.id,
     required this.name,
     required this.description,
+    required this.teacherId,
   });
 
   factory CourseElement.fromJson(Map<String, dynamic> json) => CourseElement(
         id: json["_id"],
         name: json["name"],
         description: json["description"],
+        teacherId: json["teacherId"],
       );
 
   Map<String, dynamic> toJson() => {
         "_id": id,
         "name": name,
         "description": description,
+        "teacherId": teacherId,
       };
 }

@@ -1,5 +1,5 @@
-import 'package:classroom_app/core/entities/course.dart';
-import 'package:classroom_app/features/landing/data/models/course_model.dart';
+import 'package:classroom_app/core/entities/courses.dart';
+import 'package:classroom_app/core/models/course_model.dart';
 import 'package:flutter/material.dart';
 
 import 'package:classroom_app/core/entities/career.dart';

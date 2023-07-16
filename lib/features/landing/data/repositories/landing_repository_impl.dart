@@ -1,4 +1,4 @@
-import 'package:classroom_app/features/landing/domain/entities/course.dart';
+import 'package:classroom_app/core/entities/courses.dart';
 import 'package:classroom_app/features/landing/domain/repositories/landing_repository.dart';
 import 'package:dartz/dartz.dart';
 

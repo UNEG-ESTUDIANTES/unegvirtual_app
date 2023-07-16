@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:classroom_app/features/landing/data/models/course_model.dart';
+import 'package:classroom_app/core/models/course_model.dart';
 import 'package:classroom_app/features/landing/data/repositories/landing_repository_impl.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -39,7 +39,7 @@ void main() {
 
   group('Get Sports List', () {
     final coursesList =
-        CourseModel.fromJson(json.decode(fixture('courses_search.json')));
+        CoursesModel.fromJson(json.decode(fixture('courses_search.json')));
 
     test('should check if the device is online', () async {
       when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);

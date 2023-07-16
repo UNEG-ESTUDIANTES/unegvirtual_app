@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:responsive_builder/responsive_builder.dart';
 
-import 'package:classroom_app/core/entities/course.dart';
+import 'package:classroom_app/core/models/course_model.dart';
+
 import 'package:classroom_app/features/home/presentation/widgets/course_card.dart';
 
 class HomePage extends StatelessWidget {
@@ -61,10 +62,12 @@ class HomePage extends StatelessWidget {
               mainAxisExtent: 200,
             ),
             itemBuilder: (context, index) {
-              return const CourseCard(
-                course: Course(
-                  name: 'Tecnicas de Programación I',
-                ),
+              return CourseCard(
+                course: CourseElement(
+                    id: '12345',
+                    name: 'programacion',
+                    description: 'aprende',
+                    teacherId: '123'),
                 completedPercentage: 32,
               );
             },

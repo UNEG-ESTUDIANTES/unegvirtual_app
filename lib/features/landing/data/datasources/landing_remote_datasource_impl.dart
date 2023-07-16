@@ -3,12 +3,12 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 import 'package:classroom_app/core/env/env.dart';
-import 'package:classroom_app/features/landing/data/models/course_model.dart';
+import 'package:classroom_app/core/models/course_model.dart';
 
 import '../../../../core/error/failures.dart';
 
 abstract class LandingRemoteDataSource {
-  Future<CourseModel> getCourses();
+  Future<CoursesModel> getCourses();
 }
 
 class LandingRemoteDataSourceImpl implements LandingRemoteDataSource {
@@ -17,14 +17,14 @@ class LandingRemoteDataSourceImpl implements LandingRemoteDataSource {
   LandingRemoteDataSourceImpl({required this.client});
 
   @override
-  Future<CourseModel> getCourses() =>
+  Future<CoursesModel> getCourses() =>
       _getCoursesFromUrl('${Env.appUrl}/v1/courses');
 
-  Future<CourseModel> _getCoursesFromUrl(String url) async {
+  Future<CoursesModel> _getCoursesFromUrl(String url) async {
     final response = await client
         .get(Uri.parse(url), headers: {'Content-Type': 'application/json'});
     if (response.statusCode == 200) {
-      final result = CourseModel.fromJson(json.decode(response.body));
+      final result = CoursesModel.fromJson(json.decode(response.body));
       return result;
     } else {
       throw ServerFailure();

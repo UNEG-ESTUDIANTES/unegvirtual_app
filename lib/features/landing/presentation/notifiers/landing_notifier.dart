@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:classroom_app/features/landing/domain/entities/course.dart';
+import 'package:classroom_app/core/entities/courses.dart';
 import 'package:classroom_app/features/landing/domain/usecases/get_courses.dart';
 
 import '../../../../core/use_cases/use_case.dart';

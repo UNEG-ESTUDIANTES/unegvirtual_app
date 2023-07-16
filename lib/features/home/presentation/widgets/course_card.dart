@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 import 'package:circular_chart_flutter/circular_chart_flutter.dart';
 
-import 'package:classroom_app/core/entities/course.dart';
+import '../../../../core/models/course_model.dart';
 
 class CourseCard extends StatelessWidget {
-  final Course course;
+  final CourseElement course;
   final int completedPercentage;
 
   const CourseCard({
