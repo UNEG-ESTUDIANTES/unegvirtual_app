@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import 'package:classroom_app/features/auth/presentation/pages/login_page.dart';
-import 'package:classroom_app/features/landing/presentation/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
 import 'package:classroom_app/core/widgets/loading_display.dart';
+import 'package:classroom_app/features/auth/presentation/pages/login_page.dart';
+import 'package:classroom_app/features/landing/presentation/widgets/widgets.dart';
 
 import '../notifiers/landing_notifier.dart';
 
@@ -32,24 +32,23 @@ class _LandingPageState extends State<LandingPage> {
 
   Widget _body() {
     final isLoading = context.select((LandingNotifier n) => n.isLoading);
-    final error = context.select((LandingNotifier n) => n.error);
     final courses = context.select((LandingNotifier n) => n.courses);
 
     if (!isLoading!) {
       return SingleChildScrollView(
         child: Column(
           children: [
-            HeroSection(),
-            SizedBox(height: 64),
+            const HeroSection(),
+            const SizedBox(height: 64),
             CareersSlider(courses!),
-            SizedBox(height: 64),
-            Footer(),
+            const SizedBox(height: 64),
+            const Footer(),
           ],
         ),
       );
     } else if (isLoading) {
       context.read<LandingNotifier>().getCoursesList();
-      return LoadingDisplay();
+      return const LoadingDisplay();
     } else {
       return Container();
     }

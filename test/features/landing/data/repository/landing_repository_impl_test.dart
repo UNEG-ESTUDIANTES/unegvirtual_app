@@ -1,17 +1,17 @@
 import 'dart:convert';
 
-import 'package:classroom_app/features/landing/data/models/course_model.dart';
-import 'package:classroom_app/features/landing/data/repositories/landing_repository_impl.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import '../../../../../lib/core/network/network_info.dart';
-
+import 'package:classroom_app/core/network/network_info.dart';
 import 'package:classroom_app/features/landing/data/datasources/landing_remote_datasource_impl.dart';
+import 'package:classroom_app/features/landing/data/models/course_model.dart';
+import 'package:classroom_app/features/landing/data/repositories/landing_repository_impl.dart';
 
 import '../../../../fixtures/fixture_reader.dart';
+
 @GenerateNiceMocks(
     [MockSpec<LandingRemoteDataSourceImpl>(), MockSpec<NetworkInfo>()])
 import 'landing_repository_impl_test.mocks.dart';
@@ -56,9 +56,6 @@ void main() {
         final result = await repository.getCourses();
 
         verify(mockRemoteDataSource.getCourses());
-        final r = Right(result);
-        print(r.runtimeType);
-        print(coursesList.runtimeType);
         expect(result, equals(Right(coursesList)));
       });
     });

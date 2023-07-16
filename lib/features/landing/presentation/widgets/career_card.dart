@@ -1,8 +1,6 @@
-import 'package:classroom_app/core/entities/course.dart';
-import 'package:classroom_app/features/landing/data/models/course_model.dart';
 import 'package:flutter/material.dart';
 
-import 'package:classroom_app/core/entities/career.dart';
+import 'package:classroom_app/features/landing/data/models/course_model.dart';
 
 class CourseCard extends StatelessWidget {
   /// The [career] to display.
@@ -49,7 +47,7 @@ class CourseCard extends StatelessWidget {
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  SizedBox(height: 5),
+                  const SizedBox(height: 4),
                   Text(
                     course.description,
                     overflow: TextOverflow.ellipsis,

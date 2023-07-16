@@ -23,7 +23,6 @@ class LandingNotifier extends ChangeNotifier {
     error = '';
 
     final result = await _getCourses(NoParams());
-    print(result);
 
     // Handle success or error
     result.fold(

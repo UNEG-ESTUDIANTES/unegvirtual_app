@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
 class LoadingDisplay extends StatelessWidget {
+  const LoadingDisplay({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: MediaQuery.of(context).size.height / 3,
-      child: Center(
+      child: const Center(
         child: SingleChildScrollView(child: CircularProgressIndicator()),
       ),
     );
