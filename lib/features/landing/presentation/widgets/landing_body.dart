@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:classroom_app/core/providers/page_state.dart';
+import 'package:classroom_app/core/services/notifications_service.dart';
 import 'package:classroom_app/core/widgets/loading_display.dart';
 import 'package:classroom_app/features/landing/domain/entities/course.dart';
 import 'package:classroom_app/features/landing/presentation/providers/landing_provider.dart';
@@ -24,6 +25,12 @@ class LandingBody extends StatelessWidget {
     }
 
     if (state is Loading) return const LoadingDisplay();
+
+    if (state is Error) {
+      WidgetsBinding.instance.addPostFrameCallback(
+        (_) => NotificationsService.showSnackBar(state.message),
+      );
+    }
 
     final courses = state is Loading
         ? landingProvider.courses!
