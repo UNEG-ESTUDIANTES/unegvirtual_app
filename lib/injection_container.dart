@@ -20,7 +20,7 @@ import 'package:classroom_app/features/landing/data/datasources/landing_remote_d
 import 'package:classroom_app/features/landing/data/repositories/landing_repository_impl.dart';
 import 'package:classroom_app/features/landing/domain/repositories/landing_repository.dart';
 import 'package:classroom_app/features/landing/domain/usecases/get_courses.dart';
-import 'package:classroom_app/features/landing/presentation/notifiers/landing_notifier.dart';
+import 'package:classroom_app/features/landing/presentation/providers/landing_provider.dart';
 
 final sl = GetIt.instance;
 
@@ -50,7 +50,7 @@ Future<void> init() async {
 
   //* Features - Landing.
   // Providers.
-  sl.registerLazySingleton(() => LandingNotifier(getCourses: sl()));
+  sl.registerLazySingleton(() => LandingProvider(getCourses: sl()));
 
   // Use Cases.
   sl.registerLazySingleton(() => GetCourses(sl()));

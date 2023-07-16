@@ -4,9 +4,10 @@ import 'package:provider/provider.dart';
 
 import 'package:classroom_app/core/pages/main_page.dart';
 import 'package:classroom_app/core/providers/auth_provider.dart';
+import 'package:classroom_app/core/services/notifications_service.dart';
 import 'package:classroom_app/features/auth/presentation/pages/forgot_page.dart';
 import 'package:classroom_app/features/home/presentation/pages/home_page.dart';
-import 'package:classroom_app/features/landing/presentation/notifiers/landing_notifier.dart';
+import 'package:classroom_app/features/landing/presentation/providers/landing_provider.dart';
 import 'package:classroom_app/injection_container.dart' as di;
 
 import 'features/auth/presentation/pages/login_page.dart';
@@ -34,13 +35,14 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => di.sl<AuthProvider>(),
         ),
-        ChangeNotifierProvider<LandingNotifier>(
-          create: (_) => di.sl<LandingNotifier>(),
+        ChangeNotifierProvider<LandingProvider>(
+          create: (_) => di.sl<LandingProvider>(),
         ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'UNEG Classroom',
+        scaffoldMessengerKey: NotificationsService.messengerKey,
         initialRoute: LandingPage.routeName,
         routes: {
           LandingPage.routeName: (_) => const LandingPage(),

@@ -12,7 +12,7 @@ CourseModel courseFromJson(String str) =>
 String courseToJson(CourseModel data) => json.encode(data.toJson());
 
 class CourseModel extends Courses {
-  CourseModel({
+  const CourseModel({
     required List<CourseElement> courses,
   }) : super(courses: courses);
 
