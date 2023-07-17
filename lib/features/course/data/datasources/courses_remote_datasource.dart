@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:classroom_app/core/providers/auth_provider.dart';
 import 'package:classroom_app/features/course/data/models/inscription_model.dart';
+import 'package:classroom_app/features/course/domain/entities/multi_enroll.dart';
 import 'package:classroom_app/features/course/domain/entities/new_course.dart';
 import 'package:classroom_app/features/course/domain/usecases/enroled_courses.dart';
 import 'package:http/http.dart' as http;
@@ -16,6 +17,7 @@ abstract class CoursesRemoteDataSource {
   Future<CourseElement> postCourse(NewCourse newCourse);
   Future<InscriptionModel> enrollStudent(Inscription inscription);
   Future<CoursesModel> enroledCourses(String id);
+  Future<void> multiStudentEnroll(MultiEnroll multiEnroll);
 }
 
 class CoursesRemoteDataSourceImpl implements CoursesRemoteDataSource {
@@ -88,6 +90,25 @@ class CoursesRemoteDataSourceImpl implements CoursesRemoteDataSource {
         .get(Uri.parse(url), headers: {'Content-Type': 'application/json'});
     if (response.statusCode == 200) {
       final result = CoursesModel.fromJson(json.decode(response.body));
+      return result;
+    } else {
+      throw ServerFailure();
+    }
+  }
+
+  @override
+  Future<InscriptionModel> multiStudentEnroll(MultiEnroll multiEnroll) =>
+      _multiStudentenroll(
+          '${Env.appUrl}/v1/courses/enroll-multiple-users', multiEnroll);
+
+  Future<InscriptionModel> _multiStudentenroll(
+      String url, MultiEnroll multiEnroll) async {
+    final response = await client.post(Uri.parse(url), headers: {
+      'Content-Type': 'application/json',
+      'Authorization': multiEnroll.auth!
+    });
+    if (response.statusCode == 200) {
+      final result = InscriptionModel.fromJson(json.decode(response.body));
       return result;
     } else {
       throw ServerFailure();

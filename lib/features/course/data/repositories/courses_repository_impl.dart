@@ -1,4 +1,5 @@
 import 'package:classroom_app/features/course/domain/entities/inscription.dart';
+import 'package:classroom_app/features/course/domain/entities/multi_enroll.dart';
 import 'package:classroom_app/features/course/domain/entities/new_course.dart';
 import 'package:classroom_app/features/course/domain/repositories/courses_repository.dart';
 import 'package:dartz/dartz.dart';
@@ -49,6 +50,16 @@ class CoursesRepositoryImpl implements CoursesRepository {
     if (await network.isConnected) {
       final remoteResult = await remote.enroledCourses(studentId);
       return Right(remoteResult);
+    }
+    return Left(ServerFailure());
+  }
+
+  @override
+  Future<Either<Failure, bool>> multiStudentsEnroll(
+      MultiEnroll multiEnroll) async {
+    if (await network.isConnected) {
+      await remote.multiStudentEnroll(multiEnroll);
+      return const Right(true);
     }
     return Left(ServerFailure());
   }

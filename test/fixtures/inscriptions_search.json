@@ -1,0 +1,16 @@
+{
+    "inscriptions": [
+        {
+            "studentId": "64b4868166d7f87437caaf50",
+            "courseId": "64b352bea95adad7e9643a0c"
+        },
+        {
+            "studentId": "64b4867066d7f87437caaf4d",
+            "courseId": "64b352bea95adad7e9643a0c"
+        },
+        {
+            "studentId": "64b4864866d7f87437caaf49",
+            "courseId": "64b352bea95adad7e9643a0c"
+        }
+    ]
+}
