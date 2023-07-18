@@ -9,3 +9,5 @@ class NotFoundException implements Exception {}
 class NoInternetConnectionException implements Exception {}
 
 class UserCredentialsMismatchException implements Exception {}
+
+class NotAuthorizedException implements Exception {}

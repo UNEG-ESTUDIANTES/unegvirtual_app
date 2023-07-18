@@ -13,12 +13,12 @@ import 'package:classroom_app/features/course/data/datasources/courses_remote_da
     as _i5;
 import 'package:classroom_app/features/course/data/models/inscription_model.dart'
     as _i4;
+import 'package:classroom_app/features/course/data/models/new_course_model.dart'
+    as _i7;
 import 'package:classroom_app/features/course/domain/entities/inscription.dart'
     as _i9;
 import 'package:classroom_app/features/course/domain/entities/multi_enroll.dart'
     as _i10;
-import 'package:classroom_app/features/course/domain/entities/new_course.dart'
-    as _i7;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -92,7 +92,7 @@ class MockCoursesRemoteDataSource extends _i1.Mock
       ) as _i6.Future<_i2.CoursesModel>);
   @override
   _i6.Future<_i3.CourseModel> postCourse({
-    required _i7.NewCourse? newCourse,
+    required _i7.NewCourseModel? newCourse,
     required _i8.AccessToken? accessToken,
   }) =>
       (super.noSuchMethod(

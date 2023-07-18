@@ -1,0 +1,8 @@
+{
+	"course": {
+		"_id": "test",
+		"name": "test",
+		"description": "test",
+		"teacherId": "test"
+	}
+}
