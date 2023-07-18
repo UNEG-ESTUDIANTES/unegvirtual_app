@@ -40,6 +40,40 @@ void main() {
     );
   });
 
+  group('fromEntity', () {
+    const tCourse = Course(
+      id: 'test',
+      description: 'test',
+      name: 'test',
+      teacherId: 'test',
+    );
+
+    test(
+      'should return a CourseModel',
+      () async {
+        // act
+        final result = CourseModel.fromEntity(tCourse);
+
+        // assert
+        expect(result, isA<CourseModel>());
+      },
+    );
+
+    test(
+      'should contain the same data as the CourseModel',
+      () async {
+        // act
+        final result = CourseModel.fromEntity(tCourse);
+
+        // assert
+        expect(result.description, tCourse.description);
+        expect(result.id, tCourse.id);
+        expect(result.name, tCourse.name);
+        expect(result.teacherId, tCourse.teacherId);
+      },
+    );
+  });
+
   group('toJson', () {
     test(
       'should return a JSON map containing the proper data',

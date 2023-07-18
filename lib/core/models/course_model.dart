@@ -18,6 +18,16 @@ class CourseModel extends Course {
     );
   }
 
+  /// Returns an [CourseModel] from the [course].
+  factory CourseModel.fromEntity(Course course) {
+    return CourseModel(
+      id: course.id,
+      name: course.name,
+      description: course.description,
+      teacherId: course.teacherId,
+    );
+  }
+
   /// Converts the [CourseModel] to JSON.
   Map<String, dynamic> toJson() {
     return {
