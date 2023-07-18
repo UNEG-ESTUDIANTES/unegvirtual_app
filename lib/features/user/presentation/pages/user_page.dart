@@ -29,20 +29,29 @@ class UserPage extends StatelessWidget {
 
     if (userProviderState is Loading) return const LoadingDisplay();
 
+    if (userProviderState is Error) {
+      return Center(
+        child: Text(userProviderState.message),
+      );
+    }
+
+    if (userProvider.user == null) return Container();
+
     return SingleChildScrollView(
       padding: const EdgeInsets.all(24.0),
-      child: userProviderState is Error
-          ? Center(
-              child: Text(userProviderState.message),
-            )
-          : Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                BasicInfo(user: userProvider.user!),
-                const Divider(height: 32),
-                const UserData(),
-              ],
-            ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            width: double.infinity,
+            child: BasicInfo(user: userProvider.user!),
+          ),
+          const SizedBox(height: 16),
+          const Divider(),
+          const SizedBox(height: 16),
+          UserData(user: userProvider.user!),
+        ],
+      ),
     );
   }
 }

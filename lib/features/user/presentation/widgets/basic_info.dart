@@ -16,30 +16,25 @@ class BasicInfo extends StatelessWidget {
       builder: (context, constraints) {
         if (constraints.maxWidth > 600) {
           return Row(
-            children: const [
-              CircleAvatar(
-                backgroundImage: AssetImage(
-                  'assets/profile_xample.png',
-                ),
-                radius: 80,
+            children: [
+              const CircleAvatar(
+                radius: 48,
               ),
-              SizedBox(width: 24),
-              _UserDescription(),
+              const SizedBox(width: 24),
+              _UserDescription(user: user),
             ],
           );
         }
 
         return Column(
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: const [
-            CircleAvatar(
-              backgroundImage: AssetImage(
-                'assets/profile_xample.png',
-              ),
+          children: [
+            const CircleAvatar(
               radius: 48,
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             _UserDescription(
+              user: user,
               crossAxisAlignment: CrossAxisAlignment.center,
             ),
           ],
@@ -50,9 +45,10 @@ class BasicInfo extends StatelessWidget {
 }
 
 class _UserDescription extends StatelessWidget {
+  final User user;
   final CrossAxisAlignment? crossAxisAlignment;
 
-  const _UserDescription({this.crossAxisAlignment});
+  const _UserDescription({this.crossAxisAlignment, required this.user});
 
   @override
   Widget build(BuildContext context) {
@@ -62,11 +58,13 @@ class _UserDescription extends StatelessWidget {
       crossAxisAlignment: crossAxisAlignment ?? CrossAxisAlignment.start,
       children: [
         Text(
-          'Xiao Yaksha',
+          '${user.firstName} ${user.lastName}',
           style: textTheme.titleLarge?.copyWith(
             fontWeight: FontWeight.bold,
           ),
         ),
+        const SizedBox(height: 4),
+        Text(user.email),
       ],
     );
   }
