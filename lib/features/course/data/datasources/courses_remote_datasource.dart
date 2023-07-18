@@ -14,20 +14,35 @@ import '../../../../core/models/courses_model.dart';
 import '../../domain/entities/inscription.dart';
 
 abstract class CoursesRemoteDataSource {
+  /// Calls the `/v1/courses` endpoint.
+  ///
+  /// Throws a [ServerException] for all error codes.
   Future<CoursesModel> getCourses();
 
+  /// Calls the `/v1/courses` endpoint.
+  ///
+  /// Throws a [ServerException] for all error codes.
   Future<CourseModel> postCourse({
     required NewCourse newCourse,
     required AccessToken accessToken,
   });
 
+  /// Calls the `/v1/courses/:courseId/users/:userId/inscriptions` endpoint.
+  ///
+  /// Throws a [ServerException] for all error codes.
   Future<InscriptionModel> enrollStudent({
     required Inscription inscription,
     required AccessToken accessToken,
   });
 
+  /// Calls the `/v1/enrolledCourses` endpoint.
+  ///
+  /// Throws a [ServerException] for all error codes.
   Future<CoursesModel> enroledCourses(AccessToken accessToken);
 
+  /// Calls the `/v1/courses/enroll-multiple-users` endpoint.
+  ///
+  /// Throws a [ServerException] for all error codes.
   Future<void> multiStudentEnroll({
     required MultiEnroll multiEnroll,
     required AccessToken accessToken,
