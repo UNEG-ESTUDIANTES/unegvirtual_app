@@ -21,6 +21,12 @@ class UserPage extends StatelessWidget {
     final userProvider = context.watch<UserProvider>();
     final userProviderState = userProvider.state;
 
+    if (authProvider.accessToken == null) {
+      return const Center(
+        child: Text('Debe iniciar sesión para mostrar su usuario'),
+      );
+    }
+
     if (userProviderState is Empty) {
       userProvider.getCurrentUser(authProvider.accessToken!);
     }
@@ -33,7 +39,11 @@ class UserPage extends StatelessWidget {
       );
     }
 
-    if (userProvider.user == null) return Container();
+    if (userProvider.user == null) {
+      return const Center(
+        child: Text('No hay usuario por mostrar'),
+      );
+    }
 
     return SingleChildScrollView(
       padding: const EdgeInsets.all(24.0),
