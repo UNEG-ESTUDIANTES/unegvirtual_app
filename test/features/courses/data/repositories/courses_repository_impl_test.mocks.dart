@@ -5,17 +5,18 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i6;
 
+import 'package:classroom_app/core/entities/access_token.dart' as _i8;
 import 'package:classroom_app/core/models/course_model.dart' as _i3;
 import 'package:classroom_app/core/models/courses_model.dart' as _i2;
-import 'package:classroom_app/core/network/network_info.dart' as _i10;
+import 'package:classroom_app/core/network/network_info.dart' as _i11;
 import 'package:classroom_app/features/course/data/datasources/courses_remote_datasource.dart'
     as _i5;
 import 'package:classroom_app/features/course/data/models/inscription_model.dart'
     as _i4;
 import 'package:classroom_app/features/course/domain/entities/inscription.dart'
-    as _i8;
-import 'package:classroom_app/features/course/domain/entities/multi_enroll.dart'
     as _i9;
+import 'package:classroom_app/features/course/domain/entities/multi_enroll.dart'
+    as _i10;
 import 'package:classroom_app/features/course/domain/entities/new_course.dart'
     as _i7;
 import 'package:mockito/mockito.dart' as _i1;
@@ -90,17 +91,26 @@ class MockCoursesRemoteDataSource extends _i1.Mock
         )),
       ) as _i6.Future<_i2.CoursesModel>);
   @override
-  _i6.Future<_i3.CourseModel> postCourse(_i7.NewCourse? newCourse) =>
+  _i6.Future<_i3.CourseModel> postCourse(
+    _i7.NewCourse? newCourse,
+    _i8.AccessToken? accessToken,
+  ) =>
       (super.noSuchMethod(
         Invocation.method(
           #postCourse,
-          [newCourse],
+          [
+            newCourse,
+            accessToken,
+          ],
         ),
         returnValue: _i6.Future<_i3.CourseModel>.value(_FakeCourseModel_1(
           this,
           Invocation.method(
             #postCourse,
-            [newCourse],
+            [
+              newCourse,
+              accessToken,
+            ],
           ),
         )),
         returnValueForMissingStub:
@@ -108,24 +118,35 @@ class MockCoursesRemoteDataSource extends _i1.Mock
           this,
           Invocation.method(
             #postCourse,
-            [newCourse],
+            [
+              newCourse,
+              accessToken,
+            ],
           ),
         )),
       ) as _i6.Future<_i3.CourseModel>);
   @override
   _i6.Future<_i4.InscriptionModel> enrollStudent(
-          _i8.Inscription? inscription) =>
+    _i9.Inscription? inscription,
+    _i8.AccessToken? accessToken,
+  ) =>
       (super.noSuchMethod(
         Invocation.method(
           #enrollStudent,
-          [inscription],
+          [
+            inscription,
+            accessToken,
+          ],
         ),
         returnValue:
             _i6.Future<_i4.InscriptionModel>.value(_FakeInscriptionModel_2(
           this,
           Invocation.method(
             #enrollStudent,
-            [inscription],
+            [
+              inscription,
+              accessToken,
+            ],
           ),
         )),
         returnValueForMissingStub:
@@ -133,22 +154,25 @@ class MockCoursesRemoteDataSource extends _i1.Mock
           this,
           Invocation.method(
             #enrollStudent,
-            [inscription],
+            [
+              inscription,
+              accessToken,
+            ],
           ),
         )),
       ) as _i6.Future<_i4.InscriptionModel>);
   @override
-  _i6.Future<_i2.CoursesModel> enroledCourses(String? id) =>
+  _i6.Future<_i2.CoursesModel> enroledCourses(_i8.AccessToken? accessToken) =>
       (super.noSuchMethod(
         Invocation.method(
           #enroledCourses,
-          [id],
+          [accessToken],
         ),
         returnValue: _i6.Future<_i2.CoursesModel>.value(_FakeCoursesModel_0(
           this,
           Invocation.method(
             #enroledCourses,
-            [id],
+            [accessToken],
           ),
         )),
         returnValueForMissingStub:
@@ -156,16 +180,22 @@ class MockCoursesRemoteDataSource extends _i1.Mock
           this,
           Invocation.method(
             #enroledCourses,
-            [id],
+            [accessToken],
           ),
         )),
       ) as _i6.Future<_i2.CoursesModel>);
   @override
-  _i6.Future<void> multiStudentEnroll(_i9.MultiEnroll? multiEnroll) =>
+  _i6.Future<void> multiStudentEnroll(
+    _i10.MultiEnroll? multiEnroll,
+    _i8.AccessToken? accessToken,
+  ) =>
       (super.noSuchMethod(
         Invocation.method(
           #multiStudentEnroll,
-          [multiEnroll],
+          [
+            multiEnroll,
+            accessToken,
+          ],
         ),
         returnValue: _i6.Future<void>.value(),
         returnValueForMissingStub: _i6.Future<void>.value(),
@@ -175,7 +205,7 @@ class MockCoursesRemoteDataSource extends _i1.Mock
 /// A class which mocks [NetworkInfo].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockNetworkInfo extends _i1.Mock implements _i10.NetworkInfo {
+class MockNetworkInfo extends _i1.Mock implements _i11.NetworkInfo {
   @override
   _i6.Future<bool> get isConnected => (super.noSuchMethod(
         Invocation.getter(#isConnected),

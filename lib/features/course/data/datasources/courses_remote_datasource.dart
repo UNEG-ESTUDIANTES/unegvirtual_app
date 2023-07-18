@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
+import 'package:classroom_app/core/entities/access_token.dart';
 import 'package:classroom_app/core/models/course_model.dart';
 import 'package:classroom_app/features/course/data/models/inscription_model.dart';
 import 'package:classroom_app/features/course/domain/entities/multi_enroll.dart';
@@ -14,10 +15,20 @@ import '../../domain/entities/inscription.dart';
 
 abstract class CoursesRemoteDataSource {
   Future<CoursesModel> getCourses();
-  Future<CourseModel> postCourse(NewCourse newCourse);
-  Future<InscriptionModel> enrollStudent(Inscription inscription);
-  Future<CoursesModel> enroledCourses(String id);
-  Future<void> multiStudentEnroll(MultiEnroll multiEnroll);
+
+  Future<CourseModel> postCourse(NewCourse newCourse, AccessToken accessToken);
+
+  Future<InscriptionModel> enrollStudent(
+    Inscription inscription,
+    AccessToken accessToken,
+  );
+
+  Future<CoursesModel> enroledCourses(AccessToken accessToken);
+
+  Future<void> multiStudentEnroll(
+    MultiEnroll multiEnroll,
+    AccessToken accessToken,
+  );
 }
 
 class CoursesRemoteDataSourceImpl implements CoursesRemoteDataSource {
@@ -41,18 +52,18 @@ class CoursesRemoteDataSourceImpl implements CoursesRemoteDataSource {
   }
 
   @override
-  Future<CourseModel> postCourse(NewCourse newCourse) =>
-      _postCourseToUrl('${Env.appUrl}/v1/courses', newCourse);
-
-  Future<CourseModel> _postCourseToUrl(String url, NewCourse newCourse) async {
-    final response = await client.post(Uri.parse(url), headers: {
+  Future<CourseModel> postCourse(
+      NewCourse newCourse, AccessToken accessToken) async {
+    final response =
+        await client.post(Uri.parse('${Env.appUrl}/v1/courses'), headers: {
       'Content-Type': 'application/json',
-      'Authorization': newCourse.auth
+      'Authorization': 'Bearer ${accessToken.token}',
     }, body: {
-      "name": newCourse.course.name,
-      "description": newCourse.course.description,
-      "teacherId": newCourse.course.teacherId,
+      "name": newCourse.name,
+      "description": newCourse.description,
+      "teacherId": newCourse.teacherId,
     });
+
     if (response.statusCode == 200) {
       final result = CourseModel.fromJson(json.decode(response.body));
       return result;
@@ -62,16 +73,18 @@ class CoursesRemoteDataSourceImpl implements CoursesRemoteDataSource {
   }
 
   @override
-  Future<InscriptionModel> enrollStudent(Inscription inscription) => _enrollStuden(
-      '${Env.appUrl}/v1/courses/${inscription.inscription.courseId}/users/${inscription.inscription.studentId}/inscriptions',
-      inscription);
+  Future<InscriptionModel> enrollStudent(
+    Inscription inscription,
+    AccessToken accessToken,
+  ) async {
+    final url =
+        '${Env.appUrl}/v1/courses/${inscription.courseId}/users/${inscription.studentId}/inscriptions';
 
-  Future<InscriptionModel> _enrollStuden(
-      String url, Inscription inscription) async {
     final response = await client.post(Uri.parse(url), headers: {
       'Content-Type': 'application/json',
-      'Authorization': inscription.auth!
+      'Authorization': 'Bearer ${accessToken.token}',
     });
+
     if (response.statusCode == 200) {
       final result = InscriptionModel.fromJson(json.decode(response.body));
       return result;
@@ -81,12 +94,15 @@ class CoursesRemoteDataSourceImpl implements CoursesRemoteDataSource {
   }
 
   @override
-  Future<CoursesModel> enroledCourses(String id) =>
-      _enroledCourses('${Env.appUrl}/v1/courses', id);
+  Future<CoursesModel> enroledCourses(AccessToken accessToken) async {
+    final response = await client.get(
+      Uri.parse('${Env.appUrl}/v1/enrolledCourses'),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ${accessToken.token}',
+      },
+    );
 
-  Future<CoursesModel> _enroledCourses(String url, String id) async {
-    final response = await client
-        .get(Uri.parse(url), headers: {'Content-Type': 'application/json'});
     if (response.statusCode == 200) {
       final result = CoursesModel.fromJson(json.decode(response.body));
       return result;
@@ -96,16 +112,18 @@ class CoursesRemoteDataSourceImpl implements CoursesRemoteDataSource {
   }
 
   @override
-  Future<InscriptionModel> multiStudentEnroll(MultiEnroll multiEnroll) =>
-      _multiStudentenroll(
-          '${Env.appUrl}/v1/courses/enroll-multiple-users', multiEnroll);
+  Future<InscriptionModel> multiStudentEnroll(
+    MultiEnroll multiEnroll,
+    AccessToken accessToken,
+  ) async {
+    final response = await client.post(
+      Uri.parse('${Env.appUrl}/v1/courses/enroll-multiple-users'),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': accessToken.token,
+      },
+    );
 
-  Future<InscriptionModel> _multiStudentenroll(
-      String url, MultiEnroll multiEnroll) async {
-    final response = await client.post(Uri.parse(url), headers: {
-      'Content-Type': 'application/json',
-      'Authorization': multiEnroll.auth!
-    });
     if (response.statusCode == 200) {
       final result = InscriptionModel.fromJson(json.decode(response.body));
       return result;

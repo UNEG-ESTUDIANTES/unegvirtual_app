@@ -5,6 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
+import 'package:classroom_app/core/entities/access_token.dart';
 import 'package:classroom_app/core/models/courses_model.dart';
 import 'package:classroom_app/core/network/network_info.dart';
 import 'package:classroom_app/features/course/data/datasources/courses_remote_datasource.dart';
@@ -13,8 +14,10 @@ import 'package:classroom_app/features/course/domain/entities/multi_enroll.dart'
 
 import '../../../../fixtures/fixture_reader.dart';
 
-@GenerateNiceMocks(
-    [MockSpec<CoursesRemoteDataSource>(), MockSpec<NetworkInfo>()])
+@GenerateNiceMocks([
+  MockSpec<CoursesRemoteDataSource>(),
+  MockSpec<NetworkInfo>(),
+])
 import 'courses_repository_impl_test.mocks.dart';
 
 void main() {
@@ -30,6 +33,8 @@ void main() {
       network: mockNetworkInfo,
     );
   });
+
+  const tAccessToken = AccessToken('test');
 
   void runTestOnline(Function body) {
     group('device is online', () {
@@ -50,39 +55,39 @@ void main() {
     const input = MultiEnroll(
       studentIds: student,
       courseId: '1235',
-      auth: '123',
     );
 
     test('should check if the device is online', () async {
       when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
 
-      repository.multiStudentsEnroll(input);
+      repository.multiStudentsEnroll(
+        input,
+        tAccessToken,
+      );
 
       verify(mockNetworkInfo.isConnected);
     });
 
     runTestOnline(() {
       test('Should return remote data when the call is successfull', () async {
-        when(mockRemoteDataSource.multiStudentEnroll(any))
+        when(mockRemoteDataSource.multiStudentEnroll(any, any))
             .thenAnswer((_) async => true);
 
-        await repository.multiStudentsEnroll(input);
+        await repository.multiStudentsEnroll(input, tAccessToken);
 
-        verify(mockRemoteDataSource.multiStudentEnroll(input));
+        verify(mockRemoteDataSource.multiStudentEnroll(input, tAccessToken));
       });
     });
   });
 
   group('Enroled Courses', () {
-    const input = '123456';
-
     final coursesList =
         CoursesModel.fromJson(json.decode(fixture('courses_search.json')));
 
     test('should check if the device is online', () async {
       when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
 
-      repository.enroledCourses(input);
+      repository.enroledCourses(tAccessToken);
 
       verify(mockNetworkInfo.isConnected);
     });
@@ -91,7 +96,8 @@ void main() {
       test('Should return remote data when the call is successfull', () async {
         when(mockRemoteDataSource.enroledCourses(any))
             .thenAnswer((_) async => coursesList);
-        final result = await repository.enroledCourses(input);
+
+        final result = await repository.enroledCourses(tAccessToken);
 
         verify(mockRemoteDataSource.enroledCourses(any));
 

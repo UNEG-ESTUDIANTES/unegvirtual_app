@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 
+import 'package:classroom_app/core/entities/access_token.dart';
 import 'package:classroom_app/core/entities/course.dart';
 import 'package:classroom_app/features/course/domain/entities/inscription.dart';
 import 'package:classroom_app/features/course/domain/entities/multi_enroll.dart';
@@ -28,9 +29,12 @@ class CoursesRepositoryImpl implements CoursesRepository {
   }
 
   @override
-  Future<Either<Failure, Course>> postCourse(NewCourse newCourse) async {
+  Future<Either<Failure, Course>> postCourse(
+    NewCourse newCourse,
+    AccessToken accessToken,
+  ) async {
     if (await network.isConnected) {
-      final remoteResult = await remote.postCourse(newCourse);
+      final remoteResult = await remote.postCourse(newCourse, accessToken);
       return Right(remoteResult);
     }
     return Left(ServerFailure());
@@ -38,18 +42,22 @@ class CoursesRepositoryImpl implements CoursesRepository {
 
   @override
   Future<Either<Failure, Inscription>> enrollStudent(
-      Inscription inscription) async {
+    Inscription inscription,
+    AccessToken accessToken,
+  ) async {
     if (await network.isConnected) {
-      final remoteResult = await remote.enrollStudent(inscription);
+      final remoteResult = await remote.enrollStudent(inscription, accessToken);
       return Right(remoteResult);
     }
     return Left(ServerFailure());
   }
 
   @override
-  Future<Either<Failure, Courses>> enroledCourses(String studentId) async {
+  Future<Either<Failure, Courses>> enroledCourses(
+    AccessToken accessToken,
+  ) async {
     if (await network.isConnected) {
-      final remoteResult = await remote.enroledCourses(studentId);
+      final remoteResult = await remote.enroledCourses(accessToken);
       return Right(remoteResult);
     }
     return Left(ServerFailure());
@@ -57,9 +65,11 @@ class CoursesRepositoryImpl implements CoursesRepository {
 
   @override
   Future<Either<Failure, bool>> multiStudentsEnroll(
-      MultiEnroll multiEnroll) async {
+    MultiEnroll multiEnroll,
+    AccessToken accessToken,
+  ) async {
     if (await network.isConnected) {
-      await remote.multiStudentEnroll(multiEnroll);
+      await remote.multiStudentEnroll(multiEnroll, accessToken);
       return const Right(true);
     }
     return Left(ServerFailure());

@@ -1,13 +1,21 @@
 import 'package:equatable/equatable.dart';
 
-import 'package:classroom_app/core/entities/course.dart';
-
 class NewCourse extends Equatable {
-  final Course course;
-  final String auth;
+  /// The [name] of the course.
+  final String name;
 
-  const NewCourse({required this.course, required this.auth});
+  /// The [description] of the course.
+  final String description;
+
+  /// The [teacherId] of the course.
+  final String teacherId;
+
+  const NewCourse({
+    required this.name,
+    required this.description,
+    required this.teacherId,
+  });
 
   @override
-  List<Object?> get props => [course, auth];
+  List<Object> get props => [name, description, teacherId];
 }

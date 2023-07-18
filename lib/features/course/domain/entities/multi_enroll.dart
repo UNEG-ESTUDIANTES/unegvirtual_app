@@ -1,16 +1,17 @@
 import 'package:equatable/equatable.dart';
 
 class MultiEnroll extends Equatable {
-  final List<String> studentIds;
+  /// The [courseId] where the students will be enrolled.
   final String courseId;
-  final String? auth;
+
+  /// The [studentIds] to enroll in the course.
+  final List<String> studentIds;
 
   const MultiEnroll({
-    required this.studentIds,
     required this.courseId,
-    this.auth,
+    required this.studentIds,
   });
 
   @override
-  List<Object?> get props => [studentIds, courseId, auth];
+  List<Object?> get props => [studentIds, courseId];
 }

@@ -1,13 +1,14 @@
 import 'package:equatable/equatable.dart';
 
-import '../../data/models/inscription_model.dart';
-
 class Inscription extends Equatable {
-  final InscriptionElement inscription;
-  final String? auth;
+  /// The [studentId] to enroll in the course.
+  final String studentId;
 
-  const Inscription({required this.inscription, this.auth});
+  /// The [courseId] where the student will be enroled.
+  final String courseId;
+
+  const Inscription({required this.courseId, required this.studentId});
 
   @override
-  List<Object?> get props => [inscription];
+  List<Object?> get props => [courseId, studentId];
 }

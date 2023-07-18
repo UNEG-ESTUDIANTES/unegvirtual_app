@@ -1,49 +1,21 @@
-// To parse this JSON data, do
-//
-//     final inscriptionModel = inscriptionModelFromJson(jsonString);
-
-import 'dart:convert';
-
 import 'package:classroom_app/features/course/domain/entities/inscription.dart';
 
-InscriptionModel inscriptionModelFromJson(String str) =>
-    InscriptionModel.fromJson(json.decode(str));
-
-String inscriptionModelToJson(InscriptionModel data) =>
-    json.encode(data.toJson());
-
 class InscriptionModel extends Inscription {
-  const InscriptionModel({
-    required InscriptionElement inscription,
-  }) : super(inscription: inscription);
+  const InscriptionModel({required super.courseId, required super.studentId});
 
-  factory InscriptionModel.fromJson(Map<String, dynamic> json) =>
-      InscriptionModel(
-        inscription: InscriptionElement.fromJson(json["inscription"]),
-      );
+  /// Returns an [InscriptionModel] from [json].
+  factory InscriptionModel.fromJson(Map<String, dynamic> json) {
+    return InscriptionModel(
+      courseId: json['courseId'],
+      studentId: json['studentId'],
+    );
+  }
 
-  Map<String, dynamic> toJson() => {
-        "inscription": inscription.toJson(),
-      };
-}
-
-class InscriptionElement {
-  String studentId;
-  String courseId;
-
-  InscriptionElement({
-    required this.studentId,
-    required this.courseId,
-  });
-
-  factory InscriptionElement.fromJson(Map<String, dynamic> json) =>
-      InscriptionElement(
-        studentId: json["studentId"],
-        courseId: json["courseId"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "studentId": studentId,
-        "courseId": courseId,
-      };
+  /// Converts the [InscriptionModel] to JSON.
+  Map<String, dynamic> toJson() {
+    return {
+      'studentId': studentId,
+      'courseId': courseId,
+    };
+  }
 }
