@@ -36,7 +36,7 @@ class DBProvider {
         lastName TEXT NOT NULL,
         ci TEXT NOT NULL,
         email TEXT NOT NULL,
-        createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL
+        createdAt TEXT DEFAULT CURRENT_TIMESTAMP NOT NULL
       );
     ''');
   }
@@ -108,7 +108,7 @@ class DBProvider {
     final users = await db.query(
       'UserProfile',
       limit: 1,
-      orderBy: 'createdAt DESC',
+      orderBy: 'datetime(createdAt) DESC',
     );
 
     if (users.isEmpty) return null;
@@ -124,7 +124,7 @@ class DBProvider {
     final users = await db.query(
       'UserProfile',
       limit: 1,
-      orderBy: 'createdAt DESC',
+      orderBy: 'datetime(createdAt) DESC',
     );
 
     if (users.isEmpty) return 0;
