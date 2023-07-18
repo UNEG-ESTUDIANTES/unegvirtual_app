@@ -6,7 +6,7 @@ class Inscription extends Equatable {
   final InscriptionElement inscription;
   final String? auth;
 
-  Inscription({required this.inscription, this.auth});
+  const Inscription({required this.inscription, this.auth});
 
   @override
   List<Object?> get props => [inscription];

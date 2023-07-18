@@ -2,7 +2,6 @@ import 'package:dartz/dartz.dart';
 
 import '../../../../core/error/failures.dart';
 import '../../../../core/use_cases/use_case.dart';
-import '../entities/inscription.dart';
 import '../entities/multi_enroll.dart';
 import '../repositories/courses_repository.dart';
 

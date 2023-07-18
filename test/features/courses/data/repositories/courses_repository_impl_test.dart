@@ -8,9 +8,7 @@ import 'package:mockito/mockito.dart';
 import 'package:classroom_app/core/models/courses_model.dart';
 import 'package:classroom_app/core/network/network_info.dart';
 import 'package:classroom_app/features/course/data/datasources/courses_remote_datasource.dart';
-import 'package:classroom_app/features/course/data/models/inscription_model.dart';
 import 'package:classroom_app/features/course/data/repositories/courses_repository_impl.dart';
-import 'package:classroom_app/features/course/domain/entities/inscription.dart';
 import 'package:classroom_app/features/course/domain/entities/multi_enroll.dart';
 
 import '../../../../fixtures/fixture_reader.dart';
@@ -49,8 +47,11 @@ void main() {
       "64b4864866d7f87437caaf49"
     ];
 
-    final input =
-        MultiEnroll(studentIds: student, courseId: '1235', auth: '123');
+    const input = MultiEnroll(
+      studentIds: student,
+      courseId: '1235',
+      auth: '123',
+    );
 
     test('should check if the device is online', () async {
       when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
@@ -64,17 +65,16 @@ void main() {
       test('Should return remote data when the call is successfull', () async {
         when(mockRemoteDataSource.multiStudentEnroll(any))
             .thenAnswer((_) async => true);
-        final result = await repository.multiStudentsEnroll(input);
 
-        verify(mockRemoteDataSource.multiStudentEnroll(any));
-        final r = Right(result);
-        print(r.runtimeType);
+        await repository.multiStudentsEnroll(input);
+
+        verify(mockRemoteDataSource.multiStudentEnroll(input));
       });
     });
   });
 
   group('Enroled Courses', () {
-    final input = '123456';
+    const input = '123456';
 
     final coursesList =
         CoursesModel.fromJson(json.decode(fixture('courses_search.json')));
@@ -94,8 +94,6 @@ void main() {
         final result = await repository.enroledCourses(input);
 
         verify(mockRemoteDataSource.enroledCourses(any));
-        final r = Right(result);
-        print(r.runtimeType);
 
         expect(result, equals(Right(coursesList)));
       });

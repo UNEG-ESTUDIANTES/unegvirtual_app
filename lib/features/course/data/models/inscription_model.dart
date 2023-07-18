@@ -13,7 +13,7 @@ String inscriptionModelToJson(InscriptionModel data) =>
     json.encode(data.toJson());
 
 class InscriptionModel extends Inscription {
-  InscriptionModel({
+  const InscriptionModel({
     required InscriptionElement inscription,
   }) : super(inscription: inscription);
 

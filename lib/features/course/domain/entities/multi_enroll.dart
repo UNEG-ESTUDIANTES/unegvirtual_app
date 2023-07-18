@@ -5,7 +5,11 @@ class MultiEnroll extends Equatable {
   final String courseId;
   final String? auth;
 
-  MultiEnroll({required this.studentIds, required this.courseId, this.auth});
+  const MultiEnroll({
+    required this.studentIds,
+    required this.courseId,
+    this.auth,
+  });
 
   @override
   List<Object?> get props => [studentIds, courseId, auth];
