@@ -1,4 +1,4 @@
-import 'package:classroom_app/core/models/course_model.dart';
+import 'package:classroom_app/core/models/courses_model.dart';
 
 class NewCourse {
   final CourseElement course;

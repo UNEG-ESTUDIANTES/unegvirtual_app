@@ -1,15 +1,16 @@
 import 'dart:convert';
 
+import 'package:http/http.dart' as http;
+
 import 'package:classroom_app/core/providers/auth_provider.dart';
 import 'package:classroom_app/features/course/data/models/inscription_model.dart';
 import 'package:classroom_app/features/course/domain/entities/multi_enroll.dart';
 import 'package:classroom_app/features/course/domain/entities/new_course.dart';
 import 'package:classroom_app/features/course/domain/usecases/enroled_courses.dart';
-import 'package:http/http.dart' as http;
 
 import '../../../../core/env/env.dart';
 import '../../../../core/error/failures.dart';
-import '../../../../core/models/course_model.dart';
+import '../../../../core/models/courses_model.dart';
 import '../../domain/entities/inscription.dart';
 
 abstract class CoursesRemoteDataSource {

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:circular_chart_flutter/circular_chart_flutter.dart';
 
-import '../../../../core/models/course_model.dart';
+import '../../../../core/models/courses_model.dart';
 
 class CourseCard extends StatelessWidget {
   final CourseElement course;

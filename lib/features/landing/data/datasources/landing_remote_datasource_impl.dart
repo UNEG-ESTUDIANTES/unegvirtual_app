@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 import 'package:classroom_app/core/env/env.dart';
-import 'package:classroom_app/core/models/course_model.dart';
+import 'package:classroom_app/core/models/courses_model.dart';
 
 import '../../../../core/error/failures.dart';
 

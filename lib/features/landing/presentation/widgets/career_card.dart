@@ -1,8 +1,8 @@
-import 'package:classroom_app/core/entities/courses.dart';
-import 'package:classroom_app/core/models/course_model.dart';
 import 'package:flutter/material.dart';
 
 import 'package:classroom_app/core/entities/career.dart';
+import 'package:classroom_app/core/entities/courses.dart';
+import 'package:classroom_app/core/models/courses_model.dart';
 
 class CourseCard extends StatelessWidget {
   /// The [career] to display.

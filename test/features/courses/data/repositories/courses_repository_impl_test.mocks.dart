@@ -5,7 +5,7 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i5;
 
-import 'package:classroom_app/core/models/course_model.dart' as _i2;
+import 'package:classroom_app/core/models/courses_model.dart' as _i2;
 import 'package:classroom_app/core/network/network_info.dart' as _i9;
 import 'package:classroom_app/features/course/data/datasources/courses_remote_datasource.dart'
     as _i4;

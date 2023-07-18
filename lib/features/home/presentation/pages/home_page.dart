@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:responsive_builder/responsive_builder.dart';
 
-import 'package:classroom_app/core/models/course_model.dart';
-
+import 'package:classroom_app/core/models/courses_model.dart';
 import 'package:classroom_app/features/home/presentation/widgets/course_card.dart';
 
 class HomePage extends StatelessWidget {

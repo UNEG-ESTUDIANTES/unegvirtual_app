@@ -5,12 +5,13 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i5;
 
-import 'package:classroom_app/core/models/course_model.dart' as _i3;
+import 'package:mockito/mockito.dart' as _i1;
+
+import 'package:classroom_app/core/models/courses_model.dart' as _i3;
 import 'package:classroom_app/core/network/network_info.dart' as _i6;
 import 'package:classroom_app/features/landing/data/datasources/landing_remote_datasource_impl.dart'
     as _i4;
 import 'package:http/http.dart' as _i2;
-import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
