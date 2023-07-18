@@ -9,8 +9,6 @@ import 'package:classroom_app/features/user/presentation/providers/user_provider
 import 'package:classroom_app/features/user/presentation/widgets/basic_info.dart';
 import 'package:classroom_app/features/user/presentation/widgets/user_data.dart';
 
-const List<int> semesters = [1, 2, 3];
-
 class UserPage extends StatelessWidget {
   /// The page route name.
   static const routeName = 'user';
