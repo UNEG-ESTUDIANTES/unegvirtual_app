@@ -36,6 +36,7 @@ class BasicInfo extends StatelessWidget {
             _UserDescription(
               user: user,
               crossAxisAlignment: CrossAxisAlignment.center,
+              textAlign: TextAlign.center,
             ),
           ],
         );
@@ -47,8 +48,10 @@ class BasicInfo extends StatelessWidget {
 class _UserDescription extends StatelessWidget {
   final User user;
   final CrossAxisAlignment? crossAxisAlignment;
+  final TextAlign? textAlign;
 
-  const _UserDescription({this.crossAxisAlignment, required this.user});
+  const _UserDescription(
+      {this.crossAxisAlignment, required this.user, this.textAlign});
 
   @override
   Widget build(BuildContext context) {
@@ -62,6 +65,7 @@ class _UserDescription extends StatelessWidget {
           style: textTheme.titleLarge?.copyWith(
             fontWeight: FontWeight.bold,
           ),
+          textAlign: textAlign ?? TextAlign.start,
         ),
         const SizedBox(height: 4),
         Text(user.email),
