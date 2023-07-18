@@ -70,15 +70,24 @@ void main() {
 
     runTestOnline(() {
       test('Should return remote data when the call is successfull', () async {
-        when(mockRemoteDataSource.multiStudentEnroll(any, any))
-            .thenAnswer((_) async => true);
+        when(
+          mockRemoteDataSource.multiStudentEnroll(
+            accessToken: anyNamed('accessToken'),
+            multiEnroll: anyNamed('multiEnroll'),
+          ),
+        ).thenAnswer((_) async => true);
 
         await repository.multiStudentsEnroll(
           multiEnroll: input,
           accessToken: tAccessToken,
         );
 
-        verify(mockRemoteDataSource.multiStudentEnroll(input, tAccessToken));
+        verify(
+          mockRemoteDataSource.multiStudentEnroll(
+            multiEnroll: input,
+            accessToken: tAccessToken,
+          ),
+        );
       });
     });
   });

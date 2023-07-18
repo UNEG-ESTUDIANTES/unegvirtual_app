@@ -91,26 +91,28 @@ class MockCoursesRemoteDataSource extends _i1.Mock
         )),
       ) as _i6.Future<_i2.CoursesModel>);
   @override
-  _i6.Future<_i3.CourseModel> postCourse(
-    _i7.NewCourse? newCourse,
-    _i8.AccessToken? accessToken,
-  ) =>
+  _i6.Future<_i3.CourseModel> postCourse({
+    required _i7.NewCourse? newCourse,
+    required _i8.AccessToken? accessToken,
+  }) =>
       (super.noSuchMethod(
         Invocation.method(
           #postCourse,
-          [
-            newCourse,
-            accessToken,
-          ],
+          [],
+          {
+            #newCourse: newCourse,
+            #accessToken: accessToken,
+          },
         ),
         returnValue: _i6.Future<_i3.CourseModel>.value(_FakeCourseModel_1(
           this,
           Invocation.method(
             #postCourse,
-            [
-              newCourse,
-              accessToken,
-            ],
+            [],
+            {
+              #newCourse: newCourse,
+              #accessToken: accessToken,
+            },
           ),
         )),
         returnValueForMissingStub:
@@ -118,35 +120,38 @@ class MockCoursesRemoteDataSource extends _i1.Mock
           this,
           Invocation.method(
             #postCourse,
-            [
-              newCourse,
-              accessToken,
-            ],
+            [],
+            {
+              #newCourse: newCourse,
+              #accessToken: accessToken,
+            },
           ),
         )),
       ) as _i6.Future<_i3.CourseModel>);
   @override
-  _i6.Future<_i4.InscriptionModel> enrollStudent(
-    _i9.Inscription? inscription,
-    _i8.AccessToken? accessToken,
-  ) =>
+  _i6.Future<_i4.InscriptionModel> enrollStudent({
+    required _i9.Inscription? inscription,
+    required _i8.AccessToken? accessToken,
+  }) =>
       (super.noSuchMethod(
         Invocation.method(
           #enrollStudent,
-          [
-            inscription,
-            accessToken,
-          ],
+          [],
+          {
+            #inscription: inscription,
+            #accessToken: accessToken,
+          },
         ),
         returnValue:
             _i6.Future<_i4.InscriptionModel>.value(_FakeInscriptionModel_2(
           this,
           Invocation.method(
             #enrollStudent,
-            [
-              inscription,
-              accessToken,
-            ],
+            [],
+            {
+              #inscription: inscription,
+              #accessToken: accessToken,
+            },
           ),
         )),
         returnValueForMissingStub:
@@ -154,10 +159,11 @@ class MockCoursesRemoteDataSource extends _i1.Mock
           this,
           Invocation.method(
             #enrollStudent,
-            [
-              inscription,
-              accessToken,
-            ],
+            [],
+            {
+              #inscription: inscription,
+              #accessToken: accessToken,
+            },
           ),
         )),
       ) as _i6.Future<_i4.InscriptionModel>);
@@ -185,17 +191,18 @@ class MockCoursesRemoteDataSource extends _i1.Mock
         )),
       ) as _i6.Future<_i2.CoursesModel>);
   @override
-  _i6.Future<void> multiStudentEnroll(
-    _i10.MultiEnroll? multiEnroll,
-    _i8.AccessToken? accessToken,
-  ) =>
+  _i6.Future<void> multiStudentEnroll({
+    required _i10.MultiEnroll? multiEnroll,
+    required _i8.AccessToken? accessToken,
+  }) =>
       (super.noSuchMethod(
         Invocation.method(
           #multiStudentEnroll,
-          [
-            multiEnroll,
-            accessToken,
-          ],
+          [],
+          {
+            #multiEnroll: multiEnroll,
+            #accessToken: accessToken,
+          },
         ),
         returnValue: _i6.Future<void>.value(),
         returnValueForMissingStub: _i6.Future<void>.value(),

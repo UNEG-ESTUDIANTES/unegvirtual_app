@@ -16,19 +16,22 @@ import '../../domain/entities/inscription.dart';
 abstract class CoursesRemoteDataSource {
   Future<CoursesModel> getCourses();
 
-  Future<CourseModel> postCourse(NewCourse newCourse, AccessToken accessToken);
+  Future<CourseModel> postCourse({
+    required NewCourse newCourse,
+    required AccessToken accessToken,
+  });
 
-  Future<InscriptionModel> enrollStudent(
-    Inscription inscription,
-    AccessToken accessToken,
-  );
+  Future<InscriptionModel> enrollStudent({
+    required Inscription inscription,
+    required AccessToken accessToken,
+  });
 
   Future<CoursesModel> enroledCourses(AccessToken accessToken);
 
-  Future<void> multiStudentEnroll(
-    MultiEnroll multiEnroll,
-    AccessToken accessToken,
-  );
+  Future<void> multiStudentEnroll({
+    required MultiEnroll multiEnroll,
+    required AccessToken accessToken,
+  });
 }
 
 class CoursesRemoteDataSourceImpl implements CoursesRemoteDataSource {
@@ -52,8 +55,10 @@ class CoursesRemoteDataSourceImpl implements CoursesRemoteDataSource {
   }
 
   @override
-  Future<CourseModel> postCourse(
-      NewCourse newCourse, AccessToken accessToken) async {
+  Future<CourseModel> postCourse({
+    required NewCourse newCourse,
+    required AccessToken accessToken,
+  }) async {
     final response =
         await client.post(Uri.parse('${Env.appUrl}/v1/courses'), headers: {
       'Content-Type': 'application/json',
@@ -73,10 +78,10 @@ class CoursesRemoteDataSourceImpl implements CoursesRemoteDataSource {
   }
 
   @override
-  Future<InscriptionModel> enrollStudent(
-    Inscription inscription,
-    AccessToken accessToken,
-  ) async {
+  Future<InscriptionModel> enrollStudent({
+    required Inscription inscription,
+    required AccessToken accessToken,
+  }) async {
     final url =
         '${Env.appUrl}/v1/courses/${inscription.courseId}/users/${inscription.studentId}/inscriptions';
 
@@ -112,10 +117,10 @@ class CoursesRemoteDataSourceImpl implements CoursesRemoteDataSource {
   }
 
   @override
-  Future<InscriptionModel> multiStudentEnroll(
-    MultiEnroll multiEnroll,
-    AccessToken accessToken,
-  ) async {
+  Future<InscriptionModel> multiStudentEnroll({
+    required MultiEnroll multiEnroll,
+    required AccessToken accessToken,
+  }) async {
     final response = await client.post(
       Uri.parse('${Env.appUrl}/v1/courses/enroll-multiple-users'),
       headers: {

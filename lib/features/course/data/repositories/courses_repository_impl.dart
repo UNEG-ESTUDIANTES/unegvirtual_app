@@ -34,7 +34,11 @@ class CoursesRepositoryImpl implements CoursesRepository {
     required AccessToken accessToken,
   }) async {
     if (await network.isConnected) {
-      final remoteResult = await remote.postCourse(newCourse, accessToken);
+      final remoteResult = await remote.postCourse(
+        newCourse: newCourse,
+        accessToken: accessToken,
+      );
+
       return Right(remoteResult);
     }
     return Left(ServerFailure());
@@ -46,7 +50,11 @@ class CoursesRepositoryImpl implements CoursesRepository {
     required AccessToken accessToken,
   }) async {
     if (await network.isConnected) {
-      final remoteResult = await remote.enrollStudent(inscription, accessToken);
+      final remoteResult = await remote.enrollStudent(
+        inscription: inscription,
+        accessToken: accessToken,
+      );
+
       return Right(remoteResult);
     }
     return Left(ServerFailure());
@@ -69,7 +77,11 @@ class CoursesRepositoryImpl implements CoursesRepository {
     required AccessToken accessToken,
   }) async {
     if (await network.isConnected) {
-      await remote.multiStudentEnroll(multiEnroll, accessToken);
+      await remote.multiStudentEnroll(
+        multiEnroll: multiEnroll,
+        accessToken: accessToken,
+      );
+
       return const Right(true);
     }
     return Left(ServerFailure());
