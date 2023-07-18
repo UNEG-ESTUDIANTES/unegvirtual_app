@@ -7,6 +7,7 @@ import 'dart:async' as _i4;
 
 import 'package:classroom_app/core/databases/db_provider.dart' as _i3;
 import 'package:classroom_app/core/models/access_token_model.dart' as _i5;
+import 'package:classroom_app/core/models/user_model.dart' as _i6;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:sqflite/sqflite.dart' as _i2;
 
@@ -99,6 +100,33 @@ class MockDBProvider extends _i1.Mock implements _i3.DBProvider {
   _i4.Future<int> removeToken() => (super.noSuchMethod(
         Invocation.method(
           #removeToken,
+          [],
+        ),
+        returnValue: _i4.Future<int>.value(0),
+        returnValueForMissingStub: _i4.Future<int>.value(0),
+      ) as _i4.Future<int>);
+  @override
+  _i4.Future<int> addUserProfile(_i6.UserModel? user) => (super.noSuchMethod(
+        Invocation.method(
+          #addUserProfile,
+          [user],
+        ),
+        returnValue: _i4.Future<int>.value(0),
+        returnValueForMissingStub: _i4.Future<int>.value(0),
+      ) as _i4.Future<int>);
+  @override
+  _i4.Future<_i6.UserModel?> getUserProfile() => (super.noSuchMethod(
+        Invocation.method(
+          #getUserProfile,
+          [],
+        ),
+        returnValue: _i4.Future<_i6.UserModel?>.value(),
+        returnValueForMissingStub: _i4.Future<_i6.UserModel?>.value(),
+      ) as _i4.Future<_i6.UserModel?>);
+  @override
+  _i4.Future<int> removeUserProfile() => (super.noSuchMethod(
+        Invocation.method(
+          #removeUserProfile,
           [],
         ),
         returnValue: _i4.Future<int>.value(0),

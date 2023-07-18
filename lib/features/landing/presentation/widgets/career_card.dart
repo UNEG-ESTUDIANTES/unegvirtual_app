@@ -47,7 +47,7 @@ class CourseCard extends StatelessWidget {
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  const SizedBox(height: 6),
+                  const SizedBox(height: 4),
                   Text(
                     course.description,
                     overflow: TextOverflow.ellipsis,

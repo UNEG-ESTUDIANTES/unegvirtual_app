@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/basic_info_widget.dart';
-import '../widgets/user_data_widget.dart';
+import 'package:provider/provider.dart';
 
-const List<int> semesters = [1, 2, 3];
+import 'package:classroom_app/core/providers/auth_provider.dart';
+import 'package:classroom_app/core/providers/page_state.dart';
+import 'package:classroom_app/core/widgets/loading_display.dart';
+import 'package:classroom_app/features/user/presentation/providers/user_provider.dart';
+import 'package:classroom_app/features/user/presentation/widgets/basic_info.dart';
+import 'package:classroom_app/features/user/presentation/widgets/user_data.dart';
 
 class UserPage extends StatelessWidget {
   /// The page route name.
@@ -13,67 +17,47 @@ class UserPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final authProvider = context.read<AuthProvider>();
+    final userProvider = context.watch<UserProvider>();
+    final userProviderState = userProvider.state;
+
+    if (authProvider.accessToken == null) {
+      return const Center(
+        child: Text('Debe iniciar sesión para mostrar su usuario'),
+      );
+    }
+
+    if (userProviderState is Empty) {
+      userProvider.getCurrentUser(authProvider.accessToken!);
+    }
+
+    if (userProviderState is Loading) return const LoadingDisplay();
+
+    if (userProviderState is Error) {
+      return Center(
+        child: Text(userProviderState.message),
+      );
+    }
+
+    if (userProvider.user == null) {
+      return const Center(
+        child: Text('No hay usuario por mostrar'),
+      );
+    }
+
     return SingleChildScrollView(
       padding: const EdgeInsets.all(24.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const BasicInfoWidget(),
-          const Divider(height: 32),
-          const UserDataWidget(),
-          const Divider(height: 32),
-          DropdownButton<int>(
-            hint: const Text('Semestre'),
-            items: semesters.map((semester) {
-              return DropdownMenuItem<int>(
-                value: semester,
-                child: Text('Semestre $semester'),
-              );
-            }).toList(),
-            onChanged: (value) {},
-          ),
-          const SizedBox(height: 16),
           SizedBox(
             width: double.infinity,
-            child: DataTable(
-              columns: const [
-                DataColumn(
-                  label: Expanded(
-                    child: Text(
-                      'Pensum',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                ),
-                DataColumn(
-                  label: Expanded(
-                    child: Text(
-                      'U.C.',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-              rows: const [
-                DataRow(
-                  cells: [
-                    DataCell(
-                      Text('Materia I'),
-                    ),
-                    DataCell(
-                      Text('2'),
-                    ),
-                  ],
-                )
-              ],
-            ),
+            child: BasicInfo(user: userProvider.user!),
           ),
+          const SizedBox(height: 16),
+          const Divider(),
+          const SizedBox(height: 16),
+          UserData(user: userProvider.user!),
         ],
       ),
     );

@@ -4,8 +4,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import 'package:classroom_app/core/env/env.dart';
-import 'package:classroom_app/core/error/failures.dart';
-import 'package:classroom_app/core/models/courses_model.dart';
+import 'package:classroom_app/core/error/exceptions.dart';
 import 'package:classroom_app/features/landing/data/datasources/landing_remote_datasource_impl.dart';
 
 import '../../../../fixtures/fixture_reader.dart';
@@ -32,6 +31,11 @@ void main() {
         (_) async => http.Response(fixture('courses_search.json'), 404));
   }
 
+  void setUpMockHttpClientException() {
+    when(mockHttpClient.get(any, headers: anyNamed('headers')))
+        .thenThrow(http.ClientException(''));
+  }
+
   group('get courses', () {
     test('should Get a request on a URL', () async {
       setUpMockHttpClientSuccess200Courses();
@@ -40,18 +44,35 @@ void main() {
           headers: {'Content-Type': 'application/json'}));
     });
 
-    test('should return Sports when the response is 200(success)', () async {
+    test('should return courses when the response is 200(success)', () async {
       setUpMockHttpClientSuccess200Courses();
       final result = await dataSource.getCourses();
       expect(result, isA<CoursesModel>());
     });
 
     test(
-        'should throw a ServerExeption trying a random number when the response code is 404 or other',
+        'should throw a ServerException when the response code is 404 or other',
         () async {
       setUpMockHttpClientFail404Courses();
       final call = dataSource.getCourses();
-      expect(() => call, throwsA(ServerFailure()));
+      expect(() => call, throwsA(const TypeMatcher<ServerException>()));
     });
+
+    test(
+      'should throw a ServerException when the call throws a ClientException',
+      () async {
+        // arrange
+        setUpMockHttpClientException();
+
+        // act
+        final call = dataSource.getCourses;
+
+        // assert
+        expect(
+          () => call(),
+          throwsA(const TypeMatcher<ServerException>()),
+        );
+      },
+    );
   });
 }

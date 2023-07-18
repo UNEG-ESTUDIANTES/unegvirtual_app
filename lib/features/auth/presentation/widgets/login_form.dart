@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:classroom_app/core/pages/main_page.dart';
 import 'package:classroom_app/core/providers/auth_provider.dart';
 import 'package:classroom_app/core/providers/page_state.dart';
+import 'package:classroom_app/core/services/notifications_service.dart';
 import 'package:classroom_app/features/auth/domain/entities/user_credentials.dart';
 import 'package:classroom_app/features/auth/presentation/pages/forgot_page.dart';
 import 'package:classroom_app/features/auth/presentation/widgets/forms/email_input.dart';
@@ -73,16 +74,16 @@ class _LoginFormState extends State<LoginForm> {
 
     if (!mounted) return;
 
-    SnackBar snackBar;
     final authProviderState = context.read<AuthProvider>().state;
+    final String snackBarMessage;
 
     // Change state and snackbar according to state.
     if (authProviderState is Error) {
       _state = _state.copyWith(status: FormzSubmissionStatus.failure);
-      snackBar = SnackBar(content: Text(authProviderState.message));
+      snackBarMessage = authProviderState.message;
     } else {
       _state = _state.copyWith(status: FormzSubmissionStatus.success);
-      snackBar = const SnackBar(content: Text('Ha iniciado sesión con éxito'));
+      snackBarMessage = 'Ha iniciado sesión con éxito';
     }
 
     setState(() {});
@@ -92,9 +93,7 @@ class _LoginFormState extends State<LoginForm> {
       ..unfocus();
 
     // Display the snackbar.
-    ScaffoldMessenger.of(context)
-      ..hideCurrentSnackBar()
-      ..showSnackBar(snackBar);
+    NotificationsService.showSnackBar(snackBarMessage);
 
     // Navigates to main page.
     if (_state.status.isSuccess) {
