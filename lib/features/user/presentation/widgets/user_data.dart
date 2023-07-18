@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:classroom_app/features/user/presentation/widgets/user_data_item.dart';
 
-class UserDataWidget extends StatelessWidget {
-  const UserDataWidget({
+class UserData extends StatelessWidget {
+  const UserData({
     super.key,
   });
 

@@ -8,6 +8,7 @@ import 'package:classroom_app/core/services/notifications_service.dart';
 import 'package:classroom_app/features/auth/presentation/pages/forgot_page.dart';
 import 'package:classroom_app/features/home/presentation/pages/home_page.dart';
 import 'package:classroom_app/features/landing/presentation/providers/landing_provider.dart';
+import 'package:classroom_app/features/user/presentation/providers/user_provider.dart';
 import 'package:classroom_app/injection_container.dart' as di;
 
 import 'features/auth/presentation/pages/login_page.dart';
@@ -38,6 +39,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<LandingProvider>(
           create: (_) => di.sl<LandingProvider>(),
         ),
+        ChangeNotifierProvider(
+          create: (_) => di.sl<UserProvider>(),
+        )
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

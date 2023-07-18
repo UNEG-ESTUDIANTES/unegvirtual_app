@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 
-import 'package:classroom_app/features/user/presentation/widgets/score_stars.dart';
+import 'package:classroom_app/core/entities/user.dart';
 
-class BasicInfoWidget extends StatelessWidget {
-  const BasicInfoWidget({
+class BasicInfo extends StatelessWidget {
+  final User user;
+
+  const BasicInfo({
     super.key,
+    required this.user,
   });
 
   @override
@@ -63,23 +66,6 @@ class _UserDescription extends StatelessWidget {
           style: textTheme.titleLarge?.copyWith(
             fontWeight: FontWeight.bold,
           ),
-        ),
-        const SizedBox(height: 4),
-        const ScoreStars(
-          score: 8,
-          mainAxisAlignment: MainAxisAlignment.center,
-        ),
-        const SizedBox(height: 4),
-        const Text(
-          '2021 I - Actualidad',
-          style: TextStyle(
-            fontSize: 18,
-          ),
-        ),
-        const SizedBox(height: 16),
-        FilledButton(
-          onPressed: () {},
-          child: const Text('Editar Perfil'),
         ),
       ],
     );
