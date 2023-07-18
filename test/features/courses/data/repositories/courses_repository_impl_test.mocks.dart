@@ -3,20 +3,21 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i5;
+import 'dart:async' as _i6;
 
+import 'package:classroom_app/core/models/course_model.dart' as _i3;
 import 'package:classroom_app/core/models/courses_model.dart' as _i2;
-import 'package:classroom_app/core/network/network_info.dart' as _i9;
+import 'package:classroom_app/core/network/network_info.dart' as _i10;
 import 'package:classroom_app/features/course/data/datasources/courses_remote_datasource.dart'
-    as _i4;
+    as _i5;
 import 'package:classroom_app/features/course/data/models/inscription_model.dart'
-    as _i3;
+    as _i4;
 import 'package:classroom_app/features/course/domain/entities/inscription.dart'
-    as _i7;
-import 'package:classroom_app/features/course/domain/entities/multi_enroll.dart'
     as _i8;
+import 'package:classroom_app/features/course/domain/entities/multi_enroll.dart'
+    as _i9;
 import 'package:classroom_app/features/course/domain/entities/new_course.dart'
-    as _i6;
+    as _i7;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -40,8 +41,8 @@ class _FakeCoursesModel_0 extends _i1.SmartFake implements _i2.CoursesModel {
         );
 }
 
-class _FakeCourseElement_1 extends _i1.SmartFake implements _i2.CourseElement {
-  _FakeCourseElement_1(
+class _FakeCourseModel_1 extends _i1.SmartFake implements _i3.CourseModel {
+  _FakeCourseModel_1(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -51,7 +52,7 @@ class _FakeCourseElement_1 extends _i1.SmartFake implements _i2.CourseElement {
 }
 
 class _FakeInscriptionModel_2 extends _i1.SmartFake
-    implements _i3.InscriptionModel {
+    implements _i4.InscriptionModel {
   _FakeInscriptionModel_2(
     Object parent,
     Invocation parentInvocation,
@@ -65,14 +66,14 @@ class _FakeInscriptionModel_2 extends _i1.SmartFake
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockCoursesRemoteDataSource extends _i1.Mock
-    implements _i4.CoursesRemoteDataSource {
+    implements _i5.CoursesRemoteDataSource {
   @override
-  _i5.Future<_i2.CoursesModel> getCourses() => (super.noSuchMethod(
+  _i6.Future<_i2.CoursesModel> getCourses() => (super.noSuchMethod(
         Invocation.method(
           #getCourses,
           [],
         ),
-        returnValue: _i5.Future<_i2.CoursesModel>.value(_FakeCoursesModel_0(
+        returnValue: _i6.Future<_i2.CoursesModel>.value(_FakeCoursesModel_0(
           this,
           Invocation.method(
             #getCourses,
@@ -80,22 +81,22 @@ class MockCoursesRemoteDataSource extends _i1.Mock
           ),
         )),
         returnValueForMissingStub:
-            _i5.Future<_i2.CoursesModel>.value(_FakeCoursesModel_0(
+            _i6.Future<_i2.CoursesModel>.value(_FakeCoursesModel_0(
           this,
           Invocation.method(
             #getCourses,
             [],
           ),
         )),
-      ) as _i5.Future<_i2.CoursesModel>);
+      ) as _i6.Future<_i2.CoursesModel>);
   @override
-  _i5.Future<_i2.CourseElement> postCourse(_i6.NewCourse? newCourse) =>
+  _i6.Future<_i3.CourseModel> postCourse(_i7.NewCourse? newCourse) =>
       (super.noSuchMethod(
         Invocation.method(
           #postCourse,
           [newCourse],
         ),
-        returnValue: _i5.Future<_i2.CourseElement>.value(_FakeCourseElement_1(
+        returnValue: _i6.Future<_i3.CourseModel>.value(_FakeCourseModel_1(
           this,
           Invocation.method(
             #postCourse,
@@ -103,24 +104,24 @@ class MockCoursesRemoteDataSource extends _i1.Mock
           ),
         )),
         returnValueForMissingStub:
-            _i5.Future<_i2.CourseElement>.value(_FakeCourseElement_1(
+            _i6.Future<_i3.CourseModel>.value(_FakeCourseModel_1(
           this,
           Invocation.method(
             #postCourse,
             [newCourse],
           ),
         )),
-      ) as _i5.Future<_i2.CourseElement>);
+      ) as _i6.Future<_i3.CourseModel>);
   @override
-  _i5.Future<_i3.InscriptionModel> enrollStudent(
-          _i7.Inscription? inscription) =>
+  _i6.Future<_i4.InscriptionModel> enrollStudent(
+          _i8.Inscription? inscription) =>
       (super.noSuchMethod(
         Invocation.method(
           #enrollStudent,
           [inscription],
         ),
         returnValue:
-            _i5.Future<_i3.InscriptionModel>.value(_FakeInscriptionModel_2(
+            _i6.Future<_i4.InscriptionModel>.value(_FakeInscriptionModel_2(
           this,
           Invocation.method(
             #enrollStudent,
@@ -128,22 +129,22 @@ class MockCoursesRemoteDataSource extends _i1.Mock
           ),
         )),
         returnValueForMissingStub:
-            _i5.Future<_i3.InscriptionModel>.value(_FakeInscriptionModel_2(
+            _i6.Future<_i4.InscriptionModel>.value(_FakeInscriptionModel_2(
           this,
           Invocation.method(
             #enrollStudent,
             [inscription],
           ),
         )),
-      ) as _i5.Future<_i3.InscriptionModel>);
+      ) as _i6.Future<_i4.InscriptionModel>);
   @override
-  _i5.Future<_i2.CoursesModel> enroledCourses(String? id) =>
+  _i6.Future<_i2.CoursesModel> enroledCourses(String? id) =>
       (super.noSuchMethod(
         Invocation.method(
           #enroledCourses,
           [id],
         ),
-        returnValue: _i5.Future<_i2.CoursesModel>.value(_FakeCoursesModel_0(
+        returnValue: _i6.Future<_i2.CoursesModel>.value(_FakeCoursesModel_0(
           this,
           Invocation.method(
             #enroledCourses,
@@ -151,34 +152,34 @@ class MockCoursesRemoteDataSource extends _i1.Mock
           ),
         )),
         returnValueForMissingStub:
-            _i5.Future<_i2.CoursesModel>.value(_FakeCoursesModel_0(
+            _i6.Future<_i2.CoursesModel>.value(_FakeCoursesModel_0(
           this,
           Invocation.method(
             #enroledCourses,
             [id],
           ),
         )),
-      ) as _i5.Future<_i2.CoursesModel>);
+      ) as _i6.Future<_i2.CoursesModel>);
   @override
-  _i5.Future<void> multiStudentEnroll(_i8.MultiEnroll? multiEnroll) =>
+  _i6.Future<void> multiStudentEnroll(_i9.MultiEnroll? multiEnroll) =>
       (super.noSuchMethod(
         Invocation.method(
           #multiStudentEnroll,
           [multiEnroll],
         ),
-        returnValue: _i5.Future<void>.value(),
-        returnValueForMissingStub: _i5.Future<void>.value(),
-      ) as _i5.Future<void>);
+        returnValue: _i6.Future<void>.value(),
+        returnValueForMissingStub: _i6.Future<void>.value(),
+      ) as _i6.Future<void>);
 }
 
 /// A class which mocks [NetworkInfo].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockNetworkInfo extends _i1.Mock implements _i9.NetworkInfo {
+class MockNetworkInfo extends _i1.Mock implements _i10.NetworkInfo {
   @override
-  _i5.Future<bool> get isConnected => (super.noSuchMethod(
+  _i6.Future<bool> get isConnected => (super.noSuchMethod(
         Invocation.getter(#isConnected),
-        returnValue: _i5.Future<bool>.value(false),
-        returnValueForMissingStub: _i5.Future<bool>.value(false),
-      ) as _i5.Future<bool>);
+        returnValue: _i6.Future<bool>.value(false),
+        returnValueForMissingStub: _i6.Future<bool>.value(false),
+      ) as _i6.Future<bool>);
 }

@@ -1,44 +1,31 @@
 import 'package:classroom_app/core/entities/courses.dart';
+import 'package:classroom_app/core/models/course_model.dart';
 
 class CoursesModel extends Courses {
-  CoursesModel({
-    required List<CourseElement> courses,
-  }) : super(courses: courses);
+  const CoursesModel({required super.courses});
 
-  factory CoursesModel.fromJson(Map<String, dynamic> json) => CoursesModel(
-        courses: List<CourseElement>.from(
-            json["courses"].map((x) => CourseElement.fromJson(x))),
-      );
+  /// Returns a [CoursesModel] from [json].
+  factory CoursesModel.fromJson(Map<String, dynamic> json) {
+    final List<dynamic> jsonCourses = json['courses'];
 
-  Map<String, dynamic> toJson() => {
-        "courses": List<dynamic>.from(courses.map((x) => x.toJson())),
-      };
-}
+    return CoursesModel(
+      courses: List.from(
+        jsonCourses.map((json) => CourseModel.fromJson(json)),
+      ),
+    );
+  }
 
-class CourseElement {
-  String id;
-  String name;
-  String description;
-  String teacherId;
+  /// Converts the [CoursesModel] to JSON.
+  Map<String, dynamic> toJson() {
+    return {
+      "courses": List.from(courses.map((course) => course.toJson())),
+    };
+  }
 
-  CourseElement({
-    required this.id,
-    required this.name,
-    required this.description,
-    required this.teacherId,
-  });
-
-  factory CourseElement.fromJson(Map<String, dynamic> json) => CourseElement(
-        id: json["_id"],
-        name: json["name"],
-        description: json["description"],
-        teacherId: json["teacherId"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "_id": id,
-        "name": name,
-        "description": description,
-        "teacherId": teacherId,
-      };
+  @override
+  List<CourseModel> get courses {
+    return List.from(
+      super.courses.map((course) => CourseModel.fromEntity(course)),
+    );
+  }
 }

@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 
+import 'package:classroom_app/core/entities/course.dart';
 import 'package:classroom_app/features/course/domain/entities/inscription.dart';
 import 'package:classroom_app/features/course/domain/entities/multi_enroll.dart';
 import 'package:classroom_app/features/course/domain/entities/new_course.dart';
@@ -7,7 +8,6 @@ import 'package:classroom_app/features/course/domain/repositories/courses_reposi
 
 import '../../../../core/entities/courses.dart';
 import '../../../../core/error/failures.dart';
-import '../../../../core/models/courses_model.dart';
 import '../../../../core/network/network_info.dart';
 import '../datasources/courses_remote_datasource.dart';
 
@@ -28,7 +28,7 @@ class CoursesRepositoryImpl implements CoursesRepository {
   }
 
   @override
-  Future<Either<Failure, CourseElement>> postCourse(NewCourse newCourse) async {
+  Future<Either<Failure, Course>> postCourse(NewCourse newCourse) async {
     if (await network.isConnected) {
       final remoteResult = await remote.postCourse(newCourse);
       return Right(remoteResult);

@@ -8,7 +8,7 @@ class CourseModel extends Course {
     required super.teacherId,
   });
 
-  /// Returns an [CourseModel] from [json].
+  /// Returns a [CourseModel] from [json].
   factory CourseModel.fromJson(Map<String, dynamic> json) {
     return CourseModel(
       id: json["_id"],

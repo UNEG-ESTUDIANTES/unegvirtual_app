@@ -2,11 +2,10 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
-import 'package:classroom_app/core/providers/auth_provider.dart';
+import 'package:classroom_app/core/models/course_model.dart';
 import 'package:classroom_app/features/course/data/models/inscription_model.dart';
 import 'package:classroom_app/features/course/domain/entities/multi_enroll.dart';
 import 'package:classroom_app/features/course/domain/entities/new_course.dart';
-import 'package:classroom_app/features/course/domain/usecases/enroled_courses.dart';
 
 import '../../../../core/env/env.dart';
 import '../../../../core/error/failures.dart';
@@ -15,7 +14,7 @@ import '../../domain/entities/inscription.dart';
 
 abstract class CoursesRemoteDataSource {
   Future<CoursesModel> getCourses();
-  Future<CourseElement> postCourse(NewCourse newCourse);
+  Future<CourseModel> postCourse(NewCourse newCourse);
   Future<InscriptionModel> enrollStudent(Inscription inscription);
   Future<CoursesModel> enroledCourses(String id);
   Future<void> multiStudentEnroll(MultiEnroll multiEnroll);
@@ -42,11 +41,10 @@ class CoursesRemoteDataSourceImpl implements CoursesRemoteDataSource {
   }
 
   @override
-  Future<CourseElement> postCourse(NewCourse newCourse) =>
+  Future<CourseModel> postCourse(NewCourse newCourse) =>
       _postCourseToUrl('${Env.appUrl}/v1/courses', newCourse);
 
-  Future<CourseElement> _postCourseToUrl(
-      String url, NewCourse newCourse) async {
+  Future<CourseModel> _postCourseToUrl(String url, NewCourse newCourse) async {
     final response = await client.post(Uri.parse(url), headers: {
       'Content-Type': 'application/json',
       'Authorization': newCourse.auth
@@ -56,7 +54,7 @@ class CoursesRemoteDataSourceImpl implements CoursesRemoteDataSource {
       "teacherId": newCourse.course.teacherId,
     });
     if (response.statusCode == 200) {
-      final result = CourseElement.fromJson(json.decode(response.body));
+      final result = CourseModel.fromJson(json.decode(response.body));
       return result;
     } else {
       throw ServerFailure();
