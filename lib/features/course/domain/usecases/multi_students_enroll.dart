@@ -18,8 +18,8 @@ class MultiStudentsEnroll implements UseCase<void, MultiStudentsEnrollParams> {
     MultiStudentsEnrollParams params,
   ) async {
     return repository.multiStudentsEnroll(
-      params.multiEnroll,
-      params.accessToken,
+      multiEnroll: params.multiEnroll,
+      accessToken: params.accessToken,
     );
   }
 }

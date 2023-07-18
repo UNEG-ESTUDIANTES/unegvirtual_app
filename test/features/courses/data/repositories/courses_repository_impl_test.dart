@@ -61,8 +61,8 @@ void main() {
       when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
 
       repository.multiStudentsEnroll(
-        input,
-        tAccessToken,
+        multiEnroll: input,
+        accessToken: tAccessToken,
       );
 
       verify(mockNetworkInfo.isConnected);
@@ -73,7 +73,10 @@ void main() {
         when(mockRemoteDataSource.multiStudentEnroll(any, any))
             .thenAnswer((_) async => true);
 
-        await repository.multiStudentsEnroll(input, tAccessToken);
+        await repository.multiStudentsEnroll(
+          multiEnroll: input,
+          accessToken: tAccessToken,
+        );
 
         verify(mockRemoteDataSource.multiStudentEnroll(input, tAccessToken));
       });

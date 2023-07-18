@@ -17,7 +17,10 @@ class EnrollStudent implements UseCase<Inscription, EnrollStudentParams> {
   Future<Either<Failure, Inscription>> call(
     EnrollStudentParams params,
   ) async {
-    return repository.enrollStudent(params.inscription, params.accessToken);
+    return repository.enrollStudent(
+      inscription: params.inscription,
+      accessToken: params.accessToken,
+    );
   }
 }
 

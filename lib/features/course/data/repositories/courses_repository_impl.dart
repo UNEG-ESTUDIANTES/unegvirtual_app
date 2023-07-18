@@ -29,10 +29,10 @@ class CoursesRepositoryImpl implements CoursesRepository {
   }
 
   @override
-  Future<Either<Failure, Course>> postCourse(
-    NewCourse newCourse,
-    AccessToken accessToken,
-  ) async {
+  Future<Either<Failure, Course>> postCourse({
+    required NewCourse newCourse,
+    required AccessToken accessToken,
+  }) async {
     if (await network.isConnected) {
       final remoteResult = await remote.postCourse(newCourse, accessToken);
       return Right(remoteResult);
@@ -41,10 +41,10 @@ class CoursesRepositoryImpl implements CoursesRepository {
   }
 
   @override
-  Future<Either<Failure, Inscription>> enrollStudent(
-    Inscription inscription,
-    AccessToken accessToken,
-  ) async {
+  Future<Either<Failure, Inscription>> enrollStudent({
+    required Inscription inscription,
+    required AccessToken accessToken,
+  }) async {
     if (await network.isConnected) {
       final remoteResult = await remote.enrollStudent(inscription, accessToken);
       return Right(remoteResult);
@@ -64,10 +64,10 @@ class CoursesRepositoryImpl implements CoursesRepository {
   }
 
   @override
-  Future<Either<Failure, bool>> multiStudentsEnroll(
-    MultiEnroll multiEnroll,
-    AccessToken accessToken,
-  ) async {
+  Future<Either<Failure, bool>> multiStudentsEnroll({
+    required MultiEnroll multiEnroll,
+    required AccessToken accessToken,
+  }) async {
     if (await network.isConnected) {
       await remote.multiStudentEnroll(multiEnroll, accessToken);
       return const Right(true);

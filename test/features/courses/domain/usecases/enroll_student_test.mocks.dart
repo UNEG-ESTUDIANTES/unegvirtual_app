@@ -71,27 +71,29 @@ class MockCoursesRepository extends _i1.Mock implements _i3.CoursesRepository {
         )),
       ) as _i4.Future<_i2.Either<_i5.Failure, _i6.Courses>>);
   @override
-  _i4.Future<_i2.Either<_i5.Failure, _i7.Course>> postCourse(
-    _i8.NewCourse? newCourse,
-    _i9.AccessToken? accessToken,
-  ) =>
+  _i4.Future<_i2.Either<_i5.Failure, _i7.Course>> postCourse({
+    required _i8.NewCourse? newCourse,
+    required _i9.AccessToken? accessToken,
+  }) =>
       (super.noSuchMethod(
         Invocation.method(
           #postCourse,
-          [
-            newCourse,
-            accessToken,
-          ],
+          [],
+          {
+            #newCourse: newCourse,
+            #accessToken: accessToken,
+          },
         ),
         returnValue: _i4.Future<_i2.Either<_i5.Failure, _i7.Course>>.value(
             _FakeEither_0<_i5.Failure, _i7.Course>(
           this,
           Invocation.method(
             #postCourse,
-            [
-              newCourse,
-              accessToken,
-            ],
+            [],
+            {
+              #newCourse: newCourse,
+              #accessToken: accessToken,
+            },
           ),
         )),
         returnValueForMissingStub:
@@ -100,25 +102,27 @@ class MockCoursesRepository extends _i1.Mock implements _i3.CoursesRepository {
           this,
           Invocation.method(
             #postCourse,
-            [
-              newCourse,
-              accessToken,
-            ],
+            [],
+            {
+              #newCourse: newCourse,
+              #accessToken: accessToken,
+            },
           ),
         )),
       ) as _i4.Future<_i2.Either<_i5.Failure, _i7.Course>>);
   @override
-  _i4.Future<_i2.Either<_i5.Failure, _i10.Inscription>> enrollStudent(
-    _i10.Inscription? inscription,
-    _i9.AccessToken? accessToken,
-  ) =>
+  _i4.Future<_i2.Either<_i5.Failure, _i10.Inscription>> enrollStudent({
+    required _i10.Inscription? inscription,
+    required _i9.AccessToken? accessToken,
+  }) =>
       (super.noSuchMethod(
         Invocation.method(
           #enrollStudent,
-          [
-            inscription,
-            accessToken,
-          ],
+          [],
+          {
+            #inscription: inscription,
+            #accessToken: accessToken,
+          },
         ),
         returnValue:
             _i4.Future<_i2.Either<_i5.Failure, _i10.Inscription>>.value(
@@ -126,10 +130,11 @@ class MockCoursesRepository extends _i1.Mock implements _i3.CoursesRepository {
           this,
           Invocation.method(
             #enrollStudent,
-            [
-              inscription,
-              accessToken,
-            ],
+            [],
+            {
+              #inscription: inscription,
+              #accessToken: accessToken,
+            },
           ),
         )),
         returnValueForMissingStub:
@@ -138,35 +143,38 @@ class MockCoursesRepository extends _i1.Mock implements _i3.CoursesRepository {
           this,
           Invocation.method(
             #enrollStudent,
-            [
-              inscription,
-              accessToken,
-            ],
+            [],
+            {
+              #inscription: inscription,
+              #accessToken: accessToken,
+            },
           ),
         )),
       ) as _i4.Future<_i2.Either<_i5.Failure, _i10.Inscription>>);
   @override
-  _i4.Future<_i2.Either<_i5.Failure, void>> multiStudentsEnroll(
-    _i11.MultiEnroll? multiEnroll,
-    _i9.AccessToken? accessToken,
-  ) =>
+  _i4.Future<_i2.Either<_i5.Failure, void>> multiStudentsEnroll({
+    required _i11.MultiEnroll? multiEnroll,
+    required _i9.AccessToken? accessToken,
+  }) =>
       (super.noSuchMethod(
         Invocation.method(
           #multiStudentsEnroll,
-          [
-            multiEnroll,
-            accessToken,
-          ],
+          [],
+          {
+            #multiEnroll: multiEnroll,
+            #accessToken: accessToken,
+          },
         ),
         returnValue: _i4.Future<_i2.Either<_i5.Failure, void>>.value(
             _FakeEither_0<_i5.Failure, void>(
           this,
           Invocation.method(
             #multiStudentsEnroll,
-            [
-              multiEnroll,
-              accessToken,
-            ],
+            [],
+            {
+              #multiEnroll: multiEnroll,
+              #accessToken: accessToken,
+            },
           ),
         )),
         returnValueForMissingStub:
@@ -175,10 +183,11 @@ class MockCoursesRepository extends _i1.Mock implements _i3.CoursesRepository {
           this,
           Invocation.method(
             #multiStudentsEnroll,
-            [
-              multiEnroll,
-              accessToken,
-            ],
+            [],
+            {
+              #multiEnroll: multiEnroll,
+              #accessToken: accessToken,
+            },
           ),
         )),
       ) as _i4.Future<_i2.Either<_i5.Failure, void>>);

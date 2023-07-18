@@ -16,7 +16,10 @@ class PostCourse implements UseCase<Course, PostCourseParams> {
 
   @override
   Future<Either<Failure, Course>> call(PostCourseParams params) async {
-    return repository.postCourse(params.newCourse, params.accessToken);
+    return repository.postCourse(
+      newCourse: params.newCourse,
+      accessToken: params.accessToken,
+    );
   }
 }
 

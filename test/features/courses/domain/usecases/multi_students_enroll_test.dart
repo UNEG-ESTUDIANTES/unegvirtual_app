@@ -4,48 +4,48 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import 'package:classroom_app/core/entities/access_token.dart';
-import 'package:classroom_app/features/course/domain/entities/inscription.dart';
+import 'package:classroom_app/features/course/domain/entities/multi_enroll.dart';
 import 'package:classroom_app/features/course/domain/repositories/courses_repository.dart';
-import 'package:classroom_app/features/course/domain/usecases/enroll_student.dart';
+import 'package:classroom_app/features/course/domain/usecases/multi_students_enroll.dart';
 
 @GenerateNiceMocks([MockSpec<CoursesRepository>()])
-import 'enroled_courses_test.mocks.dart';
+import 'multi_students_enroll_test.mocks.dart';
 
 void main() {
   late MockCoursesRepository mockCoursesRepository;
-  late EnrollStudent useCase;
+  late MultiStudentsEnroll useCase;
 
   setUp(() {
     mockCoursesRepository = MockCoursesRepository();
-    useCase = EnrollStudent(mockCoursesRepository);
+    useCase = MultiStudentsEnroll(mockCoursesRepository);
   });
 
-  const tInscription = Inscription(courseId: 'test', studentId: 'test');
   const tAccessToken = AccessToken('test');
+  const tMultiEnroll = MultiEnroll(courseId: 'test', studentIds: []);
 
   test(
-    'should enroll the student with the repository',
+    'should get the courses from the repository',
     () async {
       // arrange
-      when(mockCoursesRepository.enrollStudent(
+      when(mockCoursesRepository.multiStudentsEnroll(
         accessToken: anyNamed('accessToken'),
-        inscription: anyNamed('inscription'),
-      )).thenAnswer((_) async => const Right(tInscription));
+        multiEnroll: anyNamed('multiEnroll'),
+      )).thenAnswer((_) async => const Right(null));
 
       // act
       final result = await useCase(
-        const EnrollStudentParams(
+        const MultiStudentsEnrollParams(
           accessToken: tAccessToken,
-          inscription: tInscription,
+          multiEnroll: tMultiEnroll,
         ),
       );
 
       // assert
-      expect(result, const Right(tInscription));
+      expect(result, const Right(null));
 
       verify(
-        mockCoursesRepository.enrollStudent(
-          inscription: tInscription,
+        mockCoursesRepository.multiStudentsEnroll(
+          multiEnroll: tMultiEnroll,
           accessToken: tAccessToken,
         ),
       );
