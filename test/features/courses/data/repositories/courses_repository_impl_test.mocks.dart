@@ -8,17 +8,15 @@ import 'dart:async' as _i6;
 import 'package:classroom_app/core/entities/access_token.dart' as _i8;
 import 'package:classroom_app/core/models/course_model.dart' as _i3;
 import 'package:classroom_app/core/models/courses_model.dart' as _i2;
-import 'package:classroom_app/core/network/network_info.dart' as _i11;
+import 'package:classroom_app/core/network/network_info.dart' as _i10;
 import 'package:classroom_app/features/course/data/datasources/courses_remote_datasource.dart'
     as _i5;
 import 'package:classroom_app/features/course/data/models/inscription_model.dart'
     as _i4;
+import 'package:classroom_app/features/course/data/models/multi_enroll_model.dart'
+    as _i9;
 import 'package:classroom_app/features/course/data/models/new_course_model.dart'
     as _i7;
-import 'package:classroom_app/features/course/domain/entities/inscription.dart'
-    as _i9;
-import 'package:classroom_app/features/course/domain/entities/multi_enroll.dart'
-    as _i10;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -130,7 +128,7 @@ class MockCoursesRemoteDataSource extends _i1.Mock
       ) as _i6.Future<_i3.CourseModel>);
   @override
   _i6.Future<_i4.InscriptionModel> enrollStudent({
-    required _i9.Inscription? inscription,
+    required _i4.InscriptionModel? inscription,
     required _i8.AccessToken? accessToken,
   }) =>
       (super.noSuchMethod(
@@ -192,7 +190,7 @@ class MockCoursesRemoteDataSource extends _i1.Mock
       ) as _i6.Future<_i2.CoursesModel>);
   @override
   _i6.Future<void> multiStudentEnroll({
-    required _i10.MultiEnroll? multiEnroll,
+    required _i9.MultiEnrollModel? multiEnroll,
     required _i8.AccessToken? accessToken,
   }) =>
       (super.noSuchMethod(
@@ -212,7 +210,7 @@ class MockCoursesRemoteDataSource extends _i1.Mock
 /// A class which mocks [NetworkInfo].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockNetworkInfo extends _i1.Mock implements _i11.NetworkInfo {
+class MockNetworkInfo extends _i1.Mock implements _i10.NetworkInfo {
   @override
   _i6.Future<bool> get isConnected => (super.noSuchMethod(
         Invocation.getter(#isConnected),
