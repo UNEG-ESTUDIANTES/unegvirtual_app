@@ -6,12 +6,13 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import 'package:classroom_app/core/entities/access_token.dart';
-import 'package:classroom_app/core/entities/course.dart';
 import 'package:classroom_app/core/env/env.dart';
 import 'package:classroom_app/core/error/exceptions.dart';
 import 'package:classroom_app/core/models/course_model.dart';
 import 'package:classroom_app/core/models/courses_model.dart';
 import 'package:classroom_app/features/course/data/datasources/courses_remote_datasource.dart';
+import 'package:classroom_app/features/course/data/models/inscription_model.dart';
+import 'package:classroom_app/features/course/data/models/multi_enroll_model.dart';
 import 'package:classroom_app/features/course/data/models/new_course_model.dart';
 
 import '../../../../fixtures/fixture_reader.dart';
@@ -45,54 +46,67 @@ void main() {
 
   const tAccessToken = AccessToken('test');
 
+  const tInscriptionModel = InscriptionModel(
+    courseId: 'test',
+    studentId: 'test',
+  );
+
+  const tMultiEnrollModel = MultiEnrollModel(courseId: 'test', studentIds: []);
+
+  void setUpMockHttpClientGet(String response, [int statusCode = 200]) {
+    when(
+      client.get(
+        any,
+        headers: anyNamed('headers'),
+      ),
+    ).thenAnswer(
+      (_) async => http.Response(
+        response,
+        statusCode,
+      ),
+    );
+  }
+
+  void setUpMockHttpClientGetException(Exception exception) {
+    when(
+      client.get(
+        any,
+        headers: anyNamed('headers'),
+      ),
+    ).thenThrow(exception);
+  }
+
+  void setUpMockHttpClientPost(String response, [int statusCode = 200]) {
+    when(
+      client.post(
+        any,
+        headers: anyNamed('headers'),
+        body: anyNamed('body'),
+      ),
+    ).thenAnswer(
+      (_) async => http.Response(
+        response,
+        statusCode,
+      ),
+    );
+  }
+
+  void setUpMockHttpClientPostException(Exception exception) {
+    when(
+      client.post(
+        any,
+        headers: anyNamed('headers'),
+        body: anyNamed('body'),
+      ),
+    ).thenThrow(exception);
+  }
+
   group('getCourses', () {
-    void setUpMockHttpClientSuccess200() {
-      when(
-        client.get(
-          any,
-          headers: anyNamed('headers'),
-        ),
-      ).thenAnswer(
-        (_) async => http.Response(
-          fixture('courses.json'),
-          200,
-        ),
-      );
-    }
-
-    void setUpMockHttpClientError404() {
-      when(
-        client.get(
-          any,
-          headers: anyNamed('headers'),
-        ),
-      ).thenAnswer(
-        (_) async => http.Response(
-          'Invalid',
-          404,
-        ),
-      );
-    }
-
-    void setUpMockHttpClientGeneralError() {
-      when(
-        client.get(
-          any,
-          headers: anyNamed('headers'),
-        ),
-      ).thenAnswer(
-        (_) async => http.Response(
-          'Unknown error',
-          500,
-        ),
-      );
-    }
-
     test(
       'should perform a GET request with the application/json header',
       () async {
         // arrange
-        setUpMockHttpClientSuccess200();
+        setUpMockHttpClientGet(fixture('courses.json'), 200);
 
         // act
         dataSourceImpl.getCourses();
@@ -113,7 +127,7 @@ void main() {
       'should return a CoursesModel when status code is 200 (success)',
       () async {
         // arrange
-        setUpMockHttpClientSuccess200();
+        setUpMockHttpClientGet(fixture('courses.json'), 200);
 
         // act
         final result = await dataSourceImpl.getCourses();
@@ -127,7 +141,7 @@ void main() {
       'should throw NotFoundException when status code is 404',
       () async {
         // arrange
-        setUpMockHttpClientError404();
+        setUpMockHttpClientGet('Error', 404);
 
         // act
         final call = dataSourceImpl.getCourses;
@@ -144,7 +158,7 @@ void main() {
       'should throw ServerException when status code is other than 200 and 404',
       () async {
         // arrange
-        setUpMockHttpClientGeneralError();
+        setUpMockHttpClientGet('Error', 500);
 
         // act
         final call = dataSourceImpl.getCourses;
@@ -158,15 +172,10 @@ void main() {
     );
 
     test(
-      'should throw ServerException when status code is other than 200 and 404',
+      'should throw ServerException when ClientException occurs',
       () async {
         // arrange
-        when(
-          client.get(
-            any,
-            headers: anyNamed('headers'),
-          ),
-        ).thenThrow(http.ClientException(''));
+        setUpMockHttpClientGetException(http.ClientException(''));
 
         // act
         final call = dataSourceImpl.getCourses;
@@ -181,57 +190,12 @@ void main() {
   });
 
   group('postCourse', () {
-    void setUpMockHttpClientSuccess200() {
-      when(
-        client.post(
-          any,
-          headers: anyNamed('headers'),
-          body: anyNamed('body'),
-        ),
-      ).thenAnswer(
-        (_) async => http.Response(
-          fixture('new_course_response.json'),
-          200,
-        ),
-      );
-    }
-
-    void setUpMockHttpClientError403() {
-      when(
-        client.post(
-          any,
-          headers: anyNamed('headers'),
-          body: anyNamed('body'),
-        ),
-      ).thenAnswer(
-        (_) async => http.Response(
-          'User not authed',
-          403,
-        ),
-      );
-    }
-
-    void setUpMockHttpClientGeneralError() {
-      when(
-        client.post(
-          any,
-          headers: anyNamed('headers'),
-          body: anyNamed('body'),
-        ),
-      ).thenAnswer(
-        (_) async => http.Response(
-          'Unknown Error',
-          500,
-        ),
-      );
-    }
-
     test(
       '''should perform a POST request with the bearer token
       and with the application/json header''',
       () async {
         // arrange
-        setUpMockHttpClientSuccess200();
+        setUpMockHttpClientPost(fixture('new_course_response.json'), 200);
 
         // act
         dataSourceImpl.postCourse(
@@ -257,7 +221,7 @@ void main() {
       'should return a CourseModel when the status code is 200 (success)',
       () async {
         // arrange
-        setUpMockHttpClientSuccess200();
+        setUpMockHttpClientPost(fixture('new_course_response.json'), 200);
 
         // act
         final result = await dataSourceImpl.postCourse(
@@ -274,7 +238,7 @@ void main() {
       'should throw NotAuthorizedException when status code is 403',
       () async {
         // arrange
-        setUpMockHttpClientError403();
+        setUpMockHttpClientPost('Error', 403);
 
         // act
         final call = dataSourceImpl.postCourse;
@@ -294,7 +258,7 @@ void main() {
       'should throw ServerException when status code is other than 200 and 403',
       () async {
         // arrange
-        setUpMockHttpClientGeneralError();
+        setUpMockHttpClientPost('Error', 500);
 
         // act
         final call = dataSourceImpl.postCourse;
@@ -311,16 +275,10 @@ void main() {
     );
 
     test(
-      'should throw ServerException when status code is other than 200 and 403',
+      'should throw ServerException when occurs a ClientException',
       () async {
         // arrange
-        when(
-          client.post(
-            any,
-            headers: anyNamed('headers'),
-            body: anyNamed('body'),
-          ),
-        ).thenThrow(http.ClientException(''));
+        setUpMockHttpClientPostException(http.ClientException(''));
 
         // act
         final call = dataSourceImpl.postCourse;
@@ -329,6 +287,311 @@ void main() {
         expect(
           () => call(
             newCourse: tNewCourseModel,
+            accessToken: tAccessToken,
+          ),
+          throwsA(const TypeMatcher<ServerException>()),
+        );
+      },
+    );
+  });
+
+  group('enrollStudent', () {
+    test(
+      '''should perform a POST request with the bearer token
+      and with the application/json header''',
+      () async {
+        // arrange
+        setUpMockHttpClientPost(fixture('enroll_student_response.json'), 200);
+
+        // act
+        dataSourceImpl.enrollStudent(
+          inscription: tInscriptionModel,
+          accessToken: tAccessToken,
+        );
+
+        // assert
+        verify(
+          client.post(
+            Uri.parse(
+              '${Env.appUrl}/v1/courses/${tInscriptionModel.courseId}/users/${tInscriptionModel.studentId}/inscriptions',
+            ),
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ${tAccessToken.token}'
+            },
+            body: json.encode(tInscriptionModel.toJson()),
+          ),
+        );
+      },
+    );
+
+    test(
+      'should return an InscriptionModel when the status code is 200 (success)',
+      () async {
+        // arrange
+        setUpMockHttpClientPost(fixture('enroll_student_response.json'), 200);
+
+        // act
+        final result = await dataSourceImpl.enrollStudent(
+          inscription: tInscriptionModel,
+          accessToken: tAccessToken,
+        );
+
+        // assert
+        expect(result, tInscriptionModel);
+      },
+    );
+
+    test(
+      'should throw NotAuthorizedException when status code is 403',
+      () async {
+        // arrange
+        setUpMockHttpClientPost('Error', 403);
+
+        // act
+        final call = dataSourceImpl.enrollStudent;
+
+        // assert
+        expect(
+          () => call(
+            inscription: tInscriptionModel,
+            accessToken: tAccessToken,
+          ),
+          throwsA(const TypeMatcher<NotAuthorizedException>()),
+        );
+      },
+    );
+
+    test(
+      'should throw ServerException when status code is other than 200 and 403',
+      () async {
+        // arrange
+        setUpMockHttpClientPost('Error', 500);
+
+        // act
+        final call = dataSourceImpl.enrollStudent;
+
+        // assert
+        expect(
+          () => call(
+            inscription: tInscriptionModel,
+            accessToken: tAccessToken,
+          ),
+          throwsA(const TypeMatcher<ServerException>()),
+        );
+      },
+    );
+
+    test(
+      'should throw ServerException when occurs a ClientException',
+      () async {
+        // arrange
+        setUpMockHttpClientPostException(http.ClientException(''));
+
+        // act
+        final call = dataSourceImpl.enrollStudent;
+
+        // assert
+        expect(
+          () => call(
+            inscription: tInscriptionModel,
+            accessToken: tAccessToken,
+          ),
+          throwsA(const TypeMatcher<ServerException>()),
+        );
+      },
+    );
+  });
+
+  group('enroledCourses', () {
+    test(
+      '''should perform a GET request with the bearer token and
+      with the application/json header''',
+      () async {
+        // arrange
+        setUpMockHttpClientGet(fixture('courses.json'), 200);
+
+        // act
+        dataSourceImpl.enroledCourses(tAccessToken);
+
+        // assert
+        verify(
+          client.get(
+            Uri.parse('${Env.appUrl}/v1/enrolledCourses'),
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ${tAccessToken.token}'
+            },
+          ),
+        );
+      },
+    );
+
+    test(
+      'should return a CoursesModel when the status code is 200 (success)',
+      () async {
+        // arrange
+        setUpMockHttpClientGet(fixture('courses.json'), 200);
+
+        // act
+        final result = await dataSourceImpl.enroledCourses(tAccessToken);
+
+        // assert
+        expect(result, tCoursesModel);
+      },
+    );
+
+    test(
+      'should throw NotEnrolledException when status code is 404',
+      () async {
+        // arrange
+        setUpMockHttpClientGet('Error', 404);
+
+        // act
+        final call = dataSourceImpl.enroledCourses;
+
+        // assert
+        expect(
+          () => call(tAccessToken),
+          throwsA(const TypeMatcher<NotEnrolledException>()),
+        );
+      },
+    );
+
+    test(
+      'should throw ServerException when status code is other than 200 and 403',
+      () async {
+        // arrange
+        setUpMockHttpClientGet('Error', 500);
+
+        // act
+        final call = dataSourceImpl.enroledCourses;
+
+        // assert
+        expect(
+          () => call(tAccessToken),
+          throwsA(const TypeMatcher<ServerException>()),
+        );
+      },
+    );
+
+    test(
+      'should throw ServerException when occurs a ClientException',
+      () async {
+        // arrange
+        setUpMockHttpClientGetException(http.ClientException(''));
+
+        // act
+        final call = dataSourceImpl.enroledCourses;
+
+        // assert
+        expect(
+          () => call(tAccessToken),
+          throwsA(const TypeMatcher<ServerException>()),
+        );
+      },
+    );
+  });
+
+  group('multiStudentEnroll', () {
+    test(
+      '''should perform a POST request with the bearer token
+      and with the application/json header''',
+      () async {
+        // arrange
+        setUpMockHttpClientPost(
+            fixture('enroll_multiple_students_response.json'), 200);
+
+        // act
+        dataSourceImpl.multiStudentEnroll(
+          multiEnroll: tMultiEnrollModel,
+          accessToken: tAccessToken,
+        );
+
+        // assert
+        verify(
+          client.post(
+            Uri.parse(
+              '${Env.appUrl}/v1/courses/enroll-multiple-users',
+            ),
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ${tAccessToken.token}'
+            },
+            body: json.encode(tMultiEnrollModel.toJson()),
+          ),
+        );
+      },
+    );
+
+    test(
+      'should return nothing when the status code is 200 (success)',
+      () async {
+        // arrange
+        setUpMockHttpClientPost(
+            fixture('enroll_multiple_students_response.json'), 200);
+
+        // act
+        await dataSourceImpl.multiStudentEnroll(
+          multiEnroll: tMultiEnrollModel,
+          accessToken: tAccessToken,
+        );
+      },
+    );
+
+    test(
+      'should throw NotAuthorizedException when status code is 403',
+      () async {
+        // arrange
+        setUpMockHttpClientPost('Error', 403);
+
+        // act
+        final call = dataSourceImpl.multiStudentEnroll;
+
+        // assert
+        expect(
+          () => call(
+            multiEnroll: tMultiEnrollModel,
+            accessToken: tAccessToken,
+          ),
+          throwsA(const TypeMatcher<NotAuthorizedException>()),
+        );
+      },
+    );
+
+    test(
+      'should throw ServerException when status code is other than 200 and 403',
+      () async {
+        // arrange
+        setUpMockHttpClientPost('Error', 500);
+
+        // act
+        final call = dataSourceImpl.multiStudentEnroll;
+
+        // assert
+        expect(
+          () => call(
+            multiEnroll: tMultiEnrollModel,
+            accessToken: tAccessToken,
+          ),
+          throwsA(const TypeMatcher<ServerException>()),
+        );
+      },
+    );
+
+    test(
+      'should throw ServerException when occurs a ClientException',
+      () async {
+        // arrange
+        setUpMockHttpClientPostException(http.ClientException(''));
+
+        // act
+        final call = dataSourceImpl.multiStudentEnroll;
+
+        // assert
+        expect(
+          () => call(
+            multiEnroll: tMultiEnrollModel,
             accessToken: tAccessToken,
           ),
           throwsA(const TypeMatcher<ServerException>()),

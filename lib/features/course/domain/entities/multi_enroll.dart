@@ -13,5 +13,5 @@ class MultiEnroll extends Equatable {
   });
 
   @override
-  List<Object?> get props => [studentIds, courseId];
+  List<Object> get props => [studentIds, courseId];
 }

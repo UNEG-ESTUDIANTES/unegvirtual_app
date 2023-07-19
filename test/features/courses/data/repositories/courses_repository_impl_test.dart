@@ -9,6 +9,7 @@ import 'package:classroom_app/core/entities/access_token.dart';
 import 'package:classroom_app/core/models/courses_model.dart';
 import 'package:classroom_app/core/network/network_info.dart';
 import 'package:classroom_app/features/course/data/datasources/courses_remote_datasource.dart';
+import 'package:classroom_app/features/course/data/models/multi_enroll_model.dart';
 import 'package:classroom_app/features/course/data/repositories/courses_repository_impl.dart';
 import 'package:classroom_app/features/course/domain/entities/multi_enroll.dart';
 
@@ -84,7 +85,7 @@ void main() {
 
         verify(
           mockRemoteDataSource.multiStudentEnroll(
-            multiEnroll: input,
+            multiEnroll: MultiEnrollModel.fromEntity(input),
             accessToken: tAccessToken,
           ),
         );

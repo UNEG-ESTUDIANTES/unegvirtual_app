@@ -38,6 +38,36 @@ void main() {
     );
   });
 
+  group('fromEntity', () {
+    const tInscription = Inscription(
+      courseId: 'test',
+      studentId: 'test',
+    );
+
+    test(
+      'should return an InscriptionModel',
+      () async {
+        // act
+        final result = InscriptionModel.fromEntity(tInscription);
+
+        // assert
+        expect(result, isA<InscriptionModel>());
+      },
+    );
+
+    test(
+      'should contain the same data as the Inscription',
+      () async {
+        // act
+        final result = InscriptionModel.fromEntity(tInscription);
+
+        // assert
+        expect(result.courseId, tInscription.courseId);
+        expect(result.studentId, tInscription.studentId);
+      },
+    );
+  });
+
   group('toJson', () {
     test(
       'should return a JSON map containing the proper data',

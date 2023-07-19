@@ -11,6 +11,14 @@ class InscriptionModel extends Inscription {
     );
   }
 
+  /// Returns an [InscriptionModel] from the [inscription].
+  factory InscriptionModel.fromEntity(Inscription inscription) {
+    return InscriptionModel(
+      courseId: inscription.courseId,
+      studentId: inscription.studentId,
+    );
+  }
+
   /// Converts the [InscriptionModel] to JSON.
   Map<String, dynamic> toJson() {
     return {

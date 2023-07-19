@@ -2,6 +2,8 @@ import 'package:dartz/dartz.dart';
 
 import 'package:classroom_app/core/entities/access_token.dart';
 import 'package:classroom_app/core/entities/course.dart';
+import 'package:classroom_app/features/course/data/models/inscription_model.dart';
+import 'package:classroom_app/features/course/data/models/multi_enroll_model.dart';
 import 'package:classroom_app/features/course/data/models/new_course_model.dart';
 import 'package:classroom_app/features/course/domain/entities/inscription.dart';
 import 'package:classroom_app/features/course/domain/entities/multi_enroll.dart';
@@ -52,7 +54,7 @@ class CoursesRepositoryImpl implements CoursesRepository {
   }) async {
     if (await network.isConnected) {
       final remoteResult = await remote.enrollStudent(
-        inscription: inscription,
+        inscription: InscriptionModel.fromEntity(inscription),
         accessToken: accessToken,
       );
 
@@ -79,7 +81,7 @@ class CoursesRepositoryImpl implements CoursesRepository {
   }) async {
     if (await network.isConnected) {
       await remote.multiStudentEnroll(
-        multiEnroll: multiEnroll,
+        multiEnroll: MultiEnrollModel.fromEntity(multiEnroll),
         accessToken: accessToken,
       );
 

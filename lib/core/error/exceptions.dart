@@ -11,3 +11,5 @@ class NoInternetConnectionException implements Exception {}
 class UserCredentialsMismatchException implements Exception {}
 
 class NotAuthorizedException implements Exception {}
+
+class NotEnrolledException implements Exception {}

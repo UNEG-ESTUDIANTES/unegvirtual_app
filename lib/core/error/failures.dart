@@ -33,6 +33,11 @@ class NotAuthorizedFailure extends Failure {
   List<Object> get props => [];
 }
 
+class NotEnrolledFailure extends Failure {
+  @override
+  List<Object> get props => [];
+}
+
 // Login failures
 class UserCredentialsMismatchFailure extends Failure {
   @override
