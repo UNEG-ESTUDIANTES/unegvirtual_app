@@ -5,11 +5,10 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i5;
 
+import 'package:classroom_app/core/models/courses_model.dart' as _i3;
 import 'package:classroom_app/core/network/network_info.dart' as _i6;
 import 'package:classroom_app/features/landing/data/datasources/landing_remote_datasource_impl.dart'
     as _i4;
-import 'package:classroom_app/features/landing/data/models/course_model.dart'
-    as _i3;
 import 'package:http/http.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 
@@ -34,8 +33,8 @@ class _FakeClient_0 extends _i1.SmartFake implements _i2.Client {
         );
 }
 
-class _FakeCourseModel_1 extends _i1.SmartFake implements _i3.CourseModel {
-  _FakeCourseModel_1(
+class _FakeCoursesModel_1 extends _i1.SmartFake implements _i3.CoursesModel {
+  _FakeCoursesModel_1(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -62,12 +61,12 @@ class MockLandingRemoteDataSourceImpl extends _i1.Mock
         ),
       ) as _i2.Client);
   @override
-  _i5.Future<_i3.CourseModel> getCourses() => (super.noSuchMethod(
+  _i5.Future<_i3.CoursesModel> getCourses() => (super.noSuchMethod(
         Invocation.method(
           #getCourses,
           [],
         ),
-        returnValue: _i5.Future<_i3.CourseModel>.value(_FakeCourseModel_1(
+        returnValue: _i5.Future<_i3.CoursesModel>.value(_FakeCoursesModel_1(
           this,
           Invocation.method(
             #getCourses,
@@ -75,14 +74,14 @@ class MockLandingRemoteDataSourceImpl extends _i1.Mock
           ),
         )),
         returnValueForMissingStub:
-            _i5.Future<_i3.CourseModel>.value(_FakeCourseModel_1(
+            _i5.Future<_i3.CoursesModel>.value(_FakeCoursesModel_1(
           this,
           Invocation.method(
             #getCourses,
             [],
           ),
         )),
-      ) as _i5.Future<_i3.CourseModel>);
+      ) as _i5.Future<_i3.CoursesModel>);
 }
 
 /// A class which mocks [NetworkInfo].

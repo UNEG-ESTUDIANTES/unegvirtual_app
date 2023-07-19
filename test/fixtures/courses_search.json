@@ -1,29 +1,28 @@
 {
-  "courses": [
-      {
-          "_id": "64b20575c335925e971cc976",
-          "name": "programacion",
-          "description": "aprende a programar"
-      },
-      {
-          "_id": "64b205aac335925e971cc979",
-          "name": "Matematica",
-          "description": "Numeros"
-      },
-      {
-          "_id": "64b205c5c335925e971cc97c",
-          "name": "Ingles",
-          "description": "Aprende otro idioma"
-      },
-      {
-          "_id": "64b205f0c335925e971cc97f",
-          "name": "Cocina",
-          "description": "Habilidad basica"
-      },
-      {
-          "_id": "64b205fdc335925e971cc982",
-          "name": "DIbujo",
-          "description": "Aprende a dibujar"
-      }
-  ]
+    "courses": [
+        {
+            "_id": "64b352bea95adad7e9643a0c",
+            "name": "Kpop",
+            "description": "talento",
+            "teacherId": "64b3443f4ef5939802d93460"
+        },
+        {
+            "_id": "64b35501a95adad7e9643a15",
+            "name": "Cocina",
+            "description": "aprende a cocinar",
+            "teacherId": "64b3443f4ef5939802d93460"
+        },
+        {
+            "_id": "64b3550ca95adad7e9643a18",
+            "name": "Programacion",
+            "description": "lo que deberiamos saber",
+            "teacherId": "64b3443f4ef5939802d93460"
+        },
+        {
+            "_id": "64b35516a95adad7e9643a1b",
+            "name": "matematica",
+            "description": "la odio",
+            "teacherId": "64b3443f4ef5939802d93460"
+        }
+    ]
 }

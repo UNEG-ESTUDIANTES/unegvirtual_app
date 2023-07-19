@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
 
+import 'package:classroom_app/core/entities/courses.dart';
 import 'package:classroom_app/core/providers/page_state.dart';
 import 'package:classroom_app/core/services/notifications_service.dart';
 import 'package:classroom_app/core/widgets/loading_display.dart';
-import 'package:classroom_app/features/landing/domain/entities/course.dart';
 import 'package:classroom_app/features/landing/presentation/providers/landing_provider.dart';
 import 'package:classroom_app/features/landing/presentation/widgets/careers_slider.dart';
 import 'package:classroom_app/features/landing/presentation/widgets/footer.dart';

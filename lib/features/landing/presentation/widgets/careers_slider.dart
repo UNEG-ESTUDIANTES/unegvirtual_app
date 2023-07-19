@@ -1,4 +1,4 @@
-import 'package:classroom_app/features/landing/domain/entities/course.dart';
+import 'package:classroom_app/core/entities/courses.dart';
 import 'package:flutter/material.dart';
 
 import 'package:classroom_app/features/landing/presentation/widgets/career_card.dart';

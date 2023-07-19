@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 
+import 'package:classroom_app/core/entities/courses.dart';
 import 'package:classroom_app/core/error/exceptions.dart';
-import 'package:classroom_app/features/landing/domain/entities/course.dart';
 import 'package:classroom_app/features/landing/domain/repositories/landing_repository.dart';
 
 import '../../../../core/error/failures.dart';

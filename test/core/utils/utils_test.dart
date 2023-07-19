@@ -81,6 +81,34 @@ void main() {
     );
 
     test(
+      'should display the not authorized failure message',
+      () async {
+        // arrange
+        final failure = NotAuthorizedFailure();
+
+        // act
+        final result = Utils.getErrorMessage(failure);
+
+        // assert
+        expect(result, notAuthorizedFailureMessage);
+      },
+    );
+
+    test(
+      'should display the not enrolled failure message',
+      () async {
+        // arrange
+        final failure = NotEnrolledFailure();
+
+        // act
+        final result = Utils.getErrorMessage(failure);
+
+        // assert
+        expect(result, notEnrolledFailureMessage);
+      },
+    );
+
+    test(
       'should display the unknown failure message',
       () async {
         // arrange

@@ -3,12 +3,12 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
+import 'package:classroom_app/core/entities/course.dart';
+import 'package:classroom_app/core/entities/courses.dart';
 import 'package:classroom_app/core/error/failures.dart';
 import 'package:classroom_app/core/providers/page_state.dart';
 import 'package:classroom_app/core/use_cases/use_case.dart';
 import 'package:classroom_app/core/utils/utils.dart';
-import 'package:classroom_app/features/landing/data/models/course_model.dart';
-import 'package:classroom_app/features/landing/domain/entities/course.dart';
 import 'package:classroom_app/features/landing/domain/usecases/get_courses.dart';
 import 'package:classroom_app/features/landing/presentation/providers/landing_provider.dart';
 
@@ -27,12 +27,13 @@ void main() {
     );
   });
 
-  final tCourses = Courses(
+  const tCourses = Courses(
     courses: [
-      CourseElement(
+      Course(
         id: 'test',
         name: 'test',
         description: 'test',
+        teacherId: 'test',
       ),
     ],
   );
@@ -50,7 +51,8 @@ void main() {
       'should get the courses with the use case',
       () async {
         // arrange
-        when(mockGetCourses(any)).thenAnswer((_) async => Right(tCourses));
+        when(mockGetCourses(any))
+            .thenAnswer((_) async => const Right(tCourses));
 
         // act
         await provider.getCoursesList();
@@ -64,7 +66,8 @@ void main() {
       'should notify [Loading, Loaded] when the courses are gotten successfully',
       () async {
         // arrange
-        when(mockGetCourses(any)).thenAnswer((_) async => Right(tCourses));
+        when(mockGetCourses(any))
+            .thenAnswer((_) async => const Right(tCourses));
 
         // assert later
         final expected = [Empty(), Loading(), const Loaded()];

@@ -1,3 +1,3 @@
 export 'career.dart';
-export 'course.dart';
+export 'courses.dart';
 export 'unit.dart';

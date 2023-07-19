@@ -5,8 +5,8 @@ import 'package:mockito/mockito.dart';
 
 import 'package:classroom_app/core/env/env.dart';
 import 'package:classroom_app/core/error/exceptions.dart';
+import 'package:classroom_app/core/models/courses_model.dart';
 import 'package:classroom_app/features/landing/data/datasources/landing_remote_datasource_impl.dart';
-import 'package:classroom_app/features/landing/data/models/course_model.dart';
 
 import '../../../../fixtures/fixture_reader.dart';
 
@@ -48,7 +48,7 @@ void main() {
     test('should return courses when the response is 200(success)', () async {
       setUpMockHttpClientSuccess200Courses();
       final result = await dataSource.getCourses();
-      expect(result, isA<CourseModel>());
+      expect(result, isA<CoursesModel>());
     });
 
     test(

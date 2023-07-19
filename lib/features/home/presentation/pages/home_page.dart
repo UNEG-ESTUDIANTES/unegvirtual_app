@@ -63,7 +63,10 @@ class HomePage extends StatelessWidget {
             itemBuilder: (context, index) {
               return const CourseCard(
                 course: Course(
-                  name: 'Tecnicas de Programación I',
+                  id: '12345',
+                  name: 'programacion',
+                  description: 'aprende',
+                  teacherId: '123',
                 ),
                 completedPercentage: 32,
               );
