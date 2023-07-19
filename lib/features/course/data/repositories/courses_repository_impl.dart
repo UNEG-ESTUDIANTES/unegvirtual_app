@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 
 import 'package:classroom_app/core/entities/access_token.dart';
 import 'package:classroom_app/core/entities/course.dart';
+import 'package:classroom_app/core/error/exceptions.dart';
 import 'package:classroom_app/features/course/data/models/inscription_model.dart';
 import 'package:classroom_app/features/course/data/models/multi_enroll_model.dart';
 import 'package:classroom_app/features/course/data/models/new_course_model.dart';
@@ -24,11 +25,17 @@ class CoursesRepositoryImpl implements CoursesRepository {
 
   @override
   Future<Either<Failure, Courses>> getCourses() async {
-    if (await network.isConnected) {
-      final remoteResult = await remote.getCourses();
-      return Right(remoteResult);
+    final isConnected = await network.isConnected;
+
+    if (!isConnected) return Left(ServerFailure());
+
+    try {
+      return Right(await remote.getCourses());
+    } on NotFoundException {
+      return Left(NotFoundFailure());
+    } on ServerException {
+      return Left(ServerFailure());
     }
-    return Left(ServerFailure());
   }
 
   @override
@@ -36,15 +43,22 @@ class CoursesRepositoryImpl implements CoursesRepository {
     required NewCourse newCourse,
     required AccessToken accessToken,
   }) async {
-    if (await network.isConnected) {
+    final isConnected = await network.isConnected;
+
+    if (!isConnected) return Left(ServerFailure());
+
+    try {
       final remoteResult = await remote.postCourse(
         newCourse: NewCourseModel.fromEntity(newCourse),
         accessToken: accessToken,
       );
 
       return Right(remoteResult);
+    } on NotAuthorizedException {
+      return Left(NotAuthorizedFailure());
+    } on ServerException {
+      return Left(ServerFailure());
     }
-    return Left(ServerFailure());
   }
 
   @override
@@ -52,26 +66,40 @@ class CoursesRepositoryImpl implements CoursesRepository {
     required Inscription inscription,
     required AccessToken accessToken,
   }) async {
-    if (await network.isConnected) {
+    final isConnected = await network.isConnected;
+
+    if (!isConnected) return Left(ServerFailure());
+
+    try {
       final remoteResult = await remote.enrollStudent(
         inscription: InscriptionModel.fromEntity(inscription),
         accessToken: accessToken,
       );
 
       return Right(remoteResult);
+    } on NotAuthorizedException {
+      return Left(NotAuthorizedFailure());
+    } on ServerException {
+      return Left(ServerFailure());
     }
-    return Left(ServerFailure());
   }
 
   @override
   Future<Either<Failure, Courses>> enroledCourses(
     AccessToken accessToken,
   ) async {
-    if (await network.isConnected) {
+    final isConnected = await network.isConnected;
+
+    if (!isConnected) return Left(ServerFailure());
+
+    try {
       final remoteResult = await remote.enroledCourses(accessToken);
       return Right(remoteResult);
+    } on NotEnrolledException {
+      return Left(NotEnrolledFailure());
+    } on ServerException {
+      return Left(ServerFailure());
     }
-    return Left(ServerFailure());
   }
 
   @override
@@ -79,14 +107,21 @@ class CoursesRepositoryImpl implements CoursesRepository {
     required MultiEnroll multiEnroll,
     required AccessToken accessToken,
   }) async {
-    if (await network.isConnected) {
+    final isConnected = await network.isConnected;
+
+    if (!isConnected) return Left(ServerFailure());
+
+    try {
       await remote.multiStudentEnroll(
         multiEnroll: MultiEnrollModel.fromEntity(multiEnroll),
         accessToken: accessToken,
       );
 
       return const Right(true);
+    } on NotAuthorizedException {
+      return Left(NotAuthorizedFailure());
+    } on ServerException {
+      return Left(NotAuthorizedFailure());
     }
-    return Left(ServerFailure());
   }
 }
