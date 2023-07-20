@@ -13,6 +13,7 @@ import 'package:classroom_app/injection_container.dart' as di;
 
 import 'features/auth/presentation/pages/login_page.dart';
 import 'features/course/presentation/pages/course_page.dart';
+import 'features/course/presentation/pages/create_course_page.dart';
 import 'features/landing/presentation/pages/landing_page.dart';
 import 'features/user/presentation/pages/user_page.dart';
 
@@ -47,7 +48,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'UNEG Classroom',
         scaffoldMessengerKey: NotificationsService.messengerKey,
-        initialRoute: LandingPage.routeName,
+        initialRoute: CreateCoursePage.routeName,
         routes: {
           LandingPage.routeName: (_) => const LandingPage(),
           HomePage.routeName: (_) => const HomePage(),
@@ -56,6 +57,7 @@ class MyApp extends StatelessWidget {
           LogInPage.routeName: (_) => const LogInPage(),
           ForgotPasswordPage.routeName: (_) => const ForgotPasswordPage(),
           CoursePage.routeName: (_) => const CoursePage(),
+          CreateCoursePage.routeName: (_) => const CreateCoursePage(),
         },
         theme: ThemeData(
           useMaterial3: true,
