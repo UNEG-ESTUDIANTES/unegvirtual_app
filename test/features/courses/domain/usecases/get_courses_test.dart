@@ -13,11 +13,11 @@ import 'get_courses_test.mocks.dart';
 
 void main() {
   late MockCoursesRepository mockCoursesRepository;
-  late GetCourses useCase;
+  late CoursesGetCourses useCase;
 
   setUp(() {
     mockCoursesRepository = MockCoursesRepository();
-    useCase = GetCourses(mockCoursesRepository);
+    useCase = CoursesGetCourses(mockCoursesRepository);
   });
 
   const tCourses = Courses(courses: []);

@@ -1,3 +1,4 @@
+import 'package:classroom_app/features/course/presentation/pages/create_course_page.dart';
 import 'package:flutter/material.dart';
 
 import 'package:formz/formz.dart';
@@ -52,7 +53,7 @@ class _LoginFormState extends State<LoginForm> {
   void _navigateToMainPage() {
     Navigator.pushNamedAndRemoveUntil(
       context,
-      MainPage.routeName,
+      CreateCoursePage.routeName,
       (route) => false,
     );
   }

@@ -11,7 +11,7 @@ import '../../../../core/error/failures.dart';
 
 abstract class CoursesRepository {
   /// Gets the public [Courses].
-  Future<Either<Failure, Courses>> getCourses();
+  Future<Either<Failure, Courses>> coursesGetCourses();
 
   /// Creates a new [Course] from the [newCourse].
   Future<Either<Failure, Course>> postCourse({

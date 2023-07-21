@@ -1,5 +1,12 @@
 import 'dart:io';
 
+import 'package:classroom_app/features/course/data/datasources/courses_remote_datasource.dart';
+import 'package:classroom_app/features/course/data/repositories/courses_repository_impl.dart';
+import 'package:classroom_app/features/course/domain/repositories/courses_repository.dart';
+import 'package:classroom_app/features/course/domain/usecases/enroled_courses.dart';
+import 'package:classroom_app/features/course/domain/usecases/enroll_student.dart';
+import 'package:classroom_app/features/course/domain/usecases/get_courses.dart';
+import 'package:classroom_app/features/course/domain/usecases/post_course.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 import 'package:internet_connection_checker/internet_connection_checker.dart';
@@ -27,6 +34,9 @@ import 'package:classroom_app/features/user/data/repositories/user_repository_im
 import 'package:classroom_app/features/user/domain/repositories/user_repository.dart';
 import 'package:classroom_app/features/user/domain/use_cases/get_current_user.dart';
 import 'package:classroom_app/features/user/presentation/providers/user_provider.dart';
+import 'package:classroom_app/features/course/presentation/providers/create_course_provider.dart';
+
+import 'features/course/domain/usecases/multi_students_enroll.dart';
 
 final sl = GetIt.instance;
 
@@ -97,6 +107,29 @@ Future<void> init() async {
 
   sl.registerLazySingleton<UserRemoteDataSource>(
     () => UserRemoteDataSourceImpl(client: sl()),
+  );
+
+  //* Features - Courses.
+  // Providers.
+  sl.registerLazySingleton(() => CreateCourseProvider(postCourse: sl()));
+
+  // Use Cases.
+  sl.registerLazySingleton(() => CoursesGetCourses(sl()));
+  sl.registerLazySingleton(() => PostCourse(sl()));
+  sl.registerLazySingleton(() => EnrollStudent(sl()));
+  sl.registerLazySingleton(() => MultiStudentsEnroll(sl()));
+  sl.registerLazySingleton(() => EnroledCourses(sl()));
+
+  // Repository.
+  sl.registerLazySingleton<CoursesRepository>(
+    () => CoursesRepositoryImpl(
+      network: sl(),
+      remote: sl(),
+    ),
+  );
+
+  sl.registerLazySingleton<CoursesRemoteDataSource>(
+    () => CoursesRemoteDataSourceImpl(client: sl()),
   );
 
   //* Core

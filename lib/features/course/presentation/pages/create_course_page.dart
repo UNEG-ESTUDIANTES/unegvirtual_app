@@ -27,73 +27,75 @@ class _CreateCoursePageState extends State<CreateCoursePage> {
   late final TextEditingController _nameController;
   late final TextEditingController _descriptionController;
 
+  void _onNameChanged() {
+    setState(() {
+      _state = _state.copyWith(name: NameInput.dirty(_nameController.text));
+    });
+  }
+
+  void _resetForm() {
+    _key.currentState!.reset();
+    _nameController.clear();
+    _descriptionController.clear();
+
+    setState(() => _state = CreateCourseFormState());
+  }
+
+  void _navigateToMainPage() {
+    Navigator.pushNamedAndRemoveUntil(
+      context,
+      MainPage.routeName,
+      (route) => false,
+    );
+  }
+
+  Future<void> _onSubmit() async {
+    if (!_key.currentState!.validate()) return;
+
+    setState(() {
+      _state = _state.copyWith(status: FormzSubmissionStatus.inProgress);
+    });
+
+    final userProviderState = context.read<UserProvider>().user!.id;
+    final createCourseProvider = context.watch<CreateCourseProvider>();
+
+    NewCourse newCourse = NewCourse(
+        name: _nameController.value.toString(),
+        description: _descriptionController.value.toString(),
+        teacherId: userProviderState);
+
+    final authProviderState = context.read<AuthProvider>().accessToken!;
+
+    PostCourseParams postCourse =
+        PostCourseParams(accessToken: authProviderState, newCourse: newCourse);
+
+    createCourseProvider.postCourse(postCourse);
+
+    // Navigates to main page.
+    if (_state.status.isSuccess) {
+      _resetForm();
+      _navigateToMainPage();
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    _state = CreateCourseFormState();
+
+    _nameController = TextEditingController(
+      text: _state.name.value,
+    )..addListener(_onNameChanged);
+
+    _descriptionController = TextEditingController(
+      text: _state.description,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    final createCourseProvider = context.watch<CreateCourseProvider>();
-
-    void _onNameChanged() {
-      setState(() {
-        _state = _state.copyWith(name: NameInput.dirty(_nameController.text));
-      });
-    }
-
-    void _resetForm() {
-      _key.currentState!.reset();
-      _nameController.clear();
-      _descriptionController.clear();
-
-      setState(() => _state = CreateCourseFormState());
-    }
-
-    void _navigateToMainPage() {
-      Navigator.pushNamedAndRemoveUntil(
-        context,
-        MainPage.routeName,
-        (route) => false,
-      );
-    }
-
-    final authProviderState = context.read<AuthProvider>().state;
-
-    Future<void> _onSubmit() async {
-      if (!_key.currentState!.validate()) return;
-
-      setState(() {
-        _state = _state.copyWith(status: FormzSubmissionStatus.inProgress);
-      });
-
-      final userProviderState = context.read<UserProvider>().user!.id;
-
-      NewCourse newCourse = NewCourse(
-          name: _nameController.value.toString(),
-          description: _descriptionController.value.toString(),
-          teacherId: userProviderState);
-
-      final authProviderState = context.read<AuthProvider>().accessToken!;
-
-      PostCourseParams postCourse = PostCourseParams(
-          accessToken: authProviderState, newCourse: newCourse);
-
-      createCourseProvider.postCourse(postCourse);
-
-      // Navigates to main page.
-      if (_state.status.isSuccess) {
-        _resetForm();
-        _navigateToMainPage();
-      }
-    }
-
-    @override
-    void initState() {
-      super.initState();
-
-      _state = CreateCourseFormState();
-
-      _nameController = TextEditingController(
-        text: _state.name.value,
-      )..addListener(_onNameChanged);
-    }
 
     return Scaffold(
       appBar: AppBar(

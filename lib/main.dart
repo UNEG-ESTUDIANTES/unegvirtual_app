@@ -1,3 +1,4 @@
+import 'package:classroom_app/features/course/presentation/providers/create_course_provider.dart';
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
@@ -42,13 +43,16 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (_) => di.sl<UserProvider>(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => di.sl<CreateCourseProvider>(),
         )
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'UNEG Classroom',
         scaffoldMessengerKey: NotificationsService.messengerKey,
-        initialRoute: CreateCoursePage.routeName,
+        initialRoute: LogInPage.routeName,
         routes: {
           LandingPage.routeName: (_) => const LandingPage(),
           HomePage.routeName: (_) => const HomePage(),
