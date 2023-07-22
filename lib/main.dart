@@ -1,3 +1,4 @@
+import 'package:classroom_app/features/course/presentation/pages/add_multi_students.dart';
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
@@ -7,7 +8,7 @@ import 'package:classroom_app/core/providers/auth_provider.dart';
 import 'package:classroom_app/core/providers/user_provider.dart';
 import 'package:classroom_app/core/services/notifications_service.dart';
 import 'package:classroom_app/features/auth/presentation/pages/forgot_page.dart';
-import 'package:classroom_app/features/course/presentation/providers/create_course_provider.dart';
+import 'package:classroom_app/features/course/presentation/providers/course_provider.dart';
 import 'package:classroom_app/features/home/presentation/pages/home_page.dart';
 import 'package:classroom_app/features/landing/presentation/providers/landing_provider.dart';
 import 'package:classroom_app/injection_container.dart' as di;
@@ -45,14 +46,14 @@ class MyApp extends StatelessWidget {
           create: (_) => di.sl<UserProvider>(),
         ),
         ChangeNotifierProvider(
-          create: (_) => di.sl<CreateCourseProvider>(),
+          create: (_) => di.sl<CourseProvider>(),
         )
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'UNEG Classroom',
         scaffoldMessengerKey: NotificationsService.messengerKey,
-        initialRoute: LandingPage.routeName,
+        initialRoute: LogInPage.routeName,
         routes: {
           LandingPage.routeName: (_) => const LandingPage(),
           HomePage.routeName: (_) => const HomePage(),
@@ -62,6 +63,8 @@ class MyApp extends StatelessWidget {
           ForgotPasswordPage.routeName: (_) => const ForgotPasswordPage(),
           CoursePage.routeName: (_) => const CoursePage(),
           CreateCoursePage.routeName: (_) => const CreateCoursePage(),
+          MultiStudentsEnrollPage.routeName: (_) =>
+              const MultiStudentsEnrollPage(),
         },
         theme: ThemeData(
           useMaterial3: true,

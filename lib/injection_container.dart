@@ -24,7 +24,7 @@ import 'package:classroom_app/features/course/domain/usecases/enroled_courses.da
 import 'package:classroom_app/features/course/domain/usecases/enroll_student.dart';
 import 'package:classroom_app/features/course/domain/usecases/get_courses.dart';
 import 'package:classroom_app/features/course/domain/usecases/post_course.dart';
-import 'package:classroom_app/features/course/presentation/providers/create_course_provider.dart';
+import 'package:classroom_app/features/course/presentation/providers/course_provider.dart';
 import 'package:classroom_app/features/landing/data/datasources/landing_remote_datasource_impl.dart';
 import 'package:classroom_app/features/landing/data/repositories/landing_repository_impl.dart';
 import 'package:classroom_app/features/landing/domain/repositories/landing_repository.dart';
@@ -108,7 +108,8 @@ Future<void> init() async {
 
   //* Features - Courses.
   // Providers.
-  sl.registerLazySingleton(() => CreateCourseProvider(postCourse: sl()));
+  sl.registerLazySingleton(
+      () => CourseProvider(postCourse: sl(), multiStudentsEnroll: sl()));
 
   // Use Cases.
   sl.registerLazySingleton(() => CoursesGetCourses(sl()));
