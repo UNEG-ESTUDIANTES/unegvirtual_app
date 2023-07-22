@@ -12,6 +12,7 @@ import 'package:classroom_app/features/course/presentation/pages/add_multi_stude
 import 'package:classroom_app/features/course/presentation/providers/course_provider.dart';
 import 'package:classroom_app/features/course/presentation/providers/students_enrollment_provider.dart';
 import 'package:classroom_app/features/home/presentation/pages/home_page.dart';
+import 'package:classroom_app/features/home/presentation/provider/home_provider.dart';
 import 'package:classroom_app/features/landing/presentation/providers/landing_provider.dart';
 import 'package:classroom_app/injection_container.dart' as di;
 
@@ -51,6 +52,9 @@ class MyApp extends StatelessWidget {
           create: (_) => di.sl<CourseProvider>(),
         ),
         ChangeNotifierProvider(
+          create: (_) => di.sl<HomeProvider>(),
+        ),
+        ChangeNotifierProvider(
           create: (_) => StudentsEnrollmentProvider(),
         ),
       ],
@@ -67,7 +71,6 @@ class MyApp extends StatelessWidget {
           LogInPage.routeName: (_) => const LogInPage(),
           CheckAuthPage.routeName: (_) => const CheckAuthPage(),
           ForgotPasswordPage.routeName: (_) => const ForgotPasswordPage(),
-          CoursePage.routeName: (_) => const CoursePage(),
           CreateCoursePage.routeName: (_) => const CreateCoursePage(),
           MultiStudentsEnrollPage.routeName: (_) =>
               const MultiStudentsEnrollPage(),

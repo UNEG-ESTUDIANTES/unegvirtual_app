@@ -1,3 +1,4 @@
+import 'package:classroom_app/core/entities/course.dart';
 import 'package:flutter/material.dart';
 
 import 'package:responsive_builder/responsive_builder.dart';
@@ -11,19 +12,18 @@ import 'package:classroom_app/features/course/presentation/widgets/units_list.da
 import '../../../../core/widgets/main_app_bar.dart';
 
 // Sample data
-const courseTitle = 'Técnicas de Programación I';
 
 const units = [
   Unit(
-    name: 'Programación Orientada a Objetos',
+    name: 'Unidad 1',
     number: 1,
   ),
   Unit(
-    name: 'Programación Funcional',
+    name: 'Unidad 2',
     number: 2,
   ),
   Unit(
-    name: 'Programación Declarativa',
+    name: 'Unidad 3',
     number: 3,
   ),
 ];
@@ -32,7 +32,9 @@ class CoursePage extends StatelessWidget {
   /// The page route name.
   static const routeName = 'course';
 
-  const CoursePage({super.key});
+  final Course course;
+
+  const CoursePage({super.key, required this.course});
 
   @override
   Widget build(BuildContext context) {
@@ -46,10 +48,10 @@ class CoursePage extends StatelessWidget {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Expanded(
+                  Expanded(
                     child: SingleChildScrollView(
                       child: CourseSection(
-                        title: courseTitle,
+                        title: course.name,
                         child: Section(
                           title: 'Unidades',
                           child: UnitsList(units),
@@ -70,7 +72,7 @@ class CoursePage extends StatelessWidget {
           return SingleChildScrollView(
             padding: const EdgeInsets.all(24.0),
             child: CourseSection(
-              title: courseTitle,
+              title: course.name,
               child: Column(
                 children: const [
                   TeacherCard(),

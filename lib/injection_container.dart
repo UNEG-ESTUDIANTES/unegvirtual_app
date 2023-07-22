@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:classroom_app/features/home/data/datasource/home_remote_datasource.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 import 'package:internet_connection_checker/internet_connection_checker.dart';
@@ -35,7 +36,10 @@ import 'package:classroom_app/features/user/data/data_sources/user_remote_data_s
 import 'package:classroom_app/features/user/data/repositories/user_repository_impl.dart';
 import 'package:classroom_app/features/user/domain/repositories/user_repository.dart';
 import 'package:classroom_app/features/user/domain/use_cases/get_current_user.dart';
-
+import 'package:classroom_app/features/home/presentation/provider/home_provider.dart';
+import 'package:classroom_app/features/home/domain/usecases/enroled_courses.dart';
+import 'package:classroom_app/features/home/domain/repositories/home_repository.dart';
+import 'package:classroom_app/features/home/data/repositories/home_repository_impl.dart';
 import 'features/course/domain/usecases/multi_students_enroll.dart';
 
 final sl = GetIt.instance;
@@ -128,6 +132,25 @@ Future<void> init() async {
 
   sl.registerLazySingleton<CoursesRemoteDataSource>(
     () => CoursesRemoteDataSourceImpl(client: sl()),
+  );
+
+  //* Features - home.
+  // Providers.
+  sl.registerLazySingleton(() => HomeProvider(enroledCourses: sl()));
+
+  // Use Cases.
+  sl.registerLazySingleton(() => HomeEnroledCourses(sl()));
+
+  // Repository.
+  sl.registerLazySingleton<HomeRepository>(
+    () => HomeRepositoryImpl(
+      network: sl(),
+      remote: sl(),
+    ),
+  );
+
+  sl.registerLazySingleton<HomeRemoteDataSource>(
+    () => HomeRemoteDataSourceImpl(client: sl()),
   );
 
   //* Core
