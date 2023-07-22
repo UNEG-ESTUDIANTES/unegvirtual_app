@@ -12,7 +12,7 @@ import 'package:classroom_app/features/course/presentation/widgets/forms/descrip
 
 import '../../../../core/pages/main_page.dart';
 import '../../../../core/providers/auth_provider.dart';
-import '../providers/create_course_provider.dart';
+import '../providers/course_provider.dart';
 import '../widgets/forms/create_course_form_state.dart';
 import '../widgets/forms/name_input.dart';
 
@@ -84,19 +84,18 @@ class _CreateCoursePageState extends State<CreateCoursePage> {
     );
 
     // Try to create the course.
-    await context.read<CreateCourseProvider>().postCourse(postCourse);
+    await context.read<CourseProvider>().postCourse(postCourse);
 
     if (!mounted) return;
 
-    final createCourseProviderState =
-        context.read<CreateCourseProvider>().state;
+    final CourseProviderState = context.read<CourseProvider>().state;
 
     String snackBarMessage;
 
     // Change state and snackbar according to state.
-    if (createCourseProviderState is Error) {
+    if (CourseProviderState is Error) {
       _state = _state.copyWith(status: FormzSubmissionStatus.failure);
-      snackBarMessage = createCourseProviderState.message;
+      snackBarMessage = CourseProviderState.message;
     } else {
       _state = _state.copyWith(status: FormzSubmissionStatus.success);
       snackBarMessage = 'Curso creado con éxito';
