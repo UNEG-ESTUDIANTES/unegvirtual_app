@@ -10,6 +10,7 @@ import 'package:classroom_app/core/services/notifications_service.dart';
 import 'package:classroom_app/features/auth/presentation/pages/forgot_page.dart';
 import 'package:classroom_app/features/course/presentation/pages/add_multi_students.dart';
 import 'package:classroom_app/features/course/presentation/providers/course_provider.dart';
+import 'package:classroom_app/features/course/presentation/providers/students_enrollment_provider.dart';
 import 'package:classroom_app/features/home/presentation/pages/home_page.dart';
 import 'package:classroom_app/features/landing/presentation/providers/landing_provider.dart';
 import 'package:classroom_app/injection_container.dart' as di;
@@ -48,7 +49,10 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (_) => di.sl<CourseProvider>(),
-        )
+        ),
+        ChangeNotifierProvider(
+          create: (_) => StudentsEnrollmentProvider(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
