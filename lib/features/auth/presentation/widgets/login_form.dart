@@ -1,10 +1,8 @@
-import 'package:classroom_app/features/course/presentation/pages/create_course_page.dart';
 import 'package:flutter/material.dart';
 
 import 'package:formz/formz.dart';
 import 'package:provider/provider.dart';
 
-import 'package:classroom_app/core/pages/main_page.dart';
 import 'package:classroom_app/core/providers/auth_provider.dart';
 import 'package:classroom_app/core/providers/page_state.dart';
 import 'package:classroom_app/core/services/notifications_service.dart';
@@ -13,6 +11,7 @@ import 'package:classroom_app/features/auth/presentation/pages/forgot_page.dart'
 import 'package:classroom_app/features/auth/presentation/widgets/forms/email_input.dart';
 import 'package:classroom_app/features/auth/presentation/widgets/forms/login_form_state.dart';
 import 'package:classroom_app/features/auth/presentation/widgets/forms/password_input.dart';
+import 'package:classroom_app/features/course/presentation/pages/create_course_page.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});

@@ -1,18 +1,23 @@
 import 'package:formz/formz.dart';
 
 // Define input validation errors
-const emptyMessage = 'La informacion ingresada debe ser de 4 o mas caracteres';
+const emptyMessage = 'Debe ingresar el nombre del curso';
+const tooShortMessage = 'Debe tener al menos 4 caracteres';
 const invalidMessage =
-    'La informacion ingresada no debe tener caracteres epeciales';
+    'Debe comenzar con un letra y no contener caracteres especiales';
 
 enum NameInputError {
   empty,
+  tooShort,
   invalid;
 
   String text() {
     switch (this) {
       case NameInputError.empty:
         return emptyMessage;
+
+      case NameInputError.tooShort:
+        return tooShortMessage;
 
       case NameInputError.invalid:
         return invalidMessage;
@@ -32,6 +37,8 @@ class NameInput extends FormzInput<String, NameInputError>
   @override
   NameInputError? validator(String value) {
     if (value.isEmpty) return NameInputError.empty;
+
+    if (value.length < 4) return NameInputError.tooShort;
 
     return _stringRegExp.hasMatch(value) ? null : NameInputError.invalid;
   }

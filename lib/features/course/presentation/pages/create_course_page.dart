@@ -1,9 +1,12 @@
-import 'package:classroom_app/features/course/domain/entities/new_course.dart';
-import 'package:classroom_app/features/course/domain/usecases/post_course.dart';
-import 'package:classroom_app/features/user/presentation/providers/user_provider.dart';
 import 'package:flutter/material.dart';
+
 import 'package:formz/formz.dart';
 import 'package:provider/provider.dart';
+
+import 'package:classroom_app/features/course/domain/entities/new_course.dart';
+import 'package:classroom_app/features/course/domain/usecases/post_course.dart';
+import 'package:classroom_app/features/course/presentation/widgets/forms/description_input.dart';
+import 'package:classroom_app/features/user/presentation/providers/user_provider.dart';
 
 import '../../../../core/pages/main_page.dart';
 import '../../../../core/providers/auth_provider.dart';
@@ -30,6 +33,14 @@ class _CreateCoursePageState extends State<CreateCoursePage> {
   void _onNameChanged() {
     setState(() {
       _state = _state.copyWith(name: NameInput.dirty(_nameController.text));
+    });
+  }
+
+  void _onDescriptionChanged() {
+    setState(() {
+      _state = _state.copyWith(
+        description: DescriptionInput.dirty(_nameController.text),
+      );
     });
   }
 
@@ -60,9 +71,10 @@ class _CreateCoursePageState extends State<CreateCoursePage> {
     final createCourseProvider = context.watch<CreateCourseProvider>();
 
     NewCourse newCourse = NewCourse(
-        name: _nameController.value.toString(),
-        description: _descriptionController.value.toString(),
-        teacherId: userProviderState);
+      name: _state.name.value,
+      description: _state.description.value,
+      teacherId: userProviderState,
+    );
 
     final authProviderState = context.read<AuthProvider>().accessToken!;
 
@@ -89,8 +101,8 @@ class _CreateCoursePageState extends State<CreateCoursePage> {
     )..addListener(_onNameChanged);
 
     _descriptionController = TextEditingController(
-      text: _state.description,
-    );
+      text: _state.description.value,
+    )..addListener(_onDescriptionChanged);
   }
 
   @override
@@ -98,9 +110,7 @@ class _CreateCoursePageState extends State<CreateCoursePage> {
     final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Crear Curso'),
-      ),
+      appBar: AppBar(),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24),
         child: Form(
@@ -146,12 +156,7 @@ class _CreateCoursePageState extends State<CreateCoursePage> {
                   ),
                   TextFormField(
                     controller: _descriptionController,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Por favor rellena el campo';
-                      }
-                      return null;
-                    },
+                    validator: (_) => _state.description.error?.text(),
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
@@ -170,13 +175,7 @@ class _CreateCoursePageState extends State<CreateCoursePage> {
                       SizedBox(
                         width: double.infinity,
                         child: FilledButton(
-                          onPressed: () {
-                            if (_key.currentState!.validate()) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(content: Text('Procesando...')),
-                              );
-                            }
-                          },
+                          onPressed: _onSubmit,
                           child: const Padding(
                             padding: EdgeInsets.symmetric(
                               horizontal: 24.0,
