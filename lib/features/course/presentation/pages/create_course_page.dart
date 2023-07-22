@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:formz/formz.dart';
 import 'package:provider/provider.dart';
 
+import 'package:classroom_app/core/providers/page_state.dart';
 import 'package:classroom_app/core/providers/user_provider.dart';
+import 'package:classroom_app/core/services/notifications_service.dart';
 import 'package:classroom_app/features/course/domain/entities/new_course.dart';
 import 'package:classroom_app/features/course/domain/usecases/post_course.dart';
 import 'package:classroom_app/features/course/presentation/widgets/forms/description_input.dart';
@@ -70,6 +72,7 @@ class _CreateCoursePageState extends State<CreateCoursePage> {
     final authProviderState = context.read<AuthProvider>().accessToken!;
     final userProviderState = context.read<UserProvider>().user!.id;
     final createCourseProvider = context.read<CreateCourseProvider>();
+    final createCourseProviderState = createCourseProvider.state;
 
     final newCourse = NewCourse(
       name: _state.name.value,
@@ -82,7 +85,22 @@ class _CreateCoursePageState extends State<CreateCoursePage> {
       newCourse: newCourse,
     );
 
+    // Try to create the course.
     await createCourseProvider.postCourse(postCourse);
+    String snackBarMessage;
+
+    if (createCourseProviderState is Error) {
+      _state = _state.copyWith(status: FormzSubmissionStatus.failure);
+      snackBarMessage = createCourseProviderState.message;
+    } else {
+      _state = _state.copyWith(status: FormzSubmissionStatus.success);
+      snackBarMessage = 'Curso creado con éxito';
+    }
+
+    setState(() {});
+
+    // Display the snackbar.
+    NotificationsService.showSnackBar(snackBarMessage);
 
     // Navigates to main page.
     if (_state.status.isSuccess) {
@@ -171,29 +189,25 @@ class _CreateCoursePageState extends State<CreateCoursePage> {
                   const SizedBox(
                     height: 24,
                   ),
-                  Column(
-                    children: [
-                      SizedBox(
-                        width: double.infinity,
-                        child: FilledButton(
-                          onPressed: _onSubmit,
-                          child: const Padding(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 24.0,
-                              vertical: 12.0,
-                            ),
-                            child: Text(
-                              'Guardar',
-                              textAlign: TextAlign.center,
-                            ),
+                  if (_state.status.isInProgress)
+                    const CircularProgressIndicator()
+                  else
+                    SizedBox(
+                      width: double.infinity,
+                      child: FilledButton(
+                        onPressed: _onSubmit,
+                        child: const Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 24.0,
+                            vertical: 12.0,
+                          ),
+                          child: Text(
+                            'Crear Curso',
+                            textAlign: TextAlign.center,
                           ),
                         ),
                       ),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                    ],
-                  ),
+                    ),
                 ],
               ),
             ),
