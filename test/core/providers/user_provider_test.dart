@@ -7,9 +7,9 @@ import 'package:classroom_app/core/entities/access_token.dart';
 import 'package:classroom_app/core/entities/user.dart';
 import 'package:classroom_app/core/error/failures.dart';
 import 'package:classroom_app/core/providers/page_state.dart';
+import 'package:classroom_app/core/providers/user_provider.dart';
 import 'package:classroom_app/core/utils/utils.dart';
 import 'package:classroom_app/features/user/domain/use_cases/get_current_user.dart';
-import 'package:classroom_app/features/user/presentation/providers/user_provider.dart';
 
 @GenerateNiceMocks([MockSpec<GetCurrentUser>()])
 import 'user_provider_test.mocks.dart';

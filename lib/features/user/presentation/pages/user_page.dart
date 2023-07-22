@@ -4,8 +4,8 @@ import 'package:provider/provider.dart';
 
 import 'package:classroom_app/core/providers/auth_provider.dart';
 import 'package:classroom_app/core/providers/page_state.dart';
+import 'package:classroom_app/core/providers/user_provider.dart';
 import 'package:classroom_app/core/widgets/loading_display.dart';
-import 'package:classroom_app/features/user/presentation/providers/user_provider.dart';
 import 'package:classroom_app/features/user/presentation/widgets/basic_info.dart';
 import 'package:classroom_app/features/user/presentation/widgets/user_data.dart';
 
