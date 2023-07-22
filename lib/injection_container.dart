@@ -10,6 +10,7 @@ import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:classroom_app/core/databases/db_provider.dart';
 import 'package:classroom_app/core/network/network_info.dart';
 import 'package:classroom_app/core/providers/auth_provider.dart';
+import 'package:classroom_app/core/providers/user_provider.dart';
 import 'package:classroom_app/features/auth/data/data_sources/auth_local_data_source.dart';
 import 'package:classroom_app/features/auth/data/data_sources/auth_remote_data_source.dart';
 import 'package:classroom_app/features/auth/data/repositories/auth_repository_impl.dart';
@@ -26,7 +27,6 @@ import 'package:classroom_app/features/user/data/data_sources/user_remote_data_s
 import 'package:classroom_app/features/user/data/repositories/user_repository_impl.dart';
 import 'package:classroom_app/features/user/domain/repositories/user_repository.dart';
 import 'package:classroom_app/features/user/domain/use_cases/get_current_user.dart';
-import 'package:classroom_app/features/user/presentation/providers/user_provider.dart';
 
 final sl = GetIt.instance;
 
@@ -75,9 +75,6 @@ Future<void> init() async {
   );
 
   //* Features - User.
-  // Providers.
-  sl.registerLazySingleton(() => UserProvider(getCurrentUserUseCase: sl()));
-
   // Use Cases.
   sl.registerLazySingleton(() => GetCurrentUser(sl()));
 
@@ -106,6 +103,10 @@ Future<void> init() async {
       getAccessTokenUseCase: sl(),
       loginUseCase: sl(),
     ),
+  );
+
+  sl.registerLazySingleton(
+    () => UserProvider(getCurrentUserUseCase: sl()),
   );
 
   // Databases.
