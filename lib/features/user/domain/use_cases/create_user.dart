@@ -7,13 +7,13 @@ import 'package:classroom_app/core/use_cases/use_case.dart';
 import 'package:classroom_app/features/user/domain/entities/unsaved_user.dart';
 import 'package:classroom_app/features/user/domain/repositories/user_repository.dart';
 
-class CreateUser implements UseCase<void, CreateCourseParams> {
+class CreateUser implements UseCase<void, CreateUserParams> {
   final UserRepository repository;
 
   CreateUser(this.repository);
 
   @override
-  Future<Either<Failure, void>> call(CreateCourseParams params) {
+  Future<Either<Failure, void>> call(CreateUserParams params) {
     return repository.createUser(
       accessToken: params.accessToken,
       user: params.user,
@@ -21,11 +21,11 @@ class CreateUser implements UseCase<void, CreateCourseParams> {
   }
 }
 
-class CreateCourseParams extends Equatable {
+class CreateUserParams extends Equatable {
   final AccessToken accessToken;
   final UnsavedUser user;
 
-  const CreateCourseParams({
+  const CreateUserParams({
     required this.accessToken,
     required this.user,
   });

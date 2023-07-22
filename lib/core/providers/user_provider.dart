@@ -3,15 +3,21 @@ import 'package:classroom_app/core/entities/user.dart';
 import 'package:classroom_app/core/providers/base_provider.dart';
 import 'package:classroom_app/core/providers/page_state.dart';
 import 'package:classroom_app/core/utils/utils.dart';
+import 'package:classroom_app/features/user/domain/entities/unsaved_user.dart';
+import 'package:classroom_app/features/user/domain/use_cases/create_user.dart';
 import 'package:classroom_app/features/user/domain/use_cases/get_current_user.dart';
 
 class UserProvider extends BaseProvider {
   final GetCurrentUser getCurrentUserUseCase;
+  final CreateUser createUserUseCase;
 
   /// The current [user].
   User? user;
 
-  UserProvider({required this.getCurrentUserUseCase});
+  UserProvider({
+    required this.getCurrentUserUseCase,
+    required this.createUserUseCase,
+  });
 
   /// Gets the [User].
   Future<void> getCurrentUser(AccessToken accessToken) async {
@@ -29,6 +35,30 @@ class UserProvider extends BaseProvider {
       (currentUser) {
         state = const Loaded();
         user = currentUser;
+      },
+    );
+  }
+
+  /// Creates an [user].
+  Future<void> createUser({
+    required AccessToken accessToken,
+    required UnsavedUser user,
+  }) async {
+    state = Loading();
+
+    final failureOrVoid = await createUserUseCase(
+      CreateUserParams(
+        accessToken: accessToken,
+        user: user,
+      ),
+    );
+
+    failureOrVoid.fold(
+      (failure) {
+        state = Error(message: Utils.getErrorMessage(failure));
+      },
+      (_) {
+        state = const Loaded();
       },
     );
   }
