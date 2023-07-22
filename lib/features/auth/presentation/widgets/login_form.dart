@@ -230,23 +230,6 @@ class _LoginFormState extends State<LoginForm> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 8),
-                SizedBox(
-                  width: double.infinity,
-                  child: FilledButton.tonal(
-                    onPressed: _navigateToMainPage,
-                    child: const Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 16.0,
-                        vertical: 12.0,
-                      ),
-                      child: Text(
-                        'Iniciar Sesión como Invitado',
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ),
-                ),
               ],
             ),
         ],
