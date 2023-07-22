@@ -24,13 +24,13 @@ class CoursesRepositoryImpl implements CoursesRepository {
   CoursesRepositoryImpl({required this.remote, required this.network});
 
   @override
-  Future<Either<Failure, Courses>> getCourses() async {
+  Future<Either<Failure, Courses>> coursesGetCourses() async {
     final isConnected = await network.isConnected;
 
     if (!isConnected) return Left(ServerFailure());
 
     try {
-      return Right(await remote.getCourses());
+      return Right(await remote.coursesGetCourses());
     } on NotFoundException {
       return Left(NotFoundFailure());
     } on ServerException {

@@ -13,11 +13,11 @@ import 'get_courses_test.mocks.dart';
 
 void main() {
   late MockCoursesRepository mockCoursesRepository;
-  late GetCourses useCase;
+  late CoursesGetCourses useCase;
 
   setUp(() {
     mockCoursesRepository = MockCoursesRepository();
-    useCase = GetCourses(mockCoursesRepository);
+    useCase = CoursesGetCourses(mockCoursesRepository);
   });
 
   const tCourses = Courses(courses: []);
@@ -26,7 +26,7 @@ void main() {
     'should get the courses from the repository',
     () async {
       // arrange
-      when(mockCoursesRepository.getCourses())
+      when(mockCoursesRepository.coursesGetCourses())
           .thenAnswer((_) async => const Right(tCourses));
 
       // act
@@ -34,7 +34,7 @@ void main() {
 
       // assert
       expect(result, const Right(tCourses));
-      verify(mockCoursesRepository.getCourses());
+      verify(mockCoursesRepository.coursesGetCourses());
       verifyNoMoreInteractions(mockCoursesRepository);
     },
   );

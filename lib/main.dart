@@ -7,12 +7,14 @@ import 'package:classroom_app/core/providers/auth_provider.dart';
 import 'package:classroom_app/core/providers/user_provider.dart';
 import 'package:classroom_app/core/services/notifications_service.dart';
 import 'package:classroom_app/features/auth/presentation/pages/forgot_page.dart';
+import 'package:classroom_app/features/course/presentation/providers/create_course_provider.dart';
 import 'package:classroom_app/features/home/presentation/pages/home_page.dart';
 import 'package:classroom_app/features/landing/presentation/providers/landing_provider.dart';
 import 'package:classroom_app/injection_container.dart' as di;
 
 import 'features/auth/presentation/pages/login_page.dart';
 import 'features/course/presentation/pages/course_page.dart';
+import 'features/course/presentation/pages/create_course_page.dart';
 import 'features/landing/presentation/pages/landing_page.dart';
 import 'features/user/presentation/pages/user_page.dart';
 
@@ -41,6 +43,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (_) => di.sl<UserProvider>(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => di.sl<CreateCourseProvider>(),
         )
       ],
       child: MaterialApp(
@@ -56,6 +61,7 @@ class MyApp extends StatelessWidget {
           LogInPage.routeName: (_) => const LogInPage(),
           ForgotPasswordPage.routeName: (_) => const ForgotPasswordPage(),
           CoursePage.routeName: (_) => const CoursePage(),
+          CreateCoursePage.routeName: (_) => const CreateCoursePage(),
         },
         theme: ThemeData(
           useMaterial3: true,

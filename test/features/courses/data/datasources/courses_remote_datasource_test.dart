@@ -101,7 +101,7 @@ void main() {
     ).thenThrow(exception);
   }
 
-  group('getCourses', () {
+  group('coursesGetCourses', () {
     test(
       'should perform a GET request with the application/json header',
       () async {
@@ -109,7 +109,7 @@ void main() {
         setUpMockHttpClientGet(fixture('courses.json'), 200);
 
         // act
-        dataSourceImpl.getCourses();
+        dataSourceImpl.coursesGetCourses();
 
         // assert
         verify(
@@ -130,7 +130,7 @@ void main() {
         setUpMockHttpClientGet(fixture('courses.json'), 200);
 
         // act
-        final result = await dataSourceImpl.getCourses();
+        final result = await dataSourceImpl.coursesGetCourses();
 
         // assert
         expect(result, tCoursesModel);
@@ -144,7 +144,7 @@ void main() {
         setUpMockHttpClientGet('Error', 404);
 
         // act
-        final call = dataSourceImpl.getCourses;
+        final call = dataSourceImpl.coursesGetCourses;
 
         // assert
         expect(
@@ -161,7 +161,7 @@ void main() {
         setUpMockHttpClientGet('Error', 500);
 
         // act
-        final call = dataSourceImpl.getCourses;
+        final call = dataSourceImpl.coursesGetCourses;
 
         // assert
         expect(
@@ -178,7 +178,7 @@ void main() {
         setUpMockHttpClientGetException(http.ClientException(''));
 
         // act
-        final call = dataSourceImpl.getCourses;
+        final call = dataSourceImpl.coursesGetCourses;
 
         // assert
         expect(
