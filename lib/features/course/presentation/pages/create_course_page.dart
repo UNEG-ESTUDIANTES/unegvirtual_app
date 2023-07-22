@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:formz/formz.dart';
 import 'package:provider/provider.dart';
 
+import 'package:classroom_app/core/providers/user_provider.dart';
 import 'package:classroom_app/features/course/domain/entities/new_course.dart';
 import 'package:classroom_app/features/course/domain/usecases/post_course.dart';
 import 'package:classroom_app/features/course/presentation/widgets/forms/description_input.dart';
-import 'package:classroom_app/features/user/presentation/providers/user_provider.dart';
 
 import '../../../../core/pages/main_page.dart';
 import '../../../../core/providers/auth_provider.dart';
@@ -67,21 +67,22 @@ class _CreateCoursePageState extends State<CreateCoursePage> {
       _state = _state.copyWith(status: FormzSubmissionStatus.inProgress);
     });
 
+    final authProviderState = context.read<AuthProvider>().accessToken!;
     final userProviderState = context.read<UserProvider>().user!.id;
-    final createCourseProvider = context.watch<CreateCourseProvider>();
+    final createCourseProvider = context.read<CreateCourseProvider>();
 
-    NewCourse newCourse = NewCourse(
+    final newCourse = NewCourse(
       name: _state.name.value,
       description: _state.description.value,
       teacherId: userProviderState,
     );
 
-    final authProviderState = context.read<AuthProvider>().accessToken!;
+    final postCourse = PostCourseParams(
+      accessToken: authProviderState,
+      newCourse: newCourse,
+    );
 
-    PostCourseParams postCourse =
-        PostCourseParams(accessToken: authProviderState, newCourse: newCourse);
-
-    createCourseProvider.postCourse(postCourse);
+    await createCourseProvider.postCourse(postCourse);
 
     // Navigates to main page.
     if (_state.status.isSuccess) {

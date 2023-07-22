@@ -26,7 +26,7 @@ void main() {
     'should get the courses from the repository',
     () async {
       // arrange
-      when(mockCoursesRepository.getCourses())
+      when(mockCoursesRepository.coursesGetCourses())
           .thenAnswer((_) async => const Right(tCourses));
 
       // act
@@ -34,7 +34,7 @@ void main() {
 
       // assert
       expect(result, const Right(tCourses));
-      verify(mockCoursesRepository.getCourses());
+      verify(mockCoursesRepository.coursesGetCourses());
       verifyNoMoreInteractions(mockCoursesRepository);
     },
   );
