@@ -64,7 +64,6 @@ class MyApp extends StatelessWidget {
           MainPage.routeName: (_) => const MainPage(),
           LogInPage.routeName: (_) => const LogInPage(),
           ForgotPasswordPage.routeName: (_) => const ForgotPasswordPage(),
-          CoursePage.routeName: (_) => const CoursePage(),
           CreateCoursePage.routeName: (_) => const CreateCoursePage(),
           MultiStudentsEnrollPage.routeName: (_) =>
               const MultiStudentsEnrollPage(),

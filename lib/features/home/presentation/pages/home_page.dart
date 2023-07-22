@@ -1,5 +1,6 @@
 import 'package:classroom_app/features/home/presentation/provider/home_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:path/path.dart';
 import 'package:provider/provider.dart';
 
 import 'package:responsive_builder/responsive_builder.dart';
@@ -12,6 +13,7 @@ import '../../../../core/providers/auth_provider.dart';
 import '../../../../core/providers/page_state.dart';
 import '../../../../core/providers/user_provider.dart';
 import '../../../../core/services/notifications_service.dart';
+import '../../../course/presentation/pages/course_page.dart';
 
 class HomePage extends StatelessWidget {
   /// The page route name.
@@ -87,9 +89,19 @@ class HomePage extends StatelessWidget {
               mainAxisExtent: 200,
             ),
             itemBuilder: (context, index) {
-              return CourseCard(
-                course: courses.courses[index],
-                completedPercentage: 32,
+              return GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            CoursePage(course: courses.courses[index])),
+                  );
+                },
+                child: CourseCard(
+                  course: courses.courses[index],
+                  completedPercentage: 32,
+                ),
               );
             },
             itemCount: courses.courses.length,
