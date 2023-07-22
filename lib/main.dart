@@ -12,7 +12,7 @@ import 'package:classroom_app/features/course/presentation/providers/course_prov
 import 'package:classroom_app/features/home/presentation/pages/home_page.dart';
 import 'package:classroom_app/features/landing/presentation/providers/landing_provider.dart';
 import 'package:classroom_app/injection_container.dart' as di;
-
+import 'package:classroom_app/features/home/presentation/provider/home_provider.dart';
 import 'features/auth/presentation/pages/login_page.dart';
 import 'features/course/presentation/pages/course_page.dart';
 import 'features/course/presentation/pages/create_course_page.dart';
@@ -47,13 +47,16 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (_) => di.sl<CourseProvider>(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => di.sl<HomeProvider>(),
         )
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'UNEG Classroom',
         scaffoldMessengerKey: NotificationsService.messengerKey,
-        initialRoute: LogInPage.routeName,
+        initialRoute: LandingPage.routeName,
         routes: {
           LandingPage.routeName: (_) => const LandingPage(),
           HomePage.routeName: (_) => const HomePage(),
