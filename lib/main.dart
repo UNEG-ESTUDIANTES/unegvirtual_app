@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
 
+import 'package:classroom_app/core/pages/check_auth_page.dart';
 import 'package:classroom_app/core/pages/main_page.dart';
 import 'package:classroom_app/core/providers/auth_provider.dart';
 import 'package:classroom_app/core/providers/user_provider.dart';
@@ -52,13 +53,14 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'UNEG Classroom',
         scaffoldMessengerKey: NotificationsService.messengerKey,
-        initialRoute: LandingPage.routeName,
+        initialRoute: CheckAuthPage.routeName,
         routes: {
           LandingPage.routeName: (_) => const LandingPage(),
           HomePage.routeName: (_) => const HomePage(),
           UserPage.routeName: (_) => const UserPage(),
           MainPage.routeName: (_) => const MainPage(),
           LogInPage.routeName: (_) => const LogInPage(),
+          CheckAuthPage.routeName: (_) => const CheckAuthPage(),
           ForgotPasswordPage.routeName: (_) => const ForgotPasswordPage(),
           CoursePage.routeName: (_) => const CoursePage(),
           CreateCoursePage.routeName: (_) => const CreateCoursePage(),
