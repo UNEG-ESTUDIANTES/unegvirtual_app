@@ -1,9 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:formz/formz.dart';
 
-import 'package:classroom_app/features/auth/presentation/widgets/forms/email_input.dart';
+import 'package:classroom_app/core/forms/email_input.dart';
 import 'package:classroom_app/features/auth/presentation/widgets/forms/login_form_state.dart';
-import 'package:classroom_app/features/auth/presentation/widgets/forms/password_input.dart';
+import 'package:classroom_app/core/forms/password_input.dart';
 
 void main() {
   test(

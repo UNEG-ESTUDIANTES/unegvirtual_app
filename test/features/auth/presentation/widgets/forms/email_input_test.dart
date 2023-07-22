@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:classroom_app/features/auth/presentation/widgets/forms/email_input.dart';
+import 'package:classroom_app/core/forms/email_input.dart';
 
 void main() {
   const tValidEmail = 'test@gmail.com';

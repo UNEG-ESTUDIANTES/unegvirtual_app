@@ -20,6 +20,7 @@ import 'features/auth/presentation/pages/login_page.dart';
 import 'features/course/presentation/pages/course_page.dart';
 import 'features/course/presentation/pages/create_course_page.dart';
 import 'features/landing/presentation/pages/landing_page.dart';
+import 'features/user/presentation/pages/register_page.dart';
 import 'features/user/presentation/pages/user_page.dart';
 
 void main() async {
@@ -62,7 +63,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'UNEG Classroom',
         scaffoldMessengerKey: NotificationsService.messengerKey,
-        initialRoute: CheckAuthPage.routeName,
+        initialRoute: RegisterPage.routeName,
         routes: {
           LandingPage.routeName: (_) => const LandingPage(),
           HomePage.routeName: (_) => const HomePage(),
@@ -74,6 +75,7 @@ class MyApp extends StatelessWidget {
           CreateCoursePage.routeName: (_) => const CreateCoursePage(),
           MultiStudentsEnrollPage.routeName: (_) =>
               const MultiStudentsEnrollPage(),
+          RegisterPage.routeName: (_) => const RegisterPage(),
         },
         theme: ThemeData(
           useMaterial3: true,
