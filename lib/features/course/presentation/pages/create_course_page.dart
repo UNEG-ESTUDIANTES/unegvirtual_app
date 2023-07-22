@@ -71,8 +71,6 @@ class _CreateCoursePageState extends State<CreateCoursePage> {
 
     final authProviderState = context.read<AuthProvider>().accessToken!;
     final userProviderState = context.read<UserProvider>().user!.id;
-    final createCourseProvider = context.read<CreateCourseProvider>();
-    final createCourseProviderState = createCourseProvider.state;
 
     final newCourse = NewCourse(
       name: _state.name.value,
@@ -86,9 +84,16 @@ class _CreateCoursePageState extends State<CreateCoursePage> {
     );
 
     // Try to create the course.
-    await createCourseProvider.postCourse(postCourse);
+    await context.read<CreateCourseProvider>().postCourse(postCourse);
+
+    if (!mounted) return;
+
+    final createCourseProviderState =
+        context.read<CreateCourseProvider>().state;
+
     String snackBarMessage;
 
+    // Change state and snackbar according to state.
     if (createCourseProviderState is Error) {
       _state = _state.copyWith(status: FormzSubmissionStatus.failure);
       snackBarMessage = createCourseProviderState.message;
@@ -98,6 +103,10 @@ class _CreateCoursePageState extends State<CreateCoursePage> {
     }
 
     setState(() {});
+
+    FocusScope.of(context)
+      ..nextFocus()
+      ..unfocus();
 
     // Display the snackbar.
     NotificationsService.showSnackBar(snackBarMessage);
