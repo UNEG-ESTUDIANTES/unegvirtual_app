@@ -1,4 +1,3 @@
-import 'package:classroom_app/features/course/presentation/providers/create_course_provider.dart';
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
@@ -8,6 +7,7 @@ import 'package:classroom_app/core/providers/auth_provider.dart';
 import 'package:classroom_app/core/providers/user_provider.dart';
 import 'package:classroom_app/core/services/notifications_service.dart';
 import 'package:classroom_app/features/auth/presentation/pages/forgot_page.dart';
+import 'package:classroom_app/features/course/presentation/providers/create_course_provider.dart';
 import 'package:classroom_app/features/home/presentation/pages/home_page.dart';
 import 'package:classroom_app/features/landing/presentation/providers/landing_provider.dart';
 import 'package:classroom_app/injection_container.dart' as di;
@@ -52,7 +52,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'UNEG Classroom',
         scaffoldMessengerKey: NotificationsService.messengerKey,
-        initialRoute: LogInPage.routeName,
+        initialRoute: LandingPage.routeName,
         routes: {
           LandingPage.routeName: (_) => const LandingPage(),
           HomePage.routeName: (_) => const HomePage(),
