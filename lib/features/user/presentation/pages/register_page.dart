@@ -4,16 +4,17 @@ import 'package:formz/formz.dart';
 import 'package:provider/provider.dart';
 
 import 'package:classroom_app/core/providers/auth_provider.dart';
+import 'package:classroom_app/core/providers/page_state.dart';
+import 'package:classroom_app/core/providers/user_provider.dart';
 import 'package:classroom_app/core/services/notifications_service.dart';
+import 'package:classroom_app/features/user/domain/entities/unsaved_user.dart';
 import 'package:classroom_app/features/user/presentation/widgets/forms/first_name_input.dart';
 import 'package:classroom_app/features/user/presentation/widgets/forms/last_name_input.dart';
 import 'package:classroom_app/features/user/presentation/widgets/forms/register_form_state.dart';
 
 import '../../../../core/forms/email_input.dart';
 import '../../../../core/forms/password_input.dart';
-import '../../../../core/pages/main_page.dart';
 import '../widgets/forms/ci_input.dart';
-import '../widgets/forms/type_input.dart';
 
 class RegisterPage extends StatefulWidget {
   /// The page route name.
@@ -33,7 +34,6 @@ class _RegisterPageState extends State<RegisterPage> {
   late final TextEditingController _firstNameController;
   late final TextEditingController _lastNameController;
   late final TextEditingController _ciController;
-  late final TextEditingController _typeController;
 
   void _onEmailChanged() {
     setState(() {
@@ -61,12 +61,6 @@ class _RegisterPageState extends State<RegisterPage> {
     });
   }
 
-  void _onTypeChanged() {
-    setState(() {
-      _state = _state.copyWith(type: TypeInput.dirty(_typeController.text));
-    });
-  }
-
   void _onPasswordChanged() {
     setState(() {
       _state = _state.copyWith(
@@ -82,20 +76,13 @@ class _RegisterPageState extends State<RegisterPage> {
     _passwordController.clear();
     _firstNameController.clear();
     _lastNameController.clear();
-    _typeController.clear();
     _ciController.clear();
 
     setState(() => _state = RegisterFormState());
   }
 
-  /// Removes previous pages and go to main page.
-  void _navigateToMainPage() {
-    Navigator.pushNamedAndRemoveUntil(
-      context,
-      MainPage.routeName,
-      (route) => false,
-    );
-  }
+  /// Go back to users page.
+  void _navigateToUsersPage() => Navigator.pop(context);
 
   Future<void> _onSubmit() async {
     if (!_key.currentState!.validate()) return;
@@ -113,6 +100,50 @@ class _RegisterPageState extends State<RegisterPage> {
     setState(() {
       _state = _state.copyWith(status: FormzSubmissionStatus.inProgress);
     });
+
+    // Try to create user.
+    await context.read<UserProvider>().createUser(
+          accessToken: accessToken,
+          user: UnsavedUser(
+            firstName: _state.firstName.value,
+            lastName: _state.lastName.value,
+            identityCard: _state.ci.value,
+            email: _state.email.value,
+            password: _state.password.value,
+            securityKey: _state.password.value,
+            type: _selectedRole,
+          ),
+        );
+
+    if (!mounted) return;
+
+    final userProvider = context.read<UserProvider>();
+    final userProviderState = userProvider.state;
+    String snackBarMessage;
+
+    // Change state and snackbar according to state.
+    if (userProviderState is Error) {
+      _state = _state.copyWith(status: FormzSubmissionStatus.failure);
+      snackBarMessage = userProviderState.message;
+    } else {
+      _state = _state.copyWith(status: FormzSubmissionStatus.success);
+      snackBarMessage = 'Ha creado el usuario con éxito';
+    }
+
+    setState(() {});
+
+    FocusScope.of(context)
+      ..nextFocus()
+      ..unfocus();
+
+    // Display the snackbar.
+    NotificationsService.showSnackBar(snackBarMessage);
+
+    // Navigates to main page.
+    if (_state.status.isSuccess) {
+      _resetForm();
+      _navigateToUsersPage();
+    }
   }
 
   @override
@@ -140,10 +171,6 @@ class _RegisterPageState extends State<RegisterPage> {
     _ciController = TextEditingController(
       text: _state.ci.value,
     )..addListener(_onCiChanged);
-
-    _typeController = TextEditingController(
-      text: _state.type.value,
-    )..addListener(_onTypeChanged);
   }
 
   @override
@@ -153,7 +180,6 @@ class _RegisterPageState extends State<RegisterPage> {
     _firstNameController.dispose();
     _lastNameController.dispose();
     _ciController.dispose();
-    _typeController.dispose();
     super.dispose();
   }
 
@@ -287,7 +313,6 @@ class _RegisterPageState extends State<RegisterPage> {
                                     setState(() {
                                       _selectedRole = newValue!;
                                     });
-                                    _onTypeChanged();
                                   },
                                   items: <String>['STUDENT', 'TEACHER', 'ADMIN']
                                       .map((String value) {

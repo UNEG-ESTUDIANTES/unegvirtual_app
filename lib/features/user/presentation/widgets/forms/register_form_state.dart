@@ -3,7 +3,6 @@ import 'package:formz/formz.dart';
 import 'package:classroom_app/core/forms/email_input.dart';
 import 'package:classroom_app/features/user/presentation/widgets/forms/first_name_input.dart';
 import 'package:classroom_app/features/user/presentation/widgets/forms/last_name_input.dart';
-import 'package:classroom_app/features/user/presentation/widgets/forms/type_input.dart';
 
 import '../../../../../core/forms/password_input.dart';
 
@@ -15,7 +14,6 @@ class RegisterFormState with FormzMixin {
   final LastNameInput lastName;
   final PasswordInput password;
   final CiInput ci;
-  final TypeInput type;
 
   final FormzSubmissionStatus status;
 
@@ -24,7 +22,6 @@ class RegisterFormState with FormzMixin {
     CiInput? ci,
     this.firstName = const FirstNameInput.pure(),
     this.lastName = const LastNameInput.pure(),
-    this.type = const TypeInput.pure(),
     this.password = const PasswordInput.pure(),
     this.status = FormzSubmissionStatus.initial,
   })  : email = email ?? EmailInput.pure(),
@@ -35,7 +32,6 @@ class RegisterFormState with FormzMixin {
     FirstNameInput? firstName,
     LastNameInput? lastName,
     CiInput? ci,
-    TypeInput? type,
     PasswordInput? password,
     FormzSubmissionStatus? status,
   }) {
@@ -44,13 +40,11 @@ class RegisterFormState with FormzMixin {
       firstName: firstName ?? this.firstName,
       lastName: lastName ?? this.lastName,
       ci: ci ?? this.ci,
-      type: type ?? this.type,
       password: password ?? this.password,
       status: status ?? this.status,
     );
   }
 
   @override
-  List<FormzInput> get inputs =>
-      [email, password, firstName, lastName, ci, type];
+  List<FormzInput> get inputs => [email, password, firstName, lastName, ci];
 }
