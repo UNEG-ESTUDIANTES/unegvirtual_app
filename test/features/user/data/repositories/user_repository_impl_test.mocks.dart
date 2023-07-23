@@ -7,11 +7,13 @@ import 'dart:async' as _i4;
 
 import 'package:classroom_app/core/entities/access_token.dart' as _i6;
 import 'package:classroom_app/core/models/user_model.dart' as _i2;
-import 'package:classroom_app/core/network/network_info.dart' as _i7;
+import 'package:classroom_app/core/network/network_info.dart' as _i8;
 import 'package:classroom_app/features/user/data/data_sources/user_local_data_source.dart'
     as _i3;
 import 'package:classroom_app/features/user/data/data_sources/user_remote_data_source.dart'
     as _i5;
+import 'package:classroom_app/features/user/data/models/unsaved_user_model.dart'
+    as _i7;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -101,12 +103,29 @@ class MockUserRemoteDataSource extends _i1.Mock
           ),
         )),
       ) as _i4.Future<_i2.UserModel>);
+  @override
+  _i4.Future<void> createUser({
+    required _i6.AccessToken? accessToken,
+    required _i7.UnsavedUserModel? user,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #createUser,
+          [],
+          {
+            #accessToken: accessToken,
+            #user: user,
+          },
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
 }
 
 /// A class which mocks [NetworkInfo].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockNetworkInfo extends _i1.Mock implements _i7.NetworkInfo {
+class MockNetworkInfo extends _i1.Mock implements _i8.NetworkInfo {
   @override
   _i4.Future<bool> get isConnected => (super.noSuchMethod(
         Invocation.getter(#isConnected),

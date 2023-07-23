@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.classroom_app">
+    package="com.example.uneg_classroom">
+    <uses-permission android:name="android.permission.INTERNET" />
    <application
         android:label="UNEG Classroom"
         android:name="${applicationName}"

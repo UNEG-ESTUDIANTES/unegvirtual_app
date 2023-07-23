@@ -8,6 +8,8 @@ import 'dart:async' as _i4;
 import 'package:classroom_app/core/entities/access_token.dart' as _i7;
 import 'package:classroom_app/core/entities/user.dart' as _i6;
 import 'package:classroom_app/core/error/failures.dart' as _i5;
+import 'package:classroom_app/features/user/domain/entities/unsaved_user.dart'
+    as _i8;
 import 'package:classroom_app/features/user/domain/repositories/user_repository.dart'
     as _i3;
 import 'package:dartz/dartz.dart' as _i2;
@@ -64,4 +66,44 @@ class MockUserRepository extends _i1.Mock implements _i3.UserRepository {
           ),
         )),
       ) as _i4.Future<_i2.Either<_i5.Failure, _i6.User>>);
+  @override
+  _i4.Future<_i2.Either<_i5.Failure, void>> createUser({
+    required _i7.AccessToken? accessToken,
+    required _i8.UnsavedUser? user,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #createUser,
+          [],
+          {
+            #accessToken: accessToken,
+            #user: user,
+          },
+        ),
+        returnValue: _i4.Future<_i2.Either<_i5.Failure, void>>.value(
+            _FakeEither_0<_i5.Failure, void>(
+          this,
+          Invocation.method(
+            #createUser,
+            [],
+            {
+              #accessToken: accessToken,
+              #user: user,
+            },
+          ),
+        )),
+        returnValueForMissingStub:
+            _i4.Future<_i2.Either<_i5.Failure, void>>.value(
+                _FakeEither_0<_i5.Failure, void>(
+          this,
+          Invocation.method(
+            #createUser,
+            [],
+            {
+              #accessToken: accessToken,
+              #user: user,
+            },
+          ),
+        )),
+      ) as _i4.Future<_i2.Either<_i5.Failure, void>>);
 }
