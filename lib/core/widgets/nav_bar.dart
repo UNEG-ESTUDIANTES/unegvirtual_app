@@ -26,6 +26,11 @@ class NavBar extends StatelessWidget {
           selectedIcon: Icon(Icons.home),
         ),
         NavigationRailDestination(
+          icon: Icon(Icons.group_outlined),
+          label: Text('Usuarios'),
+          selectedIcon: Icon(Icons.group),
+        ),
+        NavigationRailDestination(
           icon: Icon(Icons.person_outlined),
           label: Text('Perfil'),
           selectedIcon: Icon(Icons.person),
