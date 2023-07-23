@@ -213,20 +213,6 @@ class _RegisterPageState extends State<RegisterPage> {
                               ),
                               const SizedBox(height: 16),
                               TextFormField(
-                                controller: _emailController,
-                                decoration: InputDecoration(
-                                  hintText: 'ej: johndoe@gmail.com',
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  label: const Text('Correo Electrónico'),
-                                ),
-                                validator: (_) => _state.email.error?.text(),
-                                keyboardType: TextInputType.emailAddress,
-                                textInputAction: TextInputAction.next,
-                              ),
-                              const SizedBox(height: 16),
-                              TextFormField(
                                 controller: _lastNameController,
                                 decoration: InputDecoration(
                                   hintText: 'Rojas',
@@ -237,6 +223,20 @@ class _RegisterPageState extends State<RegisterPage> {
                                 ),
                                 validator: (_) => _state.lastName.error?.text(),
                                 keyboardType: TextInputType.name,
+                                textInputAction: TextInputAction.next,
+                              ),
+                              const SizedBox(height: 16),
+                              TextFormField(
+                                controller: _emailController,
+                                decoration: InputDecoration(
+                                  hintText: 'ej: johndoe@gmail.com',
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  label: const Text('Correo Electrónico'),
+                                ),
+                                validator: (_) => _state.email.error?.text(),
+                                keyboardType: TextInputType.emailAddress,
                                 textInputAction: TextInputAction.next,
                               ),
                               const SizedBox(height: 16),

@@ -6,6 +6,7 @@ import 'package:classroom_app/core/widgets/bottom_nav_bar.dart';
 import 'package:classroom_app/core/widgets/main_app_bar.dart';
 import 'package:classroom_app/core/widgets/nav_bar.dart';
 import 'package:classroom_app/features/home/presentation/pages/home_page.dart';
+import 'package:classroom_app/features/user/presentation/pages/register_page.dart';
 import 'package:classroom_app/features/user/presentation/pages/user_page.dart';
 import 'package:classroom_app/features/user/presentation/pages/users_page.dart';
 
@@ -36,24 +37,24 @@ class _MainPageState extends State<MainPage> {
     setState(() => currentPageIndex = index);
   }
 
-  final List<NavDestination> destinations = [
-    NavDestination(
-      child: const HomePage(),
-    ),
-    NavDestination(
-      child: const UsersPage(),
-      floatingActionButton: const FloatingActionButton(
-        onPressed: null,
-        child: Icon(Icons.add),
-      ),
-    ),
-    NavDestination(
-      child: const UserPage(),
-    ),
-  ];
-
   @override
   Widget build(BuildContext context) {
+    final List<NavDestination> destinations = [
+      NavDestination(
+        child: const HomePage(),
+      ),
+      NavDestination(
+        child: const UsersPage(),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => Navigator.pushNamed(context, RegisterPage.routeName),
+          child: const Icon(Icons.add),
+        ),
+      ),
+      NavDestination(
+        child: const UserPage(),
+      ),
+    ];
+
     final destination = destinations[currentPageIndex];
 
     final desktopDestinations = destinations.map((destination) {

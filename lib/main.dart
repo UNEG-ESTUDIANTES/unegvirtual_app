@@ -62,7 +62,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'UNEG Classroom',
         scaffoldMessengerKey: NotificationsService.messengerKey,
-        initialRoute: RegisterPage.routeName,
+        initialRoute: CheckAuthPage.routeName,
         routes: {
           LandingPage.routeName: (_) => const LandingPage(),
           HomePage.routeName: (_) => const HomePage(),
