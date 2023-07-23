@@ -17,7 +17,6 @@ import 'package:classroom_app/features/landing/presentation/providers/landing_pr
 import 'package:classroom_app/injection_container.dart' as di;
 
 import 'features/auth/presentation/pages/login_page.dart';
-import 'features/course/presentation/pages/course_page.dart';
 import 'features/course/presentation/pages/create_course_page.dart';
 import 'features/landing/presentation/pages/landing_page.dart';
 import 'features/user/presentation/pages/register_page.dart';

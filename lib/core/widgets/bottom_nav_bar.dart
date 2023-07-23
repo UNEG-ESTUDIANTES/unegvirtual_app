@@ -20,6 +20,10 @@ class BottomNavBar extends StatelessWidget {
           label: 'Inicio',
         ),
         NavigationDestination(
+          icon: Icon(Icons.group),
+          label: 'Usuarios',
+        ),
+        NavigationDestination(
           icon: Icon(Icons.person),
           label: 'Perfil',
         ),

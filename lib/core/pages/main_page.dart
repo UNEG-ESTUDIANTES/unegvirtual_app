@@ -7,6 +7,17 @@ import 'package:classroom_app/core/widgets/main_app_bar.dart';
 import 'package:classroom_app/core/widgets/nav_bar.dart';
 import 'package:classroom_app/features/home/presentation/pages/home_page.dart';
 import 'package:classroom_app/features/user/presentation/pages/user_page.dart';
+import 'package:classroom_app/features/user/presentation/pages/users_page.dart';
+
+class NavDestination {
+  final Widget child;
+  final FloatingActionButton? floatingActionButton;
+
+  NavDestination({
+    required this.child,
+    this.floatingActionButton,
+  });
+}
 
 class MainPage extends StatefulWidget {
   /// The page route name.
@@ -25,24 +36,44 @@ class _MainPageState extends State<MainPage> {
     setState(() => currentPageIndex = index);
   }
 
+  final List<NavDestination> destinations = [
+    NavDestination(
+      child: const HomePage(),
+    ),
+    NavDestination(
+      child: const UsersPage(),
+      floatingActionButton: const FloatingActionButton(
+        onPressed: null,
+        child: Icon(Icons.add),
+      ),
+    ),
+    NavDestination(
+      child: const UserPage(),
+    ),
+  ];
+
   @override
   Widget build(BuildContext context) {
+    final destination = destinations[currentPageIndex];
+
+    final desktopDestinations = destinations.map((destination) {
+      return _DesktopLayout(
+        selectedIndex: currentPageIndex,
+        onDestinationSelected: onDestinationSelected,
+        child: destination.child,
+      );
+    }).toList();
+
+    final mobileDestinations = destinations.map((destination) {
+      return destination.child;
+    }).toList();
+
     return ResponsiveBuilder(
       builder: (context, sizingInformation) {
         if (sizingInformation.isDesktop) {
           return Scaffold(
-            body: [
-              _DesktopLayout(
-                selectedIndex: currentPageIndex,
-                onDestinationSelected: onDestinationSelected,
-                child: const HomePage(),
-              ),
-              _DesktopLayout(
-                selectedIndex: currentPageIndex,
-                onDestinationSelected: onDestinationSelected,
-                child: const UserPage(),
-              ),
-            ][currentPageIndex],
+            body: desktopDestinations[currentPageIndex],
+            floatingActionButton: destination.floatingActionButton,
           );
         }
 
@@ -52,10 +83,8 @@ class _MainPageState extends State<MainPage> {
             selectedIndex: currentPageIndex,
             onDestinationSelected: onDestinationSelected,
           ),
-          body: [
-            const HomePage(),
-            const UserPage(),
-          ][currentPageIndex],
+          body: mobileDestinations[currentPageIndex],
+          floatingActionButton: destination.floatingActionButton,
         );
       },
     );
