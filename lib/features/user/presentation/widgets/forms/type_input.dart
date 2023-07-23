@@ -1,20 +1,15 @@
 import 'package:formz/formz.dart';
 
 // Define input validation errors
-const emptyMessage = 'Debe ingresar la descripción del curso';
-const tooShortMessage = 'Debe tener al menos 4 caracteres';
+const emptyMessage = 'Debe seleccionar el tipo de usuario';
 
 enum TypeInputError {
-  empty,
-  tooShort;
+  empty;
 
   String text() {
     switch (this) {
       case TypeInputError.empty:
         return emptyMessage;
-
-      case TypeInputError.tooShort:
-        return tooShortMessage;
     }
   }
 }
@@ -27,8 +22,6 @@ class TypeInput extends FormzInput<String, TypeInputError> {
 
   @override
   TypeInputError? validator(String value) {
-    if (value.isEmpty) return TypeInputError.empty;
-
-    return value.length < 4 ? TypeInputError.tooShort : null;
+    return value.isEmpty ? TypeInputError.empty : null;
   }
 }

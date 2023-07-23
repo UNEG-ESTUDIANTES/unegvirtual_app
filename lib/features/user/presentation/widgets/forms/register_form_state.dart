@@ -1,19 +1,18 @@
-import 'package:classroom_app/features/user/presentation/widgets/forms/type_input.dart';
-import 'package:flutter/material.dart';
-
 import 'package:formz/formz.dart';
-import 'package:provider/provider.dart';
 
 import 'package:classroom_app/core/forms/email_input.dart';
+import 'package:classroom_app/features/user/presentation/widgets/forms/first_name_input.dart';
+import 'package:classroom_app/features/user/presentation/widgets/forms/last_name_input.dart';
+import 'package:classroom_app/features/user/presentation/widgets/forms/type_input.dart';
 
-import '../../../../../core/forms/name_input.dart';
 import '../../../../../core/forms/password_input.dart';
+
 import 'ci_input.dart';
 
 class RegisterFormState with FormzMixin {
   final EmailInput email;
-  final NameInput firtsName;
-  final NameInput lastName;
+  final FirstNameInput firstName;
+  final LastNameInput lastName;
   final PasswordInput password;
   final CiInput ci;
   final TypeInput type;
@@ -22,22 +21,19 @@ class RegisterFormState with FormzMixin {
 
   RegisterFormState({
     EmailInput? email,
-    NameInput? firtsName,
-    NameInput? lastName,
     CiInput? ci,
-    TypeInput? type,
+    this.firstName = const FirstNameInput.pure(),
+    this.lastName = const LastNameInput.pure(),
+    this.type = const TypeInput.pure(),
     this.password = const PasswordInput.pure(),
     this.status = FormzSubmissionStatus.initial,
   })  : email = email ?? EmailInput.pure(),
-        firtsName = firtsName ?? NameInput.pure(),
-        lastName = lastName ?? NameInput.pure(),
-        ci = ci ?? CiInput.pure(),
-        type = type ?? TypeInput.pure();
+        ci = ci ?? CiInput.pure();
 
   RegisterFormState copyWith({
     EmailInput? email,
-    NameInput? firtsName,
-    NameInput? lastName,
+    FirstNameInput? firstName,
+    LastNameInput? lastName,
     CiInput? ci,
     TypeInput? type,
     PasswordInput? password,
@@ -45,7 +41,7 @@ class RegisterFormState with FormzMixin {
   }) {
     return RegisterFormState(
       email: email ?? this.email,
-      firtsName: firtsName ?? this.firtsName,
+      firstName: firstName ?? this.firstName,
       lastName: lastName ?? this.lastName,
       ci: ci ?? this.ci,
       type: type ?? this.type,
@@ -56,5 +52,5 @@ class RegisterFormState with FormzMixin {
 
   @override
   List<FormzInput> get inputs =>
-      [email, password, firtsName, lastName, ci, type];
+      [email, password, firstName, lastName, ci, type];
 }

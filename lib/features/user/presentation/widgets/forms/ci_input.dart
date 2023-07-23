@@ -1,34 +1,37 @@
 import 'package:formz/formz.dart';
 
 // Define input validation errors
-const emptyMessage = 'Debe ingresar la descripción del curso';
-const tooShortMessage = 'La cedula debe tener 8 caracteres';
+const emptyMessage = 'Debe ingresar su cédula';
+const invalidMessage = 'Solo debe contener números';
 
 enum CiInputError {
   empty,
-  tooShort;
+  invalid;
 
   String text() {
     switch (this) {
       case CiInputError.empty:
         return emptyMessage;
 
-      case CiInputError.tooShort:
-        return tooShortMessage;
+      case CiInputError.invalid:
+        return invalidMessage;
     }
   }
 }
 
 // Extend FormzInput and provide the input type and error type.
-class CiInput extends FormzInput<String, CiInputError> {
-  const CiInput.pure([super.value = '']) : super.pure();
+class CiInput extends FormzInput<String, CiInputError>
+    with FormzInputErrorCacheMixin {
+  CiInput.pure([super.value = '']) : super.pure();
 
-  const CiInput.dirty([super.value = '']) : super.dirty();
+  CiInput.dirty([super.value = '']) : super.dirty();
+
+  static final _ciRegExp = RegExp(r'^[0-9]+$');
 
   @override
   CiInputError? validator(String value) {
     if (value.isEmpty) return CiInputError.empty;
 
-    return value.length < 8 ? CiInputError.tooShort : null;
+    return _ciRegExp.hasMatch(value) ? null : CiInputError.invalid;
   }
 }

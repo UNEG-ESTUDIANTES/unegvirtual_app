@@ -14,7 +14,7 @@ import '../../../../core/pages/main_page.dart';
 import '../../../../core/providers/auth_provider.dart';
 import '../providers/course_provider.dart';
 import '../widgets/forms/create_course_form_state.dart';
-import '../../../../core/forms/name_input.dart';
+import '../widgets/forms/name_input.dart';
 
 class CreateCoursePage extends StatefulWidget {
   /// The page route name.
