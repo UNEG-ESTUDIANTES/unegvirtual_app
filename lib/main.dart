@@ -19,6 +19,7 @@ import 'package:classroom_app/injection_container.dart' as di;
 import 'features/auth/presentation/pages/login_page.dart';
 import 'features/course/presentation/pages/create_course_page.dart';
 import 'features/landing/presentation/pages/landing_page.dart';
+import 'features/user/presentation/pages/register_page.dart';
 import 'features/user/presentation/pages/user_page.dart';
 
 void main() async {
@@ -73,6 +74,7 @@ class MyApp extends StatelessWidget {
           CreateCoursePage.routeName: (_) => const CreateCoursePage(),
           MultiStudentsEnrollPage.routeName: (_) =>
               const MultiStudentsEnrollPage(),
+          RegisterPage.routeName: (_) => const RegisterPage(),
         },
         theme: ThemeData(
           useMaterial3: true,

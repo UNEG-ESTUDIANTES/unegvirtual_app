@@ -10,9 +10,9 @@ import 'package:classroom_app/core/providers/user_provider.dart';
 import 'package:classroom_app/core/services/notifications_service.dart';
 import 'package:classroom_app/features/auth/domain/entities/user_credentials.dart';
 import 'package:classroom_app/features/auth/presentation/pages/forgot_page.dart';
-import 'package:classroom_app/features/auth/presentation/widgets/forms/email_input.dart';
+import 'package:classroom_app/core/forms/email_input.dart';
 import 'package:classroom_app/features/auth/presentation/widgets/forms/login_form_state.dart';
-import 'package:classroom_app/features/auth/presentation/widgets/forms/password_input.dart';
+import 'package:classroom_app/core/forms/password_input.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
