@@ -3,16 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:formz/formz.dart';
 import 'package:provider/provider.dart';
 
+import 'package:classroom_app/core/forms/email_input.dart';
+import 'package:classroom_app/core/forms/password_input.dart';
 import 'package:classroom_app/core/pages/main_page.dart';
 import 'package:classroom_app/core/providers/auth_provider.dart';
 import 'package:classroom_app/core/providers/page_state.dart';
-import 'package:classroom_app/core/providers/user_provider.dart';
 import 'package:classroom_app/core/services/notifications_service.dart';
 import 'package:classroom_app/features/auth/domain/entities/user_credentials.dart';
 import 'package:classroom_app/features/auth/presentation/pages/forgot_page.dart';
-import 'package:classroom_app/core/forms/email_input.dart';
 import 'package:classroom_app/features/auth/presentation/widgets/forms/login_form_state.dart';
-import 'package:classroom_app/core/forms/password_input.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -77,7 +76,6 @@ class _LoginFormState extends State<LoginForm> {
 
     final authProvider = context.read<AuthProvider>();
     final authProviderState = authProvider.state;
-    final accessToken = authProvider.accessToken;
     String snackBarMessage;
 
     // Change state and snackbar according to state.
@@ -85,20 +83,8 @@ class _LoginFormState extends State<LoginForm> {
       _state = _state.copyWith(status: FormzSubmissionStatus.failure);
       snackBarMessage = authProviderState.message;
     } else {
-      await context.read<UserProvider>().getCurrentUser(accessToken!);
-
-      if (!mounted) return;
-
-      final userProviderState = context.read<UserProvider>().state;
-
-      // Change state and snackbar according to the user
-      if (userProviderState is Error) {
-        _state = _state.copyWith(status: FormzSubmissionStatus.failure);
-        snackBarMessage = userProviderState.message;
-      } else {
-        _state = _state.copyWith(status: FormzSubmissionStatus.success);
-        snackBarMessage = 'Ha iniciado sesión con éxito';
-      }
+      _state = _state.copyWith(status: FormzSubmissionStatus.success);
+      snackBarMessage = 'Ha iniciado sesión con éxito';
     }
 
     setState(() {});
