@@ -36,7 +36,7 @@ class DBProvider {
   Future<Database> initDB() async {
     return await openDatabase(
       path,
-      version: 2,
+      version: 3,
       onCreate: _onCreate,
     );
   }
