@@ -4,30 +4,32 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import 'package:classroom_app/core/entities/access_token.dart';
-import 'package:classroom_app/core/entities/user.dart';
 import 'package:classroom_app/core/error/failures.dart';
 import 'package:classroom_app/core/providers/page_state.dart';
 import 'package:classroom_app/core/providers/user_provider.dart';
 import 'package:classroom_app/core/utils/utils.dart';
-import 'package:classroom_app/features/user/domain/use_cases/get_current_user.dart';
+import 'package:classroom_app/features/user/domain/entities/unsaved_user.dart';
+import 'package:classroom_app/features/user/domain/use_cases/create_user.dart';
 
-@GenerateNiceMocks([MockSpec<GetCurrentUser>()])
+@GenerateNiceMocks([MockSpec<CreateUser>()])
 import 'user_provider_test.mocks.dart';
 
 void main() {
-  late MockGetCurrentUser mockGetCurrentUser;
+  late MockCreateUser mockCreateUser;
   late UserProvider provider;
 
   setUp(() {
-    mockGetCurrentUser = MockGetCurrentUser();
+    mockCreateUser = MockCreateUser();
 
     provider = UserProvider(
-      getCurrentUserUseCase: mockGetCurrentUser,
+      createUser: mockCreateUser,
     );
   });
 
-  const tUser = User(
-    id: 'test',
+  const tUnsavedUser = UnsavedUser(
+    password: 'test',
+    securityKey: 'test',
+    type: 'test',
     firstName: 'test',
     lastName: 'test',
     identityCard: 'test',
@@ -44,22 +46,25 @@ void main() {
     },
   );
 
-  group('getCurrentUser', () {
+  group('createUser', () {
     test(
-      'should get the user with the use case',
+      'should create the user with the use case',
       () async {
         // arrange
-        when(mockGetCurrentUser(any))
-            .thenAnswer((_) async => const Right(tUser));
+        when(mockCreateUser(any)).thenAnswer((_) async => const Right(null));
 
         // act
-        await provider.getCurrentUser(tAccessToken);
+        await provider.createUser(
+          accessToken: tAccessToken,
+          unsavedUser: tUnsavedUser,
+        );
 
         // assert
         verify(
-          mockGetCurrentUser(
-            const GetCurrentUserParams(
+          mockCreateUser(
+            const CreateUserParams(
               accessToken: tAccessToken,
+              unsavedUser: tUnsavedUser,
             ),
           ),
         );
@@ -70,8 +75,7 @@ void main() {
       'should notify [Loading, Loaded] when user is gotten successfully',
       () async {
         // arrange
-        when(mockGetCurrentUser(any))
-            .thenAnswer((_) async => const Right(tUser));
+        when(mockCreateUser(any)).thenAnswer((_) async => const Right(null));
 
         // assert later
         final expected = [
@@ -83,7 +87,10 @@ void main() {
         expectLater(provider.stream, emitsInOrder(expected));
 
         // act
-        await provider.getCurrentUser(tAccessToken);
+        await provider.createUser(
+          accessToken: tAccessToken,
+          unsavedUser: tUnsavedUser,
+        );
       },
     );
 
@@ -91,7 +98,7 @@ void main() {
       'should notify [Loading, Loaded] when user is gotten successfully',
       () async {
         // arrange
-        when(mockGetCurrentUser(any))
+        when(mockCreateUser(any))
             .thenAnswer((_) async => Left(ServerFailure()));
 
         // assert later
@@ -104,7 +111,10 @@ void main() {
         expectLater(provider.stream, emitsInOrder(expected));
 
         // act
-        await provider.getCurrentUser(tAccessToken);
+        await provider.createUser(
+          accessToken: tAccessToken,
+          unsavedUser: tUnsavedUser,
+        );
       },
     );
   });
