@@ -30,7 +30,7 @@ class UserRepositoryImpl implements UserRepository {
     try {
       await remoteDataSource.createUser(
         accessToken: accessToken,
-        user: UnsavedUserModel.fromEntity(unsavedUser),
+        unsavedUser: UnsavedUserModel.fromEntity(unsavedUser),
       );
 
       return const Right(null);

@@ -32,7 +32,7 @@ class MockUserRemoteDataSource extends _i1.Mock
   @override
   _i3.Future<void> createUser({
     required _i4.AccessToken? accessToken,
-    required _i5.UnsavedUserModel? user,
+    required _i5.UnsavedUserModel? unsavedUser,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -40,7 +40,7 @@ class MockUserRemoteDataSource extends _i1.Mock
           [],
           {
             #accessToken: accessToken,
-            #user: user,
+            #unsavedUser: unsavedUser,
           },
         ),
         returnValue: _i3.Future<void>.value(),

@@ -73,14 +73,14 @@ void main() {
       void successfulCall() {
         when(mockUserRemoteDataSource.createUser(
           accessToken: anyNamed('accessToken'),
-          user: anyNamed('user'),
+          unsavedUser: anyNamed('unsavedUser'),
         )).thenAnswer((_) async => {});
       }
 
       void unsuccessfulCall(Exception exception) {
         when(mockUserRemoteDataSource.createUser(
           accessToken: anyNamed('accessToken'),
-          user: anyNamed('user'),
+          unsavedUser: anyNamed('unsavedUser'),
         )).thenThrow(exception);
       }
 
@@ -100,7 +100,7 @@ void main() {
           verify(
             mockUserRemoteDataSource.createUser(
               accessToken: anyNamed('accessToken'),
-              user: anyNamed('user'),
+              unsavedUser: anyNamed('unsavedUser'),
             ),
           );
         },
@@ -122,7 +122,7 @@ void main() {
           verify(
             mockUserRemoteDataSource.createUser(
               accessToken: tAccessToken,
-              user: tUnsavedUserModel,
+              unsavedUser: tUnsavedUserModel,
             ),
           );
 
@@ -147,7 +147,7 @@ void main() {
           verify(
             mockUserRemoteDataSource.createUser(
               accessToken: tAccessToken,
-              user: tUnsavedUserModel,
+              unsavedUser: tUnsavedUserModel,
             ),
           );
 
@@ -172,7 +172,7 @@ void main() {
           verify(
             mockUserRemoteDataSource.createUser(
               accessToken: tAccessToken,
-              user: tUnsavedUserModel,
+              unsavedUser: tUnsavedUserModel,
             ),
           );
 
@@ -197,7 +197,7 @@ void main() {
           verify(
             mockUserRemoteDataSource.createUser(
               accessToken: tAccessToken,
-              user: tUnsavedUserModel,
+              unsavedUser: tUnsavedUserModel,
             ),
           );
 

@@ -17,7 +17,7 @@ abstract class UserRemoteDataSource {
   /// Otherwise throws a [ServerException] for all other error codes.
   Future<void> createUser({
     required AccessToken accessToken,
-    required UnsavedUserModel user,
+    required UnsavedUserModel unsavedUser,
   });
 }
 
@@ -29,7 +29,7 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
   @override
   Future<void> createUser({
     required AccessToken accessToken,
-    required UnsavedUserModel user,
+    required UnsavedUserModel unsavedUser,
   }) async {
     try {
       final response = await client.post(
@@ -38,10 +38,12 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer ${accessToken.token}'
         },
-        body: json.encode(user.toJson()),
+        body: json.encode(unsavedUser.toJson()),
       );
 
-      if (response.statusCode == 403) throw NotAuthorizedException();
+      if (response.statusCode == 401) throw NotAuthorizedException();
+
+      if (response.statusCode == 409) throw EmailTakenException();
 
       if (response.statusCode != 200) throw ServerException();
     } on http.ClientException {
