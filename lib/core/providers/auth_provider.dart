@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 
-import 'package:classroom_app/core/entities/access_token.dart';
+import 'package:classroom_app/core/entities/auth.dart';
 import 'package:classroom_app/core/error/failures.dart';
 import 'package:classroom_app/core/providers/base_provider.dart';
 import 'package:classroom_app/core/providers/page_state.dart';
@@ -11,45 +11,46 @@ import 'package:classroom_app/features/auth/domain/use_cases/get_auth.dart';
 import 'package:classroom_app/features/auth/domain/use_cases/login.dart';
 
 class AuthProvider extends BaseProvider {
-  final GetAccessToken getAccessTokenUseCase;
-  final Login loginUseCase;
+  final GetAuth _getAuth;
+  final Login _login;
 
   AuthProvider({
-    required this.getAccessTokenUseCase,
-    required this.loginUseCase,
-  });
+    required GetAuth getAuth,
+    required Login login,
+  })  : _getAuth = getAuth,
+        _login = login;
 
-  AccessToken? _accessToken;
+  Auth? _auth;
 
-  /// The user [accessToken].
-  AccessToken? get accessToken => _accessToken;
+  /// The user [auth].
+  Auth? get auth => _auth;
 
   /// Logs in with the [userCredentials].
   Future<void> login(UserCredentials userCredentials) async {
     state = Loading();
 
     _eitherLoadedOrErrorState(
-      await loginUseCase(
+      await _login(
         LoginParams(userCredentials: userCredentials),
       ),
     );
   }
 
-  /// Gets the [AccessToken].
-  Future<void> getToken() async {
+  /// Gets the [Auth].
+  Future<void> getAuth() async {
     state = Loading();
 
-    _eitherLoadedOrErrorState(await getAccessTokenUseCase(NoParams()));
+    _eitherLoadedOrErrorState(await _getAuth(NoParams()));
   }
 
-  /// Changes the [state] according to [failureOrAccessToken].
+  /// Changes the [state] according to [failureOrAuth].
   void _eitherLoadedOrErrorState(
-    Either<Failure, AccessToken> failureOrAccessToken,
+    Either<Failure, Auth> failureOrAuth,
   ) {
-    failureOrAccessToken.fold(
+    failureOrAuth.fold(
       (failure) => state = Error(message: Utils.getErrorMessage(failure)),
-      (accessToken) {
-        _accessToken = accessToken;
+      (auth) {
+        _auth = auth;
         state = const Loaded();
       },
     );

@@ -4,6 +4,8 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import 'package:classroom_app/core/entities/access_token.dart';
+import 'package:classroom_app/core/entities/auth.dart';
+import 'package:classroom_app/core/entities/user.dart';
 import 'package:classroom_app/core/error/failures.dart';
 import 'package:classroom_app/core/providers/auth_provider.dart';
 import 'package:classroom_app/core/providers/page_state.dart';
@@ -14,27 +16,36 @@ import 'package:classroom_app/features/auth/domain/use_cases/get_auth.dart';
 import 'package:classroom_app/features/auth/domain/use_cases/login.dart';
 
 @GenerateNiceMocks([
-  MockSpec<GetAccessToken>(),
+  MockSpec<GetAuth>(),
   MockSpec<Login>(),
 ])
 import 'auth_provider_test.mocks.dart';
 
 void main() {
-  late MockGetAccessToken mockGetAccessToken;
+  late MockGetAuth mockGetAuth;
   late MockLogin mockLogin;
   late AuthProvider provider;
 
   setUp(() {
-    mockGetAccessToken = MockGetAccessToken();
+    mockGetAuth = MockGetAuth();
     mockLogin = MockLogin();
 
     provider = AuthProvider(
-      getAccessTokenUseCase: mockGetAccessToken,
-      loginUseCase: mockLogin,
+      getAuth: mockGetAuth,
+      login: mockLogin,
     );
   });
 
-  const tAccessToken = AccessToken('test');
+  const tAuth = Auth(
+    accessToken: AccessToken('test'),
+    user: User(
+      id: 'test',
+      firstName: 'test',
+      lastName: 'test',
+      identityCard: 'test',
+      email: 'test',
+    ),
+  );
 
   test(
     'initial state should be Empty',
@@ -44,28 +55,26 @@ void main() {
     },
   );
 
-  group('getToken', () {
+  group('getAuth', () {
     test(
-      'should get the token with the use case',
+      'should get the auth with the use case',
       () async {
         // arrange
-        when(mockGetAccessToken(any))
-            .thenAnswer((_) async => const Right(tAccessToken));
+        when(mockGetAuth(any)).thenAnswer((_) async => const Right(tAuth));
 
         // act
-        await provider.getToken();
+        await provider.getAuth();
 
         // assert
-        verify(mockGetAccessToken(NoParams()));
+        verify(mockGetAuth(NoParams()));
       },
     );
 
     test(
-      'should notify [Loading, Loaded] when token is gotten successfully',
+      'should notify [Loading, Loaded] when auth is gotten successfully',
       () async {
         // arrange
-        when(mockGetAccessToken(any))
-            .thenAnswer((_) async => const Right(tAccessToken));
+        when(mockGetAuth(any)).thenAnswer((_) async => const Right(tAuth));
 
         // assert later
         final expected = [
@@ -77,7 +86,7 @@ void main() {
         expectLater(provider.stream, emitsInOrder(expected));
 
         // act
-        await provider.getToken();
+        await provider.getAuth();
       },
     );
 
@@ -85,8 +94,7 @@ void main() {
       'should notify [Loading, Error] when user is login fails',
       () async {
         // arrange
-        when(mockGetAccessToken(any))
-            .thenAnswer((_) async => Left(CacheFailure()));
+        when(mockGetAuth(any)).thenAnswer((_) async => Left(CacheFailure()));
 
         // assert later
         final expected = [
@@ -98,7 +106,7 @@ void main() {
         expectLater(provider.stream, emitsInOrder(expected));
 
         // act
-        await provider.getToken();
+        await provider.getAuth();
       },
     );
   });
@@ -113,7 +121,7 @@ void main() {
       'should login the user with the login use case',
       () async {
         // arrange
-        when(mockLogin(any)).thenAnswer((_) async => const Right(tAccessToken));
+        when(mockLogin(any)).thenAnswer((_) async => const Right(tAuth));
 
         // act
         await provider.login(tUserCredentials);
@@ -127,7 +135,7 @@ void main() {
       'should notify [Loading, Loaded] when user is logged in successfully',
       () async {
         // arrange
-        when(mockLogin(any)).thenAnswer((_) async => const Right(tAccessToken));
+        when(mockLogin(any)).thenAnswer((_) async => const Right(tAuth));
 
         // assert later
         final expected = [
