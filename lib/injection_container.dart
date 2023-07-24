@@ -35,12 +35,10 @@ import 'package:classroom_app/features/landing/data/repositories/landing_reposit
 import 'package:classroom_app/features/landing/domain/repositories/landing_repository.dart';
 import 'package:classroom_app/features/landing/domain/usecases/get_courses.dart';
 import 'package:classroom_app/features/landing/presentation/providers/landing_provider.dart';
-import 'package:classroom_app/features/user/data/data_sources/user_local_data_source.dart';
 import 'package:classroom_app/features/user/data/data_sources/user_remote_data_source.dart';
 import 'package:classroom_app/features/user/data/repositories/user_repository_impl.dart';
 import 'package:classroom_app/features/user/domain/repositories/user_repository.dart';
 import 'package:classroom_app/features/user/domain/use_cases/create_user.dart';
-import 'package:classroom_app/features/user/domain/use_cases/get_current_user.dart';
 
 import 'features/course/domain/usecases/multi_students_enroll.dart';
 
@@ -92,24 +90,17 @@ Future<void> init() async {
 
   //* Features - User.
   // Use Cases.
-  sl.registerLazySingleton(() => GetCurrentUser(sl()));
-
   sl.registerLazySingleton(() => CreateUser(sl()));
 
   // Repository.
   sl.registerLazySingleton<UserRepository>(
     () => UserRepositoryImpl(
-      localDataSource: sl(),
       remoteDataSource: sl(),
       networkInfo: sl(),
     ),
   );
 
   // Data sources.
-  sl.registerLazySingleton<UserLocalDataSource>(
-    () => UserLocalDataSourceImpl(database: sl()),
-  );
-
   sl.registerLazySingleton<UserRemoteDataSource>(
     () => UserRemoteDataSourceImpl(client: sl()),
   );
@@ -168,8 +159,7 @@ Future<void> init() async {
 
   sl.registerLazySingleton(
     () => UserProvider(
-      getCurrentUserUseCase: sl(),
-      createUserUseCase: sl(),
+      createUser: sl(),
     ),
   );
 
