@@ -4,7 +4,6 @@ import 'package:formz/formz.dart';
 import 'package:provider/provider.dart';
 
 import 'package:classroom_app/core/providers/page_state.dart';
-import 'package:classroom_app/core/providers/user_provider.dart';
 import 'package:classroom_app/core/services/notifications_service.dart';
 import 'package:classroom_app/features/course/domain/entities/new_course.dart';
 import 'package:classroom_app/features/course/domain/usecases/post_course.dart';
@@ -65,21 +64,28 @@ class _CreateCoursePageState extends State<CreateCoursePage> {
   Future<void> _onSubmit() async {
     if (!_key.currentState!.validate()) return;
 
+    final auth = context.read<AuthProvider>().auth;
+
+    if (auth == null) {
+      NotificationsService.showSnackBar(
+        'Debe estar autenticado para realizar la acción',
+      );
+
+      return;
+    }
+
     setState(() {
       _state = _state.copyWith(status: FormzSubmissionStatus.inProgress);
     });
 
-    final authProviderState = context.read<AuthProvider>().accessToken!;
-    final userProviderState = context.read<UserProvider>().user!.id;
-
     final newCourse = NewCourse(
       name: _state.name.value,
       description: _state.description.value,
-      teacherId: userProviderState,
+      teacherId: auth.user.id,
     );
 
     final postCourse = PostCourseParams(
-      accessToken: authProviderState,
+      accessToken: auth.accessToken,
       newCourse: newCourse,
     );
 
@@ -88,14 +94,14 @@ class _CreateCoursePageState extends State<CreateCoursePage> {
 
     if (!mounted) return;
 
-    final CourseProviderState = context.read<CourseProvider>().state;
+    final courseProviderState = context.read<CourseProvider>().state;
 
     String snackBarMessage;
 
     // Change state and snackbar according to state.
-    if (CourseProviderState is Error) {
+    if (courseProviderState is Error) {
       _state = _state.copyWith(status: FormzSubmissionStatus.failure);
-      snackBarMessage = CourseProviderState.message;
+      snackBarMessage = courseProviderState.message;
     } else {
       _state = _state.copyWith(status: FormzSubmissionStatus.success);
       snackBarMessage = 'Curso creado con éxito';

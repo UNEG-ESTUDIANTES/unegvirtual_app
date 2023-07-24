@@ -20,6 +20,17 @@ class UserModel extends User {
     );
   }
 
+  /// Returns an [UserModel] from the [user].
+  factory UserModel.fromEntity(User user) {
+    return UserModel(
+      email: user.email,
+      firstName: user.firstName,
+      id: user.id,
+      identityCard: user.identityCard,
+      lastName: user.lastName,
+    );
+  }
+
   /// Converts the [UserModel] to JSON.
   Map<String, dynamic> toJson() {
     return {

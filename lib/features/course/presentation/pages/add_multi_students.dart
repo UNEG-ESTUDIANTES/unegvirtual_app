@@ -34,9 +34,9 @@ class MultiStudentsEnrollPage extends StatefulWidget {
 
 class _MultiStudentsEnrollPageState extends State<MultiStudentsEnrollPage> {
   Future<void> _onSubmit() async {
-    final authProviderState = context.read<AuthProvider>().accessToken;
+    final auth = context.read<AuthProvider>().auth;
 
-    if (authProviderState == null) {
+    if (auth == null) {
       NotificationsService.showSnackBar(
         'Debe estar autenticado para realizar la acción',
       );
@@ -57,7 +57,7 @@ class _MultiStudentsEnrollPageState extends State<MultiStudentsEnrollPage> {
     // Try to add the students to the course.
     await context.read<CourseProvider>().multiStudentsEnroll(
           MultiStudentsEnrollParams(
-            accessToken: authProviderState,
+            accessToken: auth.accessToken,
             multiEnroll: multienroll,
           ),
         );

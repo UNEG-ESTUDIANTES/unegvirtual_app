@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:mockito/annotations.dart';
@@ -6,8 +8,8 @@ import 'package:mockito/mockito.dart';
 import 'package:classroom_app/core/entities/access_token.dart';
 import 'package:classroom_app/core/env/env.dart';
 import 'package:classroom_app/core/error/exceptions.dart';
-import 'package:classroom_app/core/models/user_model.dart';
 import 'package:classroom_app/features/user/data/data_sources/user_remote_data_source.dart';
+import 'package:classroom_app/features/user/data/models/unsaved_user_model.dart';
 
 import '../../../../fixtures/fixture_reader.dart';
 
@@ -25,20 +27,23 @@ void main() {
 
   const tAccessToken = AccessToken('test');
 
-  const tUserModel = UserModel(
-    id: 'test',
+  const tUnsavedUserModel = UnsavedUserModel(
+    password: 'test',
+    securityKey: 'test',
+    type: 'test',
     firstName: 'test',
     lastName: 'test',
     identityCard: 'test',
     email: 'test',
   );
 
-  group('getCurrentUser', () {
+  group('createUser', () {
     void setUpMockHttpClientSuccess200() {
       when(
-        client.get(
+        client.post(
           any,
           headers: anyNamed('headers'),
+          body: anyNamed('body'),
         ),
       ).thenAnswer(
         (_) async => http.Response(
@@ -48,25 +53,42 @@ void main() {
       );
     }
 
-    void setUpMockHttpClientError404() {
+    void setUpMockHttpClientError401() {
       when(
-        client.get(
+        client.post(
           any,
           headers: anyNamed('headers'),
+          body: anyNamed('body'),
         ),
       ).thenAnswer(
         (_) async => http.Response(
-          'User not found',
-          404,
+          'Not an admin',
+          401,
+        ),
+      );
+    }
+
+    void setUpMockHttpClientError409() {
+      when(
+        client.post(
+          any,
+          headers: anyNamed('headers'),
+          body: anyNamed('body'),
+        ),
+      ).thenAnswer(
+        (_) async => http.Response(
+          'Email taken',
+          409,
         ),
       );
     }
 
     void setUpMockHttpClientGeneralError() {
       when(
-        client.get(
+        client.post(
           any,
           headers: anyNamed('headers'),
+          body: anyNamed('body'),
         ),
       ).thenAnswer(
         (_) async => http.Response(
@@ -76,81 +98,88 @@ void main() {
       );
     }
 
-    void setUpMockHttpClientException() {
-      when(
-        client.get(
-          any,
-          headers: anyNamed('headers'),
-        ),
-      ).thenThrow(http.ClientException(''));
-    }
-
     test(
-      '''should perform a GET request with the access 
-      token as the authorization''',
+      '''should perform a POST request with the unsaved user
+      and with the application/json header''',
       () async {
         // arrange
         setUpMockHttpClientSuccess200();
 
         // act
-        dataSourceImpl.getCurrentUser(tAccessToken);
+        dataSourceImpl.createUser(
+          accessToken: tAccessToken,
+          unsavedUser: tUnsavedUserModel,
+        );
 
         // assert
         verify(
-          client.get(
-            Uri.parse('${Env.appUrl}/v1/me'),
+          client.post(
+            Uri.parse('${Env.appUrl}/v1/signupUser'),
             headers: {
               'Content-Type': 'application/json',
-              'Authorization': 'Bearer ${tAccessToken.token}'
+              'Authorization': 'Bearer ${tAccessToken.token}',
             },
+            body: json.encode(tUnsavedUserModel.toJson()),
           ),
         );
       },
     );
 
     test(
-      'should return UserModel when status code is 200 (success)',
+      'should throw NotAuthorizedException when status code is 401',
       () async {
         // arrange
-        setUpMockHttpClientSuccess200();
+        setUpMockHttpClientError401();
 
         // act
-        final result = await dataSourceImpl.getCurrentUser(tAccessToken);
-
-        // assert
-        expect(result, tUserModel);
-      },
-    );
-
-    test(
-      'should throw a UserNotFoundException when status code is 404',
-      () async {
-        // arrange
-        setUpMockHttpClientError404();
-
-        // act
-        final call = dataSourceImpl.getCurrentUser;
+        final call = dataSourceImpl.createUser;
 
         // assert
         expect(
-          () => call(tAccessToken),
-          throwsA(const TypeMatcher<UserNotFoundException>()),
+          () => call(
+            accessToken: tAccessToken,
+            unsavedUser: tUnsavedUserModel,
+          ),
+          throwsA(const TypeMatcher<NotAuthorizedException>()),
         );
       },
     );
 
     test(
-      'should throw a ServerException when status code is other than 200 and 404',
+      'should throw EmailTakenException when status code is 409',
+      () async {
+        // arrange
+        setUpMockHttpClientError409();
+
+        // act
+        final call = dataSourceImpl.createUser;
+
+        // assert
+        expect(
+          () => call(
+            accessToken: tAccessToken,
+            unsavedUser: tUnsavedUserModel,
+          ),
+          throwsA(const TypeMatcher<EmailTakenException>()),
+        );
+      },
+    );
+
+    test(
+      'should throw ServerException when status code is other than 200, 401 and 409',
       () async {
         // arrange
         setUpMockHttpClientGeneralError();
 
         // act
-        final call = dataSourceImpl.getCurrentUser;
+        final call = dataSourceImpl.createUser;
 
         // assert
         expect(
-          () => call(tAccessToken),
+          () => call(
+            accessToken: tAccessToken,
+            unsavedUser: tUnsavedUserModel,
+          ),
           throwsA(const TypeMatcher<ServerException>()),
         );
       },
@@ -160,14 +189,23 @@ void main() {
       'should throw a ServerException when the call throws a ClientException',
       () async {
         // arrange
-        setUpMockHttpClientException();
+        when(
+          client.post(
+            any,
+            headers: anyNamed('headers'),
+            body: anyNamed('body'),
+          ),
+        ).thenThrow(http.ClientException(''));
 
         // act
-        final call = dataSourceImpl.getCurrentUser;
+        final call = dataSourceImpl.createUser;
 
         // assert
         expect(
-          () => call(tAccessToken),
+          () => call(
+            accessToken: tAccessToken,
+            unsavedUser: tUnsavedUserModel,
+          ),
           throwsA(const TypeMatcher<ServerException>()),
         );
       },

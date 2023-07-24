@@ -5,12 +5,12 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i5;
 
-import 'package:classroom_app/core/entities/access_token.dart' as _i7;
+import 'package:classroom_app/core/entities/auth.dart' as _i7;
 import 'package:classroom_app/core/error/failures.dart' as _i6;
 import 'package:classroom_app/core/use_cases/use_case.dart' as _i8;
 import 'package:classroom_app/features/auth/domain/repository/auth_repository.dart'
     as _i2;
-import 'package:classroom_app/features/auth/domain/use_cases/get_access_token.dart'
+import 'package:classroom_app/features/auth/domain/use_cases/get_auth.dart'
     as _i4;
 import 'package:classroom_app/features/auth/domain/use_cases/login.dart' as _i9;
 import 'package:dartz/dartz.dart' as _i3;
@@ -48,10 +48,10 @@ class _FakeEither_1<L, R> extends _i1.SmartFake implements _i3.Either<L, R> {
         );
 }
 
-/// A class which mocks [GetAccessToken].
+/// A class which mocks [GetAuth].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockGetAccessToken extends _i1.Mock implements _i4.GetAccessToken {
+class MockGetAuth extends _i1.Mock implements _i4.GetAuth {
   @override
   _i2.AuthRepository get repository => (super.noSuchMethod(
         Invocation.getter(#repository),
@@ -65,15 +65,14 @@ class MockGetAccessToken extends _i1.Mock implements _i4.GetAccessToken {
         ),
       ) as _i2.AuthRepository);
   @override
-  _i5.Future<_i3.Either<_i6.Failure, _i7.AccessToken>> call(
-          _i8.NoParams? params) =>
+  _i5.Future<_i3.Either<_i6.Failure, _i7.Auth>> call(_i8.NoParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
           [params],
         ),
-        returnValue: _i5.Future<_i3.Either<_i6.Failure, _i7.AccessToken>>.value(
-            _FakeEither_1<_i6.Failure, _i7.AccessToken>(
+        returnValue: _i5.Future<_i3.Either<_i6.Failure, _i7.Auth>>.value(
+            _FakeEither_1<_i6.Failure, _i7.Auth>(
           this,
           Invocation.method(
             #call,
@@ -81,15 +80,15 @@ class MockGetAccessToken extends _i1.Mock implements _i4.GetAccessToken {
           ),
         )),
         returnValueForMissingStub:
-            _i5.Future<_i3.Either<_i6.Failure, _i7.AccessToken>>.value(
-                _FakeEither_1<_i6.Failure, _i7.AccessToken>(
+            _i5.Future<_i3.Either<_i6.Failure, _i7.Auth>>.value(
+                _FakeEither_1<_i6.Failure, _i7.Auth>(
           this,
           Invocation.method(
             #call,
             [params],
           ),
         )),
-      ) as _i5.Future<_i3.Either<_i6.Failure, _i7.AccessToken>>);
+      ) as _i5.Future<_i3.Either<_i6.Failure, _i7.Auth>>);
 }
 
 /// A class which mocks [Login].
@@ -109,15 +108,14 @@ class MockLogin extends _i1.Mock implements _i9.Login {
         ),
       ) as _i2.AuthRepository);
   @override
-  _i5.Future<_i3.Either<_i6.Failure, _i7.AccessToken>> call(
-          _i9.LoginParams? params) =>
+  _i5.Future<_i3.Either<_i6.Failure, _i7.Auth>> call(_i9.LoginParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
           [params],
         ),
-        returnValue: _i5.Future<_i3.Either<_i6.Failure, _i7.AccessToken>>.value(
-            _FakeEither_1<_i6.Failure, _i7.AccessToken>(
+        returnValue: _i5.Future<_i3.Either<_i6.Failure, _i7.Auth>>.value(
+            _FakeEither_1<_i6.Failure, _i7.Auth>(
           this,
           Invocation.method(
             #call,
@@ -125,13 +123,13 @@ class MockLogin extends _i1.Mock implements _i9.Login {
           ),
         )),
         returnValueForMissingStub:
-            _i5.Future<_i3.Either<_i6.Failure, _i7.AccessToken>>.value(
-                _FakeEither_1<_i6.Failure, _i7.AccessToken>(
+            _i5.Future<_i3.Either<_i6.Failure, _i7.Auth>>.value(
+                _FakeEither_1<_i6.Failure, _i7.Auth>(
           this,
           Invocation.method(
             #call,
             [params],
           ),
         )),
-      ) as _i5.Future<_i3.Either<_i6.Failure, _i7.AccessToken>>);
+      ) as _i5.Future<_i3.Either<_i6.Failure, _i7.Auth>>);
 }

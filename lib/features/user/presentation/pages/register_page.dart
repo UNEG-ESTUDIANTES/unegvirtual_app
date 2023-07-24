@@ -87,9 +87,9 @@ class _RegisterPageState extends State<RegisterPage> {
   Future<void> _onSubmit() async {
     if (!_key.currentState!.validate()) return;
 
-    final accessToken = context.read<AuthProvider>().accessToken;
+    final auth = context.read<AuthProvider>().auth;
 
-    if (accessToken == null) {
+    if (auth == null) {
       NotificationsService.showSnackBar(
         'Debe estar autenticado para realizar esta acción',
       );
@@ -103,8 +103,8 @@ class _RegisterPageState extends State<RegisterPage> {
 
     // Try to create user.
     await context.read<UserProvider>().createUser(
-          accessToken: accessToken,
-          user: UnsavedUser(
+          accessToken: auth.accessToken,
+          unsavedUser: UnsavedUser(
             firstName: _state.firstName.value,
             lastName: _state.lastName.value,
             identityCard: _state.ci.value,

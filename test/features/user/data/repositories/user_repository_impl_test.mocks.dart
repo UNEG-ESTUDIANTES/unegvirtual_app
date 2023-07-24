@@ -3,17 +3,14 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i4;
+import 'dart:async' as _i3;
 
-import 'package:classroom_app/core/entities/access_token.dart' as _i6;
-import 'package:classroom_app/core/models/user_model.dart' as _i2;
-import 'package:classroom_app/core/network/network_info.dart' as _i8;
-import 'package:classroom_app/features/user/data/data_sources/user_local_data_source.dart'
-    as _i3;
+import 'package:classroom_app/core/entities/access_token.dart' as _i4;
+import 'package:classroom_app/core/network/network_info.dart' as _i6;
 import 'package:classroom_app/features/user/data/data_sources/user_remote_data_source.dart'
-    as _i5;
+    as _i2;
 import 'package:classroom_app/features/user/data/models/unsaved_user_model.dart'
-    as _i7;
+    as _i5;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -27,86 +24,15 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakeUserModel_0 extends _i1.SmartFake implements _i2.UserModel {
-  _FakeUserModel_0(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-/// A class which mocks [UserLocalDataSource].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockUserLocalDataSource extends _i1.Mock
-    implements _i3.UserLocalDataSource {
-  @override
-  _i4.Future<_i2.UserModel> getCurrentUser() => (super.noSuchMethod(
-        Invocation.method(
-          #getCurrentUser,
-          [],
-        ),
-        returnValue: _i4.Future<_i2.UserModel>.value(_FakeUserModel_0(
-          this,
-          Invocation.method(
-            #getCurrentUser,
-            [],
-          ),
-        )),
-        returnValueForMissingStub:
-            _i4.Future<_i2.UserModel>.value(_FakeUserModel_0(
-          this,
-          Invocation.method(
-            #getCurrentUser,
-            [],
-          ),
-        )),
-      ) as _i4.Future<_i2.UserModel>);
-  @override
-  _i4.Future<void> cacheUser(_i2.UserModel? user) => (super.noSuchMethod(
-        Invocation.method(
-          #cacheUser,
-          [user],
-        ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
-}
-
 /// A class which mocks [UserRemoteDataSource].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockUserRemoteDataSource extends _i1.Mock
-    implements _i5.UserRemoteDataSource {
+    implements _i2.UserRemoteDataSource {
   @override
-  _i4.Future<_i2.UserModel> getCurrentUser(_i6.AccessToken? accessToken) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #getCurrentUser,
-          [accessToken],
-        ),
-        returnValue: _i4.Future<_i2.UserModel>.value(_FakeUserModel_0(
-          this,
-          Invocation.method(
-            #getCurrentUser,
-            [accessToken],
-          ),
-        )),
-        returnValueForMissingStub:
-            _i4.Future<_i2.UserModel>.value(_FakeUserModel_0(
-          this,
-          Invocation.method(
-            #getCurrentUser,
-            [accessToken],
-          ),
-        )),
-      ) as _i4.Future<_i2.UserModel>);
-  @override
-  _i4.Future<void> createUser({
-    required _i6.AccessToken? accessToken,
-    required _i7.UnsavedUserModel? user,
+  _i3.Future<void> createUser({
+    required _i4.AccessToken? accessToken,
+    required _i5.UnsavedUserModel? unsavedUser,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -114,22 +40,22 @@ class MockUserRemoteDataSource extends _i1.Mock
           [],
           {
             #accessToken: accessToken,
-            #user: user,
+            #unsavedUser: unsavedUser,
           },
         ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
+        returnValue: _i3.Future<void>.value(),
+        returnValueForMissingStub: _i3.Future<void>.value(),
+      ) as _i3.Future<void>);
 }
 
 /// A class which mocks [NetworkInfo].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockNetworkInfo extends _i1.Mock implements _i8.NetworkInfo {
+class MockNetworkInfo extends _i1.Mock implements _i6.NetworkInfo {
   @override
-  _i4.Future<bool> get isConnected => (super.noSuchMethod(
+  _i3.Future<bool> get isConnected => (super.noSuchMethod(
         Invocation.getter(#isConnected),
-        returnValue: _i4.Future<bool>.value(false),
-        returnValueForMissingStub: _i4.Future<bool>.value(false),
-      ) as _i4.Future<bool>);
+        returnValue: _i3.Future<bool>.value(false),
+        returnValueForMissingStub: _i3.Future<bool>.value(false),
+      ) as _i3.Future<bool>);
 }

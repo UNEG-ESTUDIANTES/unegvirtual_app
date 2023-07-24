@@ -4,54 +4,50 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import 'package:classroom_app/core/entities/access_token.dart';
-import 'package:classroom_app/core/entities/user.dart';
 import 'package:classroom_app/core/error/exceptions.dart';
 import 'package:classroom_app/core/error/failures.dart';
-import 'package:classroom_app/core/models/access_token_model.dart';
-import 'package:classroom_app/core/models/user_model.dart';
 import 'package:classroom_app/core/network/network_info.dart';
-import 'package:classroom_app/features/user/data/data_sources/user_local_data_source.dart';
 import 'package:classroom_app/features/user/data/data_sources/user_remote_data_source.dart';
+import 'package:classroom_app/features/user/data/models/unsaved_user_model.dart';
 import 'package:classroom_app/features/user/data/repositories/user_repository_impl.dart';
+import 'package:classroom_app/features/user/domain/entities/unsaved_user.dart';
 
 @GenerateNiceMocks([
-  MockSpec<UserLocalDataSource>(),
   MockSpec<UserRemoteDataSource>(),
   MockSpec<NetworkInfo>(),
 ])
 import 'user_repository_impl_test.mocks.dart';
 
 void main() {
-  late MockUserLocalDataSource mockUserLocalDataSource;
   late MockUserRemoteDataSource mockUserRemoteDataSource;
   late MockNetworkInfo mockNetworkInfo;
   late UserRepositoryImpl repository;
 
   setUp(() {
-    mockUserLocalDataSource = MockUserLocalDataSource();
     mockUserRemoteDataSource = MockUserRemoteDataSource();
     mockNetworkInfo = MockNetworkInfo();
 
     repository = UserRepositoryImpl(
-      localDataSource: mockUserLocalDataSource,
       remoteDataSource: mockUserRemoteDataSource,
       networkInfo: mockNetworkInfo,
     );
   });
 
-  const tUserModel = UserModel(
-    id: 'test',
+  const tUnsavedUser = UnsavedUser(
+    password: 'test',
+    securityKey: 'test',
+    type: 'test',
     firstName: 'test',
     lastName: 'test',
     identityCard: 'test',
     email: 'test',
   );
 
-  const User tUser = tUserModel;
-  const tAccessTokenModel = AccessTokenModel('test');
-  const AccessToken tAccessToken = tAccessTokenModel;
+  final tUnsavedUserModel = UnsavedUserModel.fromEntity(tUnsavedUser);
 
-  group('getCurrentUser', () {
+  const tAccessToken = AccessToken('test');
+
+  group('createUser', () {
     test(
       'should check if the device is online',
       () async {
@@ -59,7 +55,10 @@ void main() {
         when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
 
         // act
-        repository.getCurrentUser(tAccessToken);
+        repository.createUser(
+          accessToken: tAccessToken,
+          unsavedUser: tUnsavedUser,
+        );
 
         // assert
         verify(mockNetworkInfo.isConnected);
@@ -71,127 +70,140 @@ void main() {
         when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
       });
 
+      void successfulCall() {
+        when(mockUserRemoteDataSource.createUser(
+          accessToken: anyNamed('accessToken'),
+          unsavedUser: anyNamed('unsavedUser'),
+        )).thenAnswer((_) async => {});
+      }
+
+      void unsuccessfulCall(Exception exception) {
+        when(mockUserRemoteDataSource.createUser(
+          accessToken: anyNamed('accessToken'),
+          unsavedUser: anyNamed('unsavedUser'),
+        )).thenThrow(exception);
+      }
+
       test(
-        'should call the proper method to get the current user',
+        'should call the proper method to create the user',
         () async {
           // arrange
-          when(mockUserRemoteDataSource.getCurrentUser(any))
-              .thenAnswer((_) async => tUserModel);
+          successfulCall();
 
           // act
-          final result = await repository.getCurrentUser(tAccessToken);
+          await repository.createUser(
+            accessToken: tAccessToken,
+            unsavedUser: tUnsavedUser,
+          );
 
           // assert
-          expect(result, const Right(tUserModel));
-          verify(mockUserRemoteDataSource.getCurrentUser(tAccessTokenModel));
+          verify(
+            mockUserRemoteDataSource.createUser(
+              accessToken: anyNamed('accessToken'),
+              unsavedUser: anyNamed('unsavedUser'),
+            ),
+          );
         },
       );
 
       test(
-        'should return remote data when the call to remote data source is successful',
+        'should return remote data when the call to remote data is successful',
         () async {
           // arrange
-          when(mockUserRemoteDataSource.getCurrentUser(any))
-              .thenAnswer((_) async => tUserModel);
+          successfulCall();
 
           // act
-          final result = await repository.getCurrentUser(tAccessToken);
+          final result = await repository.createUser(
+            accessToken: tAccessToken,
+            unsavedUser: tUnsavedUser,
+          );
 
           // assert
-          verify(mockUserRemoteDataSource.getCurrentUser(tAccessTokenModel));
-          expect(result, const Right(tUser));
+          verify(
+            mockUserRemoteDataSource.createUser(
+              accessToken: tAccessToken,
+              unsavedUser: tUnsavedUserModel,
+            ),
+          );
+
+          expect(result, const Right(null));
         },
       );
 
       test(
-        'should cache the data locally when the call to remote data source is successful',
+        '''should return NotAuthorizedFailure when the call
+        to remote data throws a NotAuthorizedException''',
         () async {
           // arrange
-          when(mockUserRemoteDataSource.getCurrentUser(any))
-              .thenAnswer((_) async => tUserModel);
+          unsuccessfulCall(NotAuthorizedException());
 
           // act
-          await repository.getCurrentUser(tAccessToken);
+          final result = await repository.createUser(
+            accessToken: tAccessToken,
+            unsavedUser: tUnsavedUser,
+          );
 
           // assert
-          verify(mockUserRemoteDataSource.getCurrentUser(tAccessTokenModel));
-          verify(mockUserLocalDataSource.cacheUser(tUserModel));
+          verify(
+            mockUserRemoteDataSource.createUser(
+              accessToken: tAccessToken,
+              unsavedUser: tUnsavedUserModel,
+            ),
+          );
+
+          expect(result, Left(NotAuthorizedFailure()));
         },
       );
 
       test(
-        '''should return UserNotFoundFailure when the call
-        to remote data throws an UserNotFoundException''',
+        '''should return EmailTakenFailure when the call
+        to remote data throws a EmailTakenException''',
         () async {
           // arrange
-          when(mockUserRemoteDataSource.getCurrentUser(any))
-              .thenThrow(UserNotFoundException());
+          unsuccessfulCall(EmailTakenException());
 
           // act
-          final result = await repository.getCurrentUser(tAccessToken);
+          final result = await repository.createUser(
+            accessToken: tAccessToken,
+            unsavedUser: tUnsavedUser,
+          );
 
           // assert
-          verify(mockUserRemoteDataSource.getCurrentUser(tAccessTokenModel));
-          expect(result, Left(UserNotFoundFailure()));
+          verify(
+            mockUserRemoteDataSource.createUser(
+              accessToken: tAccessToken,
+              unsavedUser: tUnsavedUserModel,
+            ),
+          );
+
+          expect(result, Left(EmailTakenFailure()));
         },
       );
 
-      group('the call to remote data throws a ServerException', () {
-        setUp(() {
-          when(mockUserRemoteDataSource.getCurrentUser(any))
-              .thenThrow(ServerException());
-        });
+      test(
+        '''should return ServerFailure when the call
+        to remote data throws a ServerException''',
+        () async {
+          // arrange
+          unsuccessfulCall(ServerException());
 
-        test(
-          'should get the user locally',
-          () async {
-            // arrange
-            when(mockUserLocalDataSource.getCurrentUser())
-                .thenAnswer((_) async => tUserModel);
+          // act
+          final result = await repository.createUser(
+            accessToken: tAccessToken,
+            unsavedUser: tUnsavedUser,
+          );
 
-            // act
-            final result = await repository.getCurrentUser(tAccessToken);
+          // assert
+          verify(
+            mockUserRemoteDataSource.createUser(
+              accessToken: tAccessToken,
+              unsavedUser: tUnsavedUserModel,
+            ),
+          );
 
-            // assert
-            verify(mockUserLocalDataSource.getCurrentUser());
-            expect(result, const Right(tUserModel));
-          },
-        );
-
-        test(
-          '''should return NotFoundFailure when the call 
-        to local data throws a NotFoundException''',
-          () async {
-            // arrange
-            when(mockUserLocalDataSource.getCurrentUser())
-                .thenThrow(NotFoundException());
-
-            // act
-            final result = await repository.getCurrentUser(tAccessToken);
-
-            // assert
-            verify(mockUserLocalDataSource.getCurrentUser());
-            expect(result, Left(NotFoundFailure()));
-          },
-        );
-
-        test(
-          '''should return CacheFailure when the call
-          to remote data throws a CacheException''',
-          () async {
-            // arrange
-            when(mockUserLocalDataSource.getCurrentUser())
-                .thenThrow(CacheException());
-
-            // act
-            final result = await repository.getCurrentUser(tAccessToken);
-
-            // assert
-            verify(mockUserLocalDataSource.getCurrentUser());
-            expect(result, Left(CacheFailure()));
-          },
-        );
-      });
+          expect(result, Left(ServerFailure()));
+        },
+      );
     });
 
     group('device is offline', () {
@@ -200,53 +212,17 @@ void main() {
       });
 
       test(
-        'should return local data when the call to local data source is successful',
+        'should return NoInternetConnectionFailure',
         () async {
-          // arrange
-          when(mockUserLocalDataSource.getCurrentUser())
-              .thenAnswer((_) async => tUserModel);
-
           // act
-          final result = await repository.getCurrentUser(tAccessToken);
+          final result = await repository.createUser(
+            accessToken: tAccessToken,
+            unsavedUser: tUnsavedUser,
+          );
 
           // assert
-          expect(result, const Right(tUserModel));
-          verify(mockUserLocalDataSource.getCurrentUser());
           verifyZeroInteractions(mockUserRemoteDataSource);
-        },
-      );
-
-      test(
-        '''should return NotFoundFailure when the call 
-        to local data throws a NotFoundException''',
-        () async {
-          // arrange
-          when(mockUserLocalDataSource.getCurrentUser())
-              .thenThrow(NotFoundException());
-
-          // act
-          final result = await repository.getCurrentUser(tAccessToken);
-
-          // assert
-          verify(mockUserLocalDataSource.getCurrentUser());
-          expect(result, Left(NotFoundFailure()));
-        },
-      );
-
-      test(
-        '''should return CacheFailure when the call 
-        to local data throws a CacheException''',
-        () async {
-          // arrange
-          when(mockUserLocalDataSource.getCurrentUser())
-              .thenThrow(CacheException());
-
-          // act
-          final result = await repository.getCurrentUser(tAccessToken);
-
-          // assert
-          verify(mockUserLocalDataSource.getCurrentUser());
-          expect(result, Left(CacheFailure()));
+          expect(result, Left(NoInternetConnectionFailure()));
         },
       );
     });

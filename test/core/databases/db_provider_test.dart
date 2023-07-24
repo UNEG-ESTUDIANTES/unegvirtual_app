@@ -2,8 +2,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 import 'package:classroom_app/core/databases/db_provider.dart';
-import 'package:classroom_app/core/models/access_token_model.dart';
-import 'package:classroom_app/core/models/user_model.dart';
+import 'package:classroom_app/core/entities/access_token.dart';
+import 'package:classroom_app/core/entities/user.dart';
+import 'package:classroom_app/core/models/auth_model.dart';
 
 /// Initialize sqflite for test.
 void sqfliteTestInit() {
@@ -23,11 +24,20 @@ Future main() async {
     dbProvider = DBProvider(path: inMemoryDatabasePath);
   });
 
-  group('Token', () {
-    const tAccessTokenModel = AccessTokenModel('test');
+  group('Auth', () {
+    const tAuthModel = AuthModel(
+      accessToken: AccessToken('test'),
+      user: User(
+        id: 'test',
+        firstName: 'test',
+        lastName: 'test',
+        identityCard: 'test',
+        email: 'test',
+      ),
+    );
 
     test(
-      'should create the Token table',
+      'should create the Auth table',
       () async {
         // arrange
         final db = await dbProvider.database;
@@ -36,7 +46,7 @@ Future main() async {
         final tables = await db.query(
           'sqlite_master',
           where: 'name = ?',
-          whereArgs: ['Token'],
+          whereArgs: ['Auth'],
         );
 
         // assert
@@ -44,12 +54,12 @@ Future main() async {
       },
     );
 
-    group('addToken', () {
+    group('addAuth', () {
       test(
         'should insert the token',
         () async {
           // act
-          final result = await dbProvider.addToken(tAccessTokenModel);
+          final result = await dbProvider.addAuth(tAuthModel);
 
           // assert
           expect(result, 1);
@@ -57,25 +67,25 @@ Future main() async {
       );
     });
 
-    group('getToken', () {
+    group('getAuth', () {
       test(
-        'should get the latest token',
+        'should get the latest auth',
         () async {
           // act
-          final result = await dbProvider.getToken();
+          final result = await dbProvider.getAuth();
 
           // assert
-          expect(result, tAccessTokenModel);
+          expect(result, tAuthModel);
         },
       );
     });
 
-    group('removeToken', () {
+    group('removeAuth', () {
       test(
         'should remove the latest token',
         () async {
           // act
-          final result = await dbProvider.removeToken();
+          final result = await dbProvider.removeAuth();
 
           // assert
           expect(result, 1);
@@ -86,7 +96,7 @@ Future main() async {
         'should return zero when table is empty',
         () async {
           // act
-          final result = await dbProvider.removeToken();
+          final result = await dbProvider.removeAuth();
 
           // assert
           expect(result, 0);
@@ -99,88 +109,10 @@ Future main() async {
         'should return null when table is empty',
         () async {
           // act
-          final result = await dbProvider.getToken();
+          final result = await dbProvider.getAuth();
 
           // assert
           expect(result, null);
-        },
-      );
-    });
-  });
-
-  group('UserProfile', () {
-    const tUserModel = UserModel(
-      id: 'test',
-      firstName: 'test',
-      lastName: 'test',
-      identityCard: 'test',
-      email: 'test',
-    );
-
-    test(
-      'should create the UserProfile table',
-      () async {
-        // arrange
-        final db = await dbProvider.database;
-
-        // act
-        final tables = await db.query(
-          'sqlite_master',
-          where: 'name = ?',
-          whereArgs: ['UserProfile'],
-        );
-
-        // assert
-        expect(tables.length, equals(1));
-      },
-    );
-
-    group('addUserProfile', () {
-      test(
-        'should insert the user',
-        () async {
-          // act
-          final result = await dbProvider.addUserProfile(tUserModel);
-
-          // assert
-          expect(result, 1);
-        },
-      );
-    });
-
-    group('getUserProfile', () {
-      test(
-        'should get the latest user',
-        () async {
-          // act
-          final result = await dbProvider.getUserProfile();
-
-          // assert
-          expect(result, tUserModel);
-        },
-      );
-    });
-
-    group('removeUserProfile', () {
-      test(
-        'should remove the latest user',
-        () async {
-          // act
-          final result = await dbProvider.removeUserProfile();
-
-          // assert
-          expect(result, 1);
-        },
-      );
-
-      test(
-        'should return zero when table is empty',
-        () async {
-          // act
-          final result = await dbProvider.removeUserProfile();
-
-          // assert
-          expect(result, 0);
         },
       );
     });

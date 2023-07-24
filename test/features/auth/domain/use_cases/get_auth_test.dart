@@ -4,38 +4,49 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import 'package:classroom_app/core/entities/access_token.dart';
+import 'package:classroom_app/core/entities/auth.dart';
+import 'package:classroom_app/core/entities/user.dart';
 import 'package:classroom_app/core/use_cases/use_case.dart';
 import 'package:classroom_app/features/auth/domain/repository/auth_repository.dart';
-import 'package:classroom_app/features/auth/domain/use_cases/get_access_token.dart';
+import 'package:classroom_app/features/auth/domain/use_cases/get_auth.dart';
 
 @GenerateNiceMocks([MockSpec<AuthRepository>()])
-import 'get_access_token_test.mocks.dart';
+import 'get_auth_test.mocks.dart';
 
 void main() {
   late MockAuthRepository mockAuthRepository;
-  late GetAccessToken useCase;
+  late GetAuth useCase;
 
   setUp(() {
     mockAuthRepository = MockAuthRepository();
-    useCase = GetAccessToken(mockAuthRepository);
+    useCase = GetAuth(mockAuthRepository);
   });
 
-  const tAccessToken = AccessToken('test');
+  const tAuth = Auth(
+    accessToken: AccessToken('test'),
+    user: User(
+      id: 'test',
+      firstName: 'test',
+      lastName: 'test',
+      identityCard: 'test',
+      email: 'test',
+    ),
+  );
 
   test(
-    'should get the access token from the repository',
+    'should get the auth from the repository',
     () async {
       // arrange
-      when(mockAuthRepository.getAccessToken()).thenAnswer(
-        (_) async => const Right(tAccessToken),
+      when(mockAuthRepository.getAuth()).thenAnswer(
+        (_) async => const Right(tAuth),
       );
 
       // act
       final result = await useCase(NoParams());
 
       // assert
-      expect(result, const Right(tAccessToken));
-      verify(mockAuthRepository.getAccessToken());
+      expect(result, const Right(tAuth));
+      verify(mockAuthRepository.getAuth());
       verifyNoMoreInteractions(mockAuthRepository);
     },
   );

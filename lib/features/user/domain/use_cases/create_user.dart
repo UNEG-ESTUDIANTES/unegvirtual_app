@@ -16,20 +16,20 @@ class CreateUser implements UseCase<void, CreateUserParams> {
   Future<Either<Failure, void>> call(CreateUserParams params) {
     return repository.createUser(
       accessToken: params.accessToken,
-      user: params.user,
+      unsavedUser: params.unsavedUser,
     );
   }
 }
 
 class CreateUserParams extends Equatable {
   final AccessToken accessToken;
-  final UnsavedUser user;
+  final UnsavedUser unsavedUser;
 
   const CreateUserParams({
     required this.accessToken,
-    required this.user,
+    required this.unsavedUser,
   });
 
   @override
-  List<Object> get props => [accessToken, user];
+  List<Object> get props => [accessToken, unsavedUser];
 }

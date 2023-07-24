@@ -5,11 +5,10 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i5;
 
-import 'package:classroom_app/core/entities/user.dart' as _i7;
 import 'package:classroom_app/core/error/failures.dart' as _i6;
 import 'package:classroom_app/features/user/domain/repositories/user_repository.dart'
     as _i2;
-import 'package:classroom_app/features/user/domain/use_cases/get_current_user.dart'
+import 'package:classroom_app/features/user/domain/use_cases/create_user.dart'
     as _i4;
 import 'package:dartz/dartz.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
@@ -46,10 +45,10 @@ class _FakeEither_1<L, R> extends _i1.SmartFake implements _i3.Either<L, R> {
         );
 }
 
-/// A class which mocks [GetCurrentUser].
+/// A class which mocks [CreateUser].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockGetCurrentUser extends _i1.Mock implements _i4.GetCurrentUser {
+class MockCreateUser extends _i1.Mock implements _i4.CreateUser {
   @override
   _i2.UserRepository get repository => (super.noSuchMethod(
         Invocation.getter(#repository),
@@ -63,15 +62,15 @@ class MockGetCurrentUser extends _i1.Mock implements _i4.GetCurrentUser {
         ),
       ) as _i2.UserRepository);
   @override
-  _i5.Future<_i3.Either<_i6.Failure, _i7.User>> call(
-          _i4.GetCurrentUserParams? params) =>
+  _i5.Future<_i3.Either<_i6.Failure, void>> call(
+          _i4.CreateUserParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
           [params],
         ),
-        returnValue: _i5.Future<_i3.Either<_i6.Failure, _i7.User>>.value(
-            _FakeEither_1<_i6.Failure, _i7.User>(
+        returnValue: _i5.Future<_i3.Either<_i6.Failure, void>>.value(
+            _FakeEither_1<_i6.Failure, void>(
           this,
           Invocation.method(
             #call,
@@ -79,13 +78,13 @@ class MockGetCurrentUser extends _i1.Mock implements _i4.GetCurrentUser {
           ),
         )),
         returnValueForMissingStub:
-            _i5.Future<_i3.Either<_i6.Failure, _i7.User>>.value(
-                _FakeEither_1<_i6.Failure, _i7.User>(
+            _i5.Future<_i3.Either<_i6.Failure, void>>.value(
+                _FakeEither_1<_i6.Failure, void>(
           this,
           Invocation.method(
             #call,
             [params],
           ),
         )),
-      ) as _i5.Future<_i3.Either<_i6.Failure, _i7.User>>);
+      ) as _i5.Future<_i3.Either<_i6.Failure, void>>);
 }

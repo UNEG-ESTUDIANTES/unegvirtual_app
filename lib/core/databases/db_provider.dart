@@ -1,9 +1,9 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:sqflite/sqflite.dart';
 
-import 'package:classroom_app/core/models/access_token_model.dart';
-import 'package:classroom_app/core/models/user_model.dart';
+import 'package:classroom_app/core/models/auth_model.dart';
 
 class DBProvider {
   /// The [path] to store this database.
@@ -25,19 +25,10 @@ class DBProvider {
   /// Creates the tables in the [db].
   Future<void> _onCreate(Database db, int version) async {
     await db.execute('''
-      CREATE TABLE Token(
+      CREATE TABLE Auth(
         id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-        token TEXT UNIQUE NOT NULL
-      );
-
-      CREATE TABLE UserProfile(
-        _id TEXT PRIMARY KEY NOT NULL,
-        firstName TEXT NOT NULL,
-        lastName TEXT NOT NULL,
-        ci TEXT NOT NULL,
-        email TEXT NOT NULL,
-        createdAt TEXT DEFAULT CURRENT_TIMESTAMP NOT NULL
-      );
+        data TEXT NOT NULL
+      )
     ''');
   }
 
@@ -45,94 +36,49 @@ class DBProvider {
   Future<Database> initDB() async {
     return await openDatabase(
       path,
-      version: 2,
+      version: 3,
       onCreate: _onCreate,
     );
   }
 
-  /// Inserts a new [accessToken].
-  Future<int> addToken(AccessTokenModel accessToken) async {
+  /// Inerts a new [auth].
+  Future<int> addAuth(AuthModel auth) async {
     final db = await database;
 
     return await db.insert(
-      'Token',
-      accessToken.toJson(),
+      'Auth',
+      {
+        'data': json.encode(auth.toJson()),
+      },
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
 
   /// Gets the latest stored token.
-  Future<AccessTokenModel?> getToken() async {
+  Future<AuthModel?> getAuth() async {
     final db = await database;
 
     // Gets the latest token.
-    final tokens = await db.query('Token', limit: 1, orderBy: 'id DESC');
+    final auths = await db.query('Auth', limit: 1, orderBy: 'id DESC');
 
-    if (tokens.isEmpty) return null;
+    if (auths.isEmpty) return null;
 
-    return AccessTokenModel.fromJson(tokens.first);
+    return AuthModel.fromJson(json.decode(Map.from(auths.first)['data']));
   }
 
   /// Removes the latest stored token.
-  Future<int> removeToken() async {
+  Future<int> removeAuth() async {
     final db = await database;
 
     // Gets the latest token.
-    final tokens = await db.query('Token', limit: 1, orderBy: 'id DESC');
+    final auths = await db.query('Auth', limit: 1, orderBy: 'id DESC');
 
-    if (tokens.isEmpty) return 0;
+    if (auths.isEmpty) return 0;
 
     return await db.delete(
-      'Token',
+      'Auth',
       where: 'id = ?',
-      whereArgs: [tokens.first['id']],
-    );
-  }
-
-  /// Inserts a new [user].
-  Future<int> addUserProfile(UserModel user) async {
-    final db = await database;
-
-    return await db.insert(
-      'UserProfile',
-      user.toJson(),
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
-  }
-
-  /// Gets the latest stored user profile.
-  Future<UserModel?> getUserProfile() async {
-    final db = await database;
-
-    // Gets the latest user.
-    final users = await db.query(
-      'UserProfile',
-      limit: 1,
-      orderBy: 'datetime(createdAt) DESC',
-    );
-
-    if (users.isEmpty) return null;
-
-    return UserModel.fromJson(users.first);
-  }
-
-  /// Removes the latest stored user.
-  Future<int> removeUserProfile() async {
-    final db = await database;
-
-    // Gets the latest user.
-    final users = await db.query(
-      'UserProfile',
-      limit: 1,
-      orderBy: 'datetime(createdAt) DESC',
-    );
-
-    if (users.isEmpty) return 0;
-
-    return await db.delete(
-      'UserProfile',
-      where: '_id = ?',
-      whereArgs: [users.first['_id']],
+      whereArgs: [auths.first['id']],
     );
   }
 }

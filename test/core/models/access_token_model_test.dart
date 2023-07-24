@@ -35,6 +35,32 @@ void main() {
     );
   });
 
+  group('fromEntity', () {
+    const tAccessToken = AccessToken('test');
+
+    test(
+      'should return an AccessTokenModel',
+      () async {
+        // act
+        final result = AccessTokenModel.fromEntity(tAccessToken);
+
+        // assert
+        expect(result, isA<AccessTokenModel>());
+      },
+    );
+
+    test(
+      'should contain the same data as the AccessToken',
+      () async {
+        // act
+        final result = AccessTokenModel.fromEntity(tAccessToken);
+
+        // assert
+        expect(result.token, tAccessToken.token);
+      },
+    );
+  });
+
   group('toJson', () {
     test(
       'should return a JSON map containing the proper data',

@@ -4,6 +4,8 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import 'package:classroom_app/core/entities/access_token.dart';
+import 'package:classroom_app/core/entities/auth.dart';
+import 'package:classroom_app/core/entities/user.dart';
 import 'package:classroom_app/features/auth/domain/entities/user_credentials.dart';
 import 'package:classroom_app/features/auth/domain/repository/auth_repository.dart';
 import 'package:classroom_app/features/auth/domain/use_cases/login.dart';
@@ -25,14 +27,23 @@ void main() {
     password: 'test',
   );
 
-  const tAccessToken = AccessToken('test');
+  const tAuth = Auth(
+    accessToken: AccessToken('test'),
+    user: User(
+      id: 'test',
+      firstName: 'test',
+      lastName: 'test',
+      identityCard: 'test',
+      email: 'test',
+    ),
+  );
 
   test(
     'should login the user in the repository',
     () async {
       // arrange
       when(mockAuthRepository.login(any)).thenAnswer(
-        (_) async => const Right(tAccessToken),
+        (_) async => const Right(tAuth),
       );
 
       // act
@@ -41,7 +52,7 @@ void main() {
       );
 
       // assert
-      expect(result, const Right(tAccessToken));
+      expect(result, const Right(tAuth));
       verify(mockAuthRepository.login(tUserCredentials));
       verifyNoMoreInteractions(mockAuthRepository);
     },
