@@ -6,8 +6,7 @@
 import 'dart:async' as _i4;
 
 import 'package:classroom_app/core/databases/db_provider.dart' as _i3;
-import 'package:classroom_app/core/models/access_token_model.dart' as _i5;
-import 'package:classroom_app/core/models/user_model.dart' as _i6;
+import 'package:classroom_app/core/models/auth_model.dart' as _i5;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:sqflite/sqflite.dart' as _i2;
 
@@ -78,55 +77,27 @@ class MockDBProvider extends _i1.Mock implements _i3.DBProvider {
         )),
       ) as _i4.Future<_i2.Database>);
   @override
-  _i4.Future<int> addToken(_i5.AccessTokenModel? accessToken) =>
-      (super.noSuchMethod(
+  _i4.Future<int> addAuth(_i5.AuthModel? auth) => (super.noSuchMethod(
         Invocation.method(
-          #addToken,
-          [accessToken],
+          #addAuth,
+          [auth],
         ),
         returnValue: _i4.Future<int>.value(0),
         returnValueForMissingStub: _i4.Future<int>.value(0),
       ) as _i4.Future<int>);
   @override
-  _i4.Future<_i5.AccessTokenModel?> getToken() => (super.noSuchMethod(
+  _i4.Future<_i5.AuthModel?> getAuth() => (super.noSuchMethod(
         Invocation.method(
-          #getToken,
+          #getAuth,
           [],
         ),
-        returnValue: _i4.Future<_i5.AccessTokenModel?>.value(),
-        returnValueForMissingStub: _i4.Future<_i5.AccessTokenModel?>.value(),
-      ) as _i4.Future<_i5.AccessTokenModel?>);
+        returnValue: _i4.Future<_i5.AuthModel?>.value(),
+        returnValueForMissingStub: _i4.Future<_i5.AuthModel?>.value(),
+      ) as _i4.Future<_i5.AuthModel?>);
   @override
-  _i4.Future<int> removeToken() => (super.noSuchMethod(
+  _i4.Future<int> removeAuth() => (super.noSuchMethod(
         Invocation.method(
-          #removeToken,
-          [],
-        ),
-        returnValue: _i4.Future<int>.value(0),
-        returnValueForMissingStub: _i4.Future<int>.value(0),
-      ) as _i4.Future<int>);
-  @override
-  _i4.Future<int> addUserProfile(_i6.UserModel? user) => (super.noSuchMethod(
-        Invocation.method(
-          #addUserProfile,
-          [user],
-        ),
-        returnValue: _i4.Future<int>.value(0),
-        returnValueForMissingStub: _i4.Future<int>.value(0),
-      ) as _i4.Future<int>);
-  @override
-  _i4.Future<_i6.UserModel?> getUserProfile() => (super.noSuchMethod(
-        Invocation.method(
-          #getUserProfile,
-          [],
-        ),
-        returnValue: _i4.Future<_i6.UserModel?>.value(),
-        returnValueForMissingStub: _i4.Future<_i6.UserModel?>.value(),
-      ) as _i4.Future<_i6.UserModel?>);
-  @override
-  _i4.Future<int> removeUserProfile() => (super.noSuchMethod(
-        Invocation.method(
-          #removeUserProfile,
+          #removeAuth,
           [],
         ),
         returnValue: _i4.Future<int>.value(0),

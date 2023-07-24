@@ -28,7 +28,7 @@ class DBProvider {
       CREATE TABLE Auth(
         id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
         data TEXT NOT NULL
-      );
+      )
     ''');
   }
 

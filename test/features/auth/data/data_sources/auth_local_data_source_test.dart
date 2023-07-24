@@ -1,97 +1,104 @@
-// import 'package:flutter_test/flutter_test.dart';
-// import 'package:mockito/annotations.dart';
-// import 'package:mockito/mockito.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
 
-// import 'package:classroom_app/core/databases/db_provider.dart';
-// import 'package:classroom_app/core/error/exceptions.dart';
-// import 'package:classroom_app/core/models/access_token_model.dart';
-// import 'package:classroom_app/features/auth/data/data_sources/auth_local_data_source.dart';
+import 'package:classroom_app/core/databases/db_provider.dart';
+import 'package:classroom_app/core/entities/access_token.dart';
+import 'package:classroom_app/core/entities/user.dart';
+import 'package:classroom_app/core/error/exceptions.dart';
+import 'package:classroom_app/core/models/auth_model.dart';
+import 'package:classroom_app/features/auth/data/data_sources/auth_local_data_source.dart';
 
-// @GenerateNiceMocks([MockSpec<DBProvider>()])
-// import 'auth_local_data_source_test.mocks.dart';
+@GenerateNiceMocks([MockSpec<DBProvider>()])
+import 'auth_local_data_source_test.mocks.dart';
 
-// void main() {
-//   late MockDBProvider mockDBProvider;
-//   late AuthLocalDataSourceImpl dataSourceImpl;
+void main() {
+  late MockDBProvider mockDBProvider;
+  late AuthLocalDataSourceImpl dataSourceImpl;
 
-//   setUp(() {
-//     mockDBProvider = MockDBProvider();
-//     dataSourceImpl = AuthLocalDataSourceImpl(database: mockDBProvider);
-//   });
+  setUp(() {
+    mockDBProvider = MockDBProvider();
+    dataSourceImpl = AuthLocalDataSourceImpl(database: mockDBProvider);
+  });
 
-//   const tId = 1;
-//   const tAccessTokenModel = AccessTokenModel('test');
+  const tId = 1;
 
-//   group('cacheAccessToken', () {
-//     test(
-//       'should store the access token in the database',
-//       () async {
-//         // arrange
-//         when(mockDBProvider.addToken(tAccessTokenModel))
-//             .thenAnswer((_) async => tId);
+  const tAuthModel = AuthModel(
+    accessToken: AccessToken('test'),
+    user: User(
+      id: 'test',
+      firstName: 'test',
+      lastName: 'test',
+      identityCard: 'test',
+      email: 'test',
+    ),
+  );
 
-//         // act
-//         await dataSourceImpl.cacheAccessToken(tAccessTokenModel);
+  group('cacheAuth', () {
+    test(
+      'should store the auth in the database',
+      () async {
+        // arrange
+        when(mockDBProvider.addAuth(tAuthModel)).thenAnswer((_) async => tId);
 
-//         // assert
-//         verify(mockDBProvider.addToken(tAccessTokenModel));
-//       },
-//     );
+        // act
+        await dataSourceImpl.cacheAuth(tAuthModel);
 
-//     test(
-//       'should remove the last token stored before adding new token',
-//       () async {
-//         // arrange
-//         when(mockDBProvider.removeToken()).thenAnswer((_) async => tId);
+        // assert
+        verify(mockDBProvider.addAuth(tAuthModel));
+      },
+    );
 
-//         when(mockDBProvider.addToken(tAccessTokenModel))
-//             .thenAnswer((_) async => tId);
+    test(
+      'should remove the last token stored before adding new token',
+      () async {
+        // arrange
+        when(mockDBProvider.removeAuth()).thenAnswer((_) async => tId);
 
-//         // act
-//         await dataSourceImpl.cacheAccessToken(tAccessTokenModel);
+        when(mockDBProvider.addAuth(tAuthModel)).thenAnswer((_) async => tId);
 
-//         // assert
-//         verifyInOrder([
-//           mockDBProvider.removeToken(),
-//           mockDBProvider.addToken(
-//             tAccessTokenModel,
-//           )
-//         ]);
+        // act
+        await dataSourceImpl.cacheAuth(tAuthModel);
 
-//         verifyNoMoreInteractions(mockDBProvider);
-//       },
-//     );
-//   });
+        // assert
+        verifyInOrder([
+          mockDBProvider.removeAuth(),
+          mockDBProvider.addAuth(tAuthModel),
+        ]);
 
-//   group('getAccessToken', () {
-//     test(
-//       'should get the access token from the database',
-//       () async {
-//         // arrange
-//         when(mockDBProvider.getToken())
-//             .thenAnswer((_) async => tAccessTokenModel);
+        verifyNoMoreInteractions(mockDBProvider);
+      },
+    );
+  });
 
-//         // act
-//         final result = await dataSourceImpl.getAccessToken();
+  group('getAuth', () {
+    test(
+      'should get the auth from the database',
+      () async {
+        // arrange
+        when(mockDBProvider.getAuth()).thenAnswer((_) async => tAuthModel);
 
-//         // assert
-//         verify(mockDBProvider.getToken());
-//         expect(result, tAccessTokenModel);
-//       },
-//     );
+        // act
+        final result = await dataSourceImpl.getAuth();
 
-//     test(
-//       'should throw NotFoundException if access token is not found',
-//       () async {
-//         // arrange
-//         when(mockDBProvider.getToken()).thenAnswer((_) async => null);
+        // assert
+        verify(mockDBProvider.getAuth());
+        expect(result, tAuthModel);
+      },
+    );
 
-//         // act
-//         final call = dataSourceImpl.getAccessToken;
+    test(
+      'should throw NotFoundException if access token is not found',
+      () async {
+        // arrange
+        when(mockDBProvider.getAuth()).thenAnswer((_) async => null);
 
-//         // assert
-//         expect(() => call(), throwsA(const TypeMatcher<NotFoundException>()));
-//       },
-//     );
-//   });
-// }
+        // act
+        final call = dataSourceImpl.getAuth;
+
+        // assert
+        expect(() => call(), throwsA(const TypeMatcher<NotFoundException>()));
+      },
+    );
+  });
+}

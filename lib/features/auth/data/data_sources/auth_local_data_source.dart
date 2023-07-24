@@ -15,26 +15,26 @@ abstract class AuthLocalDataSource {
   Future<void> cacheAuth(AuthModel auth);
 }
 
-// class AuthLocalDataSourceImpl implements AuthLocalDataSource {
-//   final DBProvider database;
+class AuthLocalDataSourceImpl implements AuthLocalDataSource {
+  final DBProvider database;
 
-//   AuthLocalDataSourceImpl({required this.database});
+  AuthLocalDataSourceImpl({required this.database});
 
-//   @override
-//   Future<void> cacheAccessToken(AccessTokenModel accessToken) async {
-//     // Removes last token.
-//     await database.removeToken();
+  @override
+  Future<void> cacheAuth(AuthModel auth) async {
+    // Removes last token.
+    await database.removeAuth();
 
-//     // Adds new token.
-//     await database.addToken(accessToken);
-//   }
+    // Adds new token.
+    await database.addAuth(auth);
+  }
 
-//   @override
-//   Future<AccessTokenModel> getAccessToken() async {
-//     final accessToken = await database.getToken();
+  @override
+  Future<AuthModel> getAuth() async {
+    final auth = await database.getAuth();
 
-//     if (accessToken == null) throw NotFoundException();
+    if (auth == null) throw NotFoundException();
 
-//     return accessToken;
-//   }
-// }
+    return auth;
+  }
+}
