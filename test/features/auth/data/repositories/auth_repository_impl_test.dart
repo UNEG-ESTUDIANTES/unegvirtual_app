@@ -4,9 +4,12 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import 'package:classroom_app/core/entities/access_token.dart';
+import 'package:classroom_app/core/entities/user.dart';
 import 'package:classroom_app/core/error/exceptions.dart';
 import 'package:classroom_app/core/error/failures.dart';
 import 'package:classroom_app/core/models/access_token_model.dart';
+import 'package:classroom_app/core/models/auth_model.dart';
+import 'package:classroom_app/core/models/user_model.dart';
 import 'package:classroom_app/core/network/network_info.dart';
 import 'package:classroom_app/features/auth/data/data_sources/auth_local_data_source.dart';
 import 'package:classroom_app/features/auth/data/data_sources/auth_remote_data_source.dart';
@@ -47,8 +50,24 @@ void main() {
     password: 'test',
   );
 
-  final tUserCredentialsModel =
-      UserCredentialsModel.fromEntity(tUserCredentials);
+  final tUserCredentialsModel = UserCredentialsModel.fromEntity(
+    tUserCredentials,
+  );
+
+  const tUser = User(
+    id: 'test',
+    firstName: 'test',
+    lastName: 'test',
+    identityCard: 'test',
+    email: 'test',
+  );
+
+  final tUserModel = UserModel.fromEntity(tUser);
+
+  const tAuthModel = AuthModel(
+    accessToken: tAccessToken,
+    user: tUser,
+  );
 
   group('login', () {
     test(
@@ -70,57 +89,65 @@ void main() {
         when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
       });
 
+      void successfulCall() {
+        when(mockAuthRemoteDataSource.login(any))
+            .thenAnswer((_) async => tAccessTokenModel);
+
+        when(mockAuthRemoteDataSource.getUser(any))
+            .thenAnswer((_) async => tUserModel);
+      }
+
       test(
         'should call the proper method to login the user',
         () async {
           // arrange
-          when(mockAuthRemoteDataSource.login(any))
-              .thenAnswer((_) async => tAccessTokenModel);
+          successfulCall();
 
           // act
           final result = await repository.login(tUserCredentials);
 
           // assert
-          expect(result, const Right(tAccessTokenModel));
+          expect(result, const Right(tAuthModel));
           verify(mockAuthRemoteDataSource.login(any));
+          verify(mockAuthRemoteDataSource.getUser(any));
         },
       );
 
       test(
-        'should return remote data when the call to remote data source is successful',
+        'should return remote data when the call to remote data is successful',
         () async {
           // arrange
-          when(mockAuthRemoteDataSource.login(any))
-              .thenAnswer((_) async => tAccessTokenModel);
+          successfulCall();
 
           // act
           final result = await repository.login(tUserCredentials);
 
           // assert
           verify(mockAuthRemoteDataSource.login(tUserCredentialsModel));
-          expect(result, const Right(tAccessToken));
+          verify(mockAuthRemoteDataSource.getUser(tAccessToken));
+          expect(result, const Right(tAuthModel));
         },
       );
 
       test(
-        'should cache the data locally when the call to remote data source is successful',
+        'should cache the data locally when the call to remote data is successful',
         () async {
           // arrange
-          when(mockAuthRemoteDataSource.login(any))
-              .thenAnswer((_) async => tAccessTokenModel);
+          successfulCall();
 
           // act
           await repository.login(tUserCredentials);
 
           // assert
           verify(mockAuthRemoteDataSource.login(tUserCredentialsModel));
-          verify(mockAuthLocalDataSource.cacheAccessToken(tAccessTokenModel));
+          verify(mockAuthRemoteDataSource.getUser(tAccessToken));
+          verify(mockAuthLocalDataSource.cacheAuth(tAuthModel));
         },
       );
 
       test(
-        '''should return UserCredentialsMismatchFailure when the call 
-        to remote data throws an UserCredentialsMismatchException''',
+        '''should return UserCredentialsMismatchFailure when the call
+          to remote data throws an UserCredentialsMismatchException''',
         () async {
           // arrange
           when(mockAuthRemoteDataSource.login(any))
@@ -136,8 +163,8 @@ void main() {
       );
 
       test(
-        '''should return UserNotFoundFailure when the call 
-        to remote data throws an UserNotFoundException''',
+        '''should return UserNotFoundFailure when the call
+          to remote data throws a UserNotFoundException''',
         () async {
           // arrange
           when(mockAuthRemoteDataSource.login(any))
@@ -153,8 +180,8 @@ void main() {
       );
 
       test(
-        '''should return ServerFailure when the call 
-        to remote data throws a ServerException''',
+        '''should return ServerFailure when the call
+          to remote data throws a ServerException''',
         () async {
           // arrange
           when(mockAuthRemoteDataSource.login(any))
@@ -189,20 +216,20 @@ void main() {
     });
   });
 
-  group('getAccessToken', () {
+  group('getAuth', () {
     test(
-      'should call the proper method to get the access token',
+      'should call the proper method to get the auth',
       () async {
         // arrange
-        when(mockAuthLocalDataSource.getAccessToken())
-            .thenAnswer((_) async => tAccessTokenModel);
+        when(mockAuthLocalDataSource.getAuth())
+            .thenAnswer((_) async => tAuthModel);
 
         // act
-        final result = await repository.getAccessToken();
+        final result = await repository.getAuth();
 
         // assert
-        expect(result, const Right(tAccessTokenModel));
-        verify(mockAuthLocalDataSource.getAccessToken());
+        expect(result, const Right(tAuthModel));
+        verify(mockAuthLocalDataSource.getAuth());
         verifyZeroInteractions(mockAuthRemoteDataSource);
       },
     );
@@ -212,14 +239,13 @@ void main() {
       to local data throws a NotFoundException''',
       () async {
         // arrange
-        when(mockAuthLocalDataSource.getAccessToken())
-            .thenThrow(NotFoundException());
+        when(mockAuthLocalDataSource.getAuth()).thenThrow(NotFoundException());
 
         // act
-        final result = await repository.getAccessToken();
+        final result = await repository.getAuth();
 
         // assert
-        verify(mockAuthLocalDataSource.getAccessToken());
+        verify(mockAuthLocalDataSource.getAuth());
         expect(result, Left(NotFoundFailure()));
       },
     );
@@ -229,14 +255,13 @@ void main() {
       to local data throws a CacheException''',
       () async {
         // arrange
-        when(mockAuthLocalDataSource.getAccessToken())
-            .thenThrow(CacheException());
+        when(mockAuthLocalDataSource.getAuth()).thenThrow(CacheException());
 
         // act
-        final result = await repository.getAccessToken();
+        final result = await repository.getAuth();
 
         // assert
-        verify(mockAuthLocalDataSource.getAccessToken());
+        verify(mockAuthLocalDataSource.getAuth());
         expect(result, Left(CacheFailure()));
       },
     );

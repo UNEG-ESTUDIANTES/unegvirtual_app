@@ -1,8 +1,9 @@
 import 'package:dartz/dartz.dart';
 
-import 'package:classroom_app/core/entities/access_token.dart';
+import 'package:classroom_app/core/entities/auth.dart';
 import 'package:classroom_app/core/error/exceptions.dart';
 import 'package:classroom_app/core/error/failures.dart';
+import 'package:classroom_app/core/models/auth_model.dart';
 import 'package:classroom_app/core/network/network_info.dart';
 import 'package:classroom_app/features/auth/data/data_sources/auth_local_data_source.dart';
 import 'package:classroom_app/features/auth/data/data_sources/auth_remote_data_source.dart';
@@ -22,7 +23,7 @@ class AuthRepositoryImpl implements AuthRepository {
   });
 
   @override
-  Future<Either<Failure, AccessToken>> login(
+  Future<Either<Failure, Auth>> login(
     UserCredentials userCredentials,
   ) async {
     final isConnected = await networkInfo.isConnected;
@@ -34,9 +35,17 @@ class AuthRepositoryImpl implements AuthRepository {
         UserCredentialsModel.fromEntity(userCredentials),
       );
 
-      await localDataSource.cacheAccessToken(accessToken);
+      final user = await remoteDataSource.getUser(accessToken);
 
-      return Right(accessToken);
+      final auth = AuthModel(
+        accessToken: accessToken,
+        user: user,
+      );
+
+      // Store the auth.
+      await localDataSource.cacheAuth(auth);
+
+      return Right(auth);
     } on UserCredentialsMismatchException {
       return Left(UserCredentialsMismatchFailure());
     } on UserNotFoundException {
@@ -47,9 +56,9 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<Either<Failure, AccessToken>> getAccessToken() async {
+  Future<Either<Failure, Auth>> getAuth() async {
     try {
-      return Right(await localDataSource.getAccessToken());
+      return Right(await localDataSource.getAuth());
     } on NotFoundException {
       return Left(NotFoundFailure());
     } on CacheException {
