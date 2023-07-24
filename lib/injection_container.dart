@@ -15,7 +15,7 @@ import 'package:classroom_app/features/auth/data/data_sources/auth_local_data_so
 import 'package:classroom_app/features/auth/data/data_sources/auth_remote_data_source.dart';
 import 'package:classroom_app/features/auth/data/repositories/auth_repository_impl.dart';
 import 'package:classroom_app/features/auth/domain/repository/auth_repository.dart';
-import 'package:classroom_app/features/auth/domain/use_cases/get_access_token.dart';
+import 'package:classroom_app/features/auth/domain/use_cases/get_auth.dart';
 import 'package:classroom_app/features/auth/domain/use_cases/login.dart';
 import 'package:classroom_app/features/course/data/datasources/courses_remote_datasource.dart';
 import 'package:classroom_app/features/course/data/repositories/courses_repository_impl.dart';
@@ -49,7 +49,7 @@ final sl = GetIt.instance;
 Future<void> init() async {
   //* Features - Auth.
   // Use Cases.
-  sl.registerLazySingleton(() => GetAccessToken(sl()));
+  sl.registerLazySingleton(() => GetAuth(sl()));
   sl.registerLazySingleton(() => Login(sl()));
 
   // Repository.

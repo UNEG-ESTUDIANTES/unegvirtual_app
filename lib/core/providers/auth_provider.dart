@@ -7,7 +7,7 @@ import 'package:classroom_app/core/providers/page_state.dart';
 import 'package:classroom_app/core/use_cases/use_case.dart';
 import 'package:classroom_app/core/utils/utils.dart';
 import 'package:classroom_app/features/auth/domain/entities/user_credentials.dart';
-import 'package:classroom_app/features/auth/domain/use_cases/get_access_token.dart';
+import 'package:classroom_app/features/auth/domain/use_cases/get_auth.dart';
 import 'package:classroom_app/features/auth/domain/use_cases/login.dart';
 
 class AuthProvider extends BaseProvider {
