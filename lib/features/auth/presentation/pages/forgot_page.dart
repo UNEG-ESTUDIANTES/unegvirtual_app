@@ -24,10 +24,10 @@ class ForgotPasswordPage extends StatelessWidget {
                 minHeight: viewportConstraints.maxHeight,
                 minWidth: double.infinity,
               ),
-              child: Column(
+              child: const Column(
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
+                children: [
                   SizedBox(
                     width: 400,
                     child: Card(

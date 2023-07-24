@@ -1,8 +1,8 @@
-import 'package:classroom_app/core/entities/course.dart';
 import 'package:flutter/material.dart';
 
 import 'package:responsive_builder/responsive_builder.dart';
 
+import 'package:classroom_app/core/entities/course.dart';
 import 'package:classroom_app/core/entities/entities.dart';
 import 'package:classroom_app/core/widgets/section.dart';
 import 'package:classroom_app/features/course/presentation/widgets/course_section.dart';
@@ -52,7 +52,7 @@ class CoursePage extends StatelessWidget {
                     child: SingleChildScrollView(
                       child: CourseSection(
                         title: course.name,
-                        child: Section(
+                        child: const Section(
                           title: 'Unidades',
                           child: UnitsList(units),
                         ),
@@ -73,8 +73,8 @@ class CoursePage extends StatelessWidget {
             padding: const EdgeInsets.all(24.0),
             child: CourseSection(
               title: course.name,
-              child: Column(
-                children: const [
+              child: const Column(
+                children: [
                   TeacherCard(),
                   SizedBox(height: 24),
                   Section(
