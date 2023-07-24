@@ -1,6 +1,5 @@
 import 'package:classroom_app/core/databases/db_provider.dart';
 import 'package:classroom_app/core/error/exceptions.dart';
-import 'package:classroom_app/core/models/access_token_model.dart';
 import 'package:classroom_app/core/models/auth_model.dart';
 
 abstract class AuthLocalDataSource {
