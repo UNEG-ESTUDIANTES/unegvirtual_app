@@ -9,7 +9,6 @@ import 'package:classroom_app/features/home/presentation/widgets/course_card.dar
 import '../../../../core/entities/courses.dart';
 import '../../../../core/providers/auth_provider.dart';
 import '../../../../core/providers/page_state.dart';
-import '../../../../core/providers/user_provider.dart';
 import '../../../../core/services/notifications_service.dart';
 import '../../../course/presentation/pages/course_page.dart';
 
@@ -23,8 +22,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final deviceType = getDeviceType(MediaQuery.of(context).size);
     final textTheme = Theme.of(context).textTheme;
-    final auth = context.read<AuthProvider>().accessToken!;
-    final userInfo = context.read<UserProvider>().user!;
+    final auth = context.read<AuthProvider>().auth!;
     final homeProvider = context.watch<HomeProvider>();
     final state = homeProvider.state;
 
@@ -48,7 +46,7 @@ class HomePage extends StatelessWidget {
     }
 
     if (state is Empty) {
-      homeProvider.enroledCourses(auth);
+      homeProvider.enroledCourses(auth.accessToken);
       return Container();
     }
 
@@ -67,7 +65,7 @@ class HomePage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Hola ${userInfo.firstName} ${userInfo.lastName}',
+            'Hola ${auth.user.firstName} ${auth.user.lastName}',
             style: textTheme.headlineLarge,
           ),
           const SizedBox(height: 24),
