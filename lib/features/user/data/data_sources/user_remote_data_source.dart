@@ -12,6 +12,8 @@ abstract class UserRemoteDataSource {
   ///
   /// Throws a [NotAuthorizedException] when the user is not authed.
   ///
+  /// Throws an [EmailTakenException] when the email is taken.
+  ///
   /// Otherwise throws a [ServerException] for all other error codes.
   Future<void> createUser({
     required AccessToken accessToken,

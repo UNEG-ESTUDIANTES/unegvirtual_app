@@ -21,17 +21,23 @@ class UserRepositoryImpl implements UserRepository {
   @override
   Future<Either<Failure, void>> createUser({
     required AccessToken accessToken,
-    required UnsavedUser user,
+    required UnsavedUser unsavedUser,
   }) async {
+    final isConnected = await networkInfo.isConnected;
+
+    if (!isConnected) return Left(NoInternetConnectionFailure());
+
     try {
       await remoteDataSource.createUser(
         accessToken: accessToken,
-        user: UnsavedUserModel.fromEntity(user),
+        user: UnsavedUserModel.fromEntity(unsavedUser),
       );
 
       return const Right(null);
     } on NotAuthorizedException {
       return Left(NotAuthorizedFailure());
+    } on EmailTakenException {
+      return Left(EmailTakenFailure());
     } on ServerException {
       return Left(ServerFailure());
     }
