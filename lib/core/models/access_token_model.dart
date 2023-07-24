@@ -8,6 +8,11 @@ class AccessTokenModel extends AccessToken {
     return AccessTokenModel(json['token']);
   }
 
+  /// Returns an [AccessTokenModel] from the [accessToken].
+  factory AccessTokenModel.fromEntity(AccessToken accessToken) {
+    return AccessTokenModel(accessToken.token);
+  }
+
   /// Converts the [AccessToken] to JSON.
   Map<String, dynamic> toJson() {
     return {

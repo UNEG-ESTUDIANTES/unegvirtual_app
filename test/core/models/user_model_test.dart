@@ -40,6 +40,42 @@ void main() {
     );
   });
 
+  group('fromEntity', () {
+    const tUser = User(
+      email: 'test',
+      firstName: 'test',
+      id: 'test',
+      identityCard: 'test',
+      lastName: 'test',
+    );
+
+    test(
+      'should return an UserModel',
+      () async {
+        // act
+        final result = UserModel.fromEntity(tUser);
+
+        // assert
+        expect(result, isA<UserModel>());
+      },
+    );
+
+    test(
+      'should contain the same data as the User',
+      () async {
+        // act
+        final result = UserModel.fromEntity(tUser);
+
+        // assert
+        expect(result.email, tUser.email);
+        expect(result.firstName, tUser.firstName);
+        expect(result.id, tUser.id);
+        expect(result.identityCard, tUser.identityCard);
+        expect(result.lastName, tUser.lastName);
+      },
+    );
+  });
+
   group('toJson', () {
     test(
       'should return a JSON map containing the proper data',
