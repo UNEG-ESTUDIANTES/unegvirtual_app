@@ -161,8 +161,8 @@ Future<void> init() async {
   // Providers.
   sl.registerFactory(
     () => AuthProvider(
-      getAccessTokenUseCase: sl(),
-      loginUseCase: sl(),
+      getAuth: sl(),
+      login: sl(),
     ),
   );
 
