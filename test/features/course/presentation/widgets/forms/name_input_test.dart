@@ -3,9 +3,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:classroom_app/features/course/presentation/widgets/forms/name_input.dart';
 
 void main() {
-  const nameInput = 'Tecnicas de programacion I';
-  const invalidNameInput = 'Tecnicas de programacion I!!1554.,-';
-
   test(
     'initial state should be empty',
     () async {
@@ -21,26 +18,49 @@ void main() {
   test(
     'should be valid',
     () async {
-      // act
-      final input = NameInput.dirty(nameInput);
+      // arrange
+      const names = [
+        'course',
+        'course 1',
+        'course I',
+        'tecnicas de programacion I',
+      ];
 
-      // assert
-      expect(input.isValid, true);
+      for (final name in names) {
+        // act
+        final input = NameInput.dirty(name);
+
+        // assert
+        expect(input.isValid, true);
+      }
     },
   );
 
   test(
     'should be invalid',
     () async {
-      // act
-      final input = NameInput.dirty(invalidNameInput);
+      // arrange
+      const names = [
+        '1course',
+        'course1',
+        '',
+        '   ',
+        '*',
+      ];
 
-      // assert
-      expect(input.isValid, false);
+      for (final name in names) {
+        // act
+        final input = NameInput.dirty(name);
+
+        // assert
+        expect(input.isValid, false);
+      }
     },
   );
 
   group('validator', () {
+    const invalidNameInput = 'Test - Test';
+
     test(
       'should return empty error',
       () async {
