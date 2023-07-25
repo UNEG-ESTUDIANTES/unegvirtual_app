@@ -31,7 +31,7 @@ void main() {
     () async {
       // arrange
       const names = [
-        'test',
+        'tes',
         '',
       ];
 
@@ -62,7 +62,7 @@ void main() {
       'should return tooShort error',
       () async {
         // act
-        const input = DescriptionInput.dirty('test');
+        const input = DescriptionInput.dirty('tes');
 
         // assert
         expect(input.displayError, DescriptionInputError.tooShort);
