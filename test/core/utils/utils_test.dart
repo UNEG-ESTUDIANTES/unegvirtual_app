@@ -109,6 +109,34 @@ void main() {
     );
 
     test(
+      'should display the email taken message',
+      () async {
+        // arrange
+        final failure = EmailTakenFailure();
+
+        // act
+        final result = Utils.getErrorMessage(failure);
+
+        // assert
+        expect(result, emailTakenFailureMessage);
+      },
+    );
+
+    test(
+      'should display the no internet connection failure message',
+      () async {
+        // arrange
+        final failure = NoInternetConnectionFailure();
+
+        // act
+        final result = Utils.getErrorMessage(failure);
+
+        // assert
+        expect(result, noInternetConnectionFailureMessage);
+      },
+    );
+
+    test(
       'should display the unknown failure message',
       () async {
         // arrange
