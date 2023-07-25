@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
-import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import 'package:classroom_app/core/entities/access_token.dart';
@@ -16,9 +15,8 @@ import 'package:classroom_app/features/course/data/models/multi_enroll_model.dar
 import 'package:classroom_app/features/course/data/models/new_course_model.dart';
 
 import '../../../../fixtures/fixture_reader.dart';
-
-@GenerateNiceMocks([MockSpec<http.Client>()])
-import 'courses_remote_datasource_test.mocks.dart';
+import '../../../../utils/utils.dart';
+import '../../../../utils/utils.mocks.dart';
 
 void main() {
   late MockClient client;
@@ -53,60 +51,16 @@ void main() {
 
   const tMultiEnrollModel = MultiEnrollModel(courseId: 'test', studentIds: []);
 
-  void setUpMockHttpClientGet(String response, [int statusCode = 200]) {
-    when(
-      client.get(
-        any,
-        headers: anyNamed('headers'),
-      ),
-    ).thenAnswer(
-      (_) async => http.Response(
-        response,
-        statusCode,
-      ),
-    );
-  }
-
-  void setUpMockHttpClientGetException(Exception exception) {
-    when(
-      client.get(
-        any,
-        headers: anyNamed('headers'),
-      ),
-    ).thenThrow(exception);
-  }
-
-  void setUpMockHttpClientPost(String response, [int statusCode = 200]) {
-    when(
-      client.post(
-        any,
-        headers: anyNamed('headers'),
-        body: anyNamed('body'),
-      ),
-    ).thenAnswer(
-      (_) async => http.Response(
-        response,
-        statusCode,
-      ),
-    );
-  }
-
-  void setUpMockHttpClientPostException(Exception exception) {
-    when(
-      client.post(
-        any,
-        headers: anyNamed('headers'),
-        body: anyNamed('body'),
-      ),
-    ).thenThrow(exception);
-  }
-
   group('coursesGetCourses', () {
     test(
       'should perform a GET request with the application/json header',
       () async {
         // arrange
-        setUpMockHttpClientGet(fixture('courses.json'), 200);
+        mockGetResponse(
+          client: client,
+          response: fixture('courses.json'),
+          statusCode: 200,
+        );
 
         // act
         dataSourceImpl.coursesGetCourses();
@@ -127,7 +81,11 @@ void main() {
       'should return a CoursesModel when status code is 200 (success)',
       () async {
         // arrange
-        setUpMockHttpClientGet(fixture('courses.json'), 200);
+        mockGetResponse(
+          client: client,
+          response: fixture('courses.json'),
+          statusCode: 200,
+        );
 
         // act
         final result = await dataSourceImpl.coursesGetCourses();
@@ -141,7 +99,11 @@ void main() {
       'should throw NotFoundException when status code is 404',
       () async {
         // arrange
-        setUpMockHttpClientGet('Error', 404);
+        mockGetResponse(
+          client: client,
+          response: 'Error',
+          statusCode: 404,
+        );
 
         // act
         final call = dataSourceImpl.coursesGetCourses;
@@ -158,7 +120,11 @@ void main() {
       'should throw ServerException when status code is other than 200 and 404',
       () async {
         // arrange
-        setUpMockHttpClientGet('Error', 500);
+        mockGetResponse(
+          client: client,
+          response: 'Error',
+          statusCode: 500,
+        );
 
         // act
         final call = dataSourceImpl.coursesGetCourses;
@@ -175,7 +141,10 @@ void main() {
       'should throw ServerException when ClientException occurs',
       () async {
         // arrange
-        setUpMockHttpClientGetException(http.ClientException(''));
+        mockGetException(
+          client: client,
+          exception: http.ClientException(''),
+        );
 
         // act
         final call = dataSourceImpl.coursesGetCourses;
@@ -195,7 +164,11 @@ void main() {
       and with the application/json header''',
       () async {
         // arrange
-        setUpMockHttpClientPost(fixture('new_course_response.json'), 200);
+        mockPostResponse(
+          client: client,
+          response: fixture('new_course_response.json'),
+          statusCode: 200,
+        );
 
         // act
         dataSourceImpl.postCourse(
@@ -221,7 +194,11 @@ void main() {
       'should return a CourseModel when the status code is 200 (success)',
       () async {
         // arrange
-        setUpMockHttpClientPost(fixture('new_course_response.json'), 200);
+        mockPostResponse(
+          client: client,
+          response: fixture('new_course_response.json'),
+          statusCode: 200,
+        );
 
         // act
         final result = await dataSourceImpl.postCourse(
@@ -238,7 +215,11 @@ void main() {
       'should throw NotAuthorizedException when status code is 403',
       () async {
         // arrange
-        setUpMockHttpClientPost('Error', 403);
+        mockPostResponse(
+          client: client,
+          response: 'Error',
+          statusCode: 403,
+        );
 
         // act
         final call = dataSourceImpl.postCourse;
@@ -258,7 +239,11 @@ void main() {
       'should throw ServerException when status code is other than 200 and 403',
       () async {
         // arrange
-        setUpMockHttpClientPost('Error', 500);
+        mockPostResponse(
+          client: client,
+          response: 'Error',
+          statusCode: 500,
+        );
 
         // act
         final call = dataSourceImpl.postCourse;
@@ -278,7 +263,10 @@ void main() {
       'should throw ServerException when occurs a ClientException',
       () async {
         // arrange
-        setUpMockHttpClientPostException(http.ClientException(''));
+        mockPostException(
+          client: client,
+          exception: http.ClientException(''),
+        );
 
         // act
         final call = dataSourceImpl.postCourse;
@@ -301,7 +289,11 @@ void main() {
       and with the application/json header''',
       () async {
         // arrange
-        setUpMockHttpClientPost(fixture('enroll_student_response.json'), 200);
+        mockPostResponse(
+          client: client,
+          response: fixture('enroll_student_response.json'),
+          statusCode: 200,
+        );
 
         // act
         dataSourceImpl.enrollStudent(
@@ -329,7 +321,11 @@ void main() {
       'should return an InscriptionModel when the status code is 200 (success)',
       () async {
         // arrange
-        setUpMockHttpClientPost(fixture('enroll_student_response.json'), 200);
+        mockPostResponse(
+          client: client,
+          response: fixture('enroll_student_response.json'),
+          statusCode: 200,
+        );
 
         // act
         final result = await dataSourceImpl.enrollStudent(
@@ -346,7 +342,11 @@ void main() {
       'should throw NotAuthorizedException when status code is 403',
       () async {
         // arrange
-        setUpMockHttpClientPost('Error', 403);
+        mockPostResponse(
+          client: client,
+          response: 'Error',
+          statusCode: 403,
+        );
 
         // act
         final call = dataSourceImpl.enrollStudent;
@@ -366,7 +366,11 @@ void main() {
       'should throw ServerException when status code is other than 200 and 403',
       () async {
         // arrange
-        setUpMockHttpClientPost('Error', 500);
+        mockPostResponse(
+          client: client,
+          response: 'Error',
+          statusCode: 500,
+        );
 
         // act
         final call = dataSourceImpl.enrollStudent;
@@ -386,7 +390,10 @@ void main() {
       'should throw ServerException when occurs a ClientException',
       () async {
         // arrange
-        setUpMockHttpClientPostException(http.ClientException(''));
+        mockPostException(
+          client: client,
+          exception: http.ClientException(''),
+        );
 
         // act
         final call = dataSourceImpl.enrollStudent;
@@ -409,7 +416,11 @@ void main() {
       with the application/json header''',
       () async {
         // arrange
-        setUpMockHttpClientGet(fixture('courses.json'), 200);
+        mockGetResponse(
+          client: client,
+          response: fixture('courses.json'),
+          statusCode: 200,
+        );
 
         // act
         dataSourceImpl.enroledCourses(tAccessToken);
@@ -431,7 +442,11 @@ void main() {
       'should return a CoursesModel when the status code is 200 (success)',
       () async {
         // arrange
-        setUpMockHttpClientGet(fixture('courses.json'), 200);
+        mockGetResponse(
+          client: client,
+          response: fixture('courses.json'),
+          statusCode: 200,
+        );
 
         // act
         final result = await dataSourceImpl.enroledCourses(tAccessToken);
@@ -445,7 +460,11 @@ void main() {
       'should throw NotEnrolledException when status code is 404',
       () async {
         // arrange
-        setUpMockHttpClientGet('Error', 404);
+        mockGetResponse(
+          client: client,
+          response: 'Error',
+          statusCode: 404,
+        );
 
         // act
         final call = dataSourceImpl.enroledCourses;
@@ -462,7 +481,11 @@ void main() {
       'should throw ServerException when status code is other than 200 and 403',
       () async {
         // arrange
-        setUpMockHttpClientGet('Error', 500);
+        mockGetResponse(
+          client: client,
+          response: 'Error',
+          statusCode: 500,
+        );
 
         // act
         final call = dataSourceImpl.enroledCourses;
@@ -479,7 +502,10 @@ void main() {
       'should throw ServerException when occurs a ClientException',
       () async {
         // arrange
-        setUpMockHttpClientGetException(http.ClientException(''));
+        mockGetException(
+          client: client,
+          exception: http.ClientException(''),
+        );
 
         // act
         final call = dataSourceImpl.enroledCourses;
@@ -499,8 +525,11 @@ void main() {
       and with the application/json header''',
       () async {
         // arrange
-        setUpMockHttpClientPost(
-            fixture('enroll_multiple_students_response.json'), 200);
+        mockPostResponse(
+          client: client,
+          response: fixture('enroll_multiple_students_response.json'),
+          statusCode: 200,
+        );
 
         // act
         dataSourceImpl.multiStudentEnroll(
@@ -528,8 +557,11 @@ void main() {
       'should return nothing when the status code is 200 (success)',
       () async {
         // arrange
-        setUpMockHttpClientPost(
-            fixture('enroll_multiple_students_response.json'), 200);
+        mockPostResponse(
+          client: client,
+          response: fixture('enroll_multiple_students_response.json'),
+          statusCode: 200,
+        );
 
         // act
         await dataSourceImpl.multiStudentEnroll(
@@ -543,7 +575,11 @@ void main() {
       'should throw NotAuthorizedException when status code is 403',
       () async {
         // arrange
-        setUpMockHttpClientPost('Error', 403);
+        mockPostResponse(
+          client: client,
+          response: 'Error',
+          statusCode: 403,
+        );
 
         // act
         final call = dataSourceImpl.multiStudentEnroll;
@@ -563,7 +599,11 @@ void main() {
       'should throw ServerException when status code is other than 200 and 403',
       () async {
         // arrange
-        setUpMockHttpClientPost('Error', 500);
+        mockPostResponse(
+          client: client,
+          response: 'Error',
+          statusCode: 500,
+        );
 
         // act
         final call = dataSourceImpl.multiStudentEnroll;
@@ -583,7 +623,10 @@ void main() {
       'should throw ServerException when occurs a ClientException',
       () async {
         // arrange
-        setUpMockHttpClientPostException(http.ClientException(''));
+        mockPostException(
+          client: client,
+          exception: http.ClientException(''),
+        );
 
         // act
         final call = dataSourceImpl.multiStudentEnroll;

@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
-import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import 'package:classroom_app/core/entities/access_token.dart';
@@ -14,9 +13,8 @@ import 'package:classroom_app/features/auth/data/data_sources/auth_remote_data_s
 import 'package:classroom_app/features/auth/data/models/user_credentials_model.dart';
 
 import '../../../../fixtures/fixture_reader.dart';
-
-@GenerateNiceMocks([MockSpec<http.Client>()])
-import 'auth_remote_data_source_test.mocks.dart';
+import '../../../../utils/utils.dart';
+import '../../../../utils/utils.mocks.dart';
 
 void main() {
   late MockClient client;
@@ -44,72 +42,16 @@ void main() {
   );
 
   group('login', () {
-    void setUpMockHttpClientSuccess200() {
-      when(
-        client.post(
-          any,
-          headers: anyNamed('headers'),
-          body: anyNamed('body'),
-        ),
-      ).thenAnswer(
-        (_) async => http.Response(
-          fixture('access_token.json'),
-          200,
-        ),
-      );
-    }
-
-    void setUpMockHttpClientError401() {
-      when(
-        client.post(
-          any,
-          headers: anyNamed('headers'),
-          body: anyNamed('body'),
-        ),
-      ).thenAnswer(
-        (_) async => http.Response(
-          'Invalid Credentials',
-          401,
-        ),
-      );
-    }
-
-    void setUpMockHttpClientGeneralError() {
-      when(
-        client.post(
-          any,
-          headers: anyNamed('headers'),
-          body: anyNamed('body'),
-        ),
-      ).thenAnswer(
-        (_) async => http.Response(
-          'Unknown Error',
-          500,
-        ),
-      );
-    }
-
-    void setUpMockHttpClientError404() {
-      when(
-        client.post(
-          any,
-          headers: anyNamed('headers'),
-          body: anyNamed('body'),
-        ),
-      ).thenAnswer(
-        (_) async => http.Response(
-          'User not found',
-          404,
-        ),
-      );
-    }
-
     test(
       '''should perform a POST request with the user 
       credentials and with the application/json header''',
       () async {
         // arrange
-        setUpMockHttpClientSuccess200();
+        mockPostResponse(
+          client: client,
+          response: fixture('access_token.json'),
+          statusCode: 200,
+        );
 
         // act
         dataSourceImpl.login(tUserCredentialsModel);
@@ -131,7 +73,11 @@ void main() {
       'should return AccessTokenModel when status code is 200 (success)',
       () async {
         // arrange
-        setUpMockHttpClientSuccess200();
+        mockPostResponse(
+          client: client,
+          response: fixture('access_token.json'),
+          statusCode: 200,
+        );
 
         // act
         final result = await dataSourceImpl.login(tUserCredentialsModel);
@@ -145,7 +91,11 @@ void main() {
       'should throw a UserCredentialsMismatchException when status code is 401',
       () async {
         // arrange
-        setUpMockHttpClientError401();
+        mockPostResponse(
+          client: client,
+          response: 'Invalid Credentials',
+          statusCode: 401,
+        );
 
         // act
         final call = dataSourceImpl.login;
@@ -162,7 +112,11 @@ void main() {
       'should throw a UserNotFoundException when status code is 404',
       () async {
         // arrange
-        setUpMockHttpClientError404();
+        mockPostResponse(
+          client: client,
+          response: 'User not found',
+          statusCode: 404,
+        );
 
         // act
         final call = dataSourceImpl.login;
@@ -179,7 +133,11 @@ void main() {
       'should throw a ServerException when status code is other than 200 and 401',
       () async {
         // arrange
-        setUpMockHttpClientGeneralError();
+        mockPostResponse(
+          client: client,
+          response: 'Unknown Error',
+          statusCode: 500,
+        );
 
         // act
         final call = dataSourceImpl.login;
@@ -196,13 +154,10 @@ void main() {
       'should throw a ServerException when the call throws a ClientException',
       () async {
         // arrange
-        when(
-          client.post(
-            any,
-            headers: anyNamed('headers'),
-            body: anyNamed('body'),
-          ),
-        ).thenThrow(http.ClientException(''));
+        mockPostException(
+          client: client,
+          exception: http.ClientException(''),
+        );
 
         // act
         final call = dataSourceImpl.login;
@@ -217,63 +172,16 @@ void main() {
   });
 
   group('getUser', () {
-    void setUpMockHttpClientSuccess200() {
-      when(
-        client.get(
-          any,
-          headers: anyNamed('headers'),
-        ),
-      ).thenAnswer(
-        (_) async => http.Response(
-          fixture('user_response.json'),
-          200,
-        ),
-      );
-    }
-
-    void setUpMockHttpClientError404() {
-      when(
-        client.get(
-          any,
-          headers: anyNamed('headers'),
-        ),
-      ).thenAnswer(
-        (_) async => http.Response(
-          'User not found',
-          404,
-        ),
-      );
-    }
-
-    void setUpMockHttpClientGeneralError() {
-      when(
-        client.get(
-          any,
-          headers: anyNamed('headers'),
-        ),
-      ).thenAnswer(
-        (_) async => http.Response(
-          'Unknown Error',
-          500,
-        ),
-      );
-    }
-
-    void setUpMockHttpClientException() {
-      when(
-        client.get(
-          any,
-          headers: anyNamed('headers'),
-        ),
-      ).thenThrow(http.ClientException(''));
-    }
-
     test(
       '''should perform a GET request with the access 
       token as the authorization''',
       () async {
         // arrange
-        setUpMockHttpClientSuccess200();
+        mockGetResponse(
+          client: client,
+          response: fixture('user_response.json'),
+          statusCode: 200,
+        );
 
         // act
         dataSourceImpl.getUser(tAccessToken);
@@ -295,7 +203,11 @@ void main() {
       'should return UserModel when status code is 200 (success)',
       () async {
         // arrange
-        setUpMockHttpClientSuccess200();
+        mockGetResponse(
+          client: client,
+          response: fixture('user_response.json'),
+          statusCode: 200,
+        );
 
         // act
         final result = await dataSourceImpl.getUser(tAccessToken);
@@ -309,7 +221,11 @@ void main() {
       'should throw a UserNotFoundException when status code is 404',
       () async {
         // arrange
-        setUpMockHttpClientError404();
+        mockGetResponse(
+          client: client,
+          response: 'User not found',
+          statusCode: 404,
+        );
 
         // act
         final call = dataSourceImpl.getUser;
@@ -326,7 +242,11 @@ void main() {
       'should throw a ServerException when status code is other than 200 and 404',
       () async {
         // arrange
-        setUpMockHttpClientGeneralError();
+        mockGetResponse(
+          client: client,
+          response: 'Unknown Error',
+          statusCode: 500,
+        );
 
         // act
         final call = dataSourceImpl.getUser;
@@ -343,7 +263,10 @@ void main() {
       'should throw a ServerException when the call throws a ClientException',
       () async {
         // arrange
-        setUpMockHttpClientException();
+        mockGetException(
+          client: client,
+          exception: http.ClientException(''),
+        );
 
         // act
         final call = dataSourceImpl.getUser;

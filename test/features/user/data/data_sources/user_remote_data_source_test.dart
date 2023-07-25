@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
-import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import 'package:classroom_app/core/entities/access_token.dart';
@@ -12,9 +11,8 @@ import 'package:classroom_app/features/user/data/data_sources/user_remote_data_s
 import 'package:classroom_app/features/user/data/models/unsaved_user_model.dart';
 
 import '../../../../fixtures/fixture_reader.dart';
-
-@GenerateNiceMocks([MockSpec<http.Client>()])
-import 'user_remote_data_source_test.mocks.dart';
+import '../../../../utils/utils.dart';
+import '../../../../utils/utils.mocks.dart';
 
 void main() {
   late MockClient client;
@@ -38,72 +36,16 @@ void main() {
   );
 
   group('createUser', () {
-    void setUpMockHttpClientSuccess200() {
-      when(
-        client.post(
-          any,
-          headers: anyNamed('headers'),
-          body: anyNamed('body'),
-        ),
-      ).thenAnswer(
-        (_) async => http.Response(
-          fixture('user_response.json'),
-          200,
-        ),
-      );
-    }
-
-    void setUpMockHttpClientError401() {
-      when(
-        client.post(
-          any,
-          headers: anyNamed('headers'),
-          body: anyNamed('body'),
-        ),
-      ).thenAnswer(
-        (_) async => http.Response(
-          'Not an admin',
-          401,
-        ),
-      );
-    }
-
-    void setUpMockHttpClientError409() {
-      when(
-        client.post(
-          any,
-          headers: anyNamed('headers'),
-          body: anyNamed('body'),
-        ),
-      ).thenAnswer(
-        (_) async => http.Response(
-          'Email taken',
-          409,
-        ),
-      );
-    }
-
-    void setUpMockHttpClientGeneralError() {
-      when(
-        client.post(
-          any,
-          headers: anyNamed('headers'),
-          body: anyNamed('body'),
-        ),
-      ).thenAnswer(
-        (_) async => http.Response(
-          'Unknown Error',
-          500,
-        ),
-      );
-    }
-
     test(
       '''should perform a POST request with the unsaved user
       and with the application/json header''',
       () async {
         // arrange
-        setUpMockHttpClientSuccess200();
+        mockPostResponse(
+          client: client,
+          response: fixture('user_response.json'),
+          statusCode: 200,
+        );
 
         // act
         dataSourceImpl.createUser(
@@ -129,7 +71,11 @@ void main() {
       'should throw NotAuthorizedException when status code is 401',
       () async {
         // arrange
-        setUpMockHttpClientError401();
+        mockPostResponse(
+          client: client,
+          response: 'Not and admin',
+          statusCode: 401,
+        );
 
         // act
         final call = dataSourceImpl.createUser;
@@ -149,7 +95,11 @@ void main() {
       'should throw EmailTakenException when status code is 409',
       () async {
         // arrange
-        setUpMockHttpClientError409();
+        mockPostResponse(
+          client: client,
+          response: 'Email taken',
+          statusCode: 409,
+        );
 
         // act
         final call = dataSourceImpl.createUser;
@@ -169,7 +119,11 @@ void main() {
       'should throw ServerException when status code is other than 200, 401 and 409',
       () async {
         // arrange
-        setUpMockHttpClientGeneralError();
+        mockPostResponse(
+          client: client,
+          response: 'Unknown error',
+          statusCode: 500,
+        );
 
         // act
         final call = dataSourceImpl.createUser;
