@@ -20,6 +20,7 @@ void main() {
     () async {
       // arrange
       const names = [
+        'test',
         'course',
         'course 1',
         'course I',
