@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:classroom_app/core/pages/check_auth_page.dart';
+import 'package:classroom_app/core/widgets/scaffold_with_nested_navigation.dart';
 import 'package:classroom_app/features/auth/presentation/pages/forgot_page.dart';
 import 'package:classroom_app/features/auth/presentation/pages/login_page.dart';
 import 'package:classroom_app/features/home/presentation/pages/home_page.dart';
@@ -45,6 +46,9 @@ final router = GoRouter(
       builder: (context, state) => const ForgotPasswordPage(),
     ),
     StatefulShellRoute.indexedStack(
+      builder: (context, state, navigationShell) {
+        return ScaffoldWithNestedNavigation(navigationShell: navigationShell);
+      },
       branches: [
         StatefulShellBranch(
           navigatorKey: _shellNavigatorHomeKey,
