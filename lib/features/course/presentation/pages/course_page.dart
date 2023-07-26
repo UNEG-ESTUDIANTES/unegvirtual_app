@@ -73,8 +73,8 @@ class CoursePage extends StatelessWidget {
             padding: const EdgeInsets.all(24.0),
             child: CourseSection(
               title: course.name,
-              child: const Column(
-                children: [
+              child: Column(
+                children: const [
                   TeacherCard(),
                   SizedBox(height: 24),
                   Section(

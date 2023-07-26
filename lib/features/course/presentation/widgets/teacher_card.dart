@@ -5,11 +5,11 @@ class TeacherCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.all(24.0),
+    return Padding(
+      padding: const EdgeInsets.all(24.0),
       child: Column(
         mainAxisSize: MainAxisSize.min,
-        children: [
+        children: const [
           CircleAvatar(
             backgroundImage: AssetImage('assets/teacher_placeholder.jpg'),
             radius: 64,
