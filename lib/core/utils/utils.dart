@@ -49,6 +49,8 @@ class Utils {
   }
 
   /// Returns the [Failure] that matches the [exception] thrown.
+  /// In case the [exception] doesn't match any then
+  /// a [ServerFailure] will be returned.
   static Failure getFailure(Exception exception) {
     switch (exception.runtimeType) {
       case ServerException:
