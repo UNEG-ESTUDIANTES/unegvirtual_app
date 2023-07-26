@@ -14,7 +14,7 @@ import '../../../course/presentation/pages/course_page.dart';
 
 class HomePage extends StatelessWidget {
   /// The page route name.
-  static const routeName = 'home';
+  static const routeName = '/home';
 
   const HomePage({super.key});
 

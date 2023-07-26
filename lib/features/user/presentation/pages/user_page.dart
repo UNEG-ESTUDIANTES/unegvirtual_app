@@ -8,7 +8,7 @@ import 'package:classroom_app/features/user/presentation/widgets/user_data.dart'
 
 class UserPage extends StatelessWidget {
   /// The page route name.
-  static const routeName = 'user';
+  static const routeName = '/user';
 
   const UserPage({super.key});
 

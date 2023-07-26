@@ -4,7 +4,7 @@ import 'package:classroom_app/features/auth/presentation/widgets/login_form.dart
 
 class LogInPage extends StatelessWidget {
   /// The page route name.
-  static const routeName = 'login';
+  static const routeName = '/login';
 
   const LogInPage({super.key});
 

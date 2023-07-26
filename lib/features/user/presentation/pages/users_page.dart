@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class UsersPage extends StatelessWidget {
   /// The page route name.
-  static const routeName = 'users';
+  static const routeName = '/users';
 
   const UsersPage({super.key});
 

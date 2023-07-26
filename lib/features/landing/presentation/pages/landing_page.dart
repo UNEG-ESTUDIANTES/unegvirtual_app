@@ -5,7 +5,7 @@ import 'package:classroom_app/features/landing/presentation/widgets/landing_body
 
 class LandingPage extends StatefulWidget {
   /// The page route name.
-  static const routeName = 'landing';
+  static const routeName = '/landing';
 
   const LandingPage({super.key});
 
