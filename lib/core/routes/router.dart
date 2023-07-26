@@ -13,6 +13,8 @@ import 'package:classroom_app/features/user/presentation/pages/user_page.dart';
 import 'package:classroom_app/features/user/presentation/pages/users_page.dart';
 
 // Private navigators.
+final _rootNavigatorKey = GlobalKey<NavigatorState>();
+
 final _shellNavigatorHomeKey = GlobalKey<NavigatorState>(
   debugLabel: 'shellHome',
 );
@@ -28,6 +30,8 @@ final _shellNavigatorProfileKey = GlobalKey<NavigatorState>(
 /// The router.
 final router = GoRouter(
   initialLocation: CheckAuthPage.routeName,
+  debugLogDiagnostics: true,
+  navigatorKey: _rootNavigatorKey,
   routes: [
     GoRoute(
       path: CheckAuthPage.routeName,
