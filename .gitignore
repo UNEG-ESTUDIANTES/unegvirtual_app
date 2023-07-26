@@ -43,8 +43,12 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
-# exclude all .env files from source control
+# Exclude all .env files from source control
 *.env
 env.g.dart
 
+# Exclude the app key
 key.properties
+
+# Exclude the cache of the selected version
+.fvm/flutter_sdk
