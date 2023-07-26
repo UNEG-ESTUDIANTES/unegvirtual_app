@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 
 import 'package:classroom_app/core/entities/courses.dart';
-import 'package:classroom_app/core/error/exceptions.dart';
+import 'package:classroom_app/core/utils/utils.dart';
 import 'package:classroom_app/features/landing/domain/repositories/landing_repository.dart';
 
 import '../../../../core/error/failures.dart';
@@ -23,8 +23,8 @@ class LandingRepositoryImpl implements LandingRepository {
 
     try {
       return Right(await remote.getCourses());
-    } on ServerException {
-      return Left(ServerFailure());
+    } on Exception catch (exception) {
+      return Left(Utils.getFailure(exception));
     }
   }
 }
