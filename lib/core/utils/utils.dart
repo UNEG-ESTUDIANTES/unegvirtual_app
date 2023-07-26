@@ -1,3 +1,4 @@
+import 'package:classroom_app/core/error/exceptions.dart';
 import 'package:classroom_app/core/error/failures.dart';
 
 // Error messages.
@@ -44,6 +45,41 @@ class Utils {
 
       default:
         return 'Ha ocurrido un error desconocido';
+    }
+  }
+
+  /// Returns the [Failure] that matches the [exception] thrown.
+  static Failure getFailure(Exception exception) {
+    switch (exception.runtimeType) {
+      case ServerException:
+        return ServerFailure();
+
+      case CacheException:
+        return CacheFailure();
+
+      case UserNotFoundException:
+        return UserNotFoundFailure();
+
+      case NotFoundException:
+        return NotFoundFailure();
+
+      case NoInternetConnectionException:
+        return NoInternetConnectionFailure();
+
+      case UserCredentialsMismatchException:
+        return UserCredentialsMismatchFailure();
+
+      case NotAuthorizedException:
+        return NotAuthorizedFailure();
+
+      case NotEnrolledException:
+        return NotEnrolledFailure();
+
+      case EmailTakenException:
+        return EmailTakenFailure();
+
+      default:
+        return ServerFailure();
     }
   }
 }
