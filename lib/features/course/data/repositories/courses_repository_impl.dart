@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 
 import 'package:classroom_app/core/entities/access_token.dart';
 import 'package:classroom_app/core/entities/course.dart';
-import 'package:classroom_app/core/error/exceptions.dart';
+import 'package:classroom_app/core/utils/utils.dart';
 import 'package:classroom_app/features/course/data/models/inscription_model.dart';
 import 'package:classroom_app/features/course/data/models/multi_enroll_model.dart';
 import 'package:classroom_app/features/course/data/models/new_course_model.dart';
@@ -31,10 +31,8 @@ class CoursesRepositoryImpl implements CoursesRepository {
 
     try {
       return Right(await remote.coursesGetCourses());
-    } on NotFoundException {
-      return Left(NotFoundFailure());
-    } on ServerException {
-      return Left(ServerFailure());
+    } on Exception catch (exception) {
+      return Left(Utils.getFailure(exception));
     }
   }
 
@@ -54,10 +52,8 @@ class CoursesRepositoryImpl implements CoursesRepository {
       );
 
       return Right(remoteResult);
-    } on NotAuthorizedException {
-      return Left(NotAuthorizedFailure());
-    } on ServerException {
-      return Left(ServerFailure());
+    } on Exception catch (exception) {
+      return Left(Utils.getFailure(exception));
     }
   }
 
@@ -77,10 +73,8 @@ class CoursesRepositoryImpl implements CoursesRepository {
       );
 
       return Right(remoteResult);
-    } on NotAuthorizedException {
-      return Left(NotAuthorizedFailure());
-    } on ServerException {
-      return Left(ServerFailure());
+    } on Exception catch (exception) {
+      return Left(Utils.getFailure(exception));
     }
   }
 
@@ -95,10 +89,8 @@ class CoursesRepositoryImpl implements CoursesRepository {
     try {
       final remoteResult = await remote.enroledCourses(accessToken);
       return Right(remoteResult);
-    } on NotEnrolledException {
-      return Left(NotEnrolledFailure());
-    } on ServerException {
-      return Left(ServerFailure());
+    } on Exception catch (exception) {
+      return Left(Utils.getFailure(exception));
     }
   }
 
@@ -118,10 +110,8 @@ class CoursesRepositoryImpl implements CoursesRepository {
       );
 
       return const Right(true);
-    } on NotAuthorizedException {
-      return Left(NotAuthorizedFailure());
-    } on ServerException {
-      return Left(NotAuthorizedFailure());
+    } on Exception catch (exception) {
+      return Left(Utils.getFailure(exception));
     }
   }
 }

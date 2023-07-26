@@ -1,11 +1,22 @@
 import 'package:flutter_test/flutter_test.dart';
 
+import 'package:classroom_app/core/error/exceptions.dart';
 import 'package:classroom_app/core/error/failures.dart';
 import 'package:classroom_app/core/utils/utils.dart';
 
 class UnkwownFailure extends Failure {
   @override
   List<Object> get props => [];
+}
+
+class ExceptionFailure {
+  final Exception exception;
+  final Failure failure;
+
+  ExceptionFailure({
+    required this.exception,
+    required this.failure,
+  });
 }
 
 void main() {
@@ -148,6 +159,60 @@ void main() {
 
         // assert
         expect(result, unknownFailureMessage);
+      },
+    );
+  });
+
+  final exceptionsWithFailure = <ExceptionFailure>[
+    ExceptionFailure(
+      exception: ServerException(),
+      failure: ServerFailure(),
+    ),
+    ExceptionFailure(
+      exception: CacheException(),
+      failure: CacheFailure(),
+    ),
+    ExceptionFailure(
+      exception: UserNotFoundException(),
+      failure: UserNotFoundFailure(),
+    ),
+    ExceptionFailure(
+      exception: NotFoundException(),
+      failure: NotFoundFailure(),
+    ),
+    ExceptionFailure(
+      exception: NoInternetConnectionException(),
+      failure: NoInternetConnectionFailure(),
+    ),
+    ExceptionFailure(
+      exception: UserCredentialsMismatchException(),
+      failure: UserCredentialsMismatchFailure(),
+    ),
+    ExceptionFailure(
+      exception: NotAuthorizedException(),
+      failure: NotAuthorizedFailure(),
+    ),
+    ExceptionFailure(
+      exception: NotEnrolledException(),
+      failure: NotEnrolledFailure(),
+    ),
+    ExceptionFailure(
+      exception: EmailTakenException(),
+      failure: EmailTakenFailure(),
+    ),
+  ];
+
+  group('getFailure', () {
+    test(
+      'should return the correct failure',
+      () async {
+        // assert
+        for (final exceptionWithFailure in exceptionsWithFailure) {
+          expect(
+            Utils.getFailure(exceptionWithFailure.exception),
+            exceptionWithFailure.failure,
+          );
+        }
       },
     );
   });
