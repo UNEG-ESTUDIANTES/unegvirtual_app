@@ -1,10 +1,10 @@
 import 'package:dartz/dartz.dart';
 
 import 'package:classroom_app/core/entities/auth.dart';
-import 'package:classroom_app/core/error/exceptions.dart';
 import 'package:classroom_app/core/error/failures.dart';
 import 'package:classroom_app/core/models/auth_model.dart';
 import 'package:classroom_app/core/network/network_info.dart';
+import 'package:classroom_app/core/utils/utils.dart';
 import 'package:classroom_app/features/auth/data/data_sources/auth_local_data_source.dart';
 import 'package:classroom_app/features/auth/data/data_sources/auth_remote_data_source.dart';
 import 'package:classroom_app/features/auth/data/models/user_credentials_model.dart';
@@ -46,12 +46,8 @@ class AuthRepositoryImpl implements AuthRepository {
       await localDataSource.cacheAuth(auth);
 
       return Right(auth);
-    } on UserCredentialsMismatchException {
-      return Left(UserCredentialsMismatchFailure());
-    } on UserNotFoundException {
-      return Left(UserNotFoundFailure());
-    } on ServerException {
-      return Left(ServerFailure());
+    } on Exception catch (exception) {
+      return Left(Utils.getFailure(exception));
     }
   }
 
@@ -59,10 +55,8 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<Either<Failure, Auth>> getAuth() async {
     try {
       return Right(await localDataSource.getAuth());
-    } on NotFoundException {
-      return Left(NotFoundFailure());
-    } on CacheException {
-      return Left(CacheFailure());
+    } on Exception catch (exception) {
+      return Left(Utils.getFailure(exception));
     }
   }
 }
