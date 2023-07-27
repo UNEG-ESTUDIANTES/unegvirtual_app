@@ -1,4 +1,4 @@
-package com.example.uneg_classroom
+package com.example.unegvirtual_app
 
 import io.flutter.embedding.android.FlutterActivity
 
