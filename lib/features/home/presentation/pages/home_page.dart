@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
-import 'package:classroom_app/features/home/presentation/provider/home_provider.dart';
-import 'package:classroom_app/features/home/presentation/widgets/course_card.dart';
+import 'package:unegvirtual_app/features/home/presentation/provider/home_provider.dart';
+import 'package:unegvirtual_app/features/home/presentation/widgets/course_card.dart';
 
 import '../../../../core/entities/courses.dart';
 import '../../../../core/providers/auth_provider.dart';

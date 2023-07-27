@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 
-import 'package:classroom_app/core/utils/utils.dart';
-import 'package:classroom_app/features/home/data/datasource/home_remote_datasource.dart';
-import 'package:classroom_app/features/home/domain/repositories/home_repository.dart';
+import 'package:unegvirtual_app/core/utils/utils.dart';
+import 'package:unegvirtual_app/features/home/data/datasource/home_remote_datasource.dart';
+import 'package:unegvirtual_app/features/home/domain/repositories/home_repository.dart';
 
 import '../../../../core/entities/access_token.dart';
 import '../../../../core/entities/courses.dart';

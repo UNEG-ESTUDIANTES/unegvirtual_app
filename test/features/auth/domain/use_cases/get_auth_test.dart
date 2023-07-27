@@ -3,12 +3,12 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import 'package:classroom_app/core/entities/access_token.dart';
-import 'package:classroom_app/core/entities/auth.dart';
-import 'package:classroom_app/core/entities/user.dart';
-import 'package:classroom_app/core/use_cases/use_case.dart';
-import 'package:classroom_app/features/auth/domain/repository/auth_repository.dart';
-import 'package:classroom_app/features/auth/domain/use_cases/get_auth.dart';
+import 'package:unegvirtual_app/core/entities/access_token.dart';
+import 'package:unegvirtual_app/core/entities/auth.dart';
+import 'package:unegvirtual_app/core/entities/user.dart';
+import 'package:unegvirtual_app/core/use_cases/use_case.dart';
+import 'package:unegvirtual_app/features/auth/domain/repository/auth_repository.dart';
+import 'package:unegvirtual_app/features/auth/domain/use_cases/get_auth.dart';
 
 @GenerateNiceMocks([MockSpec<AuthRepository>()])
 import 'get_auth_test.mocks.dart';

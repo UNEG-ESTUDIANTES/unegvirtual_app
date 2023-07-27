@@ -2,15 +2,15 @@ import 'package:flutter/widgets.dart';
 
 import 'package:go_router/go_router.dart';
 
-import 'package:classroom_app/core/pages/check_auth_page.dart';
-import 'package:classroom_app/core/widgets/scaffold_with_nested_navigation.dart';
-import 'package:classroom_app/features/auth/presentation/pages/forgot_page.dart';
-import 'package:classroom_app/features/auth/presentation/pages/login_page.dart';
-import 'package:classroom_app/features/home/presentation/pages/home_page.dart';
-import 'package:classroom_app/features/landing/presentation/pages/landing_page.dart';
-import 'package:classroom_app/features/user/presentation/pages/register_page.dart';
-import 'package:classroom_app/features/user/presentation/pages/user_page.dart';
-import 'package:classroom_app/features/user/presentation/pages/users_page.dart';
+import 'package:unegvirtual_app/core/pages/check_auth_page.dart';
+import 'package:unegvirtual_app/core/widgets/scaffold_with_nested_navigation.dart';
+import 'package:unegvirtual_app/features/auth/presentation/pages/forgot_page.dart';
+import 'package:unegvirtual_app/features/auth/presentation/pages/login_page.dart';
+import 'package:unegvirtual_app/features/home/presentation/pages/home_page.dart';
+import 'package:unegvirtual_app/features/landing/presentation/pages/landing_page.dart';
+import 'package:unegvirtual_app/features/user/presentation/pages/register_page.dart';
+import 'package:unegvirtual_app/features/user/presentation/pages/user_page.dart';
+import 'package:unegvirtual_app/features/user/presentation/pages/users_page.dart';
 
 // Private navigators.
 final _rootNavigatorKey = GlobalKey<NavigatorState>();

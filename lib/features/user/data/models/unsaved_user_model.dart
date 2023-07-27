@@ -1,4 +1,4 @@
-import 'package:classroom_app/features/user/domain/entities/unsaved_user.dart';
+import 'package:unegvirtual_app/features/user/domain/entities/unsaved_user.dart';
 
 class UnsavedUserModel extends UnsavedUser {
   const UnsavedUserModel({

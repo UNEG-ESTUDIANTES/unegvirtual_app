@@ -2,10 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:classroom_app/core/entities/course.dart';
-import 'package:classroom_app/core/entities/entities.dart';
-import 'package:classroom_app/core/models/course_model.dart';
-import 'package:classroom_app/core/models/courses_model.dart';
+import 'package:unegvirtual_app/core/entities/course.dart';
+import 'package:unegvirtual_app/core/entities/entities.dart';
+import 'package:unegvirtual_app/core/models/course_model.dart';
+import 'package:unegvirtual_app/core/models/courses_model.dart';
 
 import '../../fixtures/fixture_reader.dart';
 

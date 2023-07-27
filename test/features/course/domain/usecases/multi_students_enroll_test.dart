@@ -3,10 +3,10 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import 'package:classroom_app/core/entities/access_token.dart';
-import 'package:classroom_app/features/course/domain/entities/multi_enroll.dart';
-import 'package:classroom_app/features/course/domain/repositories/courses_repository.dart';
-import 'package:classroom_app/features/course/domain/usecases/multi_students_enroll.dart';
+import 'package:unegvirtual_app/core/entities/access_token.dart';
+import 'package:unegvirtual_app/features/course/domain/entities/multi_enroll.dart';
+import 'package:unegvirtual_app/features/course/domain/repositories/courses_repository.dart';
+import 'package:unegvirtual_app/features/course/domain/usecases/multi_students_enroll.dart';
 
 @GenerateNiceMocks([MockSpec<CoursesRepository>()])
 import 'multi_students_enroll_test.mocks.dart';

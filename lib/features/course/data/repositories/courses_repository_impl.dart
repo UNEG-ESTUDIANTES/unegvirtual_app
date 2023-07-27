@@ -1,15 +1,15 @@
 import 'package:dartz/dartz.dart';
 
-import 'package:classroom_app/core/entities/access_token.dart';
-import 'package:classroom_app/core/entities/course.dart';
-import 'package:classroom_app/core/utils/utils.dart';
-import 'package:classroom_app/features/course/data/models/inscription_model.dart';
-import 'package:classroom_app/features/course/data/models/multi_enroll_model.dart';
-import 'package:classroom_app/features/course/data/models/new_course_model.dart';
-import 'package:classroom_app/features/course/domain/entities/inscription.dart';
-import 'package:classroom_app/features/course/domain/entities/multi_enroll.dart';
-import 'package:classroom_app/features/course/domain/entities/new_course.dart';
-import 'package:classroom_app/features/course/domain/repositories/courses_repository.dart';
+import 'package:unegvirtual_app/core/entities/access_token.dart';
+import 'package:unegvirtual_app/core/entities/course.dart';
+import 'package:unegvirtual_app/core/utils/utils.dart';
+import 'package:unegvirtual_app/features/course/data/models/inscription_model.dart';
+import 'package:unegvirtual_app/features/course/data/models/multi_enroll_model.dart';
+import 'package:unegvirtual_app/features/course/data/models/new_course_model.dart';
+import 'package:unegvirtual_app/features/course/domain/entities/inscription.dart';
+import 'package:unegvirtual_app/features/course/domain/entities/multi_enroll.dart';
+import 'package:unegvirtual_app/features/course/domain/entities/new_course.dart';
+import 'package:unegvirtual_app/features/course/domain/repositories/courses_repository.dart';
 
 import '../../../../core/entities/courses.dart';
 import '../../../../core/error/failures.dart';

@@ -1,15 +1,15 @@
 import 'package:dartz/dartz.dart';
 
-import 'package:classroom_app/core/entities/auth.dart';
-import 'package:classroom_app/core/error/failures.dart';
-import 'package:classroom_app/core/models/auth_model.dart';
-import 'package:classroom_app/core/network/network_info.dart';
-import 'package:classroom_app/core/utils/utils.dart';
-import 'package:classroom_app/features/auth/data/data_sources/auth_local_data_source.dart';
-import 'package:classroom_app/features/auth/data/data_sources/auth_remote_data_source.dart';
-import 'package:classroom_app/features/auth/data/models/user_credentials_model.dart';
-import 'package:classroom_app/features/auth/domain/entities/user_credentials.dart';
-import 'package:classroom_app/features/auth/domain/repository/auth_repository.dart';
+import 'package:unegvirtual_app/core/entities/auth.dart';
+import 'package:unegvirtual_app/core/error/failures.dart';
+import 'package:unegvirtual_app/core/models/auth_model.dart';
+import 'package:unegvirtual_app/core/network/network_info.dart';
+import 'package:unegvirtual_app/core/utils/utils.dart';
+import 'package:unegvirtual_app/features/auth/data/data_sources/auth_local_data_source.dart';
+import 'package:unegvirtual_app/features/auth/data/data_sources/auth_remote_data_source.dart';
+import 'package:unegvirtual_app/features/auth/data/models/user_credentials_model.dart';
+import 'package:unegvirtual_app/features/auth/domain/entities/user_credentials.dart';
+import 'package:unegvirtual_app/features/auth/domain/repository/auth_repository.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   final AuthLocalDataSource localDataSource;

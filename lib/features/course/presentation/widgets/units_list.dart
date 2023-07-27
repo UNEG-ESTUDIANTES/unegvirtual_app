@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:classroom_app/core/entities/entities.dart';
-import 'package:classroom_app/features/course/presentation/widgets/unit_item.dart';
+import 'package:unegvirtual_app/core/entities/entities.dart';
+import 'package:unegvirtual_app/features/course/presentation/widgets/unit_item.dart';
 
 class UnitsList extends StatelessWidget {
   final List<Unit> units;

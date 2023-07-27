@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:classroom_app/core/error/exceptions.dart';
-import 'package:classroom_app/core/error/failures.dart';
-import 'package:classroom_app/core/utils/utils.dart';
+import 'package:unegvirtual_app/core/error/exceptions.dart';
+import 'package:unegvirtual_app/core/error/failures.dart';
+import 'package:unegvirtual_app/core/utils/utils.dart';
 
 class UnkwownFailure extends Failure {
   @override

@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:formz/formz.dart';
 import 'package:provider/provider.dart';
 
-import 'package:classroom_app/core/providers/page_state.dart';
-import 'package:classroom_app/core/services/notifications_service.dart';
-import 'package:classroom_app/features/course/domain/entities/new_course.dart';
-import 'package:classroom_app/features/course/domain/usecases/post_course.dart';
-import 'package:classroom_app/features/course/presentation/widgets/forms/description_input.dart';
+import 'package:unegvirtual_app/core/providers/page_state.dart';
+import 'package:unegvirtual_app/core/services/notifications_service.dart';
+import 'package:unegvirtual_app/features/course/domain/entities/new_course.dart';
+import 'package:unegvirtual_app/features/course/domain/usecases/post_course.dart';
+import 'package:unegvirtual_app/features/course/presentation/widgets/forms/description_input.dart';
 
 import '../../../../core/pages/main_page.dart';
 import '../../../../core/providers/auth_provider.dart';

@@ -1,4 +1,4 @@
-import 'package:classroom_app/core/entities/course.dart';
+import 'package:unegvirtual_app/core/entities/course.dart';
 
 class CourseModel extends Course {
   const CourseModel({

@@ -1,7 +1,7 @@
 import 'package:formz/formz.dart';
 
-import 'package:classroom_app/core/forms/email_input.dart';
-import 'package:classroom_app/core/forms/password_input.dart';
+import 'package:unegvirtual_app/core/forms/email_input.dart';
+import 'package:unegvirtual_app/core/forms/password_input.dart';
 
 class LoginFormState with FormzMixin {
   final EmailInput email;

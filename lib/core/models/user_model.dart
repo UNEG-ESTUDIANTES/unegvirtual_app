@@ -1,4 +1,4 @@
-import 'package:classroom_app/core/entities/user.dart';
+import 'package:unegvirtual_app/core/entities/user.dart';
 
 class UserModel extends User {
   const UserModel({

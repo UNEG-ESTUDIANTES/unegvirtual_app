@@ -2,12 +2,12 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
-import 'package:classroom_app/core/entities/access_token.dart';
-import 'package:classroom_app/core/env/env.dart';
-import 'package:classroom_app/core/error/exceptions.dart';
-import 'package:classroom_app/core/models/access_token_model.dart';
-import 'package:classroom_app/core/models/user_model.dart';
-import 'package:classroom_app/features/auth/data/models/user_credentials_model.dart';
+import 'package:unegvirtual_app/core/entities/access_token.dart';
+import 'package:unegvirtual_app/core/env/env.dart';
+import 'package:unegvirtual_app/core/error/exceptions.dart';
+import 'package:unegvirtual_app/core/models/access_token_model.dart';
+import 'package:unegvirtual_app/core/models/user_model.dart';
+import 'package:unegvirtual_app/features/auth/data/models/user_credentials_model.dart';
 
 abstract class AuthRemoteDataSource {
   /// Calls the `/v1/login` endpoint.

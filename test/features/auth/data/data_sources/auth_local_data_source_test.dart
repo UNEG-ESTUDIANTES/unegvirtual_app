@@ -2,12 +2,12 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import 'package:classroom_app/core/databases/db_provider.dart';
-import 'package:classroom_app/core/entities/access_token.dart';
-import 'package:classroom_app/core/entities/user.dart';
-import 'package:classroom_app/core/error/exceptions.dart';
-import 'package:classroom_app/core/models/auth_model.dart';
-import 'package:classroom_app/features/auth/data/data_sources/auth_local_data_source.dart';
+import 'package:unegvirtual_app/core/databases/db_provider.dart';
+import 'package:unegvirtual_app/core/entities/access_token.dart';
+import 'package:unegvirtual_app/core/entities/user.dart';
+import 'package:unegvirtual_app/core/error/exceptions.dart';
+import 'package:unegvirtual_app/core/models/auth_model.dart';
+import 'package:unegvirtual_app/features/auth/data/data_sources/auth_local_data_source.dart';
 
 @GenerateNiceMocks([MockSpec<DBProvider>()])
 import 'auth_local_data_source_test.mocks.dart';

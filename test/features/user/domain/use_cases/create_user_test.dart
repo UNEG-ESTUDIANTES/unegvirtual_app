@@ -2,10 +2,10 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import 'package:classroom_app/core/entities/access_token.dart';
-import 'package:classroom_app/features/user/domain/entities/unsaved_user.dart';
-import 'package:classroom_app/features/user/domain/repositories/user_repository.dart';
-import 'package:classroom_app/features/user/domain/use_cases/create_user.dart';
+import 'package:unegvirtual_app/core/entities/access_token.dart';
+import 'package:unegvirtual_app/features/user/domain/entities/unsaved_user.dart';
+import 'package:unegvirtual_app/features/user/domain/repositories/user_repository.dart';
+import 'package:unegvirtual_app/features/user/domain/use_cases/create_user.dart';
 
 @GenerateNiceMocks([MockSpec<UserRepository>()])
 import 'create_user_test.mocks.dart';

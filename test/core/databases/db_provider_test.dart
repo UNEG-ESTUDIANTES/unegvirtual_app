@@ -1,10 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
-import 'package:classroom_app/core/databases/db_provider.dart';
-import 'package:classroom_app/core/entities/access_token.dart';
-import 'package:classroom_app/core/entities/user.dart';
-import 'package:classroom_app/core/models/auth_model.dart';
+import 'package:unegvirtual_app/core/databases/db_provider.dart';
+import 'package:unegvirtual_app/core/entities/access_token.dart';
+import 'package:unegvirtual_app/core/entities/user.dart';
+import 'package:unegvirtual_app/core/models/auth_model.dart';
 
 /// Initialize sqflite for test.
 void sqfliteTestInit() {

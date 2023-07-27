@@ -1,9 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:formz/formz.dart';
 
-import 'package:classroom_app/features/course/presentation/widgets/forms/create_course_form_state.dart';
-import 'package:classroom_app/features/course/presentation/widgets/forms/description_input.dart';
-import 'package:classroom_app/features/course/presentation/widgets/forms/name_input.dart';
+import 'package:unegvirtual_app/features/course/presentation/widgets/forms/create_course_form_state.dart';
+import 'package:unegvirtual_app/features/course/presentation/widgets/forms/description_input.dart';
+import 'package:unegvirtual_app/features/course/presentation/widgets/forms/name_input.dart';
 
 void main() {
   test(

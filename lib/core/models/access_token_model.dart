@@ -1,4 +1,4 @@
-import 'package:classroom_app/core/entities/access_token.dart';
+import 'package:unegvirtual_app/core/entities/access_token.dart';
 
 class AccessTokenModel extends AccessToken {
   const AccessTokenModel(super.token);

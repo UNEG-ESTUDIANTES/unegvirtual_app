@@ -1,4 +1,4 @@
-import 'package:classroom_app/features/course/domain/entities/inscription.dart';
+import 'package:unegvirtual_app/features/course/domain/entities/inscription.dart';
 
 class InscriptionModel extends Inscription {
   const InscriptionModel({required super.courseId, required super.studentId});

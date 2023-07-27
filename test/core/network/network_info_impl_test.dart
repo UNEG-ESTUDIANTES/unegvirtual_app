@@ -3,7 +3,7 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import 'package:classroom_app/core/network/network_info.dart';
+import 'package:unegvirtual_app/core/network/network_info.dart';
 
 @GenerateNiceMocks([MockSpec<InternetConnectionChecker>()])
 import 'network_info_impl_test.mocks.dart';

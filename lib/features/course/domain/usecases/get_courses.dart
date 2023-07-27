@@ -1,4 +1,4 @@
-import 'package:classroom_app/features/course/domain/repositories/courses_repository.dart';
+import 'package:unegvirtual_app/features/course/domain/repositories/courses_repository.dart';
 import 'package:dartz/dartz.dart';
 
 import '../../../../core/entities/courses.dart';

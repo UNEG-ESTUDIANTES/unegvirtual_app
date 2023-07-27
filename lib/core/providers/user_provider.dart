@@ -1,9 +1,9 @@
-import 'package:classroom_app/core/entities/access_token.dart';
-import 'package:classroom_app/core/providers/base_provider.dart';
-import 'package:classroom_app/core/providers/page_state.dart';
-import 'package:classroom_app/core/utils/utils.dart';
-import 'package:classroom_app/features/user/domain/entities/unsaved_user.dart';
-import 'package:classroom_app/features/user/domain/use_cases/create_user.dart';
+import 'package:unegvirtual_app/core/entities/access_token.dart';
+import 'package:unegvirtual_app/core/providers/base_provider.dart';
+import 'package:unegvirtual_app/core/providers/page_state.dart';
+import 'package:unegvirtual_app/core/utils/utils.dart';
+import 'package:unegvirtual_app/features/user/domain/entities/unsaved_user.dart';
+import 'package:unegvirtual_app/features/user/domain/use_cases/create_user.dart';
 
 class UserProvider extends BaseProvider {
   final CreateUser _createUser;

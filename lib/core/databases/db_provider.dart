@@ -3,7 +3,7 @@ import 'dart:convert';
 
 import 'package:sqflite/sqflite.dart';
 
-import 'package:classroom_app/core/models/auth_model.dart';
+import 'package:unegvirtual_app/core/models/auth_model.dart';
 
 class DBProvider {
   /// The [path] to store this database.

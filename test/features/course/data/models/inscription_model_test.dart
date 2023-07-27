@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:classroom_app/features/course/data/models/inscription_model.dart';
-import 'package:classroom_app/features/course/domain/entities/inscription.dart';
+import 'package:unegvirtual_app/features/course/data/models/inscription_model.dart';
+import 'package:unegvirtual_app/features/course/domain/entities/inscription.dart';
 
 import '../../../../fixtures/fixture_reader.dart';
 

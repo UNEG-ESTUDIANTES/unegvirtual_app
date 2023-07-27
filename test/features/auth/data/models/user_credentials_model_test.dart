@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:classroom_app/features/auth/data/models/user_credentials_model.dart';
-import 'package:classroom_app/features/auth/domain/entities/user_credentials.dart';
+import 'package:unegvirtual_app/features/auth/data/models/user_credentials_model.dart';
+import 'package:unegvirtual_app/features/auth/domain/entities/user_credentials.dart';
 
 void main() {
   const tUserCredentialsModel = UserCredentialsModel(

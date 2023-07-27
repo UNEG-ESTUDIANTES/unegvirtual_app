@@ -1,4 +1,4 @@
-import 'package:classroom_app/features/course/domain/entities/multi_enroll.dart';
+import 'package:unegvirtual_app/features/course/domain/entities/multi_enroll.dart';
 
 class MultiEnrollModel extends MultiEnroll {
   const MultiEnrollModel({required super.courseId, required super.studentIds});

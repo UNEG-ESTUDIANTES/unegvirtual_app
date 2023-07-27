@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:go_router/go_router.dart';
 
-import 'package:classroom_app/features/user/presentation/pages/register_page.dart';
+import 'package:unegvirtual_app/features/user/presentation/pages/register_page.dart';
 
 class UsersPage extends StatelessWidget {
   /// The page route name.

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
 
-import 'package:classroom_app/core/providers/auth_provider.dart';
-import 'package:classroom_app/features/user/presentation/widgets/basic_info.dart';
-import 'package:classroom_app/features/user/presentation/widgets/user_data.dart';
+import 'package:unegvirtual_app/core/providers/auth_provider.dart';
+import 'package:unegvirtual_app/features/user/presentation/widgets/basic_info.dart';
+import 'package:unegvirtual_app/features/user/presentation/widgets/user_data.dart';
 
 class UserPage extends StatelessWidget {
   /// The page route name.

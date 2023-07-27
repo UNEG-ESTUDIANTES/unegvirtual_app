@@ -1,4 +1,4 @@
-import 'package:classroom_app/features/course/domain/entities/new_course.dart';
+import 'package:unegvirtual_app/features/course/domain/entities/new_course.dart';
 
 class NewCourseModel extends NewCourse {
   const NewCourseModel({
