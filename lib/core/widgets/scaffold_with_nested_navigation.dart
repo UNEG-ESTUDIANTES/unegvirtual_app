@@ -28,7 +28,7 @@ class ScaffoldWithNestedNavigation extends StatelessWidget {
     return ResponsiveBuilder(
       builder: (context, sizingInformation) {
         if (sizingInformation.isDesktop || sizingInformation.isTablet) {
-          ScaffoldWithNavigationRail(
+          return ScaffoldWithNavigationRail(
             body: navigationShell,
             selectedIndex: navigationShell.currentIndex,
             onDestinationSelected: _goBranch,

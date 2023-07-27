@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 
 import 'package:formz/formz.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import 'package:classroom_app/core/forms/email_input.dart';
 import 'package:classroom_app/core/forms/password_input.dart';
-import 'package:classroom_app/core/pages/main_page.dart';
 import 'package:classroom_app/core/providers/auth_provider.dart';
 import 'package:classroom_app/core/providers/page_state.dart';
 import 'package:classroom_app/core/services/notifications_service.dart';
 import 'package:classroom_app/features/auth/domain/entities/user_credentials.dart';
 import 'package:classroom_app/features/auth/presentation/pages/forgot_page.dart';
 import 'package:classroom_app/features/auth/presentation/widgets/forms/login_form_state.dart';
+import 'package:classroom_app/features/home/presentation/pages/home_page.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -46,15 +47,6 @@ class _LoginFormState extends State<LoginForm> {
     _passwordController.clear();
 
     setState(() => _state = LoginFormState());
-  }
-
-  /// Removes previous pages and go to main page.
-  void _navigateToMainPage() {
-    Navigator.pushNamedAndRemoveUntil(
-      context,
-      MainPage.routeName,
-      (route) => false,
-    );
   }
 
   Future<void> _onSubmit() async {
@@ -101,7 +93,8 @@ class _LoginFormState extends State<LoginForm> {
     // Navigates to main page.
     if (_state.status.isSuccess) {
       _resetForm();
-      _navigateToMainPage();
+
+      context.go(HomePage.routeName);
     }
   }
 

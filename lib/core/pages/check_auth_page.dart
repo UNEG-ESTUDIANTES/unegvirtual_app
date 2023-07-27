@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-import 'package:classroom_app/core/pages/main_page.dart';
 import 'package:classroom_app/core/providers/auth_provider.dart';
 import 'package:classroom_app/core/providers/page_state.dart';
+import 'package:classroom_app/features/home/presentation/pages/home_page.dart';
 import 'package:classroom_app/features/landing/presentation/pages/landing_page.dart';
 
 class CheckAuthPage extends StatelessWidget {
@@ -24,7 +24,7 @@ class CheckAuthPage extends StatelessWidget {
     if (authProviderState is Error) {
       WidgetsBinding.instance.addPostFrameCallback(
         (_) {
-          context.pushReplacement(LandingPage.routeName);
+          context.go(LandingPage.routeName);
         },
       );
     }
@@ -32,7 +32,7 @@ class CheckAuthPage extends StatelessWidget {
     if (authProviderState is Loaded) {
       WidgetsBinding.instance.addPostFrameCallback(
         (_) {
-          context.pushReplacement(MainPage.routeName);
+          context.go(HomePage.routeName);
         },
       );
     }
