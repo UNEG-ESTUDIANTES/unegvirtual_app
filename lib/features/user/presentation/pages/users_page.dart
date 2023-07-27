@@ -28,7 +28,7 @@ class UsersPage extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => context.push(RegisterPage.routeName),
+        onPressed: () => context.push('$routeName/${RegisterPage.routeName}'),
         child: const Icon(Icons.add),
       ),
     );
