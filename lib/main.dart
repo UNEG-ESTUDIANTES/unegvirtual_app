@@ -53,7 +53,7 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp.router(
-        title: 'UNEG Classroom',
+        title: 'UNEG Virtual',
         scaffoldMessengerKey: NotificationsService.messengerKey,
         routerConfig: router,
         debugShowCheckedModeBanner: false,
