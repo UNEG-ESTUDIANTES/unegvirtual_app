@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:classroom_app/core/entities/course.dart';
+import 'package:unegvirtual_app/core/entities/course.dart';
 
 class CourseCard extends StatelessWidget {
   /// The [course] to display.

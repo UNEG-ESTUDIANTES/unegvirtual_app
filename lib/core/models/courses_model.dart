@@ -1,5 +1,5 @@
-import 'package:classroom_app/core/entities/courses.dart';
-import 'package:classroom_app/core/models/course_model.dart';
+import 'package:unegvirtual_app/core/entities/courses.dart';
+import 'package:unegvirtual_app/core/models/course_model.dart';
 
 class CoursesModel extends Courses {
   const CoursesModel({required super.courses});

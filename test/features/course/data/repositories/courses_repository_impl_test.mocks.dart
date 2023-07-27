@@ -5,17 +5,17 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i6;
 
-import 'package:classroom_app/core/entities/access_token.dart' as _i8;
-import 'package:classroom_app/core/models/course_model.dart' as _i3;
-import 'package:classroom_app/core/models/courses_model.dart' as _i2;
-import 'package:classroom_app/core/network/network_info.dart' as _i10;
-import 'package:classroom_app/features/course/data/datasources/courses_remote_datasource.dart'
+import 'package:unegvirtual_app/core/entities/access_token.dart' as _i8;
+import 'package:unegvirtual_app/core/models/course_model.dart' as _i3;
+import 'package:unegvirtual_app/core/models/courses_model.dart' as _i2;
+import 'package:unegvirtual_app/core/network/network_info.dart' as _i10;
+import 'package:unegvirtual_app/features/course/data/datasources/courses_remote_datasource.dart'
     as _i5;
-import 'package:classroom_app/features/course/data/models/inscription_model.dart'
+import 'package:unegvirtual_app/features/course/data/models/inscription_model.dart'
     as _i4;
-import 'package:classroom_app/features/course/data/models/multi_enroll_model.dart'
+import 'package:unegvirtual_app/features/course/data/models/multi_enroll_model.dart'
     as _i9;
-import 'package:classroom_app/features/course/data/models/new_course_model.dart'
+import 'package:unegvirtual_app/features/course/data/models/new_course_model.dart'
     as _i7;
 import 'package:mockito/mockito.dart' as _i1;
 

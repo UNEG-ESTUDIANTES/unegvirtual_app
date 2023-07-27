@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:provider/provider.dart';
 
-import 'package:classroom_app/core/providers/auth_provider.dart';
-import 'package:classroom_app/core/providers/user_provider.dart';
-import 'package:classroom_app/core/routes/router.dart';
-import 'package:classroom_app/core/services/notifications_service.dart';
-import 'package:classroom_app/features/course/presentation/providers/course_provider.dart';
-import 'package:classroom_app/features/course/presentation/providers/students_enrollment_provider.dart';
-import 'package:classroom_app/features/home/presentation/provider/home_provider.dart';
-import 'package:classroom_app/features/landing/presentation/providers/landing_provider.dart';
-import 'package:classroom_app/injection_container.dart' as di;
+import 'package:unegvirtual_app/core/providers/auth_provider.dart';
+import 'package:unegvirtual_app/core/providers/user_provider.dart';
+import 'package:unegvirtual_app/core/routes/router.dart';
+import 'package:unegvirtual_app/core/services/notifications_service.dart';
+import 'package:unegvirtual_app/features/course/presentation/providers/course_provider.dart';
+import 'package:unegvirtual_app/features/course/presentation/providers/students_enrollment_provider.dart';
+import 'package:unegvirtual_app/features/home/presentation/provider/home_provider.dart';
+import 'package:unegvirtual_app/features/landing/presentation/providers/landing_provider.dart';
+import 'package:unegvirtual_app/injection_container.dart' as di;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

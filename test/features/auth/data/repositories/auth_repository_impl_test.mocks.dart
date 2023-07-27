@@ -5,16 +5,16 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i6;
 
-import 'package:classroom_app/core/entities/access_token.dart' as _i9;
-import 'package:classroom_app/core/models/access_token_model.dart' as _i3;
-import 'package:classroom_app/core/models/auth_model.dart' as _i2;
-import 'package:classroom_app/core/models/user_model.dart' as _i4;
-import 'package:classroom_app/core/network/network_info.dart' as _i10;
-import 'package:classroom_app/features/auth/data/data_sources/auth_local_data_source.dart'
+import 'package:unegvirtual_app/core/entities/access_token.dart' as _i9;
+import 'package:unegvirtual_app/core/models/access_token_model.dart' as _i3;
+import 'package:unegvirtual_app/core/models/auth_model.dart' as _i2;
+import 'package:unegvirtual_app/core/models/user_model.dart' as _i4;
+import 'package:unegvirtual_app/core/network/network_info.dart' as _i10;
+import 'package:unegvirtual_app/features/auth/data/data_sources/auth_local_data_source.dart'
     as _i5;
-import 'package:classroom_app/features/auth/data/data_sources/auth_remote_data_source.dart'
+import 'package:unegvirtual_app/features/auth/data/data_sources/auth_remote_data_source.dart'
     as _i7;
-import 'package:classroom_app/features/auth/data/models/user_credentials_model.dart'
+import 'package:unegvirtual_app/features/auth/data/models/user_credentials_model.dart'
     as _i8;
 import 'package:mockito/mockito.dart' as _i1;
 

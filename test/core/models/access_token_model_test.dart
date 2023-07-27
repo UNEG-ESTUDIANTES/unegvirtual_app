@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:classroom_app/core/entities/access_token.dart';
-import 'package:classroom_app/core/models/access_token_model.dart';
+import 'package:unegvirtual_app/core/entities/access_token.dart';
+import 'package:unegvirtual_app/core/models/access_token_model.dart';
 
 import '../../fixtures/fixture_reader.dart';
 

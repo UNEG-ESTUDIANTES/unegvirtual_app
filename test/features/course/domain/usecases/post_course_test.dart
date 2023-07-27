@@ -3,11 +3,11 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import 'package:classroom_app/core/entities/access_token.dart';
-import 'package:classroom_app/core/entities/course.dart';
-import 'package:classroom_app/features/course/domain/entities/new_course.dart';
-import 'package:classroom_app/features/course/domain/repositories/courses_repository.dart';
-import 'package:classroom_app/features/course/domain/usecases/post_course.dart';
+import 'package:unegvirtual_app/core/entities/access_token.dart';
+import 'package:unegvirtual_app/core/entities/course.dart';
+import 'package:unegvirtual_app/features/course/domain/entities/new_course.dart';
+import 'package:unegvirtual_app/features/course/domain/repositories/courses_repository.dart';
+import 'package:unegvirtual_app/features/course/domain/usecases/post_course.dart';
 
 @GenerateNiceMocks([MockSpec<CoursesRepository>()])
 import 'post_course_test.mocks.dart';

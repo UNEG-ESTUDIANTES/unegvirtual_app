@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:classroom_app/features/course/data/models/multi_enroll_model.dart';
-import 'package:classroom_app/features/course/domain/entities/multi_enroll.dart';
+import 'package:unegvirtual_app/features/course/data/models/multi_enroll_model.dart';
+import 'package:unegvirtual_app/features/course/domain/entities/multi_enroll.dart';
 
 void main() {
   const tMultiEnrollModel = MultiEnrollModel(courseId: 'test', studentIds: []);

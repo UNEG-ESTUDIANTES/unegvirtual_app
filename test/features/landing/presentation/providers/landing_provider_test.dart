@@ -3,14 +3,14 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import 'package:classroom_app/core/entities/course.dart';
-import 'package:classroom_app/core/entities/courses.dart';
-import 'package:classroom_app/core/error/failures.dart';
-import 'package:classroom_app/core/providers/page_state.dart';
-import 'package:classroom_app/core/use_cases/use_case.dart';
-import 'package:classroom_app/core/utils/utils.dart';
-import 'package:classroom_app/features/landing/domain/usecases/get_courses.dart';
-import 'package:classroom_app/features/landing/presentation/providers/landing_provider.dart';
+import 'package:unegvirtual_app/core/entities/course.dart';
+import 'package:unegvirtual_app/core/entities/courses.dart';
+import 'package:unegvirtual_app/core/error/failures.dart';
+import 'package:unegvirtual_app/core/providers/page_state.dart';
+import 'package:unegvirtual_app/core/use_cases/use_case.dart';
+import 'package:unegvirtual_app/core/utils/utils.dart';
+import 'package:unegvirtual_app/features/landing/domain/usecases/get_courses.dart';
+import 'package:unegvirtual_app/features/landing/presentation/providers/landing_provider.dart';
 
 @GenerateNiceMocks([MockSpec<GetCourses>(), MockSpec<Utils>()])
 import 'landing_provider_test.mocks.dart';

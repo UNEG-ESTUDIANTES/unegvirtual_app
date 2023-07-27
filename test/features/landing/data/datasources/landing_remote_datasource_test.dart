@@ -2,10 +2,10 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:mockito/mockito.dart';
 
-import 'package:classroom_app/core/env/env.dart';
-import 'package:classroom_app/core/error/exceptions.dart';
-import 'package:classroom_app/core/models/courses_model.dart';
-import 'package:classroom_app/features/landing/data/datasources/landing_remote_datasource_impl.dart';
+import 'package:unegvirtual_app/core/env/env.dart';
+import 'package:unegvirtual_app/core/error/exceptions.dart';
+import 'package:unegvirtual_app/core/models/courses_model.dart';
+import 'package:unegvirtual_app/features/landing/data/datasources/landing_remote_datasource_impl.dart';
 
 import '../../../../fixtures/fixture_reader.dart';
 import '../../../../utils/utils.dart';

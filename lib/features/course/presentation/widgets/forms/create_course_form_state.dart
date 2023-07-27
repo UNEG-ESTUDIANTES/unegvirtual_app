@@ -1,7 +1,7 @@
 import 'package:formz/formz.dart';
 
-import 'package:classroom_app/features/course/presentation/widgets/forms/description_input.dart';
-import 'package:classroom_app/features/course/presentation/widgets/forms/name_input.dart';
+import 'package:unegvirtual_app/features/course/presentation/widgets/forms/description_input.dart';
+import 'package:unegvirtual_app/features/course/presentation/widgets/forms/name_input.dart';
 
 class CreateCourseFormState with FormzMixin {
   final NameInput name;

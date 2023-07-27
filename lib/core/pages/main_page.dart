@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 
 import 'package:responsive_builder/responsive_builder.dart';
 
-import 'package:classroom_app/core/widgets/bottom_nav_bar.dart';
-import 'package:classroom_app/core/widgets/main_app_bar.dart';
-import 'package:classroom_app/core/widgets/nav_bar.dart';
-import 'package:classroom_app/features/home/presentation/pages/home_page.dart';
-import 'package:classroom_app/features/user/presentation/pages/register_page.dart';
-import 'package:classroom_app/features/user/presentation/pages/user_page.dart';
-import 'package:classroom_app/features/user/presentation/pages/users_page.dart';
+import 'package:unegvirtual_app/core/widgets/bottom_nav_bar.dart';
+import 'package:unegvirtual_app/core/widgets/main_app_bar.dart';
+import 'package:unegvirtual_app/core/widgets/nav_bar.dart';
+import 'package:unegvirtual_app/features/home/presentation/pages/home_page.dart';
+import 'package:unegvirtual_app/features/user/presentation/pages/register_page.dart';
+import 'package:unegvirtual_app/features/user/presentation/pages/user_page.dart';
+import 'package:unegvirtual_app/features/user/presentation/pages/users_page.dart';
 
 class NavDestination {
   final Widget child;

@@ -1,6 +1,6 @@
-import 'package:classroom_app/core/entities/auth.dart';
-import 'package:classroom_app/core/models/access_token_model.dart';
-import 'package:classroom_app/core/models/user_model.dart';
+import 'package:unegvirtual_app/core/entities/auth.dart';
+import 'package:unegvirtual_app/core/models/access_token_model.dart';
+import 'package:unegvirtual_app/core/models/user_model.dart';
 
 class AuthModel extends Auth {
   const AuthModel({required super.accessToken, required super.user});

@@ -5,8 +5,8 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i4;
 
-import 'package:classroom_app/core/databases/db_provider.dart' as _i3;
-import 'package:classroom_app/core/models/auth_model.dart' as _i5;
+import 'package:unegvirtual_app/core/databases/db_provider.dart' as _i3;
+import 'package:unegvirtual_app/core/models/auth_model.dart' as _i5;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:sqflite/sqflite.dart' as _i2;
 

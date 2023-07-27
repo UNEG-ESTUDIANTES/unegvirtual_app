@@ -4,13 +4,13 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:mockito/mockito.dart';
 
-import 'package:classroom_app/core/entities/access_token.dart';
-import 'package:classroom_app/core/env/env.dart';
-import 'package:classroom_app/core/error/exceptions.dart';
-import 'package:classroom_app/core/models/access_token_model.dart';
-import 'package:classroom_app/core/models/user_model.dart';
-import 'package:classroom_app/features/auth/data/data_sources/auth_remote_data_source.dart';
-import 'package:classroom_app/features/auth/data/models/user_credentials_model.dart';
+import 'package:unegvirtual_app/core/entities/access_token.dart';
+import 'package:unegvirtual_app/core/env/env.dart';
+import 'package:unegvirtual_app/core/error/exceptions.dart';
+import 'package:unegvirtual_app/core/models/access_token_model.dart';
+import 'package:unegvirtual_app/core/models/user_model.dart';
+import 'package:unegvirtual_app/features/auth/data/data_sources/auth_remote_data_source.dart';
+import 'package:unegvirtual_app/features/auth/data/models/user_credentials_model.dart';
 
 import '../../../../fixtures/fixture_reader.dart';
 import '../../../../utils/utils.dart';

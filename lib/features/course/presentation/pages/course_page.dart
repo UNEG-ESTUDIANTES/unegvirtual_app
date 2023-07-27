@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 
 import 'package:responsive_builder/responsive_builder.dart';
 
-import 'package:classroom_app/core/entities/course.dart';
-import 'package:classroom_app/core/entities/entities.dart';
-import 'package:classroom_app/core/widgets/section.dart';
-import 'package:classroom_app/features/course/presentation/widgets/course_section.dart';
-import 'package:classroom_app/features/course/presentation/widgets/teacher_card.dart';
-import 'package:classroom_app/features/course/presentation/widgets/units_list.dart';
+import 'package:unegvirtual_app/core/entities/course.dart';
+import 'package:unegvirtual_app/core/entities/entities.dart';
+import 'package:unegvirtual_app/core/widgets/section.dart';
+import 'package:unegvirtual_app/features/course/presentation/widgets/course_section.dart';
+import 'package:unegvirtual_app/features/course/presentation/widgets/teacher_card.dart';
+import 'package:unegvirtual_app/features/course/presentation/widgets/units_list.dart';
 
 import '../../../../core/widgets/main_app_bar.dart';
 

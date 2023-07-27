@@ -2,9 +2,9 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
-import 'package:classroom_app/core/models/courses_model.dart';
-import 'package:classroom_app/core/entities/access_token.dart';
-import 'package:classroom_app/core/error/exceptions.dart';
+import 'package:unegvirtual_app/core/models/courses_model.dart';
+import 'package:unegvirtual_app/core/entities/access_token.dart';
+import 'package:unegvirtual_app/core/error/exceptions.dart';
 import '../../../../core/env/env.dart';
 
 abstract class HomeRemoteDataSource {

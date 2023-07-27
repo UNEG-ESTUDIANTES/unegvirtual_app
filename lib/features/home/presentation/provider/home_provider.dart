@@ -1,6 +1,6 @@
-import 'package:classroom_app/core/entities/access_token.dart';
-import 'package:classroom_app/core/entities/courses.dart';
-import 'package:classroom_app/features/home/domain/usecases/enroled_courses.dart';
+import 'package:unegvirtual_app/core/entities/access_token.dart';
+import 'package:unegvirtual_app/core/entities/courses.dart';
+import 'package:unegvirtual_app/features/home/domain/usecases/enroled_courses.dart';
 
 import '../../../../core/providers/base_provider.dart';
 import '../../../../core/providers/page_state.dart';

@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
-import 'package:classroom_app/core/widgets/scaffold_with_navigation_bar.dart';
-import 'package:classroom_app/core/widgets/scaffold_with_navigation_rail.dart';
+import 'package:unegvirtual_app/core/widgets/scaffold_with_navigation_bar.dart';
+import 'package:unegvirtual_app/core/widgets/scaffold_with_navigation_rail.dart';
 
 class ScaffoldWithNestedNavigation extends StatelessWidget {
   final StatefulNavigationShell navigationShell;

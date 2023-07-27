@@ -2,10 +2,10 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
-import 'package:classroom_app/core/entities/access_token.dart';
-import 'package:classroom_app/core/env/env.dart';
-import 'package:classroom_app/core/error/exceptions.dart';
-import 'package:classroom_app/features/user/data/models/unsaved_user_model.dart';
+import 'package:unegvirtual_app/core/entities/access_token.dart';
+import 'package:unegvirtual_app/core/env/env.dart';
+import 'package:unegvirtual_app/core/error/exceptions.dart';
+import 'package:unegvirtual_app/features/user/data/models/unsaved_user_model.dart';
 
 abstract class UserRemoteDataSource {
   /// Calls the `/v1/signupUser` endpoint.

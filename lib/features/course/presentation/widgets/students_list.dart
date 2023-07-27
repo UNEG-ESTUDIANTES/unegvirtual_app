@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
 
-import 'package:classroom_app/core/entities/course.dart';
-import 'package:classroom_app/features/course/presentation/providers/students_enrollment_provider.dart';
-import 'package:classroom_app/features/course/presentation/widgets/selected_students_enroll_widget.dart';
+import 'package:unegvirtual_app/core/entities/course.dart';
+import 'package:unegvirtual_app/features/course/presentation/providers/students_enrollment_provider.dart';
+import 'package:unegvirtual_app/features/course/presentation/widgets/selected_students_enroll_widget.dart';
 
 import '../../../../core/entities/user.dart';
 import '../../../../core/providers/page_state.dart';

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:responsive_builder/responsive_builder.dart';
 
-import 'package:classroom_app/core/entities/entities.dart';
+import 'package:unegvirtual_app/core/entities/entities.dart';
 
 class UnitItem extends StatelessWidget {
   final Unit unit;

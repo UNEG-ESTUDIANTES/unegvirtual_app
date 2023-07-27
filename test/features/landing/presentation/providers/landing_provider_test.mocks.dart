@@ -5,13 +5,13 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i5;
 
-import 'package:classroom_app/core/entities/courses.dart' as _i7;
-import 'package:classroom_app/core/error/failures.dart' as _i6;
-import 'package:classroom_app/core/use_cases/use_case.dart' as _i8;
-import 'package:classroom_app/core/utils/utils.dart' as _i9;
-import 'package:classroom_app/features/landing/domain/repositories/landing_repository.dart'
+import 'package:unegvirtual_app/core/entities/courses.dart' as _i7;
+import 'package:unegvirtual_app/core/error/failures.dart' as _i6;
+import 'package:unegvirtual_app/core/use_cases/use_case.dart' as _i8;
+import 'package:unegvirtual_app/core/utils/utils.dart' as _i9;
+import 'package:unegvirtual_app/features/landing/domain/repositories/landing_repository.dart'
     as _i2;
-import 'package:classroom_app/features/landing/domain/usecases/get_courses.dart'
+import 'package:unegvirtual_app/features/landing/domain/usecases/get_courses.dart'
     as _i4;
 import 'package:dartz/dartz.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;

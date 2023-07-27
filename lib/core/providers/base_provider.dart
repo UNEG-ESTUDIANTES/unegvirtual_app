@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:rxdart/streams.dart';
 import 'package:rxdart/subjects.dart';
 
-import 'package:classroom_app/core/providers/page_state.dart';
+import 'package:unegvirtual_app/core/providers/page_state.dart';
 
 abstract class BaseProvider extends ChangeNotifier {
   late StreamSubscription<PageState> _subscription;

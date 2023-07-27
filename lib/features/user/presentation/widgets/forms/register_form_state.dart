@@ -1,8 +1,8 @@
 import 'package:formz/formz.dart';
 
-import 'package:classroom_app/core/forms/email_input.dart';
-import 'package:classroom_app/features/user/presentation/widgets/forms/first_name_input.dart';
-import 'package:classroom_app/features/user/presentation/widgets/forms/last_name_input.dart';
+import 'package:unegvirtual_app/core/forms/email_input.dart';
+import 'package:unegvirtual_app/features/user/presentation/widgets/forms/first_name_input.dart';
+import 'package:unegvirtual_app/features/user/presentation/widgets/forms/last_name_input.dart';
 
 import '../../../../../core/forms/password_input.dart';
 

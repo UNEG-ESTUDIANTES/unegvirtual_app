@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:classroom_app/features/auth/presentation/widgets/login_form.dart';
+import 'package:unegvirtual_app/features/auth/presentation/widgets/login_form.dart';
 
 class LogInPage extends StatelessWidget {
   /// The page route name.

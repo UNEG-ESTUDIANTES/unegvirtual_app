@@ -5,12 +5,12 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import 'package:classroom_app/core/error/exceptions.dart';
-import 'package:classroom_app/core/error/failures.dart';
-import 'package:classroom_app/core/models/courses_model.dart';
-import 'package:classroom_app/core/network/network_info.dart';
-import 'package:classroom_app/features/landing/data/datasources/landing_remote_datasource_impl.dart';
-import 'package:classroom_app/features/landing/data/repositories/landing_repository_impl.dart';
+import 'package:unegvirtual_app/core/error/exceptions.dart';
+import 'package:unegvirtual_app/core/error/failures.dart';
+import 'package:unegvirtual_app/core/models/courses_model.dart';
+import 'package:unegvirtual_app/core/network/network_info.dart';
+import 'package:unegvirtual_app/features/landing/data/datasources/landing_remote_datasource_impl.dart';
+import 'package:unegvirtual_app/features/landing/data/repositories/landing_repository_impl.dart';
 
 import '../../../../fixtures/fixture_reader.dart';
 

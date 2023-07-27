@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 
-import 'package:classroom_app/core/entities/access_token.dart';
+import 'package:unegvirtual_app/core/entities/access_token.dart';
 
 import '../../../../core/error/failures.dart';
 import '../../../../core/use_cases/use_case.dart';

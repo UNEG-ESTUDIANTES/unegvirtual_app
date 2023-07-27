@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:go_router/go_router.dart';
 
-import 'package:classroom_app/features/auth/presentation/pages/login_page.dart';
-import 'package:classroom_app/features/landing/presentation/widgets/landing_body.dart';
+import 'package:unegvirtual_app/features/auth/presentation/pages/login_page.dart';
+import 'package:unegvirtual_app/features/landing/presentation/widgets/landing_body.dart';
 
 class LandingPage extends StatefulWidget {
   /// The page route name.

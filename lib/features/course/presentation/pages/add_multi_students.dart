@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
 
-import 'package:classroom_app/core/entities/user.dart';
-import 'package:classroom_app/core/providers/auth_provider.dart';
-import 'package:classroom_app/core/providers/page_state.dart';
-import 'package:classroom_app/core/services/notifications_service.dart';
-import 'package:classroom_app/features/course/domain/entities/multi_enroll.dart';
-import 'package:classroom_app/features/course/domain/usecases/multi_students_enroll.dart';
-import 'package:classroom_app/features/course/presentation/providers/course_provider.dart';
-import 'package:classroom_app/features/course/presentation/providers/students_enrollment_provider.dart';
+import 'package:unegvirtual_app/core/entities/user.dart';
+import 'package:unegvirtual_app/core/providers/auth_provider.dart';
+import 'package:unegvirtual_app/core/providers/page_state.dart';
+import 'package:unegvirtual_app/core/services/notifications_service.dart';
+import 'package:unegvirtual_app/features/course/domain/entities/multi_enroll.dart';
+import 'package:unegvirtual_app/features/course/domain/usecases/multi_students_enroll.dart';
+import 'package:unegvirtual_app/features/course/presentation/providers/course_provider.dart';
+import 'package:unegvirtual_app/features/course/presentation/providers/students_enrollment_provider.dart';
 
 import '../../../../core/entities/course.dart';
 import '../widgets/students_list.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:classroom_app/core/entities/user.dart';
-import 'package:classroom_app/features/user/presentation/widgets/user_data_item.dart';
+import 'package:unegvirtual_app/core/entities/user.dart';
+import 'package:unegvirtual_app/features/user/presentation/widgets/user_data_item.dart';
 
 class UserData extends StatelessWidget {
   final User user;

@@ -4,15 +4,15 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:mockito/mockito.dart';
 
-import 'package:classroom_app/core/entities/access_token.dart';
-import 'package:classroom_app/core/env/env.dart';
-import 'package:classroom_app/core/error/exceptions.dart';
-import 'package:classroom_app/core/models/course_model.dart';
-import 'package:classroom_app/core/models/courses_model.dart';
-import 'package:classroom_app/features/course/data/datasources/courses_remote_datasource.dart';
-import 'package:classroom_app/features/course/data/models/inscription_model.dart';
-import 'package:classroom_app/features/course/data/models/multi_enroll_model.dart';
-import 'package:classroom_app/features/course/data/models/new_course_model.dart';
+import 'package:unegvirtual_app/core/entities/access_token.dart';
+import 'package:unegvirtual_app/core/env/env.dart';
+import 'package:unegvirtual_app/core/error/exceptions.dart';
+import 'package:unegvirtual_app/core/models/course_model.dart';
+import 'package:unegvirtual_app/core/models/courses_model.dart';
+import 'package:unegvirtual_app/features/course/data/datasources/courses_remote_datasource.dart';
+import 'package:unegvirtual_app/features/course/data/models/inscription_model.dart';
+import 'package:unegvirtual_app/features/course/data/models/multi_enroll_model.dart';
+import 'package:unegvirtual_app/features/course/data/models/new_course_model.dart';
 
 import '../../../../fixtures/fixture_reader.dart';
 import '../../../../utils/utils.dart';

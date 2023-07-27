@@ -1,5 +1,5 @@
-import 'package:classroom_app/core/error/exceptions.dart';
-import 'package:classroom_app/core/error/failures.dart';
+import 'package:unegvirtual_app/core/error/exceptions.dart';
+import 'package:unegvirtual_app/core/error/failures.dart';
 
 // Error messages.
 const serverFailureMessage = 'Ha ocurrido un error en el servidor';

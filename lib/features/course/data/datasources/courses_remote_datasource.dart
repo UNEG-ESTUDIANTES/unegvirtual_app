@@ -2,12 +2,12 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
-import 'package:classroom_app/core/entities/access_token.dart';
-import 'package:classroom_app/core/error/exceptions.dart';
-import 'package:classroom_app/core/models/course_model.dart';
-import 'package:classroom_app/features/course/data/models/inscription_model.dart';
-import 'package:classroom_app/features/course/data/models/multi_enroll_model.dart';
-import 'package:classroom_app/features/course/data/models/new_course_model.dart';
+import 'package:unegvirtual_app/core/entities/access_token.dart';
+import 'package:unegvirtual_app/core/error/exceptions.dart';
+import 'package:unegvirtual_app/core/models/course_model.dart';
+import 'package:unegvirtual_app/features/course/data/models/inscription_model.dart';
+import 'package:unegvirtual_app/features/course/data/models/multi_enroll_model.dart';
+import 'package:unegvirtual_app/features/course/data/models/new_course_model.dart';
 
 import '../../../../core/env/env.dart';
 import '../../../../core/models/courses_model.dart';

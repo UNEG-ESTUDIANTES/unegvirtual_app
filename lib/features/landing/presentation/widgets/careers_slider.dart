@@ -1,8 +1,8 @@
-import 'package:classroom_app/core/entities/courses.dart';
+import 'package:unegvirtual_app/core/entities/courses.dart';
 import 'package:flutter/material.dart';
 
-import 'package:classroom_app/features/landing/presentation/widgets/career_card.dart';
-import 'package:classroom_app/features/landing/presentation/widgets/section.dart';
+import 'package:unegvirtual_app/features/landing/presentation/widgets/career_card.dart';
+import 'package:unegvirtual_app/features/landing/presentation/widgets/section.dart';
 
 class CareersSlider extends StatelessWidget {
   /// The [careers] to display.

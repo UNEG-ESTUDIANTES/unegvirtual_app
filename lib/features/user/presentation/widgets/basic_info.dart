@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:classroom_app/core/entities/user.dart';
+import 'package:unegvirtual_app/core/entities/user.dart';
 
 class BasicInfo extends StatelessWidget {
   final User user;

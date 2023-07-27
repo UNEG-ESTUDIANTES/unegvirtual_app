@@ -5,17 +5,17 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i4;
 
-import 'package:classroom_app/core/entities/access_token.dart' as _i9;
-import 'package:classroom_app/core/entities/course.dart' as _i7;
-import 'package:classroom_app/core/entities/courses.dart' as _i6;
-import 'package:classroom_app/core/error/failures.dart' as _i5;
-import 'package:classroom_app/features/course/domain/entities/inscription.dart'
+import 'package:unegvirtual_app/core/entities/access_token.dart' as _i9;
+import 'package:unegvirtual_app/core/entities/course.dart' as _i7;
+import 'package:unegvirtual_app/core/entities/courses.dart' as _i6;
+import 'package:unegvirtual_app/core/error/failures.dart' as _i5;
+import 'package:unegvirtual_app/features/course/domain/entities/inscription.dart'
     as _i10;
-import 'package:classroom_app/features/course/domain/entities/multi_enroll.dart'
+import 'package:unegvirtual_app/features/course/domain/entities/multi_enroll.dart'
     as _i11;
-import 'package:classroom_app/features/course/domain/entities/new_course.dart'
+import 'package:unegvirtual_app/features/course/domain/entities/new_course.dart'
     as _i8;
-import 'package:classroom_app/features/course/domain/repositories/courses_repository.dart'
+import 'package:unegvirtual_app/features/course/domain/repositories/courses_repository.dart'
     as _i3;
 import 'package:dartz/dartz.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
