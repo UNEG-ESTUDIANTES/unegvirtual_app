@@ -1,32 +1,26 @@
 import 'package:flutter/material.dart';
 
+import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:provider/provider.dart';
 
-import 'package:classroom_app/core/pages/check_auth_page.dart';
-import 'package:classroom_app/core/pages/main_page.dart';
 import 'package:classroom_app/core/providers/auth_provider.dart';
 import 'package:classroom_app/core/providers/user_provider.dart';
+import 'package:classroom_app/core/routes/router.dart';
 import 'package:classroom_app/core/services/notifications_service.dart';
-import 'package:classroom_app/features/auth/presentation/pages/forgot_page.dart';
-import 'package:classroom_app/features/course/presentation/pages/add_multi_students.dart';
 import 'package:classroom_app/features/course/presentation/providers/course_provider.dart';
 import 'package:classroom_app/features/course/presentation/providers/students_enrollment_provider.dart';
-import 'package:classroom_app/features/home/presentation/pages/home_page.dart';
 import 'package:classroom_app/features/home/presentation/provider/home_provider.dart';
 import 'package:classroom_app/features/landing/presentation/providers/landing_provider.dart';
 import 'package:classroom_app/injection_container.dart' as di;
-
-import 'features/auth/presentation/pages/login_page.dart';
-import 'features/course/presentation/pages/create_course_page.dart';
-import 'features/landing/presentation/pages/landing_page.dart';
-import 'features/user/presentation/pages/register_page.dart';
-import 'features/user/presentation/pages/user_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // Inject dependencies.
   await di.init();
+
+  // Turn off the # in the URLs on the web
+  usePathUrlStrategy();
 
   runApp(const MyApp());
 }
@@ -58,24 +52,11 @@ class MyApp extends StatelessWidget {
           create: (_) => StudentsEnrollmentProvider(),
         ),
       ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
+      child: MaterialApp.router(
         title: 'UNEG Classroom',
         scaffoldMessengerKey: NotificationsService.messengerKey,
-        initialRoute: CheckAuthPage.routeName,
-        routes: {
-          LandingPage.routeName: (_) => const LandingPage(),
-          HomePage.routeName: (_) => const HomePage(),
-          UserPage.routeName: (_) => const UserPage(),
-          MainPage.routeName: (_) => const MainPage(),
-          LogInPage.routeName: (_) => const LogInPage(),
-          CheckAuthPage.routeName: (_) => const CheckAuthPage(),
-          ForgotPasswordPage.routeName: (_) => const ForgotPasswordPage(),
-          CreateCoursePage.routeName: (_) => const CreateCoursePage(),
-          MultiStudentsEnrollPage.routeName: (_) =>
-              const MultiStudentsEnrollPage(),
-          RegisterPage.routeName: (_) => const RegisterPage(),
-        },
+        routerConfig: router,
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           useMaterial3: true,
           colorSchemeSeed: Colors.blue,

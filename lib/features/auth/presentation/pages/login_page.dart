@@ -4,7 +4,7 @@ import 'package:classroom_app/features/auth/presentation/widgets/login_form.dart
 
 class LogInPage extends StatelessWidget {
   /// The page route name.
-  static const routeName = 'login';
+  static const routeName = '/login';
 
   const LogInPage({super.key});
 
@@ -24,10 +24,10 @@ class LogInPage extends StatelessWidget {
                 minHeight: viewportConstraints.maxHeight,
                 minWidth: double.infinity,
               ),
-              child: const Column(
+              child: Column(
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
+                children: const [
                   SizedBox(
                     width: 450,
                     child: Card(

@@ -4,7 +4,7 @@ import '../widgets/forgot_password_form.dart';
 
 class ForgotPasswordPage extends StatelessWidget {
   /// The page route name.
-  static const routeName = 'forgotpassword';
+  static const routeName = '/forgotpassword';
 
   const ForgotPasswordPage({super.key});
 
@@ -24,10 +24,10 @@ class ForgotPasswordPage extends StatelessWidget {
                 minHeight: viewportConstraints.maxHeight,
                 minWidth: double.infinity,
               ),
-              child: const Column(
+              child: Column(
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
+                children: const [
                   SizedBox(
                     width: 400,
                     child: Card(

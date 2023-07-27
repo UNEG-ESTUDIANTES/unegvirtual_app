@@ -8,7 +8,7 @@ import 'package:classroom_app/features/user/presentation/widgets/user_data.dart'
 
 class UserPage extends StatelessWidget {
   /// The page route name.
-  static const routeName = 'user';
+  static const routeName = '/user';
 
   const UserPage({super.key});
 
@@ -22,20 +22,22 @@ class UserPage extends StatelessWidget {
       );
     }
 
-    return SingleChildScrollView(
-      padding: const EdgeInsets.all(24.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            width: double.infinity,
-            child: BasicInfo(user: auth.user),
-          ),
-          const SizedBox(height: 16),
-          const Divider(),
-          const SizedBox(height: 16),
-          UserData(user: auth.user),
-        ],
+    return Scaffold(
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(24.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              width: double.infinity,
+              child: BasicInfo(user: auth.user),
+            ),
+            const SizedBox(height: 16),
+            const Divider(),
+            const SizedBox(height: 16),
+            UserData(user: auth.user),
+          ],
+        ),
       ),
     );
   }

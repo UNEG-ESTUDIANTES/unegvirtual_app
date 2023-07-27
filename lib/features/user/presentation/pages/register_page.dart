@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:formz/formz.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import 'package:classroom_app/core/providers/auth_provider.dart';
@@ -81,9 +82,6 @@ class _RegisterPageState extends State<RegisterPage> {
     setState(() => _state = RegisterFormState());
   }
 
-  /// Go back to users page.
-  void _navigateToUsersPage() => Navigator.pop(context);
-
   Future<void> _onSubmit() async {
     if (!_key.currentState!.validate()) return;
 
@@ -139,10 +137,10 @@ class _RegisterPageState extends State<RegisterPage> {
     // Display the snackbar.
     NotificationsService.showSnackBar(snackBarMessage);
 
-    // Navigates to main page.
+    // Navigates to users page.
     if (_state.status.isSuccess) {
       _resetForm();
-      _navigateToUsersPage();
+      context.pop();
     }
   }
 
@@ -188,6 +186,7 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
+
     return Scaffold(
       appBar: AppBar(),
       backgroundColor: Colors.grey.shade100,

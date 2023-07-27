@@ -14,7 +14,7 @@ import '../../../course/presentation/pages/course_page.dart';
 
 class HomePage extends StatelessWidget {
   /// The page route name.
-  static const routeName = 'home';
+  static const routeName = '/home';
 
   const HomePage({super.key});
 
@@ -59,55 +59,57 @@ class HomePage extends StatelessWidget {
     final courses =
         state is Loaded ? homeProvider.courses! : const Courses(courses: []);
 
-    return SingleChildScrollView(
-      padding: const EdgeInsets.all(24.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Hola ${auth.user.firstName} ${auth.user.lastName}',
-            style: textTheme.headlineLarge,
-          ),
-          const SizedBox(height: 24),
-          Text(
-            'Mis Cursos',
-            style: textTheme.headlineMedium,
-          ),
-          const SizedBox(height: 16),
-          if (courses.courses.isEmpty)
-            const Center(
-              child: Text('No estas inscrito en ningun curso'),
-            )
-          else
-            GridView.builder(
-              primary: false,
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: gridCrossAxisCount,
-                crossAxisSpacing: 16,
-                mainAxisSpacing: 16,
-                mainAxisExtent: 200,
-              ),
-              itemBuilder: (context, index) {
-                return GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              CoursePage(course: courses.courses[index])),
-                    );
-                  },
-                  child: CourseCard(
-                    course: courses.courses[index],
-                    completedPercentage: 32,
-                  ),
-                );
-              },
-              itemCount: courses.courses.length,
-            )
-        ],
+    return Scaffold(
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(24.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Hola ${auth.user.firstName} ${auth.user.lastName}',
+              style: textTheme.headlineLarge,
+            ),
+            const SizedBox(height: 24),
+            Text(
+              'Mis Cursos',
+              style: textTheme.headlineMedium,
+            ),
+            const SizedBox(height: 16),
+            if (courses.courses.isEmpty)
+              const Center(
+                child: Text('No estas inscrito en ningun curso'),
+              )
+            else
+              GridView.builder(
+                primary: false,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: gridCrossAxisCount,
+                  crossAxisSpacing: 16,
+                  mainAxisSpacing: 16,
+                  mainAxisExtent: 200,
+                ),
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                CoursePage(course: courses.courses[index])),
+                      );
+                    },
+                    child: CourseCard(
+                      course: courses.courses[index],
+                      completedPercentage: 32,
+                    ),
+                  );
+                },
+                itemCount: courses.courses.length,
+              )
+          ],
+        ),
       ),
     );
   }

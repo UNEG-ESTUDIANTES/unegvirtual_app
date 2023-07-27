@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
+import 'package:go_router/go_router.dart';
+
 import 'package:classroom_app/features/auth/presentation/pages/login_page.dart';
 import 'package:classroom_app/features/landing/presentation/widgets/landing_body.dart';
 
 class LandingPage extends StatefulWidget {
   /// The page route name.
-  static const routeName = 'landing';
+  static const routeName = '/landing';
 
   const LandingPage({super.key});
 
@@ -35,7 +37,7 @@ class _LandingPageState extends State<LandingPage> {
             ),
           ),
           IconButton(
-            onPressed: () => Navigator.pushNamed(context, LogInPage.routeName),
+            onPressed: () => context.push(LogInPage.routeName),
             icon: const Icon(
               Icons.login,
               color: Colors.white,
