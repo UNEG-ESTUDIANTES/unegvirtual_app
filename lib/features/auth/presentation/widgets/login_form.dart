@@ -180,9 +180,7 @@ class _LoginFormState extends State<LoginForm> {
               ),
               const SizedBox(height: 4),
               TextButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, ForgotPasswordPage.routeName);
-                },
+                onPressed: () => context.push(ForgotPasswordPage.routeName),
                 child: const Text('Olvide mi contraseña'),
               ),
             ],
