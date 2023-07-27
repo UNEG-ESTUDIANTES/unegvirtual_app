@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:provider/provider.dart';
 
 import 'package:classroom_app/core/providers/auth_provider.dart';
@@ -17,6 +18,9 @@ void main() async {
 
   // Inject dependencies.
   await di.init();
+
+  // Turn off the # in the URLs on the web
+  usePathUrlStrategy();
 
   runApp(const MyApp());
 }
