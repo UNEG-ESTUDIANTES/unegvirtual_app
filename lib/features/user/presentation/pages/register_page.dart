@@ -8,6 +8,7 @@ import 'package:classroom_app/core/providers/page_state.dart';
 import 'package:classroom_app/core/providers/user_provider.dart';
 import 'package:classroom_app/core/services/notifications_service.dart';
 import 'package:classroom_app/features/user/domain/entities/unsaved_user.dart';
+import 'package:classroom_app/features/user/presentation/pages/users_page.dart';
 import 'package:classroom_app/features/user/presentation/widgets/forms/first_name_input.dart';
 import 'package:classroom_app/features/user/presentation/widgets/forms/last_name_input.dart';
 import 'package:classroom_app/features/user/presentation/widgets/forms/register_form_state.dart';
@@ -18,7 +19,7 @@ import '../widgets/forms/ci_input.dart';
 
 class RegisterPage extends StatefulWidget {
   /// The page route name.
-  static const routeName = 'register';
+  static const routeName = '${UsersPage.routeName}/register';
 
   const RegisterPage({super.key});
 
@@ -188,6 +189,7 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
+
     return Scaffold(
       appBar: AppBar(),
       backgroundColor: Colors.grey.shade100,
