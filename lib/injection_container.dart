@@ -30,11 +30,6 @@ import 'package:unegvirtual_app/features/home/data/repositories/home_repository_
 import 'package:unegvirtual_app/features/home/domain/repositories/home_repository.dart';
 import 'package:unegvirtual_app/features/home/domain/usecases/enroled_courses.dart';
 import 'package:unegvirtual_app/features/home/presentation/provider/home_provider.dart';
-import 'package:unegvirtual_app/features/landing/data/datasources/landing_remote_datasource_impl.dart';
-import 'package:unegvirtual_app/features/landing/data/repositories/landing_repository_impl.dart';
-import 'package:unegvirtual_app/features/landing/domain/repositories/landing_repository.dart';
-import 'package:unegvirtual_app/features/landing/domain/usecases/get_courses.dart';
-import 'package:unegvirtual_app/features/landing/presentation/providers/landing_provider.dart';
 import 'package:unegvirtual_app/features/user/data/data_sources/user_remote_data_source.dart';
 import 'package:unegvirtual_app/features/user/data/repositories/user_repository_impl.dart';
 import 'package:unegvirtual_app/features/user/domain/repositories/user_repository.dart';
@@ -68,26 +63,6 @@ Future<void> init() async {
     () => AuthRemoteDataSourceImpl(client: sl()),
   );
 
-  //* Features - Landing.
-  // Providers.
-  sl.registerLazySingleton(() => LandingProvider(getCourses: sl()));
-
-  // Use Cases.
-  sl.registerLazySingleton(() => GetCourses(sl()));
-
-  // Repository.
-  sl.registerLazySingleton<LandingRepository>(
-    () => LandingRepositoryImpl(
-      remote: sl(),
-      network: sl(),
-    ),
-  );
-
-  // Data sources.
-  sl.registerLazySingleton<LandingRemoteDataSource>(
-    () => LandingRemoteDataSourceImpl(client: sl()),
-  );
-
   //* Features - User.
   // Use Cases.
   sl.registerLazySingleton(() => CreateUser(sl()));
@@ -108,7 +83,12 @@ Future<void> init() async {
   //* Features - Courses.
   // Providers.
   sl.registerLazySingleton(
-      () => CourseProvider(postCourse: sl(), multiStudentsEnroll: sl()));
+    () => CourseProvider(
+      postCourse: sl(),
+      multiStudentsEnroll: sl(),
+      getCourses: sl(),
+    ),
+  );
 
   // Use Cases.
   sl.registerLazySingleton(() => GetCourses(sl()));

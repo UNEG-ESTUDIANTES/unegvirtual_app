@@ -10,7 +10,6 @@ import 'package:unegvirtual_app/core/services/notifications_service.dart';
 import 'package:unegvirtual_app/features/course/presentation/providers/course_provider.dart';
 import 'package:unegvirtual_app/features/course/presentation/providers/students_enrollment_provider.dart';
 import 'package:unegvirtual_app/features/home/presentation/provider/home_provider.dart';
-import 'package:unegvirtual_app/features/landing/presentation/providers/landing_provider.dart';
 import 'package:unegvirtual_app/injection_container.dart' as di;
 
 void main() async {
@@ -35,9 +34,6 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (_) => di.sl<AuthProvider>(),
-        ),
-        ChangeNotifierProvider<LandingProvider>(
-          create: (_) => di.sl<LandingProvider>(),
         ),
         ChangeNotifierProvider(
           create: (_) => di.sl<UserProvider>(),
