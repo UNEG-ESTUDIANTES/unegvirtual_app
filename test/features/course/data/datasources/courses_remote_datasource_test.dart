@@ -51,7 +51,7 @@ void main() {
 
   const tMultiEnrollModel = MultiEnrollModel(courseId: 'test', studentIds: []);
 
-  group('coursesGetCourses', () {
+  group('getCourses', () {
     test(
       'should perform a GET request with the application/json header',
       () async {
@@ -63,7 +63,7 @@ void main() {
         );
 
         // act
-        dataSourceImpl.coursesGetCourses();
+        dataSourceImpl.getCourses();
 
         // assert
         verify(
@@ -88,7 +88,7 @@ void main() {
         );
 
         // act
-        final result = await dataSourceImpl.coursesGetCourses();
+        final result = await dataSourceImpl.getCourses();
 
         // assert
         expect(result, tCoursesModel);
@@ -106,7 +106,7 @@ void main() {
         );
 
         // act
-        final call = dataSourceImpl.coursesGetCourses;
+        final call = dataSourceImpl.getCourses;
 
         // assert
         expect(
@@ -127,7 +127,7 @@ void main() {
         );
 
         // act
-        final call = dataSourceImpl.coursesGetCourses;
+        final call = dataSourceImpl.getCourses;
 
         // assert
         expect(
@@ -147,7 +147,7 @@ void main() {
         );
 
         // act
-        final call = dataSourceImpl.coursesGetCourses;
+        final call = dataSourceImpl.getCourses;
 
         // assert
         expect(

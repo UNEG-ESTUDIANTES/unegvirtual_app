@@ -6,6 +6,8 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import 'package:unegvirtual_app/core/entities/access_token.dart';
+import 'package:unegvirtual_app/core/error/exceptions.dart';
+import 'package:unegvirtual_app/core/error/failures.dart';
 import 'package:unegvirtual_app/core/models/courses_model.dart';
 import 'package:unegvirtual_app/core/network/network_info.dart';
 import 'package:unegvirtual_app/features/course/data/datasources/courses_remote_datasource.dart';
@@ -37,6 +39,8 @@ void main() {
 
   const tAccessToken = AccessToken('test');
 
+  const tCoursesModel = CoursesModel(courses: []);
+
   void runTestOnline(Function body) {
     group('device is online', () {
       setUp(() {
@@ -46,7 +50,110 @@ void main() {
     });
   }
 
-  group('Enroll multi students', () {
+  group('getCourses', () {
+    test(
+      'should check if the device is online',
+      () async {
+        // arrange
+        when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
+
+        // act
+        repository.getCourses();
+
+        // assert
+        verify(mockNetworkInfo.isConnected);
+      },
+    );
+
+    group('device is online', () {
+      setUp(() {
+        when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
+      });
+
+      test(
+        'should call the proper method to get courses',
+        () async {
+          // arrange
+          when(mockRemoteDataSource.getCourses())
+              .thenAnswer((_) async => tCoursesModel);
+
+          // act
+          await repository.getCourses();
+
+          // assert
+          verify(mockRemoteDataSource.getCourses());
+        },
+      );
+
+      test(
+        'should return remote data when the call to remote data is successful',
+        () async {
+          // arrange
+          when(mockRemoteDataSource.getCourses())
+              .thenAnswer((_) async => tCoursesModel);
+
+          // act
+          final result = await repository.getCourses();
+
+          // assert
+          expect(result, const Right(tCoursesModel));
+          verify(mockRemoteDataSource.getCourses());
+        },
+      );
+
+      test(
+        '''should return NotFoundFailure when the call
+        to remote data throws an NotFoundException''',
+        () async {
+          // arrange
+          when(mockRemoteDataSource.getCourses())
+              .thenThrow(NotFoundException());
+
+          // act
+          final result = await repository.getCourses();
+
+          // assert
+          verify(mockRemoteDataSource.getCourses());
+          expect(result, Left(NotFoundFailure()));
+        },
+      );
+
+      test(
+        '''should return ServerFailure when the call
+        to remote data throws an ServerException''',
+        () async {
+          // arrange
+          when(mockRemoteDataSource.getCourses()).thenThrow(ServerException());
+
+          // act
+          final result = await repository.getCourses();
+
+          // assert
+          verify(mockRemoteDataSource.getCourses());
+          expect(result, Left(ServerFailure()));
+        },
+      );
+    });
+
+    group('device is offline', () {
+      setUp(() {
+        when(mockNetworkInfo.isConnected).thenAnswer((_) async => false);
+      });
+
+      test(
+        'should return NoInternetConnectionFailure',
+        () async {
+          // act
+          final result = await repository.getCourses();
+
+          // assert
+          expect(result, Left(NoInternetConnectionFailure()));
+        },
+      );
+    });
+  });
+
+  group('multiStudentsEnroll', () {
     const student = [
       "64b4868166d7f87437caaf50",
       "64b4867066d7f87437caaf4d",
@@ -93,7 +200,7 @@ void main() {
     });
   });
 
-  group('Enroled Courses', () {
+  group('enroledCourses', () {
     final coursesList =
         CoursesModel.fromJson(json.decode(fixture('courses_search.json')));
 
