@@ -192,18 +192,18 @@ class MockCoursesRepository extends _i1.Mock implements _i3.CoursesRepository {
         )),
       ) as _i4.Future<_i2.Either<_i5.Failure, void>>);
   @override
-  _i4.Future<_i2.Either<_i5.Failure, _i6.Courses>> enroledCourses(
+  _i4.Future<_i2.Either<_i5.Failure, _i6.Courses>> getEnrolledCourses(
           _i9.AccessToken? accessToken) =>
       (super.noSuchMethod(
         Invocation.method(
-          #enroledCourses,
+          #getEnrolledCourses,
           [accessToken],
         ),
         returnValue: _i4.Future<_i2.Either<_i5.Failure, _i6.Courses>>.value(
             _FakeEither_0<_i5.Failure, _i6.Courses>(
           this,
           Invocation.method(
-            #enroledCourses,
+            #getEnrolledCourses,
             [accessToken],
           ),
         )),
@@ -212,7 +212,7 @@ class MockCoursesRepository extends _i1.Mock implements _i3.CoursesRepository {
                 _FakeEither_0<_i5.Failure, _i6.Courses>(
           this,
           Invocation.method(
-            #enroledCourses,
+            #getEnrolledCourses,
             [accessToken],
           ),
         )),
