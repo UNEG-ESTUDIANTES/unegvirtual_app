@@ -3,12 +3,14 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
+import 'package:unegvirtual_app/core/entities/access_token.dart';
 import 'package:unegvirtual_app/core/entities/courses.dart';
 import 'package:unegvirtual_app/core/error/failures.dart';
 import 'package:unegvirtual_app/core/providers/page_state.dart';
 import 'package:unegvirtual_app/core/use_cases/use_case.dart';
 import 'package:unegvirtual_app/core/utils/utils.dart';
 import 'package:unegvirtual_app/features/course/domain/usecases/get_courses.dart';
+import 'package:unegvirtual_app/features/course/domain/usecases/get_enrolled_courses.dart';
 import 'package:unegvirtual_app/features/course/domain/usecases/multi_students_enroll.dart';
 import 'package:unegvirtual_app/features/course/domain/usecases/post_course.dart';
 import 'package:unegvirtual_app/features/course/presentation/providers/course_provider.dart';
@@ -16,7 +18,8 @@ import 'package:unegvirtual_app/features/course/presentation/providers/course_pr
 @GenerateNiceMocks([
   MockSpec<GetCourses>(),
   MockSpec<PostCourse>(),
-  MockSpec<MultiStudentsEnroll>()
+  MockSpec<MultiStudentsEnroll>(),
+  MockSpec<GetEnrolledCourses>()
 ])
 import 'course_provider_test.mocks.dart';
 
@@ -24,20 +27,24 @@ void main() {
   late MockGetCourses mockGetCourses;
   late MockPostCourse mockPostCourse;
   late MockMultiStudentsEnroll mockMultiStudentsEnroll;
+  late MockGetEnrolledCourses mockGetEnrolledCourses;
   late CourseProvider provider;
 
   setUp(() {
     mockGetCourses = MockGetCourses();
     mockPostCourse = MockPostCourse();
     mockMultiStudentsEnroll = MockMultiStudentsEnroll();
+    mockGetEnrolledCourses = MockGetEnrolledCourses();
 
     provider = CourseProvider(
       postCourse: mockPostCourse,
       multiStudentsEnroll: mockMultiStudentsEnroll,
       getCourses: mockGetCourses,
+      getEnrolledCourses: mockGetEnrolledCourses,
     );
   });
 
+  const tAccessToken = AccessToken('test');
   const tCourses = Courses(courses: []);
 
   test(
@@ -86,7 +93,7 @@ void main() {
     );
 
     test(
-      'should notify [Loading, Error] when fails getting courses',
+      'should notify [Loading, Error] when getting courses fails',
       () async {
         // arrange
         when(mockGetCourses(any))
@@ -103,6 +110,69 @@ void main() {
 
         // act
         await provider.getCourses();
+      },
+    );
+  });
+
+  group('getEnrolledCourses', () {
+    test(
+      'should get the courses with the use case',
+      () async {
+        // arrange
+        when(mockGetEnrolledCourses(any))
+            .thenAnswer((_) async => const Right(tCourses));
+
+        // act
+        await provider.getEnrolledCourses(accessToken: tAccessToken);
+
+        // assert
+        verify(
+          mockGetEnrolledCourses(
+            const GetEnrolledCoursesParams(accessToken: tAccessToken),
+          ),
+        );
+      },
+    );
+
+    test(
+      'should notify [Loading, Loaded] when courses are gotten successfully',
+      () async {
+        // arrange
+        when(mockGetEnrolledCourses(any))
+            .thenAnswer((_) async => const Right(tCourses));
+
+        // assert later
+        final expected = [
+          Empty(),
+          Loading(),
+          const Loaded(),
+        ];
+
+        expectLater(provider.stream, emitsInOrder(expected));
+
+        // act
+        await provider.getEnrolledCourses(accessToken: tAccessToken);
+      },
+    );
+
+    test(
+      'should notify [Loading, Error] when getting courses fails',
+      () async {
+        // arrange
+        when(mockGetEnrolledCourses(any))
+            .thenAnswer((_) async => Left(ServerFailure()));
+
+        // assert later
+        final expected = [
+          Empty(),
+          Loading(),
+          const Error(message: serverFailureMessage),
+        ];
+
+        expectLater(provider.stream, emitsInOrder(expected));
+
+        // act
+        await provider.getEnrolledCourses(accessToken: tAccessToken);
       },
     );
   });
