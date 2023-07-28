@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
@@ -14,8 +12,6 @@ import 'package:unegvirtual_app/features/course/data/datasources/courses_remote_
 import 'package:unegvirtual_app/features/course/data/models/multi_enroll_model.dart';
 import 'package:unegvirtual_app/features/course/data/repositories/courses_repository_impl.dart';
 import 'package:unegvirtual_app/features/course/domain/entities/multi_enroll.dart';
-
-import '../../../../fixtures/fixture_reader.dart';
 
 @GenerateNiceMocks([
   MockSpec<CoursesRemoteDataSource>(),
@@ -200,29 +196,103 @@ void main() {
     });
   });
 
-  group('enroledCourses', () {
-    final coursesList =
-        CoursesModel.fromJson(json.decode(fixture('courses_search.json')));
+  group('getEnrolledCourses', () {
+    test(
+      'should check if the device is online',
+      () async {
+        // arrange
+        when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
 
-    test('should check if the device is online', () async {
-      when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
+        // act
+        repository.getEnrolledCourses(tAccessToken);
 
-      repository.enroledCourses(tAccessToken);
-
-      verify(mockNetworkInfo.isConnected);
-    });
+        // assert
+        verify(mockNetworkInfo.isConnected);
+      },
+    );
 
     runTestOnline(() {
-      test('Should return remote data when the call is successfull', () async {
-        when(mockRemoteDataSource.enroledCourses(any))
-            .thenAnswer((_) async => coursesList);
+      test(
+        'should call the proper method to get the enrolled courses',
+        () async {
+          // arrange
+          when(mockRemoteDataSource.getEnrolledCourses(any))
+              .thenAnswer((_) async => tCoursesModel);
 
-        final result = await repository.enroledCourses(tAccessToken);
+          // act
+          await repository.getEnrolledCourses(tAccessToken);
 
-        verify(mockRemoteDataSource.enroledCourses(any));
+          // assert
+          verify(mockRemoteDataSource.getEnrolledCourses(tAccessToken));
+        },
+      );
 
-        expect(result, equals(Right(coursesList)));
+      test(
+        'should return remote data when the call is successfull',
+        () async {
+          // arrange
+          when(mockRemoteDataSource.getEnrolledCourses(any))
+              .thenAnswer((_) async => tCoursesModel);
+
+          // act
+          final result = await repository.getEnrolledCourses(tAccessToken);
+
+          // assert
+          verify(mockRemoteDataSource.getEnrolledCourses(any));
+          expect(result, equals(const Right(tCoursesModel)));
+        },
+      );
+
+      test(
+        '''should return NotEnrolledFailure when the call
+        to remote data throws a NotEnrolledException''',
+        () async {
+          // arrange
+          when(mockRemoteDataSource.getEnrolledCourses(any))
+              .thenThrow(NotEnrolledException());
+
+          // act
+          final result = await repository.getEnrolledCourses(tAccessToken);
+
+          // assert
+          verify(mockRemoteDataSource.getEnrolledCourses(tAccessToken));
+          expect(result, Left(NotEnrolledFailure()));
+        },
+      );
+
+      test(
+        '''should return ServerFailure when the call
+        to remote data throws a ServerException''',
+        () async {
+          // arrange
+          when(mockRemoteDataSource.getEnrolledCourses(any))
+              .thenThrow(ServerException());
+
+          // act
+          final result = await repository.getEnrolledCourses(tAccessToken);
+
+          // assert
+          verify(mockRemoteDataSource.getEnrolledCourses(tAccessToken));
+          expect(result, Left(ServerFailure()));
+        },
+      );
+    });
+
+    group('device is offline', () {
+      setUp(() {
+        when(mockNetworkInfo.isConnected).thenAnswer((_) async => false);
       });
+
+      test(
+        'should return NoInternetConnectionFailure',
+        () async {
+          // act
+          final result = await repository.getEnrolledCourses(tAccessToken);
+
+          // assert
+          expect(result, Left(NoInternetConnectionFailure()));
+        },
+      );
     });
   });
 }

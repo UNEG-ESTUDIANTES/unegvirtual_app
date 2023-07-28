@@ -79,15 +79,15 @@ class CoursesRepositoryImpl implements CoursesRepository {
   }
 
   @override
-  Future<Either<Failure, Courses>> enroledCourses(
+  Future<Either<Failure, Courses>> getEnrolledCourses(
     AccessToken accessToken,
   ) async {
     final isConnected = await network.isConnected;
 
-    if (!isConnected) return Left(ServerFailure());
+    if (!isConnected) return Left(NoInternetConnectionFailure());
 
     try {
-      final remoteResult = await remote.enroledCourses(accessToken);
+      final remoteResult = await remote.getEnrolledCourses(accessToken);
       return Right(remoteResult);
     } on Exception catch (exception) {
       return Left(Utils.getFailure(exception));
