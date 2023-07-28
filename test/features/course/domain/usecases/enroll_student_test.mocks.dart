@@ -46,17 +46,17 @@ class _FakeEither_0<L, R> extends _i1.SmartFake implements _i2.Either<L, R> {
 /// See the documentation for Mockito's code generation for more information.
 class MockCoursesRepository extends _i1.Mock implements _i3.CoursesRepository {
   @override
-  _i4.Future<_i2.Either<_i5.Failure, _i6.Courses>> coursesGetCourses() =>
+  _i4.Future<_i2.Either<_i5.Failure, _i6.Courses>> getCourses() =>
       (super.noSuchMethod(
         Invocation.method(
-          #coursesGetCourses,
+          #getCourses,
           [],
         ),
         returnValue: _i4.Future<_i2.Either<_i5.Failure, _i6.Courses>>.value(
             _FakeEither_0<_i5.Failure, _i6.Courses>(
           this,
           Invocation.method(
-            #coursesGetCourses,
+            #getCourses,
             [],
           ),
         )),
@@ -65,7 +65,7 @@ class MockCoursesRepository extends _i1.Mock implements _i3.CoursesRepository {
                 _FakeEither_0<_i5.Failure, _i6.Courses>(
           this,
           Invocation.method(
-            #coursesGetCourses,
+            #getCourses,
             [],
           ),
         )),

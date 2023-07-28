@@ -3,40 +3,42 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import 'package:unegvirtual_app/core/entities/course.dart';
 import 'package:unegvirtual_app/core/entities/courses.dart';
 import 'package:unegvirtual_app/core/error/failures.dart';
 import 'package:unegvirtual_app/core/providers/page_state.dart';
 import 'package:unegvirtual_app/core/use_cases/use_case.dart';
 import 'package:unegvirtual_app/core/utils/utils.dart';
-import 'package:unegvirtual_app/features/landing/domain/usecases/get_courses.dart';
-import 'package:unegvirtual_app/features/landing/presentation/providers/landing_provider.dart';
+import 'package:unegvirtual_app/features/course/domain/usecases/get_courses.dart';
+import 'package:unegvirtual_app/features/course/domain/usecases/multi_students_enroll.dart';
+import 'package:unegvirtual_app/features/course/domain/usecases/post_course.dart';
+import 'package:unegvirtual_app/features/course/presentation/providers/course_provider.dart';
 
-@GenerateNiceMocks([MockSpec<GetCourses>(), MockSpec<Utils>()])
-import 'landing_provider_test.mocks.dart';
+@GenerateNiceMocks([
+  MockSpec<GetCourses>(),
+  MockSpec<PostCourse>(),
+  MockSpec<MultiStudentsEnroll>()
+])
+import 'course_provider_test.mocks.dart';
 
 void main() {
   late MockGetCourses mockGetCourses;
-  late LandingProvider provider;
+  late MockPostCourse mockPostCourse;
+  late MockMultiStudentsEnroll mockMultiStudentsEnroll;
+  late CourseProvider provider;
 
   setUp(() {
     mockGetCourses = MockGetCourses();
+    mockPostCourse = MockPostCourse();
+    mockMultiStudentsEnroll = MockMultiStudentsEnroll();
 
-    provider = LandingProvider(
+    provider = CourseProvider(
+      postCourse: mockPostCourse,
+      multiStudentsEnroll: mockMultiStudentsEnroll,
       getCourses: mockGetCourses,
     );
   });
 
-  const tCourses = Courses(
-    courses: [
-      Course(
-        id: 'test',
-        name: 'test',
-        description: 'test',
-        teacherId: 'test',
-      ),
-    ],
-  );
+  const tCourses = Courses(courses: []);
 
   test(
     'initial state should be Empty',
@@ -46,7 +48,7 @@ void main() {
     },
   );
 
-  group('getCoursesList', () {
+  group('getCourses', () {
     test(
       'should get the courses with the use case',
       () async {
@@ -55,7 +57,7 @@ void main() {
             .thenAnswer((_) async => const Right(tCourses));
 
         // act
-        await provider.getCoursesList();
+        await provider.getCourses();
 
         // assert
         verify(mockGetCourses(NoParams()));
@@ -63,24 +65,28 @@ void main() {
     );
 
     test(
-      'should notify [Loading, Loaded] when the courses are gotten successfully',
+      'should notify [Loading, Loaded] when courses are gotten successfully',
       () async {
         // arrange
         when(mockGetCourses(any))
             .thenAnswer((_) async => const Right(tCourses));
 
         // assert later
-        final expected = [Empty(), Loading(), const Loaded()];
+        final expected = [
+          Empty(),
+          Loading(),
+          const Loaded(),
+        ];
 
         expectLater(provider.stream, emitsInOrder(expected));
 
         // act
-        await provider.getCoursesList();
+        await provider.getCourses();
       },
     );
 
     test(
-      'should notify [Loading, Error] when getting courses fails',
+      'should notify [Loading, Error] when fails getting courses',
       () async {
         // arrange
         when(mockGetCourses(any))
@@ -90,13 +96,13 @@ void main() {
         final expected = [
           Empty(),
           Loading(),
-          Error(message: Utils.getErrorMessage(ServerFailure())),
+          const Error(message: serverFailureMessage),
         ];
 
         expectLater(provider.stream, emitsInOrder(expected));
 
         // act
-        await provider.getCoursesList();
+        await provider.getCourses();
       },
     );
   });

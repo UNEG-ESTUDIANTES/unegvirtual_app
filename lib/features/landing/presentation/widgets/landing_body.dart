@@ -6,7 +6,7 @@ import 'package:unegvirtual_app/core/entities/courses.dart';
 import 'package:unegvirtual_app/core/providers/page_state.dart';
 import 'package:unegvirtual_app/core/services/notifications_service.dart';
 import 'package:unegvirtual_app/core/widgets/loading_display.dart';
-import 'package:unegvirtual_app/features/landing/presentation/providers/landing_provider.dart';
+import 'package:unegvirtual_app/features/course/presentation/providers/course_provider.dart';
 import 'package:unegvirtual_app/features/landing/presentation/widgets/careers_slider.dart';
 import 'package:unegvirtual_app/features/landing/presentation/widgets/footer.dart';
 import 'package:unegvirtual_app/features/landing/presentation/widgets/hero_section.dart';
@@ -16,11 +16,11 @@ class LandingBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final landingProvider = context.watch<LandingProvider>();
-    final state = landingProvider.state;
+    final courseProvider = context.watch<CourseProvider>();
+    final state = courseProvider.state;
 
     if (state is Empty) {
-      landingProvider.getCoursesList();
+      courseProvider.getCourses();
       return Container();
     }
 
@@ -30,8 +30,7 @@ class LandingBody extends StatelessWidget {
       );
     }
 
-    final courses =
-        state is Loaded ? landingProvider.courses! : const Courses(courses: []);
+    final courses = courseProvider.courses ?? const Courses(courses: []);
 
     return SingleChildScrollView(
       child: Column(

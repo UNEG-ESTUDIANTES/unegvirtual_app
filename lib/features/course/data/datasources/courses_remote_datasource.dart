@@ -18,7 +18,7 @@ abstract class CoursesRemoteDataSource {
   /// Throws [NotFoundException] when there are not courses available.
   ///
   /// Otherwise throws a [ServerException] for all other error codes.
-  Future<CoursesModel> coursesGetCourses();
+  Future<CoursesModel> getCourses();
 
   /// Calls the `/v1/courses` endpoint.
   ///
@@ -65,7 +65,7 @@ class CoursesRemoteDataSourceImpl implements CoursesRemoteDataSource {
   CoursesRemoteDataSourceImpl({required this.client});
 
   @override
-  Future<CoursesModel> coursesGetCourses() async {
+  Future<CoursesModel> getCourses() async {
     try {
       final response = await client.get(
         Uri.parse('${Env.appUrl}/v1/courses'),

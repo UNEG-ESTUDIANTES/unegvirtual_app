@@ -67,15 +67,15 @@ class _FakeInscriptionModel_2 extends _i1.SmartFake
 class MockCoursesRemoteDataSource extends _i1.Mock
     implements _i5.CoursesRemoteDataSource {
   @override
-  _i6.Future<_i2.CoursesModel> coursesGetCourses() => (super.noSuchMethod(
+  _i6.Future<_i2.CoursesModel> getCourses() => (super.noSuchMethod(
         Invocation.method(
-          #coursesGetCourses,
+          #getCourses,
           [],
         ),
         returnValue: _i6.Future<_i2.CoursesModel>.value(_FakeCoursesModel_0(
           this,
           Invocation.method(
-            #coursesGetCourses,
+            #getCourses,
             [],
           ),
         )),
@@ -83,7 +83,7 @@ class MockCoursesRemoteDataSource extends _i1.Mock
             _i6.Future<_i2.CoursesModel>.value(_FakeCoursesModel_0(
           this,
           Invocation.method(
-            #coursesGetCourses,
+            #getCourses,
             [],
           ),
         )),
