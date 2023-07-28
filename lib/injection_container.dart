@@ -25,11 +25,6 @@ import 'package:unegvirtual_app/features/course/domain/usecases/get_courses.dart
 import 'package:unegvirtual_app/features/course/domain/usecases/get_enrolled_courses.dart';
 import 'package:unegvirtual_app/features/course/domain/usecases/post_course.dart';
 import 'package:unegvirtual_app/features/course/presentation/providers/course_provider.dart';
-import 'package:unegvirtual_app/features/home/data/datasource/home_remote_datasource.dart';
-import 'package:unegvirtual_app/features/home/data/repositories/home_repository_impl.dart';
-import 'package:unegvirtual_app/features/home/domain/repositories/home_repository.dart';
-import 'package:unegvirtual_app/features/home/domain/usecases/enroled_courses.dart';
-import 'package:unegvirtual_app/features/home/presentation/provider/home_provider.dart';
 import 'package:unegvirtual_app/features/user/data/data_sources/user_remote_data_source.dart';
 import 'package:unegvirtual_app/features/user/data/repositories/user_repository_impl.dart';
 import 'package:unegvirtual_app/features/user/domain/repositories/user_repository.dart';
@@ -87,6 +82,7 @@ Future<void> init() async {
       postCourse: sl(),
       multiStudentsEnroll: sl(),
       getCourses: sl(),
+      getEnrolledCourses: sl(),
     ),
   );
 
@@ -95,7 +91,7 @@ Future<void> init() async {
   sl.registerLazySingleton(() => PostCourse(sl()));
   sl.registerLazySingleton(() => EnrollStudent(sl()));
   sl.registerLazySingleton(() => MultiStudentsEnroll(sl()));
-  sl.registerLazySingleton(() => EnroledCourses(sl()));
+  sl.registerLazySingleton(() => GetEnrolledCourses(sl()));
 
   // Repository.
   sl.registerLazySingleton<CoursesRepository>(
@@ -107,25 +103,6 @@ Future<void> init() async {
 
   sl.registerLazySingleton<CoursesRemoteDataSource>(
     () => CoursesRemoteDataSourceImpl(client: sl()),
-  );
-
-  //* Features - home.
-  // Providers.
-  sl.registerLazySingleton(() => HomeProvider(enroledCourses: sl()));
-
-  // Use Cases.
-  sl.registerLazySingleton(() => HomeEnroledCourses(sl()));
-
-  // Repository.
-  sl.registerLazySingleton<HomeRepository>(
-    () => HomeRepositoryImpl(
-      network: sl(),
-      remote: sl(),
-    ),
-  );
-
-  sl.registerLazySingleton<HomeRemoteDataSource>(
-    () => HomeRemoteDataSourceImpl(client: sl()),
   );
 
   //* Core
