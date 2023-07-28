@@ -9,7 +9,7 @@ import 'package:unegvirtual_app/features/course/domain/repositories/courses_repo
 import 'package:unegvirtual_app/features/course/domain/usecases/enroll_student.dart';
 
 @GenerateNiceMocks([MockSpec<CoursesRepository>()])
-import 'enroled_courses_test.mocks.dart';
+import 'enroll_student_test.mocks.dart';
 
 void main() {
   late MockCoursesRepository mockCoursesRepository;
