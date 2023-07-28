@@ -111,7 +111,7 @@ Future<void> init() async {
       () => CourseProvider(postCourse: sl(), multiStudentsEnroll: sl()));
 
   // Use Cases.
-  sl.registerLazySingleton(() => CoursesGetCourses(sl()));
+  sl.registerLazySingleton(() => GetCourses(sl()));
   sl.registerLazySingleton(() => PostCourse(sl()));
   sl.registerLazySingleton(() => EnrollStudent(sl()));
   sl.registerLazySingleton(() => MultiStudentsEnroll(sl()));
