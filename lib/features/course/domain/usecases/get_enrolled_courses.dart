@@ -8,24 +8,24 @@ import '../../../../core/error/failures.dart';
 import '../../../../core/use_cases/use_case.dart';
 import '../repositories/courses_repository.dart';
 
-class EnroledCourses implements UseCase<Courses, EnroledCoursesParams> {
+class GetEnrolledCourses implements UseCase<Courses, GetEnrolledCoursesParams> {
   final CoursesRepository repository;
 
-  EnroledCourses(this.repository);
+  GetEnrolledCourses(this.repository);
 
   @override
-  Future<Either<Failure, Courses>> call(EnroledCoursesParams params) async {
-    return repository.enroledCourses(params.accessToken);
+  Future<Either<Failure, Courses>> call(GetEnrolledCoursesParams params) async {
+    return repository.getEnrolledCourses(params.accessToken);
   }
 }
 
-class EnroledCoursesParams extends Equatable {
+class GetEnrolledCoursesParams extends Equatable {
   final AccessToken accessToken;
 
-  const EnroledCoursesParams({
+  const GetEnrolledCoursesParams({
     required this.accessToken,
   });
 
   @override
-  List<Object> get props => throw UnimplementedError();
+  List<Object> get props => [accessToken];
 }

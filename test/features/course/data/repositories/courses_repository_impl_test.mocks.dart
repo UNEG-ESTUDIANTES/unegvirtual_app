@@ -166,16 +166,17 @@ class MockCoursesRemoteDataSource extends _i1.Mock
         )),
       ) as _i6.Future<_i4.InscriptionModel>);
   @override
-  _i6.Future<_i2.CoursesModel> enroledCourses(_i8.AccessToken? accessToken) =>
+  _i6.Future<_i2.CoursesModel> getEnrolledCourses(
+          _i8.AccessToken? accessToken) =>
       (super.noSuchMethod(
         Invocation.method(
-          #enroledCourses,
+          #getEnrolledCourses,
           [accessToken],
         ),
         returnValue: _i6.Future<_i2.CoursesModel>.value(_FakeCoursesModel_0(
           this,
           Invocation.method(
-            #enroledCourses,
+            #getEnrolledCourses,
             [accessToken],
           ),
         )),
@@ -183,7 +184,7 @@ class MockCoursesRemoteDataSource extends _i1.Mock
             _i6.Future<_i2.CoursesModel>.value(_FakeCoursesModel_0(
           this,
           Invocation.method(
-            #enroledCourses,
+            #getEnrolledCourses,
             [accessToken],
           ),
         )),

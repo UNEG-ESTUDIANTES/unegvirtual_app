@@ -15,6 +15,8 @@ import 'package:unegvirtual_app/features/course/domain/repositories/courses_repo
     as _i2;
 import 'package:unegvirtual_app/features/course/domain/usecases/get_courses.dart'
     as _i4;
+import 'package:unegvirtual_app/features/course/domain/usecases/get_enrolled_courses.dart'
+    as _i12;
 import 'package:unegvirtual_app/features/course/domain/usecases/multi_students_enroll.dart'
     as _i11;
 import 'package:unegvirtual_app/features/course/domain/usecases/post_course.dart'
@@ -183,4 +185,49 @@ class MockMultiStudentsEnroll extends _i1.Mock
           ),
         )),
       ) as _i5.Future<_i3.Either<_i6.Failure, void>>);
+}
+
+/// A class which mocks [GetEnrolledCourses].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockGetEnrolledCourses extends _i1.Mock
+    implements _i12.GetEnrolledCourses {
+  @override
+  _i2.CoursesRepository get repository => (super.noSuchMethod(
+        Invocation.getter(#repository),
+        returnValue: _FakeCoursesRepository_0(
+          this,
+          Invocation.getter(#repository),
+        ),
+        returnValueForMissingStub: _FakeCoursesRepository_0(
+          this,
+          Invocation.getter(#repository),
+        ),
+      ) as _i2.CoursesRepository);
+  @override
+  _i5.Future<_i3.Either<_i6.Failure, _i7.Courses>> call(
+          _i12.GetEnrolledCoursesParams? params) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [params],
+        ),
+        returnValue: _i5.Future<_i3.Either<_i6.Failure, _i7.Courses>>.value(
+            _FakeEither_1<_i6.Failure, _i7.Courses>(
+          this,
+          Invocation.method(
+            #call,
+            [params],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i5.Future<_i3.Either<_i6.Failure, _i7.Courses>>.value(
+                _FakeEither_1<_i6.Failure, _i7.Courses>(
+          this,
+          Invocation.method(
+            #call,
+            [params],
+          ),
+        )),
+      ) as _i5.Future<_i3.Either<_i6.Failure, _i7.Courses>>);
 }

@@ -9,7 +9,6 @@ import 'package:unegvirtual_app/core/routes/router.dart';
 import 'package:unegvirtual_app/core/services/notifications_service.dart';
 import 'package:unegvirtual_app/features/course/presentation/providers/course_provider.dart';
 import 'package:unegvirtual_app/features/course/presentation/providers/students_enrollment_provider.dart';
-import 'package:unegvirtual_app/features/home/presentation/provider/home_provider.dart';
 import 'package:unegvirtual_app/injection_container.dart' as di;
 
 void main() async {
@@ -40,9 +39,6 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (_) => di.sl<CourseProvider>(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => di.sl<HomeProvider>(),
         ),
         ChangeNotifierProvider(
           create: (_) => StudentsEnrollmentProvider(),

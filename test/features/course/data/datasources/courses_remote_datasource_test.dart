@@ -410,7 +410,7 @@ void main() {
     );
   });
 
-  group('enroledCourses', () {
+  group('getEnrolledCourses', () {
     test(
       '''should perform a GET request with the bearer token and
       with the application/json header''',
@@ -423,7 +423,7 @@ void main() {
         );
 
         // act
-        dataSourceImpl.enroledCourses(tAccessToken);
+        dataSourceImpl.getEnrolledCourses(tAccessToken);
 
         // assert
         verify(
@@ -449,7 +449,7 @@ void main() {
         );
 
         // act
-        final result = await dataSourceImpl.enroledCourses(tAccessToken);
+        final result = await dataSourceImpl.getEnrolledCourses(tAccessToken);
 
         // assert
         expect(result, tCoursesModel);
@@ -467,7 +467,7 @@ void main() {
         );
 
         // act
-        final call = dataSourceImpl.enroledCourses;
+        final call = dataSourceImpl.getEnrolledCourses;
 
         // assert
         expect(
@@ -488,7 +488,7 @@ void main() {
         );
 
         // act
-        final call = dataSourceImpl.enroledCourses;
+        final call = dataSourceImpl.getEnrolledCourses;
 
         // assert
         expect(
@@ -508,7 +508,7 @@ void main() {
         );
 
         // act
-        final call = dataSourceImpl.enroledCourses;
+        final call = dataSourceImpl.getEnrolledCourses;
 
         // assert
         expect(

@@ -46,7 +46,7 @@ abstract class CoursesRemoteDataSource {
   /// to any course.
   ///
   /// Throws a [ServerException] for all other error codes.
-  Future<CoursesModel> enroledCourses(AccessToken accessToken);
+  Future<CoursesModel> getEnrolledCourses(AccessToken accessToken);
 
   /// Calls the `/v1/courses/enroll-multiple-users` endpoint.
   ///
@@ -138,7 +138,7 @@ class CoursesRemoteDataSourceImpl implements CoursesRemoteDataSource {
   }
 
   @override
-  Future<CoursesModel> enroledCourses(AccessToken accessToken) async {
+  Future<CoursesModel> getEnrolledCourses(AccessToken accessToken) async {
     try {
       final response = await client.get(
         Uri.parse('${Env.appUrl}/v1/enrolledCourses'),

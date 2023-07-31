@@ -6,18 +6,18 @@ import 'package:mockito/mockito.dart';
 import 'package:unegvirtual_app/core/entities/access_token.dart';
 import 'package:unegvirtual_app/core/entities/courses.dart';
 import 'package:unegvirtual_app/features/course/domain/repositories/courses_repository.dart';
-import 'package:unegvirtual_app/features/course/domain/usecases/enroled_courses.dart';
+import 'package:unegvirtual_app/features/course/domain/usecases/get_enrolled_courses.dart';
 
 @GenerateNiceMocks([MockSpec<CoursesRepository>()])
-import 'enroled_courses_test.mocks.dart';
+import 'get_enrolled_courses_test.mocks.dart';
 
 void main() {
   late MockCoursesRepository mockCoursesRepository;
-  late EnroledCourses useCase;
+  late GetEnrolledCourses useCase;
 
   setUp(() {
     mockCoursesRepository = MockCoursesRepository();
-    useCase = EnroledCourses(mockCoursesRepository);
+    useCase = GetEnrolledCourses(mockCoursesRepository);
   });
 
   const tCourses = Courses(courses: []);
@@ -27,17 +27,17 @@ void main() {
     'should get the courses from the repository',
     () async {
       // arrange
-      when(mockCoursesRepository.enroledCourses(any))
+      when(mockCoursesRepository.getEnrolledCourses(any))
           .thenAnswer((_) async => const Right(tCourses));
 
       // act
       final result = await useCase(
-        const EnroledCoursesParams(accessToken: tAccessToken),
+        const GetEnrolledCoursesParams(accessToken: tAccessToken),
       );
 
       // assert
       expect(result, const Right(tCourses));
-      verify(mockCoursesRepository.enroledCourses(tAccessToken));
+      verify(mockCoursesRepository.getEnrolledCourses(tAccessToken));
       verifyNoMoreInteractions(mockCoursesRepository);
     },
   );

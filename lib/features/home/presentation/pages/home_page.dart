@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
-import 'package:unegvirtual_app/features/home/presentation/provider/home_provider.dart';
+import 'package:unegvirtual_app/features/course/presentation/providers/course_provider.dart';
 import 'package:unegvirtual_app/features/home/presentation/widgets/course_card.dart';
 
 import '../../../../core/entities/courses.dart';
@@ -23,8 +23,8 @@ class HomePage extends StatelessWidget {
     final deviceType = getDeviceType(MediaQuery.of(context).size);
     final textTheme = Theme.of(context).textTheme;
     final auth = context.read<AuthProvider>().auth!;
-    final homeProvider = context.watch<HomeProvider>();
-    final state = homeProvider.state;
+    final courseProvider = context.watch<CourseProvider>();
+    final state = courseProvider.state;
 
     int gridCrossAxisCount = 0;
 
@@ -46,7 +46,7 @@ class HomePage extends StatelessWidget {
     }
 
     if (state is Empty) {
-      homeProvider.enroledCourses(auth.accessToken);
+      courseProvider.getEnrolledCourses(accessToken: auth.accessToken);
       return Container();
     }
 
@@ -56,8 +56,7 @@ class HomePage extends StatelessWidget {
       );
     }
 
-    final courses =
-        state is Loaded ? homeProvider.courses! : const Courses(courses: []);
+    final courses = courseProvider.courses ?? const Courses(courses: []);
 
     return Scaffold(
       body: SingleChildScrollView(

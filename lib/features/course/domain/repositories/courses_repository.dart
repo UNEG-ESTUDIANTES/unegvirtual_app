@@ -32,5 +32,5 @@ abstract class CoursesRepository {
   });
 
   /// Gets the [Courses] that the user is enrolled to.
-  Future<Either<Failure, Courses>> enroledCourses(AccessToken accessToken);
+  Future<Either<Failure, Courses>> getEnrolledCourses(AccessToken accessToken);
 }
