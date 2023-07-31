@@ -2,27 +2,27 @@ import 'package:flutter/material.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 
-/// The [GoogleFonts] to be used as default.
-final _mainFont = GoogleFonts.karla();
-
-/// The [GoogleFonts] to be used on label and body.
-final _bodyFont = GoogleFonts.inter();
-
 class AppTheme {
+  /// The [GoogleFonts] to be used as default.
+  static get mainFont => GoogleFonts.karla();
+
+  /// The [GoogleFonts] to be used on label and body.
+  static get bodyFont => GoogleFonts.inter();
+
   static final theme = ThemeData(
     useMaterial3: true,
     colorSchemeSeed: Colors.blue,
-    fontFamily: _mainFont.fontFamily,
+    fontFamily: mainFont.fontFamily,
     inputDecorationTheme: InputDecorationTheme(
-      hintStyle: _bodyFont,
+      hintStyle: bodyFont,
     ),
     textTheme: TextTheme(
-      labelLarge: _bodyFont,
-      labelMedium: _bodyFont,
-      labelSmall: _bodyFont,
-      bodyLarge: _bodyFont,
-      bodyMedium: _bodyFont,
-      bodySmall: _bodyFont,
+      labelLarge: bodyFont,
+      labelMedium: bodyFont,
+      labelSmall: bodyFont,
+      bodyLarge: bodyFont,
+      bodyMedium: bodyFont,
+      bodySmall: bodyFont,
     ),
   );
 }
