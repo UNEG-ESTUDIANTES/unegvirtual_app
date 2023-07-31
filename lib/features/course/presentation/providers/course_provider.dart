@@ -32,20 +32,24 @@ class CourseProvider extends BaseProvider {
 
   Course? course;
   Courses? _courses;
+  Courses? _enrolledCourses;
 
   /// The [courses].
   Courses? get courses => _courses;
 
+  /// The [enrolledCourses] that the user is enrolled to.
+  Courses? get enrolledCourses => _enrolledCourses;
+
   Future<void> getCourses() async {
     state = Loading();
 
-    _eitherLoadedCoursesOrErrorState(await _getCourses(NoParams()));
+    _courses = _eitherLoadedCoursesOrErrorState(await _getCourses(NoParams()));
   }
 
   Future<void> getEnrolledCourses({required AccessToken accessToken}) async {
     state = Loading();
 
-    _eitherLoadedCoursesOrErrorState(
+    _enrolledCourses = _eitherLoadedCoursesOrErrorState(
       await _getEnrolledCourses(
         GetEnrolledCoursesParams(accessToken: accessToken),
       ),
@@ -84,14 +88,19 @@ class CourseProvider extends BaseProvider {
   }
 
   /// Changes the [state] according to [failureOrCourses].
-  void _eitherLoadedCoursesOrErrorState(
+  Courses? _eitherLoadedCoursesOrErrorState(
     Either<Failure, Courses> failureOrCourses,
   ) {
-    failureOrCourses.fold(
-      (failure) => state = Error(message: Utils.getErrorMessage(failure)),
+    return failureOrCourses.fold(
+      (failure) {
+        state = Error(message: Utils.getErrorMessage(failure));
+
+        return null;
+      },
       (courses) {
-        _courses = courses;
         state = const Loaded();
+
+        return courses;
       },
     );
   }
