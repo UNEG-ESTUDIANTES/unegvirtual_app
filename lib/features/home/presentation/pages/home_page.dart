@@ -9,7 +9,6 @@ import 'package:unegvirtual_app/features/home/presentation/widgets/course_card.d
 import '../../../../core/entities/courses.dart';
 import '../../../../core/providers/auth_provider.dart';
 import '../../../../core/providers/page_state.dart';
-import '../../../../core/services/notifications_service.dart';
 import '../../../course/presentation/pages/course_page.dart';
 
 class HomePage extends StatelessWidget {
@@ -48,12 +47,6 @@ class HomePage extends StatelessWidget {
     if (state is Empty) {
       courseProvider.getEnrolledCourses(accessToken: auth.accessToken);
       return Container();
-    }
-
-    if (state is Error) {
-      WidgetsBinding.instance.addPostFrameCallback(
-        (_) => NotificationsService.showSnackBar(state.message),
-      );
     }
 
     final courses = courseProvider.courses ?? const Courses(courses: []);

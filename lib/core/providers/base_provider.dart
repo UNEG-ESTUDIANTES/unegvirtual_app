@@ -5,7 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:rxdart/streams.dart';
 import 'package:rxdart/subjects.dart';
 
+import 'package:unegvirtual_app/core/error/failures.dart';
 import 'package:unegvirtual_app/core/providers/page_state.dart';
+import 'package:unegvirtual_app/core/services/notifications_service.dart';
+import 'package:unegvirtual_app/core/utils/utils.dart';
 
 abstract class BaseProvider extends ChangeNotifier {
   late StreamSubscription<PageState> _subscription;
@@ -44,6 +47,15 @@ abstract class BaseProvider extends ChangeNotifier {
     _subscription = _stateController.stream.listen((event) {
       notifyListeners();
     });
+  }
+
+  /// Sets the [state] to [Error] and displays
+  /// an [SnackBar] with a readable message.
+  void onFailure(Failure failure) {
+    final message = Utils.getErrorMessage(failure);
+
+    state = Error(message: message);
+    NotificationsService.showSnackBar(message);
   }
 
   @override
