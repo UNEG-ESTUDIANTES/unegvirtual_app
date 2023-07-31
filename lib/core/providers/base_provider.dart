@@ -6,6 +6,7 @@ import 'package:rxdart/streams.dart';
 import 'package:rxdart/subjects.dart';
 
 import 'package:unegvirtual_app/core/providers/page_state.dart';
+import 'package:unegvirtual_app/core/services/notifications_service.dart';
 
 abstract class BaseProvider extends ChangeNotifier {
   late StreamSubscription<PageState> _subscription;
@@ -44,6 +45,11 @@ abstract class BaseProvider extends ChangeNotifier {
     _subscription = _stateController.stream.listen((event) {
       notifyListeners();
     });
+  }
+
+  /// Displays a [message] on error.
+  void onError(String message) {
+    NotificationsService.showSnackBar(message);
   }
 
   @override
