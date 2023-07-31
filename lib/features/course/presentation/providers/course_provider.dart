@@ -10,7 +10,6 @@ import 'package:unegvirtual_app/features/course/domain/usecases/get_enrolled_cou
 import '../../../../core/entities/course.dart';
 import '../../../../core/providers/base_provider.dart';
 import '../../../../core/providers/page_state.dart';
-import '../../../../core/utils/utils.dart';
 import '../../domain/usecases/multi_students_enroll.dart';
 import '../../domain/usecases/post_course.dart';
 
@@ -62,9 +61,7 @@ class CourseProvider extends BaseProvider {
 
     // Handle success or error
     failureOrCourses.fold(
-      (failure) {
-        state = Error(message: Utils.getErrorMessage(failure));
-      },
+      (failure) => onFailure,
       (enrollResult) {
         state = const Loaded();
       },
@@ -77,9 +74,7 @@ class CourseProvider extends BaseProvider {
 
     // Handle success or error
     failureOrCourses.fold(
-      (failure) {
-        state = Error(message: Utils.getErrorMessage(failure));
-      },
+      (failure) => onFailure,
       (postResult) {
         state = const Loaded();
         course = postResult;
@@ -93,7 +88,7 @@ class CourseProvider extends BaseProvider {
   ) {
     return failureOrCourses.fold(
       (failure) {
-        state = Error(message: Utils.getErrorMessage(failure));
+        onFailure(failure);
 
         return null;
       },

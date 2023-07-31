@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 
 import 'package:unegvirtual_app/core/entities/courses.dart';
 import 'package:unegvirtual_app/core/providers/page_state.dart';
-import 'package:unegvirtual_app/core/services/notifications_service.dart';
 import 'package:unegvirtual_app/core/widgets/loading_display.dart';
 import 'package:unegvirtual_app/features/course/presentation/providers/course_provider.dart';
 import 'package:unegvirtual_app/features/landing/presentation/widgets/careers_slider.dart';
@@ -22,12 +21,6 @@ class LandingBody extends StatelessWidget {
     if (state is Empty) {
       courseProvider.getCourses();
       return Container();
-    }
-
-    if (state is Error) {
-      WidgetsBinding.instance.addPostFrameCallback(
-        (_) => NotificationsService.showSnackBar(state.message),
-      );
     }
 
     final courses = courseProvider.courses ?? const Courses(courses: []);
