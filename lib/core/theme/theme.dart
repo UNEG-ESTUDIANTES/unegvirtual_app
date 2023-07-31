@@ -13,6 +13,9 @@ class AppTheme {
     useMaterial3: true,
     colorSchemeSeed: Colors.blue,
     fontFamily: _mainFont.fontFamily,
+    inputDecorationTheme: InputDecorationTheme(
+      hintStyle: _bodyFont,
+    ),
     textTheme: TextTheme(
       labelLarge: _bodyFont,
       labelMedium: _bodyFont,
