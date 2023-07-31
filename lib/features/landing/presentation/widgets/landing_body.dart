@@ -29,7 +29,7 @@ class LandingBody extends StatelessWidget {
       child: Column(
         children: [
           const HeroSection(),
-          const SizedBox(height: 64),
+          const SizedBox(height: 32),
           if (state is Loading)
             const LoadingDisplay()
           else

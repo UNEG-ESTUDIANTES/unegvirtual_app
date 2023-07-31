@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:responsive_builder/responsive_builder.dart';
+
 class HeroSection extends StatelessWidget {
   const HeroSection({
     super.key,
@@ -7,11 +9,22 @@ class HeroSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
     final textTheme = Theme.of(context).textTheme;
 
+    final textStyle = getValueForScreenType<TextStyle?>(
+      context: context,
+      mobile: textTheme.headlineLarge,
+      desktop: textTheme.displayMedium,
+    );
+
     return Container(
-      alignment: Alignment.centerLeft,
-      height: 420,
+      alignment: getValueForScreenType<AlignmentGeometry>(
+        context: context,
+        mobile: Alignment.centerLeft,
+        desktop: Alignment.center,
+      ),
+      height: height * 0.6,
       decoration: const BoxDecoration(
         image: DecorationImage(
           image: AssetImage('assets/landing_background.png'),
@@ -20,13 +33,11 @@ class HeroSection extends StatelessWidget {
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24),
-        child: SizedBox(
-          width: 375,
-          child: Text(
-            'Ayudando a formar las mentes del mañana',
-            style: textTheme.displaySmall?.copyWith(
-              color: Colors.white,
-            ),
+        child: Text(
+          'Ayudando a formar las mentes del mañana',
+          style: textStyle?.copyWith(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
           ),
         ),
       ),
