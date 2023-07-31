@@ -7,6 +7,7 @@ import 'package:unegvirtual_app/core/providers/auth_provider.dart';
 import 'package:unegvirtual_app/core/providers/user_provider.dart';
 import 'package:unegvirtual_app/core/routes/router.dart';
 import 'package:unegvirtual_app/core/services/notifications_service.dart';
+import 'package:unegvirtual_app/core/theme/theme.dart';
 import 'package:unegvirtual_app/features/course/presentation/providers/course_provider.dart';
 import 'package:unegvirtual_app/features/course/presentation/providers/students_enrollment_provider.dart';
 import 'package:unegvirtual_app/injection_container.dart' as di;
@@ -49,10 +50,7 @@ class MyApp extends StatelessWidget {
         scaffoldMessengerKey: NotificationsService.messengerKey,
         routerConfig: router,
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          useMaterial3: true,
-          colorSchemeSeed: Colors.blue,
-        ),
+        theme: AppTheme.theme,
       ),
     );
   }
