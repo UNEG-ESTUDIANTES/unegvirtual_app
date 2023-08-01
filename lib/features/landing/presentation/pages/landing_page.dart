@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:go_router/go_router.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 
 import 'package:unegvirtual_app/features/auth/presentation/pages/login_page.dart';
 import 'package:unegvirtual_app/features/landing/presentation/widgets/widgets.dart';

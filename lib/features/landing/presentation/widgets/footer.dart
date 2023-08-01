@@ -16,7 +16,7 @@ class Footer extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(
         vertical: 48.0,
-        horizontal: 32.0,
+        horizontal: 24.0,
       ),
       width: double.infinity,
       decoration: const BoxDecoration(
@@ -111,6 +111,7 @@ class Links extends StatelessWidget {
     );
   }
 
+  /// Navigates to the [url].
   Future<void> _navigateTo(Uri url) async {
     if (!await launchUrl(url)) {
       NotificationsService.showSnackBar('No se ha podido abrir el enlace');
