@@ -36,7 +36,7 @@ class LandingBody extends StatelessWidget {
             const LoadingDisplay()
           else
             CareersSlider(courses),
-          const SizedBox(height: 64),
+          SizedBox(height: height * 0.4),
           const Footer(),
         ],
       ),
