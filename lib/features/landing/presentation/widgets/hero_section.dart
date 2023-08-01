@@ -17,6 +17,7 @@ class HeroSection extends StatelessWidget {
     final textStyle = getValueForScreenType<TextStyle?>(
       context: context,
       mobile: textTheme.headlineLarge,
+      tablet: textTheme.displaySmall,
       desktop: textTheme.displayMedium,
     );
 
@@ -24,7 +25,7 @@ class HeroSection extends StatelessWidget {
       alignment: getValueForScreenType<AlignmentGeometry>(
         context: context,
         mobile: Alignment.centerLeft,
-        desktop: Alignment.center,
+        tablet: Alignment.center,
       ),
       height: height,
       decoration: const BoxDecoration(
@@ -41,6 +42,11 @@ class HeroSection extends StatelessWidget {
           'Ayudando a formar las mentes del mañana',
           style: textStyle?.copyWith(
             color: Colors.white,
+          ),
+          textAlign: getValueForScreenType(
+            context: context,
+            mobile: TextAlign.left,
+            tablet: TextAlign.center,
           ),
         ),
       ),
