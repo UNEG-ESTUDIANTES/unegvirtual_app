@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 import 'package:go_router/go_router.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 
 import 'package:unegvirtual_app/features/auth/presentation/pages/login_page.dart';
-import 'package:unegvirtual_app/features/landing/presentation/widgets/landing_body.dart';
+import 'package:unegvirtual_app/features/landing/presentation/widgets/widgets.dart';
 
 class LandingPage extends StatefulWidget {
   /// The page route name.
@@ -18,9 +19,10 @@ class LandingPage extends StatefulWidget {
 class _LandingPageState extends State<LandingPage> {
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
+
     return Scaffold(
       extendBodyBehindAppBar: true,
-      backgroundColor: Colors.white,
       appBar: AppBar(
         leading: const Image(
           image: AssetImage(
@@ -29,13 +31,6 @@ class _LandingPageState extends State<LandingPage> {
           fit: BoxFit.contain,
         ),
         actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.language,
-              color: Colors.white,
-            ),
-          ),
           IconButton(
             onPressed: () => context.push(LogInPage.routeName),
             icon: const Icon(
@@ -48,7 +43,17 @@ class _LandingPageState extends State<LandingPage> {
         shadowColor: Colors.black,
         backgroundColor: Colors.transparent,
       ),
-      body: const LandingBody(),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            HeroSection(height: height * 0.6),
+            const SizedBox(height: 32),
+            const CoursesSlider(),
+            SizedBox(height: height * 0.4),
+            const Footer(),
+          ],
+        ),
+      ),
     );
   }
 }
