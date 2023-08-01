@@ -20,7 +20,6 @@ class _LandingPageState extends State<LandingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      backgroundColor: Colors.white,
       appBar: AppBar(
         leading: const Image(
           image: AssetImage(
@@ -29,13 +28,6 @@ class _LandingPageState extends State<LandingPage> {
           fit: BoxFit.contain,
         ),
         actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.language,
-              color: Colors.white,
-            ),
-          ),
           IconButton(
             onPressed: () => context.push(LogInPage.routeName),
             icon: const Icon(
