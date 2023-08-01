@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:responsive_builder/responsive_builder.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+import 'package:unegvirtual_app/core/services/notifications_service.dart';
 
 class Footer extends StatelessWidget {
   const Footer({
@@ -60,38 +63,57 @@ class Links extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const horizontalSpacing = 16.0;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         IconButton(
-          onPressed: () {},
+          onPressed: () => _navigateTo(
+            Uri.parse('https://www.facebook.com/UNEGInforma'),
+          ),
           icon: const FaIcon(
             FontAwesomeIcons.facebookF,
             color: Colors.white,
           ),
         ),
+        const SizedBox(width: horizontalSpacing),
         IconButton(
-          onPressed: () {},
+          onPressed: () => _navigateTo(
+            Uri.parse('https://www.instagram.com/Uneg_Oficial/'),
+          ),
           icon: const FaIcon(
             FontAwesomeIcons.instagram,
             color: Colors.white,
           ),
         ),
+        const SizedBox(width: horizontalSpacing),
         IconButton(
-          onPressed: () {},
+          onPressed: () => _navigateTo(
+            Uri.parse('https://twitter.com/UnegInforma'),
+          ),
           icon: const FaIcon(
             FontAwesomeIcons.twitter,
             color: Colors.white,
           ),
         ),
+        const SizedBox(width: horizontalSpacing),
         IconButton(
-          onPressed: () {},
+          onPressed: () => _navigateTo(
+            Uri.parse('https://t.me/Uneginforma'),
+          ),
           icon: const FaIcon(
-            FontAwesomeIcons.whatsapp,
+            FontAwesomeIcons.telegram,
             color: Colors.white,
           ),
         ),
       ],
     );
+  }
+
+  Future<void> _navigateTo(Uri url) async {
+    if (!await launchUrl(url)) {
+      NotificationsService.showSnackBar('No se ha podido abrir el enlace');
+    }
   }
 }
