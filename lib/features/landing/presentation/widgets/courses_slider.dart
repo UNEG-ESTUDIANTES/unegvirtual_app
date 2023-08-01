@@ -1,14 +1,14 @@
-import 'package:unegvirtual_app/core/entities/courses.dart';
 import 'package:flutter/material.dart';
 
+import 'package:unegvirtual_app/core/entities/courses.dart';
 import 'package:unegvirtual_app/features/landing/presentation/widgets/career_card.dart';
 import 'package:unegvirtual_app/features/landing/presentation/widgets/section.dart';
 
-class CareersSlider extends StatelessWidget {
+class CoursesSlider extends StatelessWidget {
   /// The [careers] to display.
   final Courses courses;
 
-  const CareersSlider(this.courses, {super.key});
+  const CoursesSlider(this.courses, {super.key});
 
   @override
   Widget build(BuildContext context) {

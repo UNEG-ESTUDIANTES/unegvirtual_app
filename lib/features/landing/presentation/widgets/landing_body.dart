@@ -6,7 +6,7 @@ import 'package:unegvirtual_app/core/entities/courses.dart';
 import 'package:unegvirtual_app/core/providers/page_state.dart';
 import 'package:unegvirtual_app/core/widgets/loading_display.dart';
 import 'package:unegvirtual_app/features/course/presentation/providers/course_provider.dart';
-import 'package:unegvirtual_app/features/landing/presentation/widgets/careers_slider.dart';
+import 'package:unegvirtual_app/features/landing/presentation/widgets/courses_slider.dart';
 import 'package:unegvirtual_app/features/landing/presentation/widgets/footer.dart';
 import 'package:unegvirtual_app/features/landing/presentation/widgets/hero_section.dart';
 
@@ -35,7 +35,7 @@ class LandingBody extends StatelessWidget {
           if (state is Loading)
             const LoadingDisplay()
           else
-            CareersSlider(courses),
+            CoursesSlider(courses),
           SizedBox(height: height * 0.4),
           const Footer(),
         ],
