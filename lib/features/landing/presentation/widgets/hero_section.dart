@@ -3,13 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 class HeroSection extends StatelessWidget {
+  final double height;
+
   const HeroSection({
     super.key,
+    required this.height,
   });
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
     final textTheme = Theme.of(context).textTheme;
 
     final textStyle = getValueForScreenType<TextStyle?>(
@@ -24,7 +26,7 @@ class HeroSection extends StatelessWidget {
         mobile: Alignment.centerLeft,
         desktop: Alignment.center,
       ),
-      height: height * 0.6,
+      height: height,
       decoration: const BoxDecoration(
         image: DecorationImage(
           image: AssetImage('assets/landing_background.png'),

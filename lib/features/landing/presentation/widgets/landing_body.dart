@@ -15,6 +15,8 @@ class LandingBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
+
     final courseProvider = context.watch<CourseProvider>();
     final state = courseProvider.state;
 
@@ -28,7 +30,7 @@ class LandingBody extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
-          const HeroSection(),
+          HeroSection(height: height * 0.6),
           const SizedBox(height: 32),
           if (state is Loading)
             const LoadingDisplay()
