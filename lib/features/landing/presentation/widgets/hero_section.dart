@@ -30,7 +30,7 @@ class HeroSection extends StatelessWidget {
       decoration: const BoxDecoration(
         color: Color(0xff023272),
         image: DecorationImage(
-          image: AssetImage('assets/landing-hero-image.jpg'),
+          image: AssetImage('assets/landing_background.jpg'),
           opacity: 0.40,
           fit: BoxFit.cover,
         ),
