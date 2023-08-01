@@ -37,7 +37,6 @@ class HeroSection extends StatelessWidget {
           'Ayudando a formar las mentes del mañana',
           style: textStyle?.copyWith(
             color: Colors.white,
-            fontWeight: FontWeight.bold,
           ),
         ),
       ),
