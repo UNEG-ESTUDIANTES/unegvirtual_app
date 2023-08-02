@@ -10,11 +10,10 @@ class LogInPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Inicio de Sesión'),
-      ),
-      backgroundColor: Colors.grey.shade100,
+      appBar: AppBar(),
       body: LayoutBuilder(
         builder: (context, viewportConstraints) {
           return SingleChildScrollView(
@@ -26,19 +25,24 @@ class LogInPage extends StatelessWidget {
               ),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
+                children: [
                   SizedBox(
                     width: 450,
-                    child: Card(
-                      surfaceTintColor: Colors.white,
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 24.0,
-                          vertical: 32.0,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Inicio de Sesión',
+                          style: textTheme.headlineLarge,
                         ),
-                        child: LoginForm(),
-                      ),
+                        const SizedBox(height: 24),
+                        Text(
+                          'Si eres estudiante regular de la UNEG, ingresa con tu cédula de identidad.',
+                          style: textTheme.bodyLarge,
+                        ),
+                        const SizedBox(height: 32),
+                        const LoginForm(),
+                      ],
                     ),
                   ),
                 ],

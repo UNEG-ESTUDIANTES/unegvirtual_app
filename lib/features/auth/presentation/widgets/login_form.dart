@@ -128,26 +128,6 @@ class _LoginFormState extends State<LoginForm> {
       key: _key,
       child: Column(
         children: [
-          const Image(
-            image: AssetImage(
-              'assets/uneg_logo_color.png',
-            ),
-            width: 80,
-            height: 80,
-            fit: BoxFit.contain,
-          ),
-          const SizedBox(height: 16),
-          Text(
-            'Accede al Aula',
-            style: textTheme.headlineSmall,
-          ),
-          const SizedBox(height: 8),
-          Text(
-            'Si eres estudiante regular de la UNEG, ingresa con tu cédula de identidad',
-            style: textTheme.bodyLarge,
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 24),
           TextFormField(
             controller: _emailController,
             decoration: InputDecoration(
@@ -163,7 +143,7 @@ class _LoginFormState extends State<LoginForm> {
           ),
           const SizedBox(height: 16),
           Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TextFormField(
                 controller: _passwordController,
@@ -178,14 +158,14 @@ class _LoginFormState extends State<LoginForm> {
                 obscureText: true,
                 textInputAction: TextInputAction.done,
               ),
-              const SizedBox(height: 4),
+              const SizedBox(height: 8),
               TextButton(
                 onPressed: () => context.push(ForgotPasswordPage.routeName),
                 child: const Text('Olvide mi contraseña'),
               ),
             ],
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: 32),
           if (_state.status.isInProgress)
             const CircularProgressIndicator()
           else
