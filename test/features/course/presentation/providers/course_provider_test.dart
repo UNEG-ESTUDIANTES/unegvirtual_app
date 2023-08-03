@@ -24,6 +24,9 @@ import 'package:unegvirtual_app/features/course/presentation/providers/course_pr
 import 'course_provider_test.mocks.dart';
 
 void main() {
+  // Initialize the binding.
+  TestWidgetsFlutterBinding.ensureInitialized();
+
   late MockGetCourses mockGetCourses;
   late MockPostCourse mockPostCourse;
   late MockMultiStudentsEnroll mockMultiStudentsEnroll;
