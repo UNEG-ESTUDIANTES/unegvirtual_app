@@ -23,9 +23,9 @@ class ScaffoldWithNavigationRail extends StatelessWidget {
             labelType: NavigationRailLabelType.all,
             destinations: const <NavigationRailDestination>[
               NavigationRailDestination(
-                icon: Icon(Icons.home_outlined),
-                label: Text('Inicio'),
-                selectedIcon: Icon(Icons.home),
+                icon: Icon(Icons.school_outlined),
+                label: Text('Cursos'),
+                selectedIcon: Icon(Icons.school),
               ),
               NavigationRailDestination(
                 icon: Icon(Icons.group_outlined),

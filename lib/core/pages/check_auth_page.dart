@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 
 import 'package:unegvirtual_app/core/providers/auth_provider.dart';
 import 'package:unegvirtual_app/core/providers/page_state.dart';
-import 'package:unegvirtual_app/features/home/presentation/pages/home_page.dart';
+import 'package:unegvirtual_app/features/course/presentation/pages/pages.dart';
 import 'package:unegvirtual_app/features/landing/presentation/pages/landing_page.dart';
 
 class CheckAuthPage extends StatelessWidget {
@@ -32,7 +32,7 @@ class CheckAuthPage extends StatelessWidget {
     if (authProviderState is Loaded) {
       WidgetsBinding.instance.addPostFrameCallback(
         (_) {
-          context.go(HomePage.routeName);
+          context.go(CoursesPage.routeName);
         },
       );
     }
