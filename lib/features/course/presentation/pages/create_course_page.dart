@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:formz/formz.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import 'package:unegvirtual_app/core/providers/page_state.dart';
@@ -9,7 +10,6 @@ import 'package:unegvirtual_app/features/course/domain/entities/new_course.dart'
 import 'package:unegvirtual_app/features/course/domain/usecases/post_course.dart';
 import 'package:unegvirtual_app/features/course/presentation/widgets/forms/description_input.dart';
 
-import '../../../../core/pages/main_page.dart';
 import '../../../../core/providers/auth_provider.dart';
 import '../providers/course_provider.dart';
 import '../widgets/forms/create_course_form_state.dart';
@@ -51,14 +51,6 @@ class _CreateCoursePageState extends State<CreateCoursePage> {
     _descriptionController.clear();
 
     setState(() => _state = CreateCourseFormState());
-  }
-
-  void _navigateToMainPage() {
-    Navigator.pushNamedAndRemoveUntil(
-      context,
-      MainPage.routeName,
-      (route) => false,
-    );
   }
 
   Future<void> _onSubmit() async {
@@ -119,7 +111,7 @@ class _CreateCoursePageState extends State<CreateCoursePage> {
     // Navigates to main page.
     if (_state.status.isSuccess) {
       _resetForm();
-      _navigateToMainPage();
+      context.pop();
     }
   }
 

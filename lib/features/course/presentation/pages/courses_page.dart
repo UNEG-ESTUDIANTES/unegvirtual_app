@@ -4,7 +4,8 @@ import 'package:provider/provider.dart';
 
 import 'package:unegvirtual_app/core/providers/auth_provider.dart';
 import 'package:unegvirtual_app/core/providers/page_state.dart';
-import 'package:unegvirtual_app/features/course/presentation/providers/course_provider.dart';
+import 'package:unegvirtual_app/features/course/presentation/providers/providers.dart';
+import 'package:unegvirtual_app/injection_container.dart' as di;
 
 class CoursesPage extends StatelessWidget {
   /// The page route name.
@@ -14,26 +15,29 @@ class CoursesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Cursos'),
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(24.0),
-        child: Column(
-          children: [
-            TextField(
-              decoration: InputDecoration(
-                hintText: 'ej: Programación',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
+    return ChangeNotifierProvider(
+      create: (_) => di.sl<EnrolledCoursesProvider>(),
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Cursos'),
+        ),
+        body: SingleChildScrollView(
+          padding: const EdgeInsets.all(24.0),
+          child: Column(
+            children: [
+              TextField(
+                decoration: InputDecoration(
+                  hintText: 'ej: Programación',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  label: const Text('Curso'),
                 ),
-                label: const Text('Curso'),
               ),
-            ),
-            const SizedBox(height: 32),
-            const _CoursesList(),
-          ],
+              const SizedBox(height: 32),
+              const _CoursesList(),
+            ],
+          ),
         ),
       ),
     );
@@ -46,19 +50,19 @@ class _CoursesList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final auth = context.read<AuthProvider>().auth!;
-    final courseProvider = context.watch<CourseProvider>();
+    final provider = context.watch<EnrolledCoursesProvider>();
 
     // Fetch courses.
-    if (courseProvider.enrolledCourses == null) {
-      courseProvider.getEnrolledCourses(accessToken: auth.accessToken);
+    if (provider.state is Empty) {
+      provider.getEnrolledCourses(accessToken: auth.accessToken);
       return Container();
     }
 
-    if (courseProvider.state is Loading) {
+    if (provider.state is Loading) {
       return const CircularProgressIndicator();
     }
 
-    final courses = courseProvider.enrolledCourses?.courses ?? [];
+    final courses = provider.enrolledCourses?.courses ?? [];
 
     if (courses.isEmpty) {
       return const Text('No estás inscrito a ningun curso.');
