@@ -62,6 +62,12 @@ final router = GoRouter(
               pageBuilder: (context, state) => const NoTransitionPage(
                 child: CoursesPage(),
               ),
+              routes: [
+                GoRoute(
+                  path: CreateCoursePage.routeName,
+                  builder: (context, state) => const CreateCoursePage(),
+                )
+              ],
             )
           ],
         ),

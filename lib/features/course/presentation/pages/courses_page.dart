@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import 'package:unegvirtual_app/core/providers/auth_provider.dart';
 import 'package:unegvirtual_app/core/providers/page_state.dart';
+import 'package:unegvirtual_app/features/course/presentation/pages/pages.dart';
 import 'package:unegvirtual_app/features/course/presentation/providers/providers.dart';
 import 'package:unegvirtual_app/injection_container.dart' as di;
 
@@ -38,6 +40,12 @@ class CoursesPage extends StatelessWidget {
               const _CoursesList(),
             ],
           ),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => context.push(
+            '$routeName/${CreateCoursePage.routeName}',
+          ),
+          child: const Icon(Icons.add),
         ),
       ),
     );

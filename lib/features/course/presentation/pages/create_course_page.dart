@@ -17,7 +17,7 @@ import '../widgets/forms/name_input.dart';
 
 class CreateCoursePage extends StatefulWidget {
   /// The page route name.
-  static const routeName = 'new-course';
+  static const routeName = 'new';
 
   const CreateCoursePage({Key? key}) : super(key: key);
 
