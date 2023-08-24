@@ -13,13 +13,9 @@ class EnrolledCoursesProvider extends BaseProvider {
 
   String query = '';
   Courses? _enrolledCourses;
-  Courses? _filteredCourses;
 
   /// The [enrolledCourses] that the user is enrolled to.
   Courses? get enrolledCourses => _enrolledCourses;
-
-  /// The [filteredCourses] to display.
-  Courses? get filteredCourses => _filteredCourses;
 
   /// Gets the [Courses] the user is enrolled to.
   Future<void> getEnrolledCourses({required AccessToken accessToken}) async {
@@ -36,20 +32,5 @@ class EnrolledCoursesProvider extends BaseProvider {
         _enrolledCourses = courses;
       },
     );
-  }
-
-  /// Filters the [enrolledCourses] by name with the [query].
-  void filter(String query) {
-    if (enrolledCourses == null || query.isEmpty) return;
-
-    final courses = enrolledCourses!.courses;
-
-    _filteredCourses = Courses(
-      courses: List.from(
-        courses.where((course) => course.name.startsWith(query.trim())),
-      ),
-    );
-
-    notifyListeners();
   }
 }

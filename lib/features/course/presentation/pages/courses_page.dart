@@ -23,23 +23,9 @@ class CoursesPage extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Cursos'),
         ),
-        body: SingleChildScrollView(
-          padding: const EdgeInsets.all(24.0),
-          child: Column(
-            children: [
-              TextField(
-                decoration: InputDecoration(
-                  hintText: 'ej: Programación',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  label: const Text('Curso'),
-                ),
-              ),
-              const SizedBox(height: 32),
-              const _CoursesList(),
-            ],
-          ),
+        body: const SingleChildScrollView(
+          padding: EdgeInsets.all(24.0),
+          child: _CoursesList(),
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () => context.push(
@@ -73,7 +59,9 @@ class _CoursesList extends StatelessWidget {
     final courses = provider.enrolledCourses?.courses ?? [];
 
     if (courses.isEmpty) {
-      return const Text('No estás inscrito a ningun curso.');
+      return const Center(
+        child: Text('No estás inscrito a ningun curso.'),
+      );
     }
 
     return ListView.separated(

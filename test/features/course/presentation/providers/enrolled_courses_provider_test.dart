@@ -4,7 +4,6 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import 'package:unegvirtual_app/core/entities/access_token.dart';
-import 'package:unegvirtual_app/core/entities/course.dart';
 import 'package:unegvirtual_app/core/entities/entities.dart';
 import 'package:unegvirtual_app/core/error/failures.dart';
 import 'package:unegvirtual_app/core/providers/page_state.dart';
@@ -100,79 +99,6 @@ void main() {
 
         // act
         await provider.getEnrolledCourses(accessToken: tAccessToken);
-      },
-    );
-  });
-
-  group('filter', () {
-    const tCourseNameToFilter = 'test 1';
-
-    const tCourseFilter = Course(
-      id: '1',
-      name: tCourseNameToFilter,
-      description: 'test 1',
-      teacherId: '1',
-    );
-
-    const tCoursesToFilter = Courses(courses: [
-      Course(
-        id: '1',
-        name: 'test',
-        description: 'test',
-        teacherId: '1',
-      ),
-      tCourseFilter,
-    ]);
-
-    Future<void> setUpEnrolledCourses() async {
-      when(mockGetEnrolledCourses(any))
-          .thenAnswer((_) async => const Right(tCoursesToFilter));
-
-      await provider.getEnrolledCourses(accessToken: tAccessToken);
-    }
-
-    test(
-      'should not filter when enrolled courses is null',
-      () async {
-        // act
-        provider.filter('test');
-
-        // assert
-        expect(provider.enrolledCourses, null);
-        expect(provider.filteredCourses, null);
-      },
-    );
-
-    test(
-      'should not filter when the query is empty',
-      () async {
-        // arrange
-        await setUpEnrolledCourses();
-
-        // act
-        provider.filter('');
-
-        // assert
-        expect(provider.enrolledCourses, tCoursesToFilter);
-        expect(provider.filteredCourses, null);
-      },
-    );
-
-    test(
-      'should filter by name',
-      () async {
-        // arrange
-        await setUpEnrolledCourses();
-
-        // act
-        provider.filter(tCourseNameToFilter);
-
-        // assert
-        expect(provider.enrolledCourses, tCoursesToFilter);
-        expect(
-          provider.filteredCourses,
-          const Courses(courses: [tCourseFilter]),
-        );
       },
     );
   });
