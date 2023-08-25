@@ -354,17 +354,12 @@ class _RoleTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => onChanged(value),
-      child: ListTile(
-        contentPadding: EdgeInsets.zero,
-        title: Text(title),
-        leading: Radio<String>(
-          value: value,
-          groupValue: groupValue,
-          onChanged: onChanged,
-        ),
-      ),
+    return RadioListTile(
+      contentPadding: EdgeInsets.zero,
+      title: Text(title),
+      value: value,
+      groupValue: groupValue,
+      onChanged: onChanged,
     );
   }
 }
