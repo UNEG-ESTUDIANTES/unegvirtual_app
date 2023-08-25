@@ -144,6 +144,14 @@ class _RegisterPageState extends State<RegisterPage> {
     }
   }
 
+  void onRoleChange(String? value) {
+    if (value == null) return;
+
+    setState(() {
+      _selectedRole = value;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -277,34 +285,23 @@ class _RegisterPageState extends State<RegisterPage> {
                         'Tipo de Usuario',
                         style: textTheme.titleSmall,
                       ),
-                      SizedBox(
-                        width: double.infinity,
-                        child: DropdownButton(
-                          value: _selectedRole,
-                          icon: const Icon(Icons.arrow_drop_down),
-                          iconSize: 24,
-                          elevation: 16,
-                          style: const TextStyle(
-                            color: Colors.black,
-                            fontSize: 18,
-                          ),
-                          underline: Container(
-                            height: 2,
-                            color: Colors.blueAccent,
-                          ),
-                          onChanged: (newValue) {
-                            setState(() {
-                              _selectedRole = newValue!;
-                            });
-                          },
-                          items: <String>['STUDENT', 'TEACHER', 'ADMIN']
-                              .map((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            );
-                          }).toList(),
-                        ),
+                      _RoleTile(
+                        title: 'Administrador',
+                        value: 'ADMIN',
+                        onChanged: onRoleChange,
+                        groupValue: _selectedRole,
+                      ),
+                      _RoleTile(
+                        title: 'Docente',
+                        value: 'TEACHER',
+                        onChanged: onRoleChange,
+                        groupValue: _selectedRole,
+                      ),
+                      _RoleTile(
+                        title: 'Estudiante',
+                        value: 'STUDENT',
+                        onChanged: onRoleChange,
+                        groupValue: _selectedRole,
                       ),
                       const SizedBox(height: 24),
                       if (_state.status.isInProgress)
@@ -322,7 +319,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                     vertical: 12.0,
                                   ),
                                   child: Text(
-                                    'Crear Usuario',
+                                    'Crear',
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
@@ -337,6 +334,36 @@ class _RegisterPageState extends State<RegisterPage> {
             ),
           );
         },
+      ),
+    );
+  }
+}
+
+class _RoleTile extends StatelessWidget {
+  final String title;
+  final String value;
+  final void Function(String?) onChanged;
+  final String? groupValue;
+
+  const _RoleTile({
+    required this.title,
+    required this.value,
+    required this.onChanged,
+    required this.groupValue,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () => onChanged(value),
+      child: ListTile(
+        contentPadding: EdgeInsets.zero,
+        title: Text(title),
+        leading: Radio<String>(
+          value: value,
+          groupValue: groupValue,
+          onChanged: onChanged,
+        ),
       ),
     );
   }
