@@ -144,6 +144,14 @@ class _RegisterPageState extends State<RegisterPage> {
     }
   }
 
+  void onRoleChange(String? value) {
+    if (value == null) return;
+
+    setState(() {
+      _selectedRole = value;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -188,176 +196,170 @@ class _RegisterPageState extends State<RegisterPage> {
     final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
-      appBar: AppBar(),
-      backgroundColor: Colors.grey.shade100,
+      appBar: AppBar(
+        title: const Text('Crear Usuario'),
+      ),
       body: LayoutBuilder(
         builder: (context, viewportConstraints) {
           return SingleChildScrollView(
             padding: const EdgeInsets.all(24.0),
-            child: ConstrainedBox(
-              constraints: BoxConstraints(
-                minHeight: viewportConstraints.maxHeight,
-                minWidth: double.infinity,
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    width: 450,
-                    child: Card(
-                      surfaceTintColor: Colors.white,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 24.0,
-                          vertical: 32.0,
-                        ),
-                        child: Form(
-                          key: _key,
-                          child: Column(
-                            children: [
-                              const SizedBox(height: 16),
-                              Text(
-                                'Crear Usuario',
-                                style: textTheme.headlineSmall,
-                              ),
-                              const SizedBox(height: 24),
-                              TextFormField(
-                                controller: _firstNameController,
-                                decoration: InputDecoration(
-                                  hintText: 'Roberto',
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  label: const Text('Nombre'),
-                                ),
-                                validator: (_) =>
-                                    _state.firstName.error?.text(),
-                                keyboardType: TextInputType.name,
-                                textInputAction: TextInputAction.next,
-                              ),
-                              const SizedBox(height: 16),
-                              TextFormField(
-                                controller: _lastNameController,
-                                decoration: InputDecoration(
-                                  hintText: 'Rojas',
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  label: const Text('Apellido'),
-                                ),
-                                validator: (_) => _state.lastName.error?.text(),
-                                keyboardType: TextInputType.name,
-                                textInputAction: TextInputAction.next,
-                              ),
-                              const SizedBox(height: 16),
-                              TextFormField(
-                                controller: _emailController,
-                                decoration: InputDecoration(
-                                  hintText: 'ej: johndoe@gmail.com',
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  label: const Text('Correo Electrónico'),
-                                ),
-                                validator: (_) => _state.email.error?.text(),
-                                keyboardType: TextInputType.emailAddress,
-                                textInputAction: TextInputAction.next,
-                              ),
-                              const SizedBox(height: 16),
-                              TextFormField(
-                                controller: _ciController,
-                                decoration: InputDecoration(
-                                  hintText: '12123123',
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  label: const Text('Cedula de identidad'),
-                                ),
-                                validator: (_) => _state.ci.error?.text(),
-                                keyboardType: TextInputType.number,
-                                textInputAction: TextInputAction.next,
-                              ),
-                              const SizedBox(height: 16),
-                              TextFormField(
-                                controller: _passwordController,
-                                decoration: InputDecoration(
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  hintText: 'ej: 1234',
-                                  label: const Text('Contraseña'),
-                                ),
-                                validator: (_) => _state.password.error?.text(),
-                                obscureText: true,
-                                textInputAction: TextInputAction.done,
-                              ),
-                              const SizedBox(height: 16),
-                              SizedBox(
-                                width: double.infinity,
-                                child: DropdownButton(
-                                  value: _selectedRole,
-                                  icon: const Icon(Icons.arrow_drop_down),
-                                  iconSize: 24,
-                                  elevation: 16,
-                                  style: const TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 18,
-                                  ),
-                                  underline: Container(
-                                    height: 2,
-                                    color: Colors.blueAccent,
-                                  ),
-                                  onChanged: (newValue) {
-                                    setState(() {
-                                      _selectedRole = newValue!;
-                                    });
-                                  },
-                                  items: <String>['STUDENT', 'TEACHER', 'ADMIN']
-                                      .map((String value) {
-                                    return DropdownMenuItem<String>(
-                                      value: value,
-                                      child: Text(value),
-                                    );
-                                  }).toList(),
-                                ),
-                              ),
-                              const SizedBox(height: 24),
-                              if (_state.status.isInProgress)
-                                const CircularProgressIndicator()
-                              else
-                                Column(
-                                  children: [
-                                    SizedBox(
-                                      width: double.infinity,
-                                      child: FilledButton(
-                                        onPressed: _onSubmit,
-                                        child: const Padding(
-                                          padding: EdgeInsets.symmetric(
-                                            horizontal: 24.0,
-                                            vertical: 12.0,
-                                          ),
-                                          child: Text(
-                                            'Crear Usuario',
-                                            textAlign: TextAlign.center,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                            ],
+            child: Form(
+              key: _key,
+              child: Center(
+                child: SizedBox(
+                  width: 450,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      TextFormField(
+                        controller: _firstNameController,
+                        decoration: InputDecoration(
+                          hintText: 'John',
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
                           ),
+                          label: const Text('Nombre'),
                         ),
+                        validator: (_) => _state.firstName.error?.text(),
+                        keyboardType: TextInputType.name,
+                        textInputAction: TextInputAction.next,
                       ),
-                    ),
+                      const SizedBox(height: 16),
+                      TextFormField(
+                        controller: _lastNameController,
+                        decoration: InputDecoration(
+                          hintText: 'Doe',
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          label: const Text('Apellido'),
+                        ),
+                        validator: (_) => _state.lastName.error?.text(),
+                        keyboardType: TextInputType.name,
+                        textInputAction: TextInputAction.next,
+                      ),
+                      const SizedBox(height: 16),
+                      TextFormField(
+                        controller: _emailController,
+                        decoration: InputDecoration(
+                          hintText: 'ej: johndoe@gmail.com',
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          label: const Text('Correo Electrónico'),
+                        ),
+                        validator: (_) => _state.email.error?.text(),
+                        keyboardType: TextInputType.emailAddress,
+                        textInputAction: TextInputAction.next,
+                      ),
+                      const SizedBox(height: 16),
+                      TextFormField(
+                        controller: _ciController,
+                        decoration: InputDecoration(
+                          hintText: '10000000',
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          label: const Text('Cédula de Identidad'),
+                        ),
+                        validator: (_) => _state.ci.error?.text(),
+                        keyboardType: TextInputType.number,
+                        textInputAction: TextInputAction.next,
+                      ),
+                      const SizedBox(height: 16),
+                      TextFormField(
+                        controller: _passwordController,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          hintText: 'ej: 1234',
+                          label: const Text('Contraseña'),
+                        ),
+                        validator: (_) => _state.password.error?.text(),
+                        obscureText: true,
+                        textInputAction: TextInputAction.done,
+                      ),
+                      const SizedBox(height: 16),
+                      Text(
+                        'Tipo de Usuario',
+                        style: textTheme.titleSmall,
+                      ),
+                      _RoleTile(
+                        title: 'Administrador',
+                        value: 'ADMIN',
+                        onChanged: onRoleChange,
+                        groupValue: _selectedRole,
+                      ),
+                      _RoleTile(
+                        title: 'Docente',
+                        value: 'TEACHER',
+                        onChanged: onRoleChange,
+                        groupValue: _selectedRole,
+                      ),
+                      _RoleTile(
+                        title: 'Estudiante',
+                        value: 'STUDENT',
+                        onChanged: onRoleChange,
+                        groupValue: _selectedRole,
+                      ),
+                      const SizedBox(height: 24),
+                      if (_state.status.isInProgress)
+                        const CircularProgressIndicator()
+                      else
+                        Column(
+                          children: [
+                            SizedBox(
+                              width: double.infinity,
+                              child: FilledButton(
+                                onPressed: _onSubmit,
+                                child: const Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 24.0,
+                                    vertical: 12.0,
+                                  ),
+                                  child: Text(
+                                    'Crear',
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                    ],
                   ),
-                ],
+                ),
               ),
             ),
           );
         },
       ),
+    );
+  }
+}
+
+class _RoleTile extends StatelessWidget {
+  final String title;
+  final String value;
+  final void Function(String?) onChanged;
+  final String? groupValue;
+
+  const _RoleTile({
+    required this.title,
+    required this.value,
+    required this.onChanged,
+    required this.groupValue,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return RadioListTile(
+      contentPadding: EdgeInsets.zero,
+      title: Text(title),
+      value: value,
+      groupValue: groupValue,
+      onChanged: onChanged,
     );
   }
 }
