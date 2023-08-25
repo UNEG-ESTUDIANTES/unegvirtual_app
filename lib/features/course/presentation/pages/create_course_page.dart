@@ -132,12 +132,12 @@ class _CreateCoursePageState extends State<CreateCoursePage> {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: const Text('Crear Curso'),
+      ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(24),
+        padding: const EdgeInsets.all(24.0),
         child: Form(
           key: _key,
           child: Center(
@@ -145,24 +145,6 @@ class _CreateCoursePageState extends State<CreateCoursePage> {
               width: 450,
               child: Column(
                 children: <Widget>[
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  Text(
-                    'Creación de Cursos',
-                    style: textTheme.headlineSmall,
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  Text(
-                    'Crea un nuevo curso que enseñarás',
-                    style: textTheme.bodyLarge,
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(
-                    height: 24,
-                  ),
                   TextFormField(
                     controller: _nameController,
                     decoration: InputDecoration(
@@ -170,7 +152,7 @@ class _CreateCoursePageState extends State<CreateCoursePage> {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      label: const Text('Nombre del curso'),
+                      label: const Text('Nombre'),
                     ),
                     keyboardType: TextInputType.text,
                     textInputAction: TextInputAction.next,
@@ -193,7 +175,7 @@ class _CreateCoursePageState extends State<CreateCoursePage> {
                     textInputAction: TextInputAction.done,
                   ),
                   const SizedBox(
-                    height: 24,
+                    height: 32,
                   ),
                   if (_state.status.isInProgress)
                     const CircularProgressIndicator()
@@ -208,7 +190,7 @@ class _CreateCoursePageState extends State<CreateCoursePage> {
                             vertical: 12.0,
                           ),
                           child: Text(
-                            'Crear Curso',
+                            'Crear',
                             textAlign: TextAlign.center,
                           ),
                         ),
