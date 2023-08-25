@@ -6,7 +6,7 @@ import 'package:unegvirtual_app/core/pages/check_auth_page.dart';
 import 'package:unegvirtual_app/core/widgets/scaffold_with_nested_navigation.dart';
 import 'package:unegvirtual_app/features/auth/presentation/pages/forgot_page.dart';
 import 'package:unegvirtual_app/features/auth/presentation/pages/login_page.dart';
-import 'package:unegvirtual_app/features/home/presentation/pages/home_page.dart';
+import 'package:unegvirtual_app/features/course/presentation/pages/pages.dart';
 import 'package:unegvirtual_app/features/landing/presentation/pages/landing_page.dart';
 import 'package:unegvirtual_app/features/user/presentation/pages/register_page.dart';
 import 'package:unegvirtual_app/features/user/presentation/pages/user_page.dart';
@@ -15,8 +15,8 @@ import 'package:unegvirtual_app/features/user/presentation/pages/users_page.dart
 // Private navigators.
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 
-final _shellNavigatorHomeKey = GlobalKey<NavigatorState>(
-  debugLabel: 'shellHome',
+final _shellNavigatorCoursesKey = GlobalKey<NavigatorState>(
+  debugLabel: 'shellCourses',
 );
 
 final _shellNavigatorUsersKey = GlobalKey<NavigatorState>(
@@ -55,14 +55,20 @@ final router = GoRouter(
       },
       branches: [
         StatefulShellBranch(
-          navigatorKey: _shellNavigatorHomeKey,
+          navigatorKey: _shellNavigatorCoursesKey,
           routes: [
             GoRoute(
-              path: HomePage.routeName,
+              path: CoursesPage.routeName,
               pageBuilder: (context, state) => const NoTransitionPage(
-                child: HomePage(),
+                child: CoursesPage(),
               ),
-            ),
+              routes: [
+                GoRoute(
+                  path: CreateCoursePage.routeName,
+                  builder: (context, state) => const CreateCoursePage(),
+                )
+              ],
+            )
           ],
         ),
         StatefulShellBranch(

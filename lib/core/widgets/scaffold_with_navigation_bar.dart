@@ -21,8 +21,8 @@ class ScaffoldWithNavigationBar extends StatelessWidget {
         labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
         destinations: const [
           NavigationDestination(
-            icon: Icon(Icons.home_filled),
-            label: 'Inicio',
+            icon: Icon(Icons.school),
+            label: 'Cursos',
           ),
           NavigationDestination(
             icon: Icon(Icons.group),

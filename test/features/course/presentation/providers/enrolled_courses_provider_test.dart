@@ -3,44 +3,33 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import 'package:unegvirtual_app/core/entities/courses.dart';
+import 'package:unegvirtual_app/core/entities/access_token.dart';
+import 'package:unegvirtual_app/core/entities/entities.dart';
 import 'package:unegvirtual_app/core/error/failures.dart';
 import 'package:unegvirtual_app/core/providers/page_state.dart';
-import 'package:unegvirtual_app/core/use_cases/use_case.dart';
 import 'package:unegvirtual_app/core/utils/utils.dart';
-import 'package:unegvirtual_app/features/course/domain/usecases/get_courses.dart';
-import 'package:unegvirtual_app/features/course/domain/usecases/multi_students_enroll.dart';
-import 'package:unegvirtual_app/features/course/domain/usecases/post_course.dart';
-import 'package:unegvirtual_app/features/course/presentation/providers/course_provider.dart';
+import 'package:unegvirtual_app/features/course/domain/usecases/get_enrolled_courses.dart';
+import 'package:unegvirtual_app/features/course/presentation/providers/enrolled_courses_provider.dart';
 
-@GenerateNiceMocks([
-  MockSpec<GetCourses>(),
-  MockSpec<PostCourse>(),
-  MockSpec<MultiStudentsEnroll>(),
-])
-import 'course_provider_test.mocks.dart';
+@GenerateNiceMocks([MockSpec<GetEnrolledCourses>()])
+import 'enrolled_courses_provider_test.mocks.dart';
 
 void main() {
   // Initialize the binding.
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  late MockGetCourses mockGetCourses;
-  late MockPostCourse mockPostCourse;
-  late MockMultiStudentsEnroll mockMultiStudentsEnroll;
-  late CourseProvider provider;
+  late MockGetEnrolledCourses mockGetEnrolledCourses;
+  late EnrolledCoursesProvider provider;
 
   setUp(() {
-    mockGetCourses = MockGetCourses();
-    mockPostCourse = MockPostCourse();
-    mockMultiStudentsEnroll = MockMultiStudentsEnroll();
+    mockGetEnrolledCourses = MockGetEnrolledCourses();
 
-    provider = CourseProvider(
-      postCourse: mockPostCourse,
-      multiStudentsEnroll: mockMultiStudentsEnroll,
-      getCourses: mockGetCourses,
+    provider = EnrolledCoursesProvider(
+      getEnrolledCourses: mockGetEnrolledCourses,
     );
   });
 
+  const tAccessToken = AccessToken('test');
   const tCourses = Courses(courses: []);
 
   test(
@@ -51,19 +40,23 @@ void main() {
     },
   );
 
-  group('getCourses', () {
+  group('getEnrolledCourses', () {
     test(
       'should get the courses with the use case',
       () async {
         // arrange
-        when(mockGetCourses(any))
+        when(mockGetEnrolledCourses(any))
             .thenAnswer((_) async => const Right(tCourses));
 
         // act
-        await provider.getCourses();
+        await provider.getEnrolledCourses(accessToken: tAccessToken);
 
         // assert
-        verify(mockGetCourses(NoParams()));
+        verify(
+          mockGetEnrolledCourses(
+            const GetEnrolledCoursesParams(accessToken: tAccessToken),
+          ),
+        );
       },
     );
 
@@ -71,7 +64,7 @@ void main() {
       'should notify [Loading, Loaded] when courses are gotten successfully',
       () async {
         // arrange
-        when(mockGetCourses(any))
+        when(mockGetEnrolledCourses(any))
             .thenAnswer((_) async => const Right(tCourses));
 
         // assert later
@@ -84,7 +77,7 @@ void main() {
         expectLater(provider.stream, emitsInOrder(expected));
 
         // act
-        await provider.getCourses();
+        await provider.getEnrolledCourses(accessToken: tAccessToken);
       },
     );
 
@@ -92,7 +85,7 @@ void main() {
       'should notify [Loading, Error] when getting courses fails',
       () async {
         // arrange
-        when(mockGetCourses(any))
+        when(mockGetEnrolledCourses(any))
             .thenAnswer((_) async => Left(ServerFailure()));
 
         // assert later
@@ -105,7 +98,7 @@ void main() {
         expectLater(provider.stream, emitsInOrder(expected));
 
         // act
-        await provider.getCourses();
+        await provider.getEnrolledCourses(accessToken: tAccessToken);
       },
     );
   });

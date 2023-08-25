@@ -12,7 +12,7 @@ import 'package:unegvirtual_app/core/services/notifications_service.dart';
 import 'package:unegvirtual_app/features/auth/domain/entities/user_credentials.dart';
 import 'package:unegvirtual_app/features/auth/presentation/pages/forgot_page.dart';
 import 'package:unegvirtual_app/features/auth/presentation/widgets/forms/login_form_state.dart';
-import 'package:unegvirtual_app/features/home/presentation/pages/home_page.dart';
+import 'package:unegvirtual_app/features/course/presentation/pages/pages.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -94,7 +94,7 @@ class _LoginFormState extends State<LoginForm> {
     if (_state.status.isSuccess) {
       _resetForm();
 
-      context.go(HomePage.routeName);
+      context.go(CoursesPage.routeName);
     }
   }
 

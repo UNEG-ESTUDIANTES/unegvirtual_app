@@ -9,6 +9,6 @@ class NotificationsService {
       content: Text(message),
     );
 
-    messengerKey.currentState!.showSnackBar(snackBar);
+    messengerKey.currentState?.showSnackBar(snackBar);
   }
 }

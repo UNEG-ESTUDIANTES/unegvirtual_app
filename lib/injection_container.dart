@@ -24,7 +24,7 @@ import 'package:unegvirtual_app/features/course/domain/usecases/enroll_student.d
 import 'package:unegvirtual_app/features/course/domain/usecases/get_courses.dart';
 import 'package:unegvirtual_app/features/course/domain/usecases/get_enrolled_courses.dart';
 import 'package:unegvirtual_app/features/course/domain/usecases/post_course.dart';
-import 'package:unegvirtual_app/features/course/presentation/providers/course_provider.dart';
+import 'package:unegvirtual_app/features/course/presentation/providers/providers.dart';
 import 'package:unegvirtual_app/features/user/data/data_sources/user_remote_data_source.dart';
 import 'package:unegvirtual_app/features/user/data/repositories/user_repository_impl.dart';
 import 'package:unegvirtual_app/features/user/domain/repositories/user_repository.dart';
@@ -82,8 +82,11 @@ Future<void> init() async {
       postCourse: sl(),
       multiStudentsEnroll: sl(),
       getCourses: sl(),
-      getEnrolledCourses: sl(),
     ),
+  );
+
+  sl.registerLazySingleton(
+    () => EnrolledCoursesProvider(getEnrolledCourses: sl()),
   );
 
   // Use Cases.
