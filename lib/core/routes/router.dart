@@ -2,10 +2,10 @@ import 'package:flutter/widgets.dart';
 
 import 'package:go_router/go_router.dart';
 
-import 'package:unegvirtual_app/core/pages/check_auth_page.dart';
 import 'package:unegvirtual_app/core/widgets/scaffold_with_nested_navigation.dart';
 import 'package:unegvirtual_app/features/auth/presentation/pages/forgot_page.dart';
 import 'package:unegvirtual_app/features/auth/presentation/pages/login_page.dart';
+import 'package:unegvirtual_app/features/check_auth/presentation/pages/check_auth_page.dart';
 import 'package:unegvirtual_app/features/course/presentation/pages/pages.dart';
 import 'package:unegvirtual_app/features/landing/presentation/pages/landing_page.dart';
 import 'package:unegvirtual_app/features/user/presentation/pages/register_page.dart';
